@@ -1,7 +1,24 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import { useEffect } from 'react';
+import type { AppProps } from 'next/app';
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+import AppBar from 'components/AppBar';
+import GlobalStyles from 'GlobalStyles';
+
+const App = ({ Component, pageProps }: AppProps) => {
+    // Remove the server-side injected CSS
+    useEffect(() => {
+        const jssStyles = document.querySelector('#jss-server-side');
+        if (jssStyles) {
+            jssStyles.parentElement?.removeChild(jssStyles);
+        }
+    }, []);
+    
+    return (
+        <GlobalStyles>
+            <AppBar />
+            <Component { ...pageProps } />
+        </GlobalStyles>
+    );
 }
-export default MyApp
+
+export default App;
