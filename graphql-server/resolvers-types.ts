@@ -1,6 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql';
-import { ExperienceType, OccurrenceType, BookingType, UserType, CreatorType } from 'codegen-mapper-types';
-import { Context } from 'graphql-server/schema';
+import { ExperienceType, OccurrenceType, BookingType, UserType, CreatorType, Context } from 'models/codegen';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -53,7 +52,7 @@ export type Experience = {
   _id: Scalars['ID'];
   title: Scalars['String'];
   description: Scalars['String'];
-  images: Array<Scalars['String']>;
+  images: Array<Image>;
   location: Scalars['String'];
   meetingPoint?: Maybe<Scalars['String']>;
   latitude?: Maybe<Scalars['Float']>;
@@ -82,6 +81,13 @@ export enum ExperienceCategory {
   Learn = 'learn',
   Move = 'move'
 }
+
+/** Image with blurred placeholder */
+export type Image = {
+  __typename?: 'Image';
+  src: Scalars['String'];
+  placeholder: Scalars['String'];
+};
 
 export type Mutation = {
   __typename?: 'Mutation';
@@ -368,6 +374,7 @@ export type ResolversTypes = {
   Experience: ResolverTypeWrapper<ExperienceType>;
   Float: ResolverTypeWrapper<Scalars['Float']>;
   ExperienceCategory: ExperienceCategory;
+  Image: ResolverTypeWrapper<Image>;
   Mutation: ResolverTypeWrapper<{}>;
   Occurrence: ResolverTypeWrapper<OccurrenceType>;
   OccurrenceInput: OccurrenceInput;
@@ -388,6 +395,7 @@ export type ResolversParentTypes = {
   Creator: CreatorType;
   Experience: ExperienceType;
   Float: Scalars['Float'];
+  Image: Image;
   Mutation: {};
   Occurrence: OccurrenceType;
   OccurrenceInput: OccurrenceInput;
@@ -429,7 +437,7 @@ export type ExperienceResolvers<ContextType = Context, ParentType extends Resolv
   _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  images?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  images?: Resolver<Array<ResolversTypes['Image']>, ParentType, ContextType>;
   location?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   meetingPoint?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   latitude?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
@@ -448,6 +456,12 @@ export type ExperienceResolvers<ContextType = Context, ParentType extends Resolv
   ratingValue?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   numberOfRatings?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   creator?: Resolver<ResolversTypes['Creator'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ImageResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Image'] = ResolversParentTypes['Image']> = {
+  src?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  placeholder?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -508,6 +522,7 @@ export type Resolvers<ContextType = Context> = {
   CreateBookingResult?: CreateBookingResultResolvers<ContextType>;
   Creator?: CreatorResolvers<ContextType>;
   Experience?: ExperienceResolvers<ContextType>;
+  Image?: ImageResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Occurrence?: OccurrenceResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;

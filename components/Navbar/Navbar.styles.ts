@@ -96,7 +96,15 @@ const styles = (theme: Theme) => createStyles({
         textDecoration: 'none'
     },
 
-    whiteNavLink: { color: '#FFF' }
+    whiteNavLink: { color: '#FFF' },
+
+    languageChip: {
+        backgroundColor: 'rgba(65, 65, 65, 0.9) !important',
+        color: '#FFF',
+        letterSpacing: '-0.05rem',
+        width: 'fit-content',
+        marginRight: 10
+    }
 });
 
 export default styles;

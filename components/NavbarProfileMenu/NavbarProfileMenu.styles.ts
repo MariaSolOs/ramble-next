@@ -63,7 +63,7 @@ const styles = (theme: Theme) => createStyles({
         }
     },
 
-    link: {
+    itemContent: {
         fontWeight: theme.typography.fontWeightBold,
         fontSize: '0.9rem',
         letterSpacing: '-0.05rem',
@@ -83,6 +83,18 @@ const styles = (theme: Theme) => createStyles({
         backgroundColor: props => 
             props.isCreator ? 'rgba(220, 220, 220, 0.96)' : 'rgba(118, 118, 118, 0.96)',
         transition: 'all 0.3s ease-in-out'
+    },
+
+    languageChip: {
+        display: 'flex',
+        alignItems: 'center',
+        marginLeft: -20
+    },
+
+    languageIcon: { 
+        marginRight: 3,
+        color: '#616161',
+        fontSize: '1.4rem'
     }
 });
 

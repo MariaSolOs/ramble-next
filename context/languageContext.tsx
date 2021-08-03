@@ -9,7 +9,7 @@ type TranslationRecord = typeof En | typeof Fr;
 
 type LanguageContextType = {
     language: Language;
-    setLanguage: (lang: Language) => void;
+    toggleLanguage: () => void;
     appText: TranslationRecord;
 } 
 
@@ -20,7 +20,7 @@ const dictionaries = {
 
 const LanguageContext = createContext<LanguageContextType>({
     language: 'en',
-    setLanguage: () => {},
+    toggleLanguage: () => {},
     appText: dictionaries['en'],
 });
 
@@ -31,11 +31,19 @@ const useLanguageState = createPersistedState('ramble-lang');
 export const LanguageProvider: React.FC = (props) => {
     const [language, setLanguage] = useLanguageState<Language>('en');
 
+    const toggleLanguage = () => {
+        if (language === 'en') {
+            setLanguage('fr');
+        } else {
+            setLanguage('en');
+        }
+    }
+
     return (
         <LanguageContext.Provider
         value={{
             language,
-            setLanguage,
+            toggleLanguage,
             appText: dictionaries[language],
         }}>
             {props.children}

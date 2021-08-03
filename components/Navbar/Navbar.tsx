@@ -9,6 +9,8 @@ import Link from 'next/link';
 import Menu from '@material-ui/core/Menu';
 import IconButton from '@material-ui/core/IconButton';
 import MenuItem from '@material-ui/core/MenuItem';
+import Chip from '@material-ui/core/Chip';
+import LanguageIcon from '@material-ui/icons/Language';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDoubleDown } from '@fortawesome/free-solid-svg-icons/faAngleDoubleDown';
 import AppBar from 'components/AppBar';
@@ -19,7 +21,8 @@ import styles from './Navbar.styles';
 const useStyles = makeStyles(styles);
 
 const Navbar = () => {
-    const { Navbar: text } = useLanguageContext().appText;
+    const { appText, toggleLanguage } = useLanguageContext();
+    const { Navbar: text } = appText;
     const classes = useStyles();
     const { uiDispatch } = useUiContext();
 
@@ -111,6 +114,13 @@ const Navbar = () => {
                     </Menu>
                 </div>
                 <div className={classes.expandedLinks}>
+                    {!isLoggedIn &&
+                        <Chip
+                        icon={<LanguageIcon />}
+                        label={text.languageChip}
+                        className={classes.languageChip}
+                        clickable
+                        onClick={toggleLanguage} />}
                     <Link 
                     passHref 
                     href={isCreator ? 

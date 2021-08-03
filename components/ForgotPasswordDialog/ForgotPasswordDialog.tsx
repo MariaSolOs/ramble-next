@@ -30,29 +30,29 @@ const ForgotPasswordDialog = (props: ForgotPasswordDialogProps) => {
 
         setLoading(true);
 
-        // fetch(`${process.env.REACT_APP_SERVER_URI}/email/password-reset`, {
-        //     method: 'POST',
-        //     mode: 'cors',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Accept': 'application/json'
-        //     },
-        //     body: JSON.stringify({ email })
-        // })
-        // .then(res => {
-        //     setLoading(false);
-        //     if (res.ok) {
-        //         setShowSuccessMessage(true);
-        //     } else if (res.status === 404) {
-        //         setErrorMessage("We couldn't find an account with that email...");
-        //     } else {
-        //         setErrorMessage('Something went wrong...');
-        //     }
-        // })
-        // .catch(() => {
-        //     setLoading(false);
-        //     setErrorMessage('Something went wrong...');
-        // });
+        fetch('/api/email/password-reset', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({ email })
+        })
+        .then(res => {
+            console.log(res);
+            setLoading(false);
+            if (res.ok) {
+                setShowSuccessMessage(true);
+            } else if (res.status === 404) {
+                setErrorMessage("We couldn't find an account with that email...");
+            } else {
+                setErrorMessage('Something went wrong...');
+            }
+        })
+        .catch(() => {
+            setLoading(false);
+            setErrorMessage('Something went wrong...');
+        });
     }
 
     return (

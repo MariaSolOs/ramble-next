@@ -1,0 +1,564 @@
+<mjml>
+    <mj-head>
+        <mj-title>Booking confirmation</mj-title>
+
+        <mj-preview>
+            Your booking is confirmed! You're all set for your experience 
+            "{{experienceTitle}}" on {{occurrenceDate}} ({{timeslot}}).
+        </mj-preview>
+
+        <mj-breakpoint width="400px"/>
+        <mj-attributes>
+            <mj-text 
+            font-family="Helvetica, sans-serif"
+            font-weight="600"/>
+
+            <mj-class name="grey-title" 
+                      font-size="21px"
+                      letter-spacing="-0.9px"
+                      color="#CCCCCE"/>
+        </mj-attributes>
+
+        <mj-style>
+            .blue-green_gradient div {
+                background: radial-gradient(circle at -21.27%, #2BB282, #2D73EA);
+                border-radius: 16px;
+            }
+            .footer div {
+                filter: brightness(60%);
+            }
+        </mj-style>
+    </mj-head>
+
+    <mj-body 
+    background-color="#151515">
+        <!-- Header -->
+        <mj-section
+        padding="30px 0 10px">
+            <mj-group>
+                <mj-column 
+                padding="0"
+                width="15%"
+                vertical-align="bottom">
+                    <mj-image 
+                    src="https://res.cloudinary.com/dxod7etqu/image/upload/c_scale,w_166/v1597845322/Ramble/Emails/ramble_logo.png" 
+                    width="60px"
+                    alt="ramble logo"
+                    padding="0"
+                    href="https://www.experienceramble.com/"/>
+                </mj-column>
+                <mj-column 
+                width="55%"
+                padding-top="30px"
+                vertical-align="bottom">
+                    <mj-text 
+                    font-weight="100"
+                    font-family="Futura" 
+                    letter-spacing="-1px"
+                    color="#FFF"
+                    font-size="25px"
+                    padding="0px">
+                        ramble
+                    </mj-text>
+                </mj-column>
+                <mj-column
+                vertical-align="bottom"
+                padding="0"
+                width="30%">
+                    <mj-text 
+                    font-weight="400"
+                    font-size="14px" 
+                    color="#FFF"
+                    letter-spacing="-0.09px"
+                    align="right"
+                    padding="0 0 5px">
+                        Total <b>{{currency}} ${{price}}</b>
+                    </mj-text>
+                    <mj-text 
+                    font-weight="400"
+                    font-size="12px" 
+                    color="#FFF"
+                    letter-spacing="-0.085px"
+                    padding="0 0 10px"
+                    align="right">
+                        {{bookingDate}}
+                    </mj-text>
+                    <mj-text
+                    css-class="blue-green_gradient"
+                    padding="0">
+                        &nbsp;
+                    </mj-text>
+                </mj-column>
+            </mj-group>
+        </mj-section>   
+
+        <mj-section padding="20px 10px 0">
+            <mj-column padding="0">
+                <mj-text
+                padding="0"
+                font-size="14px"
+                letter-spacing="-0.9px"
+                color="#CCCCCE"
+                font-style="italic">
+                    La version française suit.
+                </mj-text>
+            </mj-column>
+        </mj-section>
+
+        <!-- English version -->
+        <!-- Titles -->
+        <mj-wrapper padding="0 10px">
+            <mj-section
+            padding="20px 0 0">
+                <mj-column>
+                    <mj-text
+                    padding="0 0 20px"
+                    font-size="30px"
+                    mj-class="grey-title">
+                        Your booking is confirmed
+                    </mj-text>
+                    <mj-text
+                    padding="0"
+                    mj-class="grey-title">
+                        You're all set!
+                    </mj-text>
+                </mj-column>
+            </mj-section>
+
+            <!-- Occurrence details -->
+            <mj-section
+            padding="30px 0 0">
+                <mj-column>
+                    <mj-text
+                    padding="0 0 8px"
+                    font-size="30px"
+                    letter-spacing="-1px"
+                    color="#FFF">
+                        {{experienceTitle}}
+                    </mj-text>
+                    <mj-text
+                    padding="0"
+                    font-size="18px"
+                    letter-spacing="-0.9px"
+                    color="#CCCCCE">
+                        {{occurrenceDate}}
+                    </mj-text>
+                    <mj-text
+                    padding="8px 0"
+                    font-size="18px"
+                    letter-spacing="-0.9px"
+                    color="#CCCCCE">
+                        {{timeslot}}
+                    </mj-text>
+                </mj-column>
+            </mj-section>
+            <mj-section
+            padding="5px 0 30px">
+                <mj-group>
+                    <mj-column
+                    padding="0"
+                    width="40px">
+                        <mj-image 
+                        src="https://res.cloudinary.com/dxod7etqu/image/upload/c_scale,w_40/v1597854853/Ramble/Emails/users-icon.png" 
+                        alt="Guests"
+                        width="25px"
+                        height="25px"
+                        padding="0"/>
+                    </mj-column>
+                    <mj-column>
+                        <mj-text
+                        padding="0"
+                        font-size="19px"
+                        letter-spacing="-0.9px"
+                        color="#CCCCCE">
+                            {{numGuests}} Guest(s)
+                        </mj-text>
+                    </mj-column>
+                </mj-group>
+            </mj-section>
+
+            <!-- Host details -->
+            <mj-section
+            padding="0">
+                <mj-column>
+                    <mj-text
+                    mj-class="grey-title"
+                    padding-left="0">
+                        Your host
+                    </mj-text>
+                </mj-column>
+            </mj-section>
+            <mj-section
+            padding="0 0 10px 10px">
+                <mj-group>
+                    <mj-column
+                    width="10%">
+                        <mj-image 
+                        src="{{hostPicture}}" 
+                        alt="Experience host"
+                        border-radius="100%"
+                        width="40px"
+                        padding="0"/>
+                    </mj-column>
+                    <mj-column>
+                        <mj-text
+                        mj-class="grey-title"
+                        font-size="18px"
+                        padding-left="10px"
+                        vertical-align="middle">
+                            {{hostName}}
+                        </mj-text>
+                    </mj-column>
+                    <mj-column 
+                    width="35px"
+                    vertical-align="middle">
+                        <mj-image 
+                        src="https://res.cloudinary.com/dxod7etqu/image/upload/c_scale,w_40/v1597856973/Ramble/Emails/phone-icon.png" 
+                        alt="Creator's phone number"
+                        width="20px"
+                        padding="10px 15px 0 0"/>
+                    </mj-column>
+                    <mj-column
+                    padding="12px 0 0">
+                        <mj-text
+                        color="#FFF"
+                        font-size="16px"
+                        padding="0">
+                            {{hostPhone}}
+                        </mj-text>
+                    </mj-column>
+                </mj-group>
+            </mj-section>
+
+            <!-- To bring -->
+            {{#if toBringItems}}
+                <mj-section>
+                    <mj-column>
+                        <mj-text
+                        mj-class="grey-title"
+                        padding-left="0px">
+                            Be sure to bring
+                        </mj-text>
+                        {{#each toBringItems}}
+                            <mj-text
+                            mj-class="grey-title"
+                            padding="2px 5px"
+                            font-size="18px">
+                                &bull; {{this}}
+                            </mj-text>
+                        {{/each}}
+                    </mj-column>
+                </mj-section>
+            {{/if}}
+
+            <!-- Meeting spot -->
+            {{#if meetingPoint}}
+                <mj-section
+                padding="20px 0 10px">
+                    <mj-column>
+                        <mj-text
+                        mj-class="grey-title"
+                        padding="0">
+                            Meeting spot
+                        </mj-text>
+                    </mj-column>
+                </mj-section>
+                <mj-section
+                padding="0">
+                    <mj-group>
+                        <mj-column
+                        padding="0 0 0 5px"
+                        width="50px">
+                            <mj-image 
+                            src="https://res.cloudinary.com/dxod7etqu/image/upload/c_scale,w_40/v1597860653/Ramble/Emails/map-marker-icon.png" 
+                            alt="Experience meet point"
+                            width="20px"
+                            padding="0"/>
+                        </mj-column>
+                        <mj-column
+                        width="80%">
+                            <mj-text
+                            mj-class="grey-title"
+                            font-size="16px"
+                            padding="5px 10px">
+                                {{meetingPoint}}
+                            </mj-text>
+                        </mj-column>
+                    </mj-group>
+                </mj-section>
+            {{/if}}
+
+            <!-- Zoom info -->
+            {{#if zoomPMI}}
+                <mj-section
+                padding-bottom="0">
+                    <mj-column>
+                        <mj-text
+                        mj-class="grey-title"
+                        padding-left="0">
+                            ZOOM invitation link
+                        </mj-text>
+                    </mj-column>
+                    <mj-column>
+                        <mj-text
+                        mj-class="grey-title"
+                        font-size="16px"
+                        padding-left="0">
+                            <a
+                            href="{{zoomPMI}}"
+                            target="_blank">
+                                {{zoomPMI}}
+                            </a>
+                        </mj-text>
+                    </mj-column>
+                </mj-section>
+                <mj-section
+                padding-top="0">
+                    <mj-column>
+                        <mj-text
+                        mj-class="grey-title"
+                        padding-left="0">
+                            ZOOM password
+                        </mj-text>
+                    </mj-column>
+                    <mj-column>
+                        <mj-text
+                        mj-class="grey-title"
+                        font-size="16px"
+                        padding-left="0">
+                            {{zoomPassword}}
+                        </mj-text>
+                    </mj-column>
+                </mj-section>
+            {{/if}}
+        </mj-wrapper>
+
+        <!-- French version -->
+        <mj-wrapper padding="0 10px">
+            <mj-section
+            padding="40px 0 0">
+                <mj-column>
+                    <mj-text
+                    padding="0 0 20px"
+                    font-size="30px"
+                    mj-class="grey-title">
+                        Votre réservation est confirmée 
+                    </mj-text>
+                    <mj-text
+                    padding="0"
+                    mj-class="grey-title">
+                        Vous êtes prêt!
+                    </mj-text>
+                </mj-column>
+            </mj-section>
+
+            <!-- Occurrence details -->
+            <mj-section
+            padding="30px 0 0">
+                <mj-column>
+                    <mj-text
+                    padding="0 0 8px"
+                    font-size="30px"
+                    letter-spacing="-1px"
+                    color="#FFF">
+                        {{experienceTitle}}
+                    </mj-text>
+                    <mj-text
+                    padding="0"
+                    font-size="18px"
+                    letter-spacing="-0.9px"
+                    color="#CCCCCE">
+                        {{occurrenceDate}}
+                    </mj-text>
+                    <mj-text
+                    padding="8px 0"
+                    font-size="18px"
+                    letter-spacing="-0.9px"
+                    color="#CCCCCE">
+                        {{timeslot}}
+                    </mj-text>
+                </mj-column>
+            </mj-section>
+            <mj-section
+            padding="5px 0 30px">
+                <mj-group>
+                    <mj-column
+                    padding="0"
+                    width="40px">
+                        <mj-image 
+                        src="https://res.cloudinary.com/dxod7etqu/image/upload/c_scale,w_40/v1597854853/Ramble/Emails/users-icon.png" 
+                        alt="Guests"
+                        width="25px"
+                        padding="0"/>
+                    </mj-column>
+                    <mj-column>
+                        <mj-text
+                        padding="0"
+                        font-size="19px"
+                        letter-spacing="-0.9px"
+                        color="#CCCCCE">
+                            {{numGuests}} Invité(s)
+                        </mj-text>
+                    </mj-column>
+                </mj-group>
+            </mj-section>
+
+            <!-- Host details -->
+            <mj-section
+            padding="0">
+                <mj-column>
+                    <mj-text
+                    mj-class="grey-title"
+                    padding-left="0">
+                        Votre hôte 
+                    </mj-text>
+                </mj-column>
+            </mj-section>
+            <mj-section
+            padding="0 0 10px 10px">
+                <mj-group>
+                    <mj-column
+                    width="10%">
+                        <mj-image 
+                        src="{{hostPicture}}" 
+                        alt="Experience host"
+                        border-radius="100%"
+                        width="40px"
+                        padding="0"/>
+                    </mj-column>
+                    <mj-column>
+                        <mj-text
+                        mj-class="grey-title"
+                        font-size="18px"
+                        padding-left="10px"
+                        vertical-align="middle">
+                            {{hostName}}
+                        </mj-text>
+                    </mj-column>
+                    <mj-column 
+                    width="35px"
+                    vertical-align="middle">
+                        <mj-image 
+                        src="https://res.cloudinary.com/dxod7etqu/image/upload/c_scale,w_40/v1597856973/Ramble/Emails/phone-icon.png" 
+                        alt="Creator's phone number"
+                        width="20px"
+                        padding="10px 15px 0 0"/>
+                    </mj-column>
+                    <mj-column
+                    padding="12px 0 0">
+                        <mj-text
+                        color="#FFF"
+                        font-size="16px"
+                        padding="0">
+                            {{hostPhone}}
+                        </mj-text>
+                    </mj-column>
+                </mj-group>
+            </mj-section>
+
+            <!-- To bring -->
+            {{#if toBringItems}}
+                <mj-section>
+                    <mj-column>
+                        <mj-text
+                        mj-class="grey-title"
+                        padding-left="0px">
+                            Assurez-vous d'apporter 
+                        </mj-text>
+                        {{#each toBringItems}}
+                            <mj-text
+                            mj-class="grey-title"
+                            padding="2px 5px"
+                            font-size="18px">
+                                &bull; {{this}}
+                            </mj-text>
+                        {{/each}}
+                    </mj-column>
+                </mj-section>
+            {{/if}}
+
+            <!-- Meeting spot -->
+            {{#if meetingPoint}}
+                <mj-section
+                padding="20px 0 10px">
+                    <mj-column>
+                        <mj-text
+                        mj-class="grey-title"
+                        padding="0">
+                            Point de rencontre
+                        </mj-text>
+                    </mj-column>
+                </mj-section>
+                <mj-section
+                padding="0">
+                    <mj-group>
+                        <mj-column
+                        padding="0 0 0 5px"
+                        width="50px">
+                            <mj-image 
+                            src="https://res.cloudinary.com/dxod7etqu/image/upload/c_scale,w_40/v1597860653/Ramble/Emails/map-marker-icon.png" 
+                            alt="Experience meet point"
+                            width="20px"
+                            padding="0"/>
+                        </mj-column>
+                        <mj-column
+                        width="80%">
+                            <mj-text
+                            mj-class="grey-title"
+                            font-size="16px"
+                            padding="5px 10px">
+                                {{meetingPoint}}
+                            </mj-text>
+                        </mj-column>
+                    </mj-group>
+                </mj-section>
+            {{/if}}
+
+            <!-- Zoom info -->
+            {{#if zoomPMI}}
+                <mj-section
+                padding-bottom="0">
+                    <mj-column>
+                        <mj-text
+                        mj-class="grey-title"
+                        padding-left="0">
+                            ID de réunion ZOOM
+                        </mj-text>
+                    </mj-column>
+                    <mj-column>
+                        <mj-text
+                        mj-class="grey-title"
+                        font-size="16px"
+                        padding-left="0">
+                            <a
+                            href="{{zoomPMI}}"
+                            target="_blank">
+                                {{zoomPMI}}
+                            </a>
+                        </mj-text>
+                    </mj-column>
+                </mj-section>
+                <mj-section
+                padding-top="0">
+                    <mj-column>
+                        <mj-text
+                        mj-class="grey-title"
+                        padding-left="0">
+                            Mot de passe de la réunion
+                        </mj-text>
+                    </mj-column>
+                    <mj-column>
+                        <mj-text
+                        mj-class="grey-title"
+                        font-size="16px"
+                        padding-left="0">
+                            {{zoomPassword}}
+                        </mj-text>
+                    </mj-column>
+                </mj-section>
+            {{/if}}
+        </mj-wrapper>
+
+        <mj-include path="./partials/footer.mjml"/> 
+    </mj-body>
+</mjml>

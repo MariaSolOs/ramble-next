@@ -1,0 +1,128 @@
+<mjml>
+    <mj-head>
+        <mj-title>Booking notification</mj-title>
+        <mj-preview>
+            You have a new booking request!
+        </mj-preview>
+
+        <mj-attributes>
+            <mj-text font-family="Helvetica, sans-serif"/>
+        </mj-attributes>
+
+        <mj-style>
+            .button tr {
+                background: radial-gradient(circle at 298%, #F7521E, #AC9EFF);
+                letter-spacing: -0.4px;
+                white-space: no-wrap;
+                box-sizing: border-box;
+            }
+        </mj-style>
+    </mj-head>
+
+    <mj-body background-color="#151515">
+    
+        <mj-include path="./partials/header.mjml"/> 
+
+        <mj-section padding="20px 25px 0">
+            <mj-column padding="0">
+                <mj-text
+                padding="0"
+                font-size="14px"
+                letter-spacing="-0.9px"
+                color="#CCCCCE"
+                font-style="italic">
+                    La version française suit.
+                </mj-text>
+            </mj-column>
+        </mj-section>
+
+        <!-- English version -->
+        <!-- Title -->
+        <mj-section>
+            <mj-column>
+                <mj-text
+                color="#FFF"
+                font-weight="600"
+                font-size="30px"
+                letter-spacing="-0.9px">
+                    You have a new booking!
+                </mj-text>
+            </mj-column>
+        </mj-section>
+
+        <!-- Message -->
+        <mj-section>
+            <mj-column>
+                <mj-text
+                color="#CCC"
+                font-size="18px"
+                letter-spacing="-0.8px">
+                    {{clientName}} just booked your experience "{{experienceName}}". Log in 
+                    to your creator dashboard to accept their booking request.
+                </mj-text>
+            </mj-column>
+        </mj-section>
+        <mj-section
+        padding-top="0">
+            <mj-column>
+                <mj-button
+                css-class="button"
+                background-color="transparent"
+                border-radius="30px"
+                font-family="Helvetica, sans-serif"
+                font-size="13px"
+                font-weight="600"
+                padding="0"
+                inner-padding="10px 30px"
+                href="{{dashboardLink}}">
+                    Go to my dashboard
+                </mj-button>
+            </mj-column>
+        </mj-section>
+
+        <!-- French version -->
+        <!-- Title -->
+        <mj-section>
+            <mj-column>
+                <mj-text
+                color="#FFF"
+                font-weight="600"
+                font-size="30px"
+                letter-spacing="-0.9px">
+                    Vous avez une nouvelle réservation!
+                </mj-text>
+            </mj-column>
+        </mj-section>
+
+        <!-- Message -->
+        <mj-section>
+            <mj-column>
+                <mj-text
+                color="#CCC"
+                font-size="18px"
+                letter-spacing="-0.8px">
+                    {{clientName}} vient de réserver votre expérience 
+                    "{{experienceName}}". Connectez-vous à votre tableau de bord pour 
+                    accepter sa demande de réservation. 
+                </mj-text>
+            </mj-column>
+        </mj-section>
+        <mj-section
+        padding-top="0">
+            <mj-column>
+                <mj-button
+                css-class="button"
+                background-color="transparent"
+                border-radius="30px"
+                font-family="Helvetica, sans-serif"
+                font-size="13px"
+                font-weight="600"
+                padding="0"
+                inner-padding="10px 30px"
+                href="{{dashboardLink}}">
+                    Accéder à mon tableau de bord
+                </mj-button>
+            </mj-column>
+        </mj-section>
+    </mj-body>
+</mjml>

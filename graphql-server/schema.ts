@@ -165,13 +165,21 @@ export const typeDefs = gql`
     }
 
     """
+    Image with blurred placeholder
+    """
+    type Image {
+        src: String!
+        placeholder: String!
+    }
+
+    """
     Experience
     """
     type Experience {
         _id: ID!
         title: String!
         description: String!
-        images: [String!]!
+        images: [Image!]!
         location: String!
         meetingPoint: String
         latitude: Float

@@ -76,7 +76,6 @@ const styles = (theme: Theme) => createStyles({
         width: 'fit-content',
         padding: '3px 10px',
         marginRight: 10,
-        cursor: 'pointer',
         
         [theme.breakpoints.down('xs')]: {
             padding: '3px 5px',

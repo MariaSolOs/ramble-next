@@ -1,0 +1,47 @@
+<mj-section
+css-class="footer">
+    <mj-group>
+        <mj-column 
+        padding="0"
+        width="50%"
+        vertical-align="bottom">
+            <mj-image 
+            src="https://res.cloudinary.com/dxod7etqu/image/upload/c_scale,w_166/v1597845322/Ramble/Emails/ramble_logo.png" 
+            width="60px"
+            alt="ramble logo"
+            padding="0"
+            align="right"/>
+        </mj-column>
+        <mj-column 
+        width="50%"
+        padding-top="30px">
+            <mj-text 
+            font-weight="100"
+            font-family="Futura" 
+            letter-spacing="-1px"
+            color="#FFF"
+            font-size="25px"
+            padding="0 5px"
+            align="left">
+                ramble
+            </mj-text>
+        </mj-column>
+    </mj-group>
+</mj-section>
+
+<!-- Font awesome licence link -->
+<mj-section
+padding="0 10px 20px">
+    <mj-column
+    padding="0">
+        <mj-text
+        align="right"
+        color="#929392"
+        font-weight="100"
+        font-size="10px"
+        padding="0"
+        text-decoration="none">
+            Icons from <a href="https://fontawesome.com/license" style="color: #929392">Font Awesome</a>
+        </mj-text>
+    </mj-column>
+</mj-section>

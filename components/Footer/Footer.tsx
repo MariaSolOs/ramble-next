@@ -14,7 +14,7 @@ import styles from './Footer.styles';
 const useStyles = makeStyles(styles);
 
 const Footer = () => {
-    const { appText, setLanguage, language } = useLanguageContext();
+    const { appText, toggleLanguage, language } = useLanguageContext();
     const { Footer: text } = appText;
     const classes = useStyles();
 
@@ -62,9 +62,7 @@ const Footer = () => {
                         label={text.languageChip}
                         className={classes.languageChip}
                         clickable
-                        onClick={() => { 
-                            language === 'en' ? setLanguage('fr') : setLanguage('en');
-                        }} />
+                        onClick={toggleLanguage} />
                     </div>
                 </div>
                 <p className={classes.greyText}>&copy; {text.copyright}</p>

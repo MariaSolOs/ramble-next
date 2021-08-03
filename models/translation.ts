@@ -8,9 +8,9 @@ export type Language = 'en' | 'fr';
 export type TranslationRecord = {
     // Home: Record<'experienceTitle' | 'discoverTitle' | 'seeAllButton' | 'partakeTitle' | 'partakeSubtitle' | 'adventureTitle' | 'adventureSubtitle', string>;
 
-    Navbar: Record<'signUp' | 'logIn' | 'becomeCreator' | 'creatorDashboard', string>;
+    Navbar: Record<'languageChip' | 'signUp' | 'logIn' | 'becomeCreator' | 'creatorDashboard', string>;
 
-    NavbarProfileMenu: Record<'profile' | 'newExperience' | 'logout', string>,
+    NavbarProfileMenu: Record<'profile' | 'newExperience' | 'languageChip' | 'logout', string>,
 
     Footer: Record<'supportColumnName' | 'supportLink' | 'socialColumnName' | 'languageColumnName' | 'languageChip' | 'copyright', string>;
 

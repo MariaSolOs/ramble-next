@@ -11,16 +11,20 @@ import Link from 'next/link';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Avatar from '@material-ui/core/Avatar';
+import LanguageIcon from '@material-ui/icons/Language';
 
 import { makeStyles } from '@material-ui/core/styles';
 import styles from './NavbarProfileMenu.styles';
 const useStyles = makeStyles(styles);
 
 const NavbarProfileMenu = (props: NavbarProfileMenuProps) => {
-    const { NavbarProfileMenu: text } = useLanguageContext().appText;
+    const { appText, toggleLanguage } = useLanguageContext();
+    const { NavbarProfileMenu: text } = appText;
     const classes = useStyles({ isCreator: props.isCreator });
 
-    const { asPath: currentPath } = useRouter();
+    // const { asPath: currentPath } = useRouter();
+    const router = useRouter();
+    const { asPath: currentPath } = router;
     const client = useApolloClient();
 
     const [anchorEl, setAnchorEl] = useState<Element | null>(null);
@@ -32,10 +36,11 @@ const NavbarProfileMenu = (props: NavbarProfileMenuProps) => {
         onClose();
     }, [onClose]);
 
-    const logout = () => {
+    const logout = async () => {
         closeMenu();
         client.clearStore();
-        signOut({ redirect: false });
+        const { url } = await signOut({ redirect: false });
+        router.push(url);
     }
 
     // Close menu when window resizes
@@ -74,7 +79,7 @@ const NavbarProfileMenu = (props: NavbarProfileMenuProps) => {
                     ${currentPath === routes.userProfile.as && classes.activeItem}
                 `}>
                     <Link passHref { ...routes.userProfile }>
-                        <a onClick={closeMenu} className={classes.link}>
+                        <a onClick={closeMenu} className={classes.itemContent}>
                             {text.profile}  
                         </a>
                     </Link>
@@ -86,17 +91,27 @@ const NavbarProfileMenu = (props: NavbarProfileMenuProps) => {
                         ${currentPath === routes.newExperience.as && classes.activeItem}
                     `}>
                         <Link passHref { ...routes.newExperience }>
-                            <a onClick={closeMenu} className={classes.link}>
+                            <a onClick={closeMenu} className={classes.itemContent}>
                                 {text.newExperience}
                             </a>
                         </Link>
                     </MenuItem>}
                 <MenuItem className={classes.menuItem}>
-                    <Link passHref { ...routes.home }>
-                        <a onClick={logout} className={classes.link}>
-                            {text.logout}
-                        </a>
-                    </Link>
+                    <span 
+                    onClick={toggleLanguage} 
+                    className={`
+                        ${classes.itemContent}
+                        ${classes.languageChip}
+                    `}>
+                        <LanguageIcon className={classes.languageIcon} />
+                        {text.languageChip}
+                    </span>
+                </MenuItem>
+                <MenuItem 
+                component="div"
+                onClick={logout} 
+                className={`${classes.menuItem} ${classes.itemContent}`}>
+                    {text.logout}
                 </MenuItem>
             </Menu>
         </>

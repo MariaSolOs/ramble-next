@@ -1,0 +1,27 @@
+<mj-section>
+    <mj-group>
+        <mj-column 
+        width="76px"
+        vertical-align="bottom">
+            <mj-image 
+            src="https://res.cloudinary.com/dxod7etqu/image/upload/c_scale,w_166/v1597845322/Ramble/Emails/ramble_logo.png" 
+            width="60px"
+            alt="ramble logo"
+            padding="0 0 3px"
+            align="right"
+            href="https://www.experienceramble.com/"/>
+        </mj-column>
+        <mj-column 
+        vertical-align="bottom">
+            <mj-text 
+            font-weight="100"
+            font-family="Futura" 
+            letter-spacing="-2px"
+            color="#FFF"
+            font-size="30px"
+            padding="0px 3px">
+                ramble
+            </mj-text>
+        </mj-column>
+    </mj-group>
+</mj-section>  

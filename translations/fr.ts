@@ -12,6 +12,7 @@ const frenchTranslation: TranslationRecord = {
     // },
 
     Navbar: {
+        languageChip: 'EN',
         signUp: "M'inscrire",
         logIn: 'Connexion',
         becomeCreator: 'Devenir un Créateur',
@@ -21,6 +22,7 @@ const frenchTranslation: TranslationRecord = {
     NavbarProfileMenu: {
         profile: 'Profil',
         newExperience: 'Nouvelle expérience',
+        languageChip: 'English',
         logout: 'Déconnexion'
     },
 
