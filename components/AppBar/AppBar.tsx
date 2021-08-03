@@ -1,10 +1,13 @@
 import React from 'react';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 
+import routes from 'routes';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import MUIAppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import rambleLogo from 'public/images/ramble-brand.png';
 
 import { makeStyles } from '@material-ui/core/styles';
 import styles from './AppBar.styles';
@@ -24,14 +27,14 @@ const AppBar: React.FC = (props) => {
         position="fixed"
         className={`${classes.root} ${isScrolled && classes.scrolled}`}>
             <Toolbar>
-                <Link href="/" passHref>
-                    <a>
+                <Link { ...routes.home } passHref>
+                    <a className={classes.brand}>
                         <Image 
-                        src="/images/ramble-brand.png"
+                        src={rambleLogo}
                         alt="Ramble"
                         width={150}
                         height={43}
-                        className={classes.brand} />
+                        priority />
                     </a>
                 </Link>
                 {props.children}

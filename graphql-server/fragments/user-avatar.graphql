@@ -1,0 +1,4 @@
+fragment UserAvatar on User {
+    photo
+    firstName
+}

@@ -1,9 +1,9 @@
 import React from 'react';
-import NextDocument, { Html, Head, Main, NextScript } from 'next/document';
+import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/core/styles';
 import type { DocumentContext } from 'next/document';
 
-export default class Document extends NextDocument {
+export default class CustomDocument extends Document {
     static async getInitialProps(context: DocumentContext) {
         /* Render app and page and get the context of the page with 
         collected side effects. */
@@ -14,7 +14,7 @@ export default class Document extends NextDocument {
             enhanceApp: App => props => sheets.collect(<App { ...props } />)
         });
 
-        const initialProps = await NextDocument.getInitialProps(context);
+        const initialProps = await Document.getInitialProps(context);
 
         return {
             ...initialProps,
@@ -32,6 +32,8 @@ export default class Document extends NextDocument {
                 <Head>
                     <meta charSet="utf-8" />
                     <meta name="author" content="Maria Solano@Ramble" />
+                    {/* Fallback font for Futura */}
+                    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@700&display=swap" rel="stylesheet" />
                 </Head>
                 <body>
                     <Main />

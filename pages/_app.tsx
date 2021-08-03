@@ -1,7 +1,15 @@
 import { useEffect } from 'react';
+import { Provider } from 'next-auth/client';
+import { ApolloProvider } from '@apollo/client';
 import type { AppProps } from 'next/app';
 
-import AppBar from 'components/AppBar';
+import { LanguageProvider } from 'context/languageContext';
+import { UiProvider } from 'context/uiContext';
+import apolloClient from 'apollo-client';
+
+import Navbar from 'components/Navbar';
+import { LogInDialog, SignUpDialog } from 'components/AuthDialogs';
+import ErrorDialog from 'components/ErrorDialog';
 import GlobalStyles from 'GlobalStyles';
 
 const App = ({ Component, pageProps }: AppProps) => {
@@ -14,10 +22,21 @@ const App = ({ Component, pageProps }: AppProps) => {
     }, []);
     
     return (
-        <GlobalStyles>
-            <AppBar />
-            <Component { ...pageProps } />
-        </GlobalStyles>
+        <Provider session={pageProps.session}>
+            <ApolloProvider client={apolloClient}>
+                <LanguageProvider>
+                    <UiProvider>
+                        <GlobalStyles>
+                            <Navbar />
+                            <LogInDialog />
+                            <SignUpDialog />
+                            <ErrorDialog />
+                            <Component { ...pageProps } />
+                        </GlobalStyles>
+                    </UiProvider>
+                </LanguageProvider>
+            </ApolloProvider>
+        </Provider>
     );
 }
 
