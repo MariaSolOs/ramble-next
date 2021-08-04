@@ -51,6 +51,7 @@ export default NextAuth({
                     }
                 } else {
                     // Just log in
+                    console.log(apolloClient)
                     const { data, errors } = await apolloClient.mutate({
                         mutation: LogInDocument,
                         variables: { 
