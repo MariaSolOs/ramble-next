@@ -38,7 +38,7 @@ export const sendPasswordResetEmail = async (
     const source = fs.readFileSync(path.resolve(process.cwd(), 'email-templates', 'password-reset.mjml'), 'utf-8');              
     const template = compile(source);
     const mjml = template({
-        passwordLink: `${process.env.RAMBLE_URL}?password-reset=${userId}`
+        passwordLink: `${process.env.VERCEL_URL}?password-reset=${userId}`
     });
 
     await sgMail.send({

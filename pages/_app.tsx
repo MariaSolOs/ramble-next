@@ -12,6 +12,10 @@ import { LogInDialog, SignUpDialog } from 'components/AuthDialogs';
 import ErrorDialog from 'components/ErrorDialog';
 import GlobalStyles from 'GlobalStyles';
 
+import { config } from '@fortawesome/fontawesome-svg-core';
+import '@fortawesome/fontawesome-svg-core/styles.css'; 
+config.autoAddCss = false;
+
 const App = ({ Component, pageProps }: AppProps) => {
     // Remove the server-side injected CSS
     useEffect(() => {

@@ -20,7 +20,7 @@ export default NextAuth({
     jwt: {
         signingKey: process.env.JWT_SIGNING_PRIVATE_KEY!
     },
-    debug: process.env.NODE_ENV === 'development',
+    debug: process.env.VERCEL_ENV === 'development',
     providers: [
         Providers.Credentials({
             async authorize(credentials: Credentials) {
