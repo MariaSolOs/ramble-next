@@ -18,7 +18,7 @@ export default NextAuth({
         maxAge: 15 * 24 * 60 * 60, // Idle session expires after 15 days
     },
     jwt: {
-        signingKey: process.env.JWT_SIGNING_PRIVATE_KEY!
+        signingKey: process.env.JWT_SIGNING_KEY!
     },
     debug: process.env.VERCEL_ENV === 'development',
     providers: [
@@ -58,7 +58,7 @@ export default NextAuth({
                             password: credentials.password 
                         }
                     });
-    
+                    
                     if (!data || errors) {
                         const errorMessage = errors ? errors[0].message : "We couldn't log you in.";
                         throw errorMessage;
