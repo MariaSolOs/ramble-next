@@ -14,7 +14,7 @@ import styles from './Footer.styles';
 const useStyles = makeStyles(styles);
 
 const Footer = () => {
-    const { appText, toggleLanguage, language } = useLanguageContext();
+    const { appText, toggleLanguage } = useLanguageContext();
     const { Footer: text } = appText;
     const classes = useStyles();
 

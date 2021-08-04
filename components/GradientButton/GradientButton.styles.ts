@@ -1,14 +1,14 @@
 import { createStyles } from '@material-ui/core/styles';
 import type { Theme } from '@material-ui/core/styles';
 
-import type { Props } from './GradientButton';
+import type { GradientButtonProps } from './index';
 
 const styles = (theme: Theme) => createStyles({
     root: {
         padding: '0.45rem 0.75rem',
         borderRadius: '2rem',
         border: 'none',
-        background: ({ variant } : Props) => {
+        background: ({ variant } : GradientButtonProps) => {
             switch(variant) {
                 case 'experience': 
                     return 'linear-gradient(to right, #2BB282 0%, #2D73EA 100%)'

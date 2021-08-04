@@ -1,6 +1,5 @@
 import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
-import type { User } from 'next-auth';
 
 import apolloClient from 'apollo-client';
 import { SignUpDocument, LogInDocument } from 'graphql-server/operations';

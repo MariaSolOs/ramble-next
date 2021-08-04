@@ -1,4 +1,4 @@
-import { AuthenticationError, ApolloError } from 'apollo-server-micro';
+import { AuthenticationError } from 'apollo-server-micro';
 
 import { 
     Experience,
