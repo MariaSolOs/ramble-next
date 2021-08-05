@@ -6,7 +6,7 @@
 export type Language = 'en' | 'fr';
 
 export type TranslationRecord = {
-    // Home: Record<'experienceTitle' | 'discoverTitle' | 'seeAllButton' | 'partakeTitle' | 'partakeSubtitle' | 'adventureTitle' | 'adventureSubtitle', string>;
+    Home: Record<'experienceTitle' | 'discoverTitle' | 'seeAllButton' | 'partakeTitle' | 'partakeSubtitle' | 'adventureTitle' | 'adventureSubtitle', string>;
 
     Navbar: Record<'languageChip' | 'signUp' | 'logIn' | 'becomeCreator' | 'creatorDashboard', string>;
 
@@ -22,7 +22,7 @@ export type TranslationRecord = {
 
     ForgotPasswordDialog: Record<'enterEmailTitle'| 'sendLinkMessage' | 'resetPassword' | 'emailSent', string>;
 
-    // ResetPasswordDialog: Record<'newPassword' | 'confirmPassword' | 'resetPassword' | 'passwordMismatch', string>;
+    ResetPasswordDialog: Record<'newPassword' | 'confirmPassword' | 'resetPassword' | 'passwordMismatch', string>;
 
     ErrorDialog: Record<'title', string>;
 

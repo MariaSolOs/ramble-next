@@ -7,6 +7,7 @@ import { MONGOOSE_LEAN_DEFAULTS } from 'global-constants';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
+        // Should only be here when submitting the password reset form
         if (req.method !== 'POST') {
             return;
         }

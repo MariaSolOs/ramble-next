@@ -1,8 +1,9 @@
 import NavbarProfileMenu from './NavbarProfileMenu';
+import type { Image } from 'models/files';
 
 export type NavbarProfileMenuProps = {
     userName: string;
-    userPhoto: string;
+    userPhoto?: Image;
     isCreator: boolean;
     onClose: () => void;
 }

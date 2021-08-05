@@ -1,11 +1,11 @@
-import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
+import { ApolloClient, InMemoryCache } from '@apollo/client';
 
-const httpLink = createHttpLink({
-    uri: `${process.env.RAMBLE_URL}/api/graphql`
-});
+/* Base URL depends on if we're calling this from the client 
+or server. */
+const rambleUrl = process.env.RAMBLE_URL || process.env.NEXT_PUBLIC_RAMBLE_URL;
 
 const apolloClient = new ApolloClient({
-    link: httpLink,
+    uri: `${rambleUrl}/api/graphql`,
     cache: new InMemoryCache()
 });
 

@@ -85,8 +85,8 @@ export enum ExperienceCategory {
 /** Image with blurred placeholder */
 export type Image = {
   __typename?: 'Image';
-  src: Scalars['String'];
   placeholder: Scalars['String'];
+  src: Scalars['String'];
 };
 
 export type Mutation = {
@@ -95,6 +95,8 @@ export type Mutation = {
   signUpUser: User;
   /** User log in. */
   logInUser: User;
+  /** Password reset. */
+  resetPassword: User;
   /** Profile editing. */
   editUser: User;
   /** Creator onboarding. */
@@ -127,12 +129,17 @@ export type MutationLogInUserArgs = {
 };
 
 
+export type MutationResetPasswordArgs = {
+  userId: Scalars['ID'];
+  password: Scalars['String'];
+};
+
+
 export type MutationEditUserArgs = {
   firstName?: Maybe<Scalars['String']>;
   lastName?: Maybe<Scalars['String']>;
   birthday?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
-  password?: Maybe<Scalars['String']>;
   photo?: Maybe<Scalars['String']>;
   phoneNumber?: Maybe<Scalars['String']>;
   city?: Maybe<Scalars['String']>;
@@ -274,7 +281,7 @@ export type User = {
   birthday?: Maybe<Scalars['String']>;
   email: Scalars['String'];
   phoneNumber?: Maybe<Scalars['String']>;
-  photo?: Maybe<Scalars['String']>;
+  photo?: Maybe<Image>;
   city?: Maybe<Scalars['String']>;
   savedExperiences: Array<Experience>;
   bookedExperiences: Array<Experience>;
@@ -460,14 +467,15 @@ export type ExperienceResolvers<ContextType = Context, ParentType extends Resolv
 };
 
 export type ImageResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Image'] = ResolversParentTypes['Image']> = {
-  src?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   placeholder?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  src?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   signUpUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationSignUpUserArgs, 'email' | 'password' | 'firstName' | 'lastName'>>;
   logInUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationLogInUserArgs, 'email' | 'password'>>;
+  resetPassword?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationResetPasswordArgs, 'userId' | 'password'>>;
   editUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationEditUserArgs, never>>;
   signUpCreator?: Resolver<ResolversTypes['Creator'], ParentType, ContextType, RequireFields<MutationSignUpCreatorArgs, 'bio' | 'governmentIds'>>;
   saveExperience?: Resolver<ResolversTypes['Experience'], ParentType, ContextType, RequireFields<MutationSaveExperienceArgs, 'experienceId'>>;
@@ -509,7 +517,7 @@ export type UserResolvers<ContextType = Context, ParentType extends ResolversPar
   birthday?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   phoneNumber?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  photo?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  photo?: Resolver<Maybe<ResolversTypes['Image']>, ParentType, ContextType>;
   city?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   savedExperiences?: Resolver<Array<ResolversTypes['Experience']>, ParentType, ContextType>;
   bookedExperiences?: Resolver<Array<ResolversTypes['Experience']>, ParentType, ContextType>;

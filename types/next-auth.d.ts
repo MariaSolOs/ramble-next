@@ -1,4 +1,5 @@
 import NextAuth from 'next-auth';
+import type { Image } from 'models/files';
 
 declare module 'next-auth' {
     interface User {
@@ -6,7 +7,7 @@ declare module 'next-auth' {
         creatorId: string;
         firstName: string;
         email: string;
-        photo: string;
+        photo: Image;
     }
     interface Session {
         user: User;
@@ -19,7 +20,7 @@ declare module 'next-auth/jwt' {
         creatorId: string;
         firstName: string;
         email: string;
-        photo: string;
+        photo: Image;
         iat: number;
         exp: number;
     }

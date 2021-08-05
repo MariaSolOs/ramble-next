@@ -48,6 +48,14 @@ export const typeDefs = gql`
         ): User!
 
         """
+        Password reset.
+        """
+        resetPassword(
+            userId: ID!,
+            password: String!
+        ): User!
+
+        """
         Profile editing.
         """
         editUser(
@@ -55,7 +63,6 @@ export const typeDefs = gql`
             lastName: String, 
             birthday: String, 
             email: String, 
-            password: String,
             photo: String,
             phoneNumber: String,
             city: String,
@@ -143,6 +150,14 @@ export const typeDefs = gql`
         creatorPhone: String!
         cardBrand: String!
         cardLast4: String!
+    }
+
+    """
+    Image with placeholder URL
+    """
+    type Image {
+        src: String!
+        placeholder: String!
     }
 
     """
@@ -238,7 +253,7 @@ export const typeDefs = gql`
         birthday: String
         email: String!
         phoneNumber: String
-        photo: String
+        photo: Image
         city: String
         savedExperiences: [Experience!]!
         bookedExperiences: [Experience!]!

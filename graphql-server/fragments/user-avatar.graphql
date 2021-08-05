@@ -1,4 +1,7 @@
 fragment UserAvatar on User {
     firstName
-    photo
+    photo {
+        src
+        placeholder
+    }
 }

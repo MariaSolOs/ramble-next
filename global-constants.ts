@@ -20,3 +20,5 @@ export const FEATURED_EXPERIENCES_IDS: { _id: string; title: string; }[] = [
         title: 'Cocktails estivaux avec un mixologue'
     }
 ]
+
+export const CLOUDINARY_BASE_URI = 'https://res.cloudinary.com/dxod7etqu/image/upload';

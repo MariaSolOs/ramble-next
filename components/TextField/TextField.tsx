@@ -6,8 +6,8 @@ import styles from './TextField.styles';
 const useStyles = makeStyles(styles);
 
 const TextField = (props: Omit<OutlinedTextFieldProps, 'variant'>) => {
-    const classes = useStyles();
     const { InputProps, ...otherProps } = props;
+    const classes = useStyles();
 
     return (
         <MUITextField

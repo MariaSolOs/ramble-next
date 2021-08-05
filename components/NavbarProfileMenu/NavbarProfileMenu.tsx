@@ -3,11 +3,12 @@ import { useApolloClient } from '@apollo/client';
 import { signOut } from 'next-auth/client';
 import { useRouter } from 'next/router';
 
-import { useLanguageContext } from 'context/languageContext';
 import routes from 'routes';
+import { useLanguageContext } from 'context/languageContext';
 import type { NavbarProfileMenuProps } from './index';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Avatar from '@material-ui/core/Avatar';
@@ -20,12 +21,10 @@ const useStyles = makeStyles(styles);
 const NavbarProfileMenu = (props: NavbarProfileMenuProps) => {
     const { appText, toggleLanguage } = useLanguageContext();
     const { NavbarProfileMenu: text } = appText;
-    const classes = useStyles({ isCreator: props.isCreator });
-
-    // const { asPath: currentPath } = useRouter();
+    const client = useApolloClient();
     const router = useRouter();
     const { asPath: currentPath } = router;
-    const client = useApolloClient();
+    const classes = useStyles({ isCreator: props.isCreator });
 
     const [anchorEl, setAnchorEl] = useState<Element | null>(null);
 
@@ -53,8 +52,16 @@ const NavbarProfileMenu = (props: NavbarProfileMenuProps) => {
     return (
         <>
             <button onClick={e => setAnchorEl(e.currentTarget)} className={classes.button}>
-                <Avatar src={props.userPhoto} alt="Profile picture" className={classes.avatar}>
-                    {props.userName.charAt(0)}
+                <Avatar alt={props.userName} className={classes.avatar}>
+                    {props.userPhoto && 
+                        <Image
+                        src={props.userPhoto.src}
+                        alt={props.userName}
+                        width={40}
+                        height={40}
+                        objectFit="cover"
+                        placeholder="blur"
+                        blurDataURL={props.userPhoto.placeholder} />}
                 </Avatar>
                 <span className={classes.userName}>{props.userName}</span>
             </button>

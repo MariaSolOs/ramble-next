@@ -30,7 +30,7 @@ const Navbar = () => {
     const isLoggedIn = Boolean(session?.user.userId);
     const isCreator = Boolean(session?.user.creatorId);
     const userName = session?.user.firstName || '';
-    const userPhoto = session?.user.photo || '';
+    const userPhoto = session?.user.photo;
 
     const [anchorEl, setAnchorEl] = useState<Element | null>(null);
     const closeMenu = () => { setAnchorEl(null); }

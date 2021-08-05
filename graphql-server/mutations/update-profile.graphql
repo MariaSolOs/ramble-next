@@ -1,0 +1,23 @@
+mutation updateProfile(
+    $firstName: String, 
+    $lastName: String, 
+    $birthday: String, 
+    $email: String, 
+    $photo: String,
+    $phoneNumber: String,
+    $city: String,
+    $creatorBio: String
+) {
+    editUser(
+        firstName: $firstName,
+        lastName: $lastName,
+        birthday: $birthday,
+        email: $email,
+        photo: $photo,
+        phoneNumber: $phoneNumber,
+        city: $city,
+        creatorBio: $creatorBio
+    ) {
+        ...CoreProfile
+    }
+}

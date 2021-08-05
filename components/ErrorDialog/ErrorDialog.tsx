@@ -11,10 +11,9 @@ const useStyles = makeStyles(styles);
 
 const ErrorDialog = () => {
     const { ErrorDialog: text } = useLanguageContext().appText;
-    const classes = useStyles();
-
     const { uiState, uiDispatch } = useUiContext();
     const { errorMessage } = uiState;
+    const classes = useStyles();
 
     return (
         <Dialog 

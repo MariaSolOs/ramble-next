@@ -1,15 +1,15 @@
 import type { TranslationRecord } from 'models/translation';
 
 const englishTranslation: TranslationRecord = {
-    // Home: {
-    //     experienceTitle: 'experience montréal.',
-    //     discoverTitle: 'Discover unique experiences in Montréal',
-    //     seeAllButton: 'See all',
-    //     partakeTitle: 'Partake in unforgettable moments',
-    //     partakeSubtitle: 'Experiences are unique activities organized by passionate Creators who wish to share their expertise and give their guests a privileged access to their universe.',
-    //     adventureTitle: 'With friends, family, on your own, or with your significant other.',
-    //     adventureSubtitle: 'Turn every occasion into a memorable adventure.'
-    // },
+    Home: {
+        experienceTitle: 'experience montréal.',
+        discoverTitle: 'Discover unique experiences in Montréal',
+        seeAllButton: 'See all',
+        partakeTitle: 'Partake in unforgettable moments',
+        partakeSubtitle: 'Experiences are unique activities organized by passionate Creators who wish to share their expertise and give their guests a privileged access to their universe.',
+        adventureTitle: 'With friends, family, on your own, or with your significant other.',
+        adventureSubtitle: 'Turn every occasion into a memorable adventure.'
+    },
 
     Navbar: {
         languageChip: 'FR',
@@ -67,12 +67,12 @@ const englishTranslation: TranslationRecord = {
         emailSent: 'The email is on its way!'
     },
 
-    // ResetPasswordDialog: {
-    //     newPassword: 'New password',
-    //     confirmPassword: 'Confirm your new password',
-    //     resetPassword: 'Reset my password',
-    //     passwordMismatch: "The passwords don't match."
-    // },
+    ResetPasswordDialog: {
+        newPassword: 'New password',
+        confirmPassword: 'Confirm your new password',
+        resetPassword: 'Reset my password',
+        passwordMismatch: "The passwords don't match."
+    },
 
     ErrorDialog: {
         title: "Sorry 'bout that."

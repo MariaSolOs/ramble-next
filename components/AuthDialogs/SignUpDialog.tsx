@@ -36,10 +36,9 @@ const initialForm: Form = {
 
 const SignUpDialog = () => {
     const { SignUpDialog: text } = useLanguageContext().appText;
-    const classes = useStyles();
-    
     const { uiState, uiDispatch } = useUiContext();
     const { showSignUpDialog: open } = uiState;
+    const classes = useStyles();
 
     const [values, setValues] = useState(initialForm);
     const [passwordError, setPasswordError] = useState(false);

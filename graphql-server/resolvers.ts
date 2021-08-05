@@ -1,4 +1,4 @@
-import { AuthenticationError } from 'apollo-server-micro';
+import { AuthenticationError, ApolloError } from 'apollo-server-micro';
 
 import { 
     Experience,
@@ -14,7 +14,9 @@ import {
     userReducer,
     creatorReducer
 } from 'utils/graphql-data-mappers';
+import { getPlaceholder, deleteUserPicture } from 'utils/cloudinary';
 import { MONGOOSE_LEAN_DEFAULTS } from 'global-constants';
+import type { User as UserType } from 'models/mongodb/user';
 import type { Resolvers } from './resolvers-types';
 
 export const resolvers: Resolvers = {
@@ -36,6 +38,14 @@ export const resolvers: Resolvers = {
     },
 
     User: {
+        photo: async ({ photo }) => {
+            const src = photo || '';
+            const placeholder = src ? await getPlaceholder(src) : '';
+            return {
+                src,
+                placeholder
+            }
+        },
         creator: ({ creator }) => Creator.findById(creator).lean(MONGOOSE_LEAN_DEFAULTS).then(creatorReducer),
         savedExperiences: async user => {
             const exps = await Experience.find({ _id: { $in: user.savedExperiences } }).lean(MONGOOSE_LEAN_DEFAULTS);
@@ -144,51 +154,56 @@ export const resolvers: Resolvers = {
             return userReducer(user);
         },
 
-    //     editUser: async (_, args, { userId }) => {
-    //         if (!userId) {
-    //             throw new AuthenticationError("User isn't logged in.");
-    //         }
-
-    //         const user = await User.findById(userId);
-
-    //         if (!user) {
-    //             throw new ApolloError('User not found.');
-    //         }
-
-    //         // Delete old pictures from Cloudinary
-    //         if (args.photo && user.photo) {
-    //             deleteUserPicture(user.photo);
-    //         }
-
-    //         // The creator bio is updated in the creator object
-    //         if (args.creatorBio) {
-    //             await Creator.findByIdAndUpdate(user.creator, {
-    //                 bio: args.creatorBio
-    //             });
-    //         }
-
-    //         // Set the fields to update
-    //         const newFields: Partial<Record<keyof UserType, string | Date>> = {
-    //             ...args.firstName && { fstName: args.firstName },
-    //             ...args.lastName && { lstName: args.lastName },
-    //             ...(typeof args.birthday === 'string') && { birthday: new Date(args.birthday) },
-    //             ...args.email && { emailAddress: args.email },
-    //             ...args.password && { passwordHash: User.generatePasswordHash(args.password) },
-    //             ...args.photo && { photo: args.photo },
-    //             ...(typeof args.phoneNumber === 'string') && { phoneNumber: args.phoneNumber },
-    //             ...(typeof args.city === 'string') && { city: args.city }
-    //         }
-
-    //         for (const [field, value] of Object.entries(newFields)) {
-    //             (user as any)[field] = value;
-    //         }
+        resetPassword: async (_, { userId, password }) => {
+            const user = await User.findByIdAndUpdate(userId, {
+                passwordHash: User.generatePasswordHash(password)
+            }).lean(MONGOOSE_LEAN_DEFAULTS);
             
-    //         await user.save();
+            return userReducer(user);
+        },
 
-    //         const updatedUser = userReducer(user);
-    //         updatedUser.token = generateToken(userId);
-    //         return updatedUser;
-    //     },
+        editUser: async (_, args, { userId }) => {
+            if (!userId) {
+                throw new AuthenticationError("User isn't logged in.");
+            }
+
+            const user = await User.findById(userId);
+
+            if (!user) {
+                throw new ApolloError('User not found.');
+            }
+
+            // Delete old pictures from Cloudinary
+            if (args.photo && user.photo) {
+                deleteUserPicture(user.photo);
+            }
+
+            // The creator bio is updated in the creator object
+            if (args.creatorBio) {
+                await Creator.findByIdAndUpdate(user.creator, {
+                    bio: args.creatorBio
+                });
+            }
+
+            // Set the fields to update
+            const newFields: Partial<Record<keyof UserType, string | Date>> = {
+                ...args.firstName && { fstName: args.firstName },
+                ...args.lastName && { lstName: args.lastName },
+                ...(typeof args.birthday === 'string') && { birthday: new Date(args.birthday) },
+                ...args.email && { emailAddress: args.email },
+                ...args.photo && { photo: args.photo },
+                ...(typeof args.phoneNumber === 'string') && { phoneNumber: args.phoneNumber },
+                ...(typeof args.city === 'string') && { city: args.city }
+            }
+
+            for (const [field, value] of Object.entries(newFields)) {
+                (user as any)[field] = value;
+            }
+            
+            await user.save();
+
+            return userReducer(user);
+        },
 
     //     signUpCreator: async (_, { bio, governmentIds }, { userId }) => {
     //         if (!userId) {

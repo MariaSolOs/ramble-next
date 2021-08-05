@@ -12,6 +12,7 @@ import { LogInDialog, SignUpDialog } from 'components/AuthDialogs';
 import ErrorDialog from 'components/ErrorDialog';
 import GlobalStyles from 'GlobalStyles';
 
+// Fixes the huge icon initial flash
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css'; 
 config.autoAddCss = false;

@@ -47,10 +47,12 @@ export default NextAuth({
                         creatorId: '', // Cannot be a creator if just signed up
                         firstName: data.signUpUser.firstName,
                         email: data.signUpUser.email,
-                        photo: '' // Cannot have a picture if just signed up
+                        photo: { // Cannot have a picture if just signed up
+                            src: '',
+                            placeholder: ''
+                        } 
                     }
                 } else {
-                    // Just log in
                     const { data, errors } = await apolloClient.mutate({
                         mutation: LogInDocument,
                         variables: { 
@@ -69,7 +71,10 @@ export default NextAuth({
                         creatorId: data.logInUser.creator?._id || '',
                         firstName: data.logInUser.firstName,
                         email: data.logInUser.email,
-                        photo: data.logInUser.photo || ''
+                        photo: {
+                            src: data.logInUser.photo?.src || '',
+                            placeholder: data.logInUser.photo?.placeholder || ''
+                        }
                     }
                 }
             }
@@ -81,6 +86,7 @@ export default NextAuth({
                 // We're signing in, so store user data in the token
                 return { ...token, ...user }
             } else {
+                // Return the token which already has user data
                 return token;
             }
         },

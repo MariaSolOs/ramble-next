@@ -1,12 +1,60 @@
-import Footer from 'components/Footer';
+import { GetStaticProps } from 'next';
 
-const Home = () => {
-    console.log(process.env.NEXT_PUBLIC_VERCEL_URL)
+import useLanguageContext from 'context/languageContext';
+import { getPlaceholder } from 'utils/cloudinary';
+import { CLOUDINARY_BASE_URI } from 'global-constants';
+import type { Image } from 'models/files';
+
+import PageContainer from 'components/home-page/PageContainer';
+import GallerySlide from 'components/home-page/GallerySlide';
+import Footer from 'components/Footer';
+import ResetPasswordDialog from 'components/ResetPasswordDialog';
+
+const PARTAKE_URLS = [
+    'holding_camera.jpg',
+    'bar-whitedrinks.jpg',
+    'camera_on_legs.jpg'
+] as const;
+
+// const ADVENTURE_IMAGES = [
+//     'street_shoots.jpg',
+//     'cooking_online.jpg',
+//     'cocktail_workshop.jpg'
+// ] as const;
+
+type Props = {
+    partakeImages: Image[];
+    // adventureImages: Image[];
+}
+
+export const getStaticProps: GetStaticProps<Props> = async () => {
+    // Get the images for the landing slides
+    const partakeImagesPromises = PARTAKE_URLS.map(async (url) => {
+        const src = `${CLOUDINARY_BASE_URI}/c_fill,h_500,w_400/v1/Ramble/Homepage/${url}`;
+        const placeholder = await getPlaceholder(src);
+        return { src, placeholder }
+    });
+    const partakeImages = await Promise.all(partakeImagesPromises);
+
+    return {
+        props: {
+            partakeImages
+        }
+    }
+}
+
+const Home = (props: Props) => {
+    const { Home: text } = useLanguageContext().appText;
+
     return (
-        <>
-            <div style={{ margin: '100px auto' }}></div>
+        <PageContainer>
+            <ResetPasswordDialog />
+            <GallerySlide 
+            images={props.partakeImages}
+            title={text.partakeTitle}
+            subtitle={text.partakeSubtitle} />
             <Footer />
-        </>
+        </PageContainer>
     );
 }
 

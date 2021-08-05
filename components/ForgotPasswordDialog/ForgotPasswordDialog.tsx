@@ -39,7 +39,6 @@ const ForgotPasswordDialog = (props: ForgotPasswordDialogProps) => {
             body: JSON.stringify({ email })
         })
         .then(res => {
-            console.log(res);
             setLoading(false);
             if (res.ok) {
                 setShowSuccessMessage(true);

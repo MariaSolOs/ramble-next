@@ -1,15 +1,15 @@
 import type { TranslationRecord } from 'models/translation';
 
 const frenchTranslation: TranslationRecord = {
-    // Home: {
-    //     experienceTitle: "vivez montréal", 
-    //     discoverTitle: 'Découvrez des expériences uniques à Montréal',
-    //     seeAllButton: 'Tout voir',
-    //     partakeTitle: 'Vivez des moments inoubliables',
-    //     partakeSubtitle: 'Les expériences sont des activités uniques organisées par des Créateurs passionnés qui veulent partager leur expertise en donnant à leurs invités un accès privilégié à leur univers.',
-    //     adventureTitle: "En famille, entre amis, seul ou en compagnie d'une personne bien spéciale.",
-    //     adventureSubtitle: 'Faites de chaque occasion une aventure mémorable.'
-    // },
+    Home: {
+        experienceTitle: "vivez montréal", 
+        discoverTitle: 'Découvrez des expériences uniques à Montréal',
+        seeAllButton: 'Tout voir',
+        partakeTitle: 'Vivez des moments inoubliables',
+        partakeSubtitle: 'Les expériences sont des activités uniques organisées par des Créateurs passionnés qui veulent partager leur expertise en donnant à leurs invités un accès privilégié à leur univers.',
+        adventureTitle: "En famille, entre amis, seul ou en compagnie d'une personne bien spéciale.",
+        adventureSubtitle: 'Faites de chaque occasion une aventure mémorable.'
+    },
 
     Navbar: {
         languageChip: 'EN',
@@ -67,12 +67,12 @@ const frenchTranslation: TranslationRecord = {
         emailSent: 'Le courriel est en route!'
     },
 
-    // ResetPasswordDialog: {
-    //     newPassword: 'Nouveau mot de passe',
-    //     confirmPassword: 'Confirmer le mot de passe',
-    //     resetPassword: 'Réinitialiser le mot de passe',
-    //     passwordMismatch: 'Les mots de passe ne correspondent pas.'
-    // },
+    ResetPasswordDialog: {
+        newPassword: 'Nouveau mot de passe',
+        confirmPassword: 'Confirmer le mot de passe',
+        resetPassword: 'Réinitialiser le mot de passe',
+        passwordMismatch: 'Les mots de passe ne correspondent pas.'
+    },
 
     ErrorDialog: {
         title: 'Désolé!'
