@@ -22,26 +22,26 @@ const App = ({ Component, pageProps }: AppProps) => {
     useEffect(() => {
         const jssStyles = document.querySelector('#jss-server-side');
         if (jssStyles) {
-            jssStyles.parentElement?.removeChild(jssStyles);
+            jssStyles.parentElement!.removeChild(jssStyles);
         }
     }, []);
     
     return (
         <Provider session={pageProps.session}>
-            <ApolloProvider client={apolloClient}>
-                <LanguageProvider>
-                    <UiProvider>
-                        <GlobalStyles>
-                            <Navbar />
-                            <LogInDialog />
-                            <SignUpDialog />
-                            <ErrorDialog />
-                            <Component { ...pageProps } />
-                        </GlobalStyles>
-                    </UiProvider>
-                </LanguageProvider>
-            </ApolloProvider>
-        </Provider>
+                <ApolloProvider client={apolloClient}>
+                    <LanguageProvider>
+                        <UiProvider>
+                            <GlobalStyles>
+                                <Navbar />
+                                <LogInDialog />
+                                <SignUpDialog />
+                                <ErrorDialog />
+                                <Component { ...pageProps } />
+                            </GlobalStyles>
+                        </UiProvider>
+                    </LanguageProvider>
+                </ApolloProvider>
+            </Provider>
     );
 }
 

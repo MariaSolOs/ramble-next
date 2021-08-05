@@ -5,6 +5,11 @@ export type GallerySlideProps = {
     images: Image[];
     title: string;
     subtitle: string;
+    titlesAlign: 'left' | 'right';
+}
+
+export type GallerySlideStyleProps = {
+    titlesAlign: 'left' | 'right';
 }
 
 export default GallerySlide;

@@ -16,15 +16,15 @@ const PARTAKE_URLS = [
     'camera_on_legs.jpg'
 ] as const;
 
-// const ADVENTURE_IMAGES = [
-//     'street_shoots.jpg',
-//     'cooking_online.jpg',
-//     'cocktail_workshop.jpg'
-// ] as const;
+const ADVENTURE_URLS = [
+    'street_shoots.jpg',
+    'cooking_online.jpg',
+    'cocktail_workshop.jpg'
+] as const;
 
 type Props = {
     partakeImages: Image[];
-    // adventureImages: Image[];
+    adventureImages: Image[];
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
@@ -36,9 +36,17 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     });
     const partakeImages = await Promise.all(partakeImagesPromises);
 
+    const adventureImagesPromises = ADVENTURE_URLS.map(async (url) => {
+        const src = `${CLOUDINARY_BASE_URI}/c_fill,h_500,w_400/v1/Ramble/Homepage/${url}`;
+        const placeholder = await getPlaceholder(src);
+        return { src, placeholder }
+    });
+    const adventureImages = await Promise.all(adventureImagesPromises);
+
     return {
         props: {
-            partakeImages
+            partakeImages,
+            adventureImages
         }
     }
 }
@@ -52,7 +60,13 @@ const Home = (props: Props) => {
             <GallerySlide 
             images={props.partakeImages}
             title={text.partakeTitle}
-            subtitle={text.partakeSubtitle} />
+            subtitle={text.partakeSubtitle}
+            titlesAlign="left" />
+            <GallerySlide 
+            images={props.adventureImages}
+            title={text.adventureTitle}
+            subtitle={text.adventureSubtitle}
+            titlesAlign="right" />
             <Footer />
         </PageContainer>
     );

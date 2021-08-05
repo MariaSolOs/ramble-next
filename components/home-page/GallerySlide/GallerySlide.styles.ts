@@ -1,10 +1,16 @@
 import { createStyles } from '@material-ui/core/styles';
 import type { Theme } from '@material-ui/core/styles';
 
+import type { GallerySlideStyleProps } from './index';
+
 const styles = (theme: Theme) => createStyles({
     gallerySlide: {
         width: '85%',
         margin: '0 auto 10%'
+    },
+
+    titlesContainer: {
+        textAlign: (props: GallerySlideStyleProps) => props.titlesAlign
     },
 
     title: {
@@ -27,8 +33,6 @@ const styles = (theme: Theme) => createStyles({
         color: '#E5E4E5',
         margin: '0 0 2rem'
     },
-
-    // adventureText: { textAlign: 'right' },
 
     imagesContainer: {
         display: 'flex',
