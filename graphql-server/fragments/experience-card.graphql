@@ -1,0 +1,13 @@
+fragment CardContent on Experience {
+    _id
+    title
+    images {
+        src
+        placeholder
+    }
+    pricePerPerson
+    ratingValue
+    numberOfRatings
+    location
+    zoomPMI
+}

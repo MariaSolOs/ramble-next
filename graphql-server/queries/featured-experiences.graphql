@@ -1,0 +1,5 @@
+query getFeaturedExperiences($ids: [ID!]!) {
+    experiencesById(ids: $ids) {
+        ...CardContent
+    }
+}

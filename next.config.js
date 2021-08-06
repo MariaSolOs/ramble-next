@@ -2,7 +2,6 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const { withPlaiceholder } = require('@plaiceholder/next');
 
 module.exports = withPlaiceholder({
-    // reactStrictMode: true,
     images: {
         domains: ['res.cloudinary.com']
     },

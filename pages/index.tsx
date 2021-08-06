@@ -1,14 +1,26 @@
 import { GetStaticProps } from 'next';
 
+import apolloClient from 'apollo-client';
+import { GetFeaturedExperiencesDocument } from 'graphql-server/operations';
 import useLanguageContext from 'context/languageContext';
 import { getPlaceholder } from 'utils/cloudinary';
-import { CLOUDINARY_BASE_URI } from 'global-constants';
+import { CLOUDINARY_BASE_URI, FEATURED_EXPERIENCES_IDS } from 'global-constants';
+import { getCardInfo } from 'models/experience-interface';
 import type { Image } from 'models/files';
+import type { ExperienceCard } from 'models/experience-interface';
 
-import PageContainer from 'components/home-page/PageContainer';
+import ResetPasswordDialog from 'components/ResetPasswordDialog';
+import Landing from 'components/home-page/Landing';
 import GallerySlide from 'components/home-page/GallerySlide';
 import Footer from 'components/Footer';
-import ResetPasswordDialog from 'components/ResetPasswordDialog';
+
+const GRID_URLS = [
+    'v1628201003/Ramble/Homepage/homeGrid1.jpg',
+    'v1628200960/Ramble/Homepage/homeGrid2.jpg',
+    'v1628200812/Ramble/Homepage/homeGrid3.jpg',
+    'v1628201061/Ramble/Homepage/homeGrid4.jpg',
+    'v1628200898/Ramble/Homepage/homeGrid5.jpg'
+];
 
 const PARTAKE_URLS = [
     'holding_camera.jpg',
@@ -23,12 +35,22 @@ const ADVENTURE_URLS = [
 ] as const;
 
 type Props = {
+    collageImages: Image[];
     partakeImages: Image[];
     adventureImages: Image[];
+    featuredExperiences: ExperienceCard[];
 }
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-    // Get the images for the landing slides
+    // Images for the landing collage
+    const collageImagesPromises = GRID_URLS.map(async (url) => {
+        const src = `${CLOUDINARY_BASE_URI}/dpr_auto,q_auto/${url}`;
+        const placeholder = await getPlaceholder(src);
+        return { src, placeholder }
+    });
+    const collageImages = await Promise.all(collageImagesPromises);
+
+    // Images for the landing slides
     const partakeImagesPromises = PARTAKE_URLS.map(async (url) => {
         const src = `${CLOUDINARY_BASE_URI}/c_fill,h_500,w_400/v1/Ramble/Homepage/${url}`;
         const placeholder = await getPlaceholder(src);
@@ -43,10 +65,19 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     });
     const adventureImages = await Promise.all(adventureImagesPromises);
 
+    // Featured experiences
+    const { data } = await apolloClient.query({
+        query: GetFeaturedExperiencesDocument,
+        variables: { ids: FEATURED_EXPERIENCES_IDS }
+    });
+    const featuredExperiences = data.experiencesById.map(getCardInfo);
+
     return {
         props: {
+            collageImages,
             partakeImages,
-            adventureImages
+            adventureImages,
+            featuredExperiences
         }
     }
 }
@@ -55,8 +86,11 @@ const Home = (props: Props) => {
     const { Home: text } = useLanguageContext().appText;
 
     return (
-        <PageContainer>
+        <>
             <ResetPasswordDialog />
+            <Landing
+            collageImages={props.collageImages}
+            featuredExperiences={props.featuredExperiences} />
             <GallerySlide 
             images={props.partakeImages}
             title={text.partakeTitle}
@@ -68,7 +102,7 @@ const Home = (props: Props) => {
             subtitle={text.adventureSubtitle}
             titlesAlign="right" />
             <Footer />
-        </PageContainer>
+        </>
     );
 }
 

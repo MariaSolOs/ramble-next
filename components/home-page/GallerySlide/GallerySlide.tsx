@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 import { makeStyles } from '@material-ui/core/styles';
 import styles from './GallerySlide.styles';
-const useStyles = makeStyles(styles, { name: 'MuiHomePageGallerySlide' });
+const useStyles = makeStyles(styles);
 
 const GallerySlide = (props: GallerySlideProps) => {
     const classes = useStyles({ titlesAlign: props.titlesAlign });
@@ -22,8 +22,8 @@ const GallerySlide = (props: GallerySlideProps) => {
                     <div key={uuid()} className={classes.image}>
                         <Image
                         src={src}
-                        width={400}
-                        height={500}
+                        width={250}
+                        height={350}
                         placeholder="blur"
                         blurDataURL={placeholder}
                         alt="Experience preview" />

@@ -48,6 +48,7 @@ const styles = (theme: Theme) => createStyles({
         width: 250,
         height: 350,
         borderRadius: '1.3rem',
+        overflow: 'hidden',
 
         [theme.breakpoints.down('sm')]: {
             '&:nth-child(odd)': { display: 'none' }

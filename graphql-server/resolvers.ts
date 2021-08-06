@@ -21,7 +21,13 @@ import type { Resolvers } from './resolvers-types';
 
 export const resolvers: Resolvers = {
     Experience: {
-        creator: ({ creator }) => Creator.findById(creator).lean(MONGOOSE_LEAN_DEFAULTS).then(creatorReducer)
+        creator: ({ creator }) => Creator.findById(creator).lean(MONGOOSE_LEAN_DEFAULTS).then(creatorReducer),
+        images: ({ images }) => {
+            return images.map(async (src) => {
+                const placeholder = await getPlaceholder(src);
+                return { src, placeholder }
+            });
+        }
     },
 
     Occurrence: {
@@ -68,7 +74,7 @@ export const resolvers: Resolvers = {
         }
     },
 
-    // Query: {
+    Query: {
     //     me: async (_, __, { userId }) => {
     //         if (!userId) {
     //             throw new AuthenticationError('Invalid user ID');
@@ -105,8 +111,13 @@ export const resolvers: Resolvers = {
     //         const exps = await Experience.find(filter).lean(MONGOOSE_LEAN_DEFAULTS);
     //         return exps.map(experienceReducer);
     //     },
-    
-    //     experience: (_, { id }) => Experience.findById(id).lean(MONGOOSE_LEAN_DEFAULTS).then(experienceReducer),
+        experiencesById: async (_, { ids }) => {
+            const experiences = await Experience.find({
+                _id: { $in: ids }
+            }).lean(MONGOOSE_LEAN_DEFAULTS);
+            
+            return experiences.map(experienceReducer);
+        }
     
     //     occurrences: async (_, { experienceIds }) => {
     //         const occs = await Occurrence.find({
@@ -118,7 +129,7 @@ export const resolvers: Resolvers = {
 
     //         return occs.map(occurrenceReducer);
     //     }
-    // },
+    },
 
     Mutation: {
         signUpUser: async (_, { email, password, firstName, lastName }) => {

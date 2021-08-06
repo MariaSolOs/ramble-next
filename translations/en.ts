@@ -85,11 +85,11 @@ const englishTranslation: TranslationRecord = {
     //     titlePlaceholder: 'Search experiences'
     // },
 
-    // ExperienceCard: {
-    //     perConnection: 'per connection',
-    //     perPerson: 'per person',
-    //     online: 'online'
-    // },
+    ExperienceCard: {
+        perConnection: 'per connection',
+        perPerson: 'per person',
+        online: 'online'
+    },
 
     // // CategoryBox: {
     // //     taste: 'Taste',

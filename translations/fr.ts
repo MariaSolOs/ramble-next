@@ -85,11 +85,11 @@ const frenchTranslation: TranslationRecord = {
     //     titlePlaceholder: 'Rechercher'
     // },
 
-    // ExperienceCard: {
-    //     perConnection: 'par connexion',
-    //     perPerson: 'par personne',
-    //     online: 'en ligne'
-    // },
+    ExperienceCard: {
+        perConnection: 'par connexion',
+        perPerson: 'par personne',
+        online: 'en ligne'
+    },
 
     // // CategoryBox: {
     // //     taste: 'Goutez',

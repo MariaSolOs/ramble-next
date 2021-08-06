@@ -236,8 +236,8 @@ export type Query = {
    * the indicated capacity, or those created by the specified creator.
    */
   experiences: Array<Experience>;
-  /** Get experience by its ID. */
-  experience: Experience;
+  /** Get experiences by their ID. */
+  experiencesById: Array<Experience>;
   /** Get the occurrences of the indicated experiences. */
   occurrences: Array<Occurrence>;
 };
@@ -250,8 +250,8 @@ export type QueryExperiencesArgs = {
 };
 
 
-export type QueryExperienceArgs = {
-  id: Scalars['ID'];
+export type QueryExperiencesByIdArgs = {
+  ids: Array<Scalars['ID']>;
 };
 
 
@@ -500,7 +500,7 @@ export type OccurrenceResolvers<ContextType = Context, ParentType extends Resolv
 export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   me?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   experiences?: Resolver<Array<ResolversTypes['Experience']>, ParentType, ContextType, RequireFields<QueryExperiencesArgs, never>>;
-  experience?: Resolver<ResolversTypes['Experience'], ParentType, ContextType, RequireFields<QueryExperienceArgs, 'id'>>;
+  experiencesById?: Resolver<Array<ResolversTypes['Experience']>, ParentType, ContextType, RequireFields<QueryExperiencesByIdArgs, 'ids'>>;
   occurrences?: Resolver<Array<ResolversTypes['Occurrence']>, ParentType, ContextType, RequireFields<QueryOccurrencesArgs, 'experienceIds'>>;
 };
 

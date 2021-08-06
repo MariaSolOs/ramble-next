@@ -28,9 +28,9 @@ export type TranslationRecord = {
 
     // SearchExperiences_Searchbar: Record<'personButtonLabel' | 'peopleButtonLabel' | 'search' | 'titlePlaceholder', string>;
 
-    // ExperienceCard: Record<'perConnection' | 'perPerson' | 'online', string>;
+    ExperienceCard: Record<'perConnection' | 'perPerson' | 'online', string>;
 
-    // // CategoryBox: Record<ExperienceCategory, string>;
+    // CategoryBox: Record<ExperienceCategory, string>;
 
     // Experience: Record<'online' | 'duration' | 'upTo' | 'person' | 'people' | 'language' | 'languages' | 'ageRestriction' | 'hostedBy' | 'aboutCreator' | 'planning' | 'included' | 'toBring' | 'location', string>;
 

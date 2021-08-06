@@ -18,9 +18,9 @@ export const typeDefs = gql`
         ): [Experience!]!
 
         """
-        Get experience by its ID.
+        Get experiences by their ID.
         """
-        experience(id: ID!): Experience!
+        experiencesById(ids: [ID!]!): [Experience!]!
 
         """
         Get the occurrences of the indicated experiences.
