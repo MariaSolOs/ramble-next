@@ -1,7 +1,11 @@
 import { GetStaticProps } from 'next';
 
-import apolloClient from 'apollo-client';
-import { GetFeaturedExperiencesDocument } from 'graphql-server/operations';
+import getGraphQLClient from 'graphQLClient';
+import { 
+    GetFeaturedExperiencesDocument,
+    GetFeaturedExperiencesQuery,
+    GetFeaturedExperiencesQueryVariables
+} from 'graphql-server/operations';
 import useLanguageContext from 'context/languageContext';
 import { getPlaceholder } from 'utils/cloudinary';
 import { CLOUDINARY_BASE_URI, FEATURED_EXPERIENCES_IDS } from 'global-constants';
@@ -23,15 +27,15 @@ const GRID_URLS = [
 ];
 
 const PARTAKE_URLS = [
-    'holding_camera.jpg',
-    'bar-whitedrinks.jpg',
-    'camera_on_legs.jpg'
+    'v1628286593/Ramble/Homepage/partake1.jpg',
+    'v1628286600/Ramble/Homepage/partake2.jpg',
+    'v1628286600/Ramble/Homepage/partake3.jpg',
 ] as const;
 
 const ADVENTURE_URLS = [
-    'street_shoots.jpg',
-    'cooking_online.jpg',
-    'cocktail_workshop.jpg'
+    'v1628286916/Ramble/Homepage/adventure1.jpg',
+    'v1628286916/Ramble/Homepage/adventure2.jpg',
+    'v1628286916/Ramble/Homepage/adventure3.jpg'
 ] as const;
 
 type Props = {
@@ -40,6 +44,8 @@ type Props = {
     adventureImages: Image[];
     featuredExperiences: ExperienceCard[];
 }
+
+const graphQLClient = getGraphQLClient();
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
     // Images for the landing collage
@@ -52,23 +58,22 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 
     // Images for the landing slides
     const partakeImagesPromises = PARTAKE_URLS.map(async (url) => {
-        const src = `${CLOUDINARY_BASE_URI}/c_fill,h_500,w_400/v1/Ramble/Homepage/${url}`;
+        const src = `${CLOUDINARY_BASE_URI}/c_fill,h_600,w_500/${url}`;
         const placeholder = await getPlaceholder(src);
         return { src, placeholder }
     });
     const partakeImages = await Promise.all(partakeImagesPromises);
 
     const adventureImagesPromises = ADVENTURE_URLS.map(async (url) => {
-        const src = `${CLOUDINARY_BASE_URI}/c_fill,h_500,w_400/v1/Ramble/Homepage/${url}`;
+        const src = `${CLOUDINARY_BASE_URI}/c_fill,h_600,w_500/${url}`;
         const placeholder = await getPlaceholder(src);
         return { src, placeholder }
     });
     const adventureImages = await Promise.all(adventureImagesPromises);
 
     // Featured experiences
-    const { data } = await apolloClient.query({
-        query: GetFeaturedExperiencesDocument,
-        variables: { ids: FEATURED_EXPERIENCES_IDS }
+    const data = await graphQLClient.request<GetFeaturedExperiencesQuery, GetFeaturedExperiencesQueryVariables>(GetFeaturedExperiencesDocument, {
+        ids: FEATURED_EXPERIENCES_IDS
     });
     const featuredExperiences = data.experiencesById.map(getCardInfo);
 

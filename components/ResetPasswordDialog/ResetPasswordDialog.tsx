@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { useMutation } from '@apollo/client';
 import { signIn } from 'next-auth/client';
 
+import getGraphQLClient from 'graphQLClient';
+import {
+    ResetPasswordDocument,
+    ResetPasswordMutation,
+    ResetPasswordMutationVariables
+} from 'graphql-server/operations';
 import useLanguageContext from 'context/languageContext';
 import useUiContext from 'context/uiContext';
-import { ResetPasswordDocument } from 'graphql-server/operations';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -23,6 +27,8 @@ enum FormField {
     Password2 = 'password2'
 }
 type Form = Record<FormField, string>;
+
+const graphQLClient = getGraphQLClient();
 
 const ResetPasswordDialog = () => {
     const { ResetPasswordDialog: text } = useLanguageContext().appText;
@@ -45,28 +51,9 @@ const ResetPasswordDialog = () => {
         }
     }, [query]);
 
-    const [resetPassword] = useMutation(ResetPasswordDocument, {
-        onCompleted: async ({ resetPassword }) => {
-            const signInResponse = await signIn('credentials', {
-                email: resetPassword.email,
-                password: values.password1,
-                redirect: false
-            });
-            if (signInResponse?.error) {
-                const message = signInResponse.error;
-                uiDispatch({ type: 'OPEN_ERROR_DIALOG', message });
-            }
-            handleClose();
-        },
-        onError: ({ graphQLErrors }) => {
-            const message = graphQLErrors[0].message || "We couldn't reset your password...";
-            uiDispatch({ type: 'OPEN_ERROR_DIALOG', message});
-            handleClose();
-        }
-    });
-
     const handleClose = () => { 
         setOpen(false); 
+        // Remove the reset query from the URL
         router.replace('/', undefined, { shallow: true });
     }
 
@@ -80,17 +67,38 @@ const ResetPasswordDialog = () => {
         }));
     }
 
-    const handleSubmit = (event: React.FormEvent) => {
+    const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
 
-        // Check passwords match
-        if (values.password1 !== values.password2) {
-            setPasswordMismatch(true);
-            return;
-        }
+        try {
+            // Check passwords match
+            if (values.password1 !== values.password2) {
+                setPasswordMismatch(true);
+                return;
+            }
 
-        const userId = query['password-reset'] as string;
-        resetPassword({ variables: { userId, password: values.password1 } });
+            const userId = query['password-reset'] as string;
+            const data = await graphQLClient.request<ResetPasswordMutation, ResetPasswordMutationVariables>(ResetPasswordDocument, {
+                userId,
+                password: values.password1
+            });
+
+            const signInResponse = await signIn('credentials', {
+                email: data.resetPassword.email,
+                password: values.password1,
+                redirect: false
+            });
+
+            if (signInResponse?.error) {
+                const message = signInResponse.error;
+                uiDispatch({ type: 'OPEN_ERROR_DIALOG', message });
+            }
+        } catch (err) {
+            const message = err.message || "We couldn't reset your password...";
+            uiDispatch({ type: 'OPEN_ERROR_DIALOG', message });
+        } finally {
+            handleClose();
+        }
     }
 
     return (

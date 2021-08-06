@@ -36,7 +36,7 @@ const ExperienceCard = (props: ExperienceCardProps) => {
                 onClick={props.onHeartClick}>
                     <FontAwesomeIcon icon={faHeart} className={classes.heartIcon} />
                 </Fab>}
-            <a href={linkUrl} target="_blank" rel="noopener noreferrer" >
+            <a className={classes.link} href={linkUrl} target="_blank" rel="noopener noreferrer" >
                 {props.experience.isZoomExperience && 
                     <div className={classes.online}>
                         <Image

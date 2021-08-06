@@ -5,7 +5,7 @@ import type { ExperienceCardStyleProps } from './index';
 
 const styles = (theme: Theme) => createStyles({
     root: {
-        borderRadius: '1.6rem',
+        borderRadius: '1.5rem',
         overflow: 'hidden',
         position: 'relative',
         cursor: 'pointer',
@@ -15,6 +15,8 @@ const styles = (theme: Theme) => createStyles({
             transition: 'transform 0.5s'
         }
     },
+
+    link: { textDecoration: 'none' },
 
     image: {
         position: 'relative',
@@ -26,7 +28,7 @@ const styles = (theme: Theme) => createStyles({
         backgroundColor: '#2D2E2E',
         letterSpacing: '-0.02rem',
         color: '#ECEBE5',
-        height: '40%',
+        height: 'calc(40% + 5px)',
         marginTop: -5,
         padding: '5px 10px 10px',
 

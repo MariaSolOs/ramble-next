@@ -1,10 +1,8 @@
-import { useEffect } from 'react';
-import { useSession } from 'next-auth/client';
-import { useLazyQuery } from '@apollo/client';
+// import { useEffect } from 'react';
+// import { useSession } from 'next-auth/client';
 import { v4 as uuid } from 'uuid';
 
-import { savedExperiencesVar } from 'apollo-client';
-import { GetUserSavedExperiencesDocument } from 'graphql-server/operations';
+// import { GetUserSavedExperiencesDocument } from 'graphql-server/operations';
 
 import useLanguageContext from 'context/languageContext';
 import type { LandingProps } from './index';
@@ -21,19 +19,19 @@ const Landing = (props: LandingProps) => {
     const classes = useStyles();
 
     // If the user is logged in, fetch their saved experiences
-    const [session] = useSession();
-    const isLoggedIn = Boolean(session?.user.userId);
-    const [getUserExperiences] = useLazyQuery(GetUserSavedExperiencesDocument, {
-        onCompleted: ({ me }) => {
-            savedExperiencesVar(me.savedExperiences.map(({ _id }) => _id));
-        }
-    });
+    // const [session] = useSession();
+    // const isLoggedIn = Boolean(session?.user.userId);
+    // const [getUserExperiences] = useLazyQuery(GetUserSavedExperiencesDocument, {
+    //     onCompleted: ({ me }) => {
+    //         savedExperiencesVar(me.savedExperiences.map(({ _id }) => _id));
+    //     }
+    // });
 
-    useEffect(() => {
-        if (isLoggedIn) {
-            getUserExperiences();
-        }
-    }, [isLoggedIn, getUserExperiences]);
+    // useEffect(() => {
+    //     if (isLoggedIn) {
+    //         getUserExperiences();
+    //     }
+    // }, [isLoggedIn, getUserExperiences]);
 
     return (
         <>

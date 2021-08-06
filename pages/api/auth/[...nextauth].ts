@@ -1,8 +1,15 @@
 import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
 
-import apolloClient from 'apollo-client';
-import { SignUpDocument, LogInDocument } from 'graphql-server/operations';
+import getGraphQLClient from 'graphQLClient';
+import { 
+    SignUpDocument,
+    SignUpMutation,
+    SignUpMutationVariables, 
+    LogInDocument,
+    LogInMutation,
+    LogInMutationVariables
+} from 'graphql-server/operations';
 
 type Credentials = {
     email: string;
@@ -10,6 +17,8 @@ type Credentials = {
     firstName?: string;
     lastName?: string;
 }
+
+const graphQLClient = getGraphQLClient();
 
 export default NextAuth({
     secret: process.env.NEXTAUTH_SECRET!,
@@ -24,58 +33,46 @@ export default NextAuth({
     providers: [
         Providers.Credentials({
             async authorize(credentials: Credentials) {
-                const isNewUser = Boolean(credentials.firstName);
+                try {
+                    const isNewUser = Boolean(credentials.firstName);
 
-                if (isNewUser) {
-                    const { data, errors } = await apolloClient.mutate({
-                        mutation: SignUpDocument,
-                        variables: {
+                    if (isNewUser) {
+                        const data = await graphQLClient.request<SignUpMutation, SignUpMutationVariables>(SignUpDocument, {
                             email: credentials.email,
                             password: credentials.password,
                             firstName: credentials.firstName!,
                             lastName: credentials.lastName!
+                        });
+                        return {
+                            userId: data.signUpUser._id,
+                            creatorId: '', // Cannot be a creator if just signed up
+                            firstName: data.signUpUser.firstName,
+                            email: data.signUpUser.email,
+                            photo: { // Cannot have a picture if just signed up
+                                src: '',
+                                placeholder: ''
+                            } 
                         }
-                    });
-
-                    if (!data || errors) {
-                        const errorMessage = errors ? errors[0].message : "We couldn't sign you in."
-                        throw errorMessage;
-                    }
-
-                    return {
-                        userId: data.signUpUser._id,
-                        creatorId: '', // Cannot be a creator if just signed up
-                        firstName: data.signUpUser.firstName,
-                        email: data.signUpUser.email,
-                        photo: { // Cannot have a picture if just signed up
-                            src: '',
-                            placeholder: ''
-                        } 
-                    }
-                } else {
-                    const { data, errors } = await apolloClient.mutate({
-                        mutation: LogInDocument,
-                        variables: { 
+                    } else {
+                        const data = await graphQLClient.request<LogInMutation, LogInMutationVariables>(LogInDocument, {
                             email: credentials.email,
-                            password: credentials.password 
-                        }
-                    });
-                    
-                    if (!data || errors) {
-                        const errorMessage = errors ? errors[0].message : "We couldn't log you in.";
-                        throw errorMessage;
-                    }
-
-                    return {
-                        userId: data.logInUser._id,
-                        creatorId: data.logInUser.creator?._id || '',
-                        firstName: data.logInUser.firstName,
-                        email: data.logInUser.email,
-                        photo: {
-                            src: data.logInUser.photo?.src || '',
-                            placeholder: data.logInUser.photo?.placeholder || ''
+                            password: credentials.password
+                        });
+                        
+                        return {
+                            userId: data.logInUser._id,
+                            creatorId: data.logInUser.creator?._id || '',
+                            firstName: data.logInUser.firstName,
+                            email: data.logInUser.email,
+                            photo: {
+                                src: data.logInUser.photo?.src || '',
+                                placeholder: data.logInUser.photo?.placeholder || ''
+                            }
                         }
                     }
+                } catch (err) {
+                    const errorMessage = err.message || "We couldn't sign you in.";
+                    throw errorMessage;
                 }
             }
         })

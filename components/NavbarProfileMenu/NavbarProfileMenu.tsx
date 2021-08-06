@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useApolloClient } from '@apollo/client';
 import { signOut } from 'next-auth/client';
 import { useRouter } from 'next/router';
 
@@ -21,7 +20,6 @@ const useStyles = makeStyles(styles);
 const NavbarProfileMenu = (props: NavbarProfileMenuProps) => {
     const { appText, toggleLanguage } = useLanguageContext();
     const { NavbarProfileMenu: text } = appText;
-    const client = useApolloClient();
     const router = useRouter();
     const { asPath: currentPath } = router;
     const classes = useStyles({ isCreator: props.isCreator });
@@ -37,7 +35,6 @@ const NavbarProfileMenu = (props: NavbarProfileMenuProps) => {
 
     const logout = async () => {
         closeMenu();
-        client.clearStore();
         const { url } = await signOut({ redirect: false });
         router.push(url);
     }
