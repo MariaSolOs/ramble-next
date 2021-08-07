@@ -1,15 +1,16 @@
 import { GetStaticProps } from 'next';
 
-import getGraphQLClient from 'graphQLClient';
-import { 
-    GetFeaturedExperiencesDocument,
-    GetFeaturedExperiencesQuery,
-    GetFeaturedExperiencesQueryVariables
-} from 'graphql-server/operations';
+// import getGraphQLClient from 'graphQLClient';
+// import { 
+//     GetFeaturedExperiencesDocument,
+//     GetFeaturedExperiencesQuery,
+//     GetFeaturedExperiencesQueryVariables
+// } from 'graphql-server/operations';
 import useLanguageContext from 'context/languageContext';
 import { getPlaceholder } from 'utils/cloudinary';
-import { CLOUDINARY_BASE_URI, FEATURED_EXPERIENCES_IDS } from 'global-constants';
-import { getCardInfo } from 'models/experience-interface';
+import { CLOUDINARY_BASE_URI } from 'global-constants';
+// import { CLOUDINARY_BASE_URI, FEATURED_EXPERIENCES_IDS } from 'global-constants';
+// import { getCardInfo } from 'models/experience-interface';
 import type { Image } from 'models/files';
 // import type { ExperienceCard } from 'models/experience-interface';
 
@@ -45,7 +46,7 @@ type Props = {
     // featuredExperiences: ExperienceCard[];
 }
 
-const graphQLClient = getGraphQLClient();
+// const graphQLClient = getGraphQLClient();
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
     // Images for the landing collage
@@ -72,17 +73,17 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     const adventureImages = await Promise.all(adventureImagesPromises);
 
     // Featured experiences
-    const data = await graphQLClient.request<GetFeaturedExperiencesQuery, GetFeaturedExperiencesQueryVariables>(GetFeaturedExperiencesDocument, {
-        ids: FEATURED_EXPERIENCES_IDS
-    });
-    const featuredExperiences = data.experiencesById.map(getCardInfo);
+    // const data = await graphQLClient.request<GetFeaturedExperiencesQuery, GetFeaturedExperiencesQueryVariables>(GetFeaturedExperiencesDocument, {
+    //     ids: FEATURED_EXPERIENCES_IDS
+    // });
+    // const featuredExperiences = data.experiencesById.map(getCardInfo);
 
     return {
         props: {
             collageImages,
             partakeImages,
             adventureImages,
-            featuredExperiences
+            // featuredExperiences
         }
     }
 }
