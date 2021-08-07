@@ -35,7 +35,13 @@ export const sendPasswordResetEmail = async (
     userId: string, 
     emailAddress: string
 ) => {
-    const source = fs.readFileSync(path.resolve(process.cwd(), 'email-templates', 'password-reset.mjml'), 'utf-8');              
+    let basePath = process.cwd();
+    if (process.env.VERCEL_ENV === 'production') {
+        basePath = path.join(process.cwd(), '.next/server/chunks');
+    }
+    const filePath = path.join(basePath, 'email-templates/password-reset.mjml');
+    // const fileContent = await fs.readFile(filePath, "utf8")
+    const source = fs.readFileSync(filePath, 'utf-8');              
     const template = compile(source);
     const mjml = template({
         passwordLink: `${process.env.RAMBLE_URL}?password-reset=${userId}`

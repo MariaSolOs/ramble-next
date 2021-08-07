@@ -7,8 +7,9 @@ import { getSdkWithHooks } from 'graphql-server/sdk';
 // } from 'graphql-server/operations';
 
 const graphQLClient = getGraphQLClient();
+const sdk = getSdkWithHooks(graphQLClient);
 
 export default function useSavedExperiences() {
-    const sdk = getSdkWithHooks(graphQLClient);
-    console.log(sdk);
+    const { data } = sdk.useGetUserSavedExperiences('/api/graphql');
+    console.log(data)
 }
