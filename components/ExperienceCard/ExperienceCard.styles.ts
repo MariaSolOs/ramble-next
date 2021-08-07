@@ -108,7 +108,8 @@ const styles = (theme: Theme) => createStyles({
         right: 10,
         height: 36, 
         width: 36,
-        backgroundColor: 'rgba(256, 256, 256, 0.56)'
+        backgroundColor: 'rgba(256, 256, 256, 0.56)',
+        zIndex: 1
     },
 
     heartIcon: {

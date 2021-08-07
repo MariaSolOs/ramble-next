@@ -64,12 +64,11 @@ export type Experience = {
   includedItems: Array<Scalars['String']>;
   toBringItems: Array<Scalars['String']>;
   capacity: Scalars['Int'];
-  zoomPMI?: Maybe<Scalars['String']>;
+  isOnlineExperience: Scalars['Boolean'];
   pricePerPerson: Scalars['Int'];
   privatePrice?: Maybe<Scalars['Int']>;
   currency: Scalars['String'];
-  ratingValue: Scalars['Float'];
-  numberOfRatings: Scalars['Int'];
+  ratingValue?: Maybe<Scalars['Float']>;
   creator: Creator;
 };
 
@@ -154,12 +153,12 @@ export type MutationSignUpCreatorArgs = {
 
 
 export type MutationSaveExperienceArgs = {
-  experienceId: Scalars['String'];
+  experienceId: Scalars['ID'];
 };
 
 
 export type MutationUnsaveExperienceArgs = {
-  experienceId: Scalars['String'];
+  experienceId: Scalars['ID'];
 };
 
 
@@ -456,12 +455,11 @@ export type ExperienceResolvers<ContextType = Context, ParentType extends Resolv
   includedItems?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   toBringItems?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   capacity?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  zoomPMI?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  isOnlineExperience?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   pricePerPerson?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   privatePrice?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   currency?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  ratingValue?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
-  numberOfRatings?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  ratingValue?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   creator?: Resolver<ResolversTypes['Creator'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };

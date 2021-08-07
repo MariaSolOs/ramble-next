@@ -78,12 +78,12 @@ const frenchTranslation: TranslationRecord = {
         title: 'Désolé!'
     },
 
-    // SearchExperiences_Searchbar: {
-    //     personButtonLabel: 'Personne',
-    //     peopleButtonLabel: 'Personnes',
-    //     search: 'Explorer',
-    //     titlePlaceholder: 'Rechercher'
-    // },
+    SearchExperiences: {
+        personButtonLabel: 'Personne',
+        peopleButtonLabel: 'Personnes',
+        search: 'Explorer',
+        titlePlaceholder: 'Rechercher'
+    },
 
     ExperienceCard: {
         perConnection: 'par connexion',
@@ -127,19 +127,19 @@ const frenchTranslation: TranslationRecord = {
     //     perPerson: 'par personne'
     // },
 
-    // BecomeACreator: {
-    //     becomeTitle: 'Devenez un créateur.',
-    //     shareTitle: 'Partagez votre passion.',
-    //     getPaidTitle: "Faites de l'argent.",
-    //     getStarted: 'Débuter',
-    //     currentCreators1: 'Rencontrez quelques', 
-    //     currentCreators2: 'Créateurs',
-    //     actTitle1: 'Partagez votre passion',
-    //     actTitle2: 'dès maintenant.',
-    //     lightbulbText: 'Trouvez une manière unique de partager votre passion',
-    //     cloudText: 'Invitez des gens dans votre univers',
-    //     walletText: 'Transmettez ce qui vous passionne, tout en étant payé'
-    // },
+    BecomeACreator: {
+        becomeTitle: 'Devenez un créateur.',
+        shareTitle: 'Partagez votre passion.',
+        getPaidTitle: "Faites de l'argent.",
+        getStarted: 'Débuter',
+        currentCreators1: 'Rencontrez quelques', 
+        currentCreators2: 'Créateurs',
+        actTitle1: 'Partagez votre passion',
+        actTitle2: 'dès maintenant.',
+        lightbulbText: 'Trouvez une manière unique de partager votre passion',
+        cloudText: 'Invitez des gens dans votre univers',
+        walletText: 'Transmettez ce qui vous passionne, tout en étant payé'
+    },
 
     // CreatorForm: {
     //     headerTitle: 'Avant de donner vie à votre expérience, nous aimerions vous connaître un peu mieux.',

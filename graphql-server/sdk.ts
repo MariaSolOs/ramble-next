@@ -18,7 +18,6 @@ export type Scalars = {
 
 /** Bookings associated to an occurrence */
 export type Booking = {
-  __typename?: 'Booking';
   _id: Scalars['ID'];
   occurrence: Occurrence;
   bookingType: Reservation;
@@ -31,7 +30,6 @@ export type Booking = {
 
 /** Mutation results */
 export type CreateBookingResult = {
-  __typename?: 'CreateBookingResult';
   meetingPoint?: Maybe<Scalars['String']>;
   creatorPhone: Scalars['String'];
   cardBrand: Scalars['String'];
@@ -40,7 +38,6 @@ export type CreateBookingResult = {
 
 /** Experience creators */
 export type Creator = {
-  __typename?: 'Creator';
   _id: Scalars['ID'];
   user: User;
   bio: Scalars['String'];
@@ -50,7 +47,6 @@ export type Creator = {
 
 /** Experience */
 export type Experience = {
-  __typename?: 'Experience';
   _id: Scalars['ID'];
   title: Scalars['String'];
   description: Scalars['String'];
@@ -66,12 +62,11 @@ export type Experience = {
   includedItems: Array<Scalars['String']>;
   toBringItems: Array<Scalars['String']>;
   capacity: Scalars['Int'];
-  zoomPMI?: Maybe<Scalars['String']>;
+  isOnlineExperience: Scalars['Boolean'];
   pricePerPerson: Scalars['Int'];
   privatePrice?: Maybe<Scalars['Int']>;
   currency: Scalars['String'];
-  ratingValue: Scalars['Float'];
-  numberOfRatings: Scalars['Int'];
+  ratingValue?: Maybe<Scalars['Float']>;
   creator: Creator;
 };
 
@@ -86,13 +81,11 @@ export enum ExperienceCategory {
 
 /** Image with blurred placeholder */
 export type Image = {
-  __typename?: 'Image';
   placeholder: Scalars['String'];
   src: Scalars['String'];
 };
 
 export type Mutation = {
-  __typename?: 'Mutation';
   /** User sign up. */
   signUpUser: User;
   /** User log in. */
@@ -156,12 +149,12 @@ export type MutationSignUpCreatorArgs = {
 
 
 export type MutationSaveExperienceArgs = {
-  experienceId: Scalars['String'];
+  experienceId: Scalars['ID'];
 };
 
 
 export type MutationUnsaveExperienceArgs = {
-  experienceId: Scalars['String'];
+  experienceId: Scalars['ID'];
 };
 
 
@@ -213,7 +206,6 @@ export type MutationDeleteOccurrenceArgs = {
  * experience
  */
 export type Occurrence = {
-  __typename?: 'Occurrence';
   _id: Scalars['ID'];
   experience: Experience;
   dateStart: Scalars['String'];
@@ -230,7 +222,6 @@ export type OccurrenceInput = {
 };
 
 export type Query = {
-  __typename?: 'Query';
   /** The current logged in user. */
   me: User;
   /**
@@ -269,14 +260,12 @@ export enum Reservation {
 
 /** Representation of a creator's Stripe profile */
 export type StripeInfo = {
-  __typename?: 'StripeInfo';
   onboarded?: Maybe<Scalars['Boolean']>;
   accountId?: Maybe<Scalars['ID']>;
 };
 
 /** Application's users */
 export type User = {
-  __typename?: 'User';
   _id: Scalars['ID'];
   firstName: Scalars['String'];
   lastName: Scalars['String'];
@@ -291,31 +280,19 @@ export type User = {
 };
 
 export type CoreProfileFragment = (
-  { __typename?: 'User' }
-  & Pick<User, '_id' | 'email'>
-  & { creator?: Maybe<(
-    { __typename?: 'Creator' }
-    & Pick<Creator, '_id'>
-  )> }
+  Pick<User, '_id' | 'email'>
+  & { creator?: Maybe<Pick<Creator, '_id'>> }
   & UserAvatarFragment
 );
 
 export type CardContentFragment = (
-  { __typename?: 'Experience' }
-  & Pick<Experience, '_id' | 'title' | 'pricePerPerson' | 'ratingValue' | 'numberOfRatings' | 'location' | 'zoomPMI'>
-  & { images: Array<(
-    { __typename?: 'Image' }
-    & Pick<Image, 'src' | 'placeholder'>
-  )> }
+  Pick<Experience, '_id' | 'title' | 'pricePerPerson' | 'ratingValue' | 'location' | 'isOnlineExperience'>
+  & { images: Array<Pick<Image, 'src' | 'placeholder'>> }
 );
 
 export type UserAvatarFragment = (
-  { __typename?: 'User' }
-  & Pick<User, 'firstName'>
-  & { photo?: Maybe<(
-    { __typename?: 'Image' }
-    & Pick<Image, 'src' | 'placeholder'>
-  )> }
+  Pick<User, 'firstName'>
+  & { photo?: Maybe<Pick<Image, 'src' | 'placeholder'>> }
 );
 
 export type LogInMutationVariables = Exact<{
@@ -324,13 +301,7 @@ export type LogInMutationVariables = Exact<{
 }>;
 
 
-export type LogInMutation = (
-  { __typename?: 'Mutation' }
-  & { logInUser: (
-    { __typename?: 'User' }
-    & CoreProfileFragment
-  ) }
-);
+export type LogInMutation = { logInUser: CoreProfileFragment };
 
 export type ResetPasswordMutationVariables = Exact<{
   userId: Scalars['ID'];
@@ -338,13 +309,14 @@ export type ResetPasswordMutationVariables = Exact<{
 }>;
 
 
-export type ResetPasswordMutation = (
-  { __typename?: 'Mutation' }
-  & { resetPassword: (
-    { __typename?: 'User' }
-    & Pick<User, '_id' | 'email'>
-  ) }
-);
+export type ResetPasswordMutation = { resetPassword: Pick<User, '_id' | 'email'> };
+
+export type SaveExperienceMutationVariables = Exact<{
+  experienceId: Scalars['ID'];
+}>;
+
+
+export type SaveExperienceMutation = { saveExperience: Pick<Experience, '_id'> };
 
 export type SignUpMutationVariables = Exact<{
   email: Scalars['String'];
@@ -354,13 +326,14 @@ export type SignUpMutationVariables = Exact<{
 }>;
 
 
-export type SignUpMutation = (
-  { __typename?: 'Mutation' }
-  & { signUpUser: (
-    { __typename?: 'User' }
-    & CoreProfileFragment
-  ) }
-);
+export type SignUpMutation = { signUpUser: CoreProfileFragment };
+
+export type UnsaveExperienceMutationVariables = Exact<{
+  experienceId: Scalars['ID'];
+}>;
+
+
+export type UnsaveExperienceMutation = { unsaveExperience: Pick<Experience, '_id'> };
 
 export type UpdateProfileMutationVariables = Exact<{
   firstName?: Maybe<Scalars['String']>;
@@ -374,40 +347,19 @@ export type UpdateProfileMutationVariables = Exact<{
 }>;
 
 
-export type UpdateProfileMutation = (
-  { __typename?: 'Mutation' }
-  & { editUser: (
-    { __typename?: 'User' }
-    & CoreProfileFragment
-  ) }
-);
+export type UpdateProfileMutation = { editUser: CoreProfileFragment };
 
 export type GetFeaturedExperiencesQueryVariables = Exact<{
   ids: Array<Scalars['ID']> | Scalars['ID'];
 }>;
 
 
-export type GetFeaturedExperiencesQuery = (
-  { __typename?: 'Query' }
-  & { experiencesById: Array<(
-    { __typename?: 'Experience' }
-    & CardContentFragment
-  )> }
-);
+export type GetFeaturedExperiencesQuery = { experiencesById: Array<CardContentFragment> };
 
 export type GetUserSavedExperiencesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetUserSavedExperiencesQuery = (
-  { __typename?: 'Query' }
-  & { me: (
-    { __typename?: 'User' }
-    & { savedExperiences: Array<(
-      { __typename?: 'Experience' }
-      & Pick<Experience, '_id'>
-    )> }
-  ) }
-);
+export type GetUserSavedExperiencesQuery = { me: { savedExperiences: Array<Pick<Experience, '_id'>> } };
 
 export const UserAvatarFragmentDoc = gql`
     fragment UserAvatar on User {
@@ -438,9 +390,8 @@ export const CardContentFragmentDoc = gql`
   }
   pricePerPerson
   ratingValue
-  numberOfRatings
   location
-  zoomPMI
+  isOnlineExperience
 }
     `;
 export const LogInDocument = gql`
@@ -458,6 +409,13 @@ export const ResetPasswordDocument = gql`
   }
 }
     `;
+export const SaveExperienceDocument = gql`
+    mutation saveExperience($experienceId: ID!) {
+  saveExperience(experienceId: $experienceId) {
+    _id
+  }
+}
+    `;
 export const SignUpDocument = gql`
     mutation signUp($email: String!, $password: String!, $firstName: String!, $lastName: String!) {
   signUpUser(
@@ -470,6 +428,13 @@ export const SignUpDocument = gql`
   }
 }
     ${CoreProfileFragmentDoc}`;
+export const UnsaveExperienceDocument = gql`
+    mutation unsaveExperience($experienceId: ID!) {
+  unsaveExperience(experienceId: $experienceId) {
+    _id
+  }
+}
+    `;
 export const UpdateProfileDocument = gql`
     mutation updateProfile($firstName: String, $lastName: String, $birthday: String, $email: String, $photo: String, $phoneNumber: String, $city: String, $creatorBio: String) {
   editUser(
@@ -516,8 +481,14 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     resetPassword(variables: ResetPasswordMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<ResetPasswordMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<ResetPasswordMutation>(ResetPasswordDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'resetPassword');
     },
+    saveExperience(variables: SaveExperienceMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<SaveExperienceMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<SaveExperienceMutation>(SaveExperienceDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'saveExperience');
+    },
     signUp(variables: SignUpMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<SignUpMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<SignUpMutation>(SignUpDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'signUp');
+    },
+    unsaveExperience(variables: UnsaveExperienceMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UnsaveExperienceMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<UnsaveExperienceMutation>(UnsaveExperienceDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'unsaveExperience');
     },
     updateProfile(variables?: UpdateProfileMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateProfileMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<UpdateProfileMutation>(UpdateProfileDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'updateProfile');

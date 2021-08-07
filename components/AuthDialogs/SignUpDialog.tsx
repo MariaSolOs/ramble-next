@@ -4,6 +4,7 @@ import { signIn } from 'next-auth/client';
 import useLanguageContext from 'context/languageContext';
 import useUiContext from 'context/uiContext';
 
+import Spinner from 'components/Spinner';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import CloseIcon from '@material-ui/icons/Close';
@@ -41,6 +42,7 @@ const SignUpDialog = () => {
     const classes = useStyles();
 
     const [values, setValues] = useState(initialForm);
+    const [loading, setLoading] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
 
     const handleFormChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,6 +59,8 @@ const SignUpDialog = () => {
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
+
+        setLoading(true);
 
         // Password check
         if (values.password1 !== values.password2) {
@@ -82,6 +86,7 @@ const SignUpDialog = () => {
     const handleClose = () => {
         setValues(initialForm);
         setPasswordError(false);
+        setLoading(false);
         uiDispatch({ type: 'CLOSE_SIGN_UP_DIALOG' });
     }
 
@@ -91,6 +96,7 @@ const SignUpDialog = () => {
         className={classes.dialog} 
         open={open} 
         onClose={handleClose}>
+            {loading && <Spinner />}
             <div className={classes.header}>
                 <CloseIcon className={classes.closeIcon} onClick={handleClose} />
                 <h5 className={classes.title}>{text.signUp}</h5>

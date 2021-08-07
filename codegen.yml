@@ -13,6 +13,7 @@ generates:
       - typescript-graphql-request
       - plugin-typescript-swr
     config:
+      skipTypename: true
       excludeQueries:
         - getFeaturedExperiences
   ./graphql-server/resolvers-types.ts:

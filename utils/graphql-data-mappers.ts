@@ -20,12 +20,11 @@ export const experienceReducer = (exp: Experience | null) => ({
     includedItems: exp?.included || [],
     toBringItems: exp?.toBring || [],
     capacity: exp?.capacity || 0,
-    zoomPMI: exp?.zoomInfo ? exp?.zoomInfo.PMI : null,
+    isOnlineExperience: Boolean(exp?.zoomInfo?.PMI),
     pricePerPerson: exp?.price.perPerson || 0,
     privatePrice: exp?.price.private || null,
     currency: exp?.price.currency || 'CAD',
-    ratingValue: exp?.rating.value || 5,
-    numberOfRatings: exp?.rating.numRatings || 0,
+    ratingValue: exp?.rating.value || null,
     creator: exp?.creator || ''
 });
 

@@ -26,6 +26,18 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 // }
 
 /**
+ * @param templateName - The mjml template name
+ * @returns The corresponding filepath
+ */
+const getFilePath = (templateName: string) => {
+    let basePath = process.cwd();
+    if (process.env.VERCEL_ENV === 'production') {
+        basePath = path.join(process.cwd(), '.next/server/chunks');
+    }
+    return path.join(basePath, `email-templates/${templateName}.mjml`);
+}
+
+/**
  * Sends an email for resetting the user's password.
  * 
  * @param userId - The ID of the unlucky user
@@ -35,13 +47,7 @@ export const sendPasswordResetEmail = async (
     userId: string, 
     emailAddress: string
 ) => {
-    let basePath = process.cwd();
-    if (process.env.VERCEL_ENV === 'production') {
-        basePath = path.join(process.cwd(), '.next/server/chunks');
-    }
-    const filePath = path.join(basePath, 'email-templates/password-reset.mjml');
-    // const fileContent = await fs.readFile(filePath, "utf8")
-    const source = fs.readFileSync(filePath, 'utf-8');              
+    const source = fs.readFileSync(getFilePath('password-reset'), 'utf-8');              
     const template = compile(source);
     const mjml = template({
         passwordLink: `${process.env.RAMBLE_URL}?password-reset=${userId}`
@@ -73,7 +79,7 @@ export const sendBookingNotificationEmail = async (
     dashboardLink: string,
     creatorEmail: string
 ) => {
-    const source = fs.readFileSync(path.resolve(process.cwd(), 'email-templates', 'new-booking.mjml'), 'utf-8');     
+    const source = fs.readFileSync(getFilePath('new-booking'), 'utf-8');  
     const template = compile(source);
     const mjml = template({
         clientName,

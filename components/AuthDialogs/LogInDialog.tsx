@@ -4,6 +4,7 @@ import { signIn } from 'next-auth/client';
 import useLanguageContext from 'context/languageContext';
 import useUiContext from 'context/uiContext';
 
+import Spinner from 'components/Spinner';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import CloseIcon from '@material-ui/icons/Close';
@@ -31,16 +32,20 @@ const LogInDialog = () => {
     // Form management
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
     const [showForgotPwdDialog, setShowForgotPwdDialog] = useState(false);
 
     const handleClose = () => {
         setEmail('');
         setPassword('');
+        setLoading(false);
         uiDispatch({ type: 'CLOSE_LOG_IN_DIALOG' });
     }
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
+
+        setLoading(true);
 
         const signInResponse = await signIn('credentials', { 
             email, 
@@ -69,6 +74,7 @@ const LogInDialog = () => {
         className={classes.dialog} 
         open={open}
         onClose={handleClose}>
+            {loading && <Spinner />}
             <div className={classes.header}>
                 <CloseIcon className={classes.closeIcon} onClick={handleClose} />
                 <h5 className={classes.title}>{text.logIn}</h5>

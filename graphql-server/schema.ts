@@ -80,8 +80,8 @@ export const typeDefs = gql`
         """
         For users to save/unsave an experience.
         """
-        saveExperience(experienceId: String!): Experience!
-        unsaveExperience(experienceId: String!): Experience!
+        saveExperience(experienceId: ID!): Experience!
+        unsaveExperience(experienceId: ID!): Experience!
         
         """
         Experience creation.
@@ -206,12 +206,11 @@ export const typeDefs = gql`
         includedItems: [String!]!
         toBringItems: [String!]!
         capacity: Int!
-        zoomPMI: String
+        isOnlineExperience: Boolean!
         pricePerPerson: Int!
         privatePrice: Int
         currency: String!
-        ratingValue: Float!
-        numberOfRatings: Int!
+        ratingValue: Float
         creator: Creator!
     }
 

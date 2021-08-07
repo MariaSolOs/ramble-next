@@ -7,7 +7,6 @@ fragment CardContent on Experience {
     }
     pricePerPerson
     ratingValue
-    numberOfRatings
     location
-    zoomPMI
+    isOnlineExperience
 }

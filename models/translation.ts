@@ -26,7 +26,7 @@ export type TranslationRecord = {
 
     ErrorDialog: Record<'title', string>;
 
-    // SearchExperiences_Searchbar: Record<'personButtonLabel' | 'peopleButtonLabel' | 'search' | 'titlePlaceholder', string>;
+    SearchExperiences: Record<'personButtonLabel' | 'peopleButtonLabel' | 'search' | 'titlePlaceholder', string>;
 
     ExperienceCard: Record<'perConnection' | 'perPerson' | 'online', string>;
 
@@ -38,7 +38,7 @@ export type TranslationRecord = {
 
     // ViewExperience: Record<'bookExperience' | 'perConnection' | 'perPerson', string>;
 
-    // BecomeACreator: Record<'becomeTitle' | 'shareTitle' | 'getPaidTitle' | 'getStarted' | 'currentCreators1' | 'currentCreators2' | 'actTitle1' | 'actTitle2' | 'lightbulbText' | 'cloudText' | 'walletText', string>;
+    BecomeACreator: Record<'becomeTitle' | 'shareTitle' | 'getPaidTitle' | 'getStarted' | 'currentCreators1' | 'currentCreators2' | 'actTitle1' | 'actTitle2' | 'lightbulbText' | 'cloudText' | 'walletText', string>;
 
     // CreatorForm: Record<'headerTitle' | 'profilePicture' | 'showSmile' | 'aboutYouTitle' | 'aboutYouSubtitle' | 'aboutYouTitle' | 'aboutYouTip' | 'phoneNumberTitle' | 'phoneNumberSubtitle' | 'phoneNumberError' | 'idTitle' | 'idSubtitle' | 'idTip1' | 'idTip2' | 'front' | 'back' | 'frontIdText' | 'backIdText' | 'addFront' | 'addBack' | 'done', string>;
 

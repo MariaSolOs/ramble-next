@@ -18,14 +18,18 @@ const useStyles = makeStyles(styles);
 const ExperienceCard = (props: ExperienceCardProps) => {
     const { appText, language } = useLanguageContext(); 
     const { ExperienceCard: text } = appText; 
+    
+    // Use the first image for the card
+    const image = props.experience.images[0];
+    const hasRatingInfo = Boolean(props.experience.ratingValue);
+    const linkUrl = `${process.env.NEXT_PUBLIC_RAMBLE_URL}${routes.experienceDetails(props.experience._id).href}`;
+    const priceText = props.experience.isOnlineExperience ? text.perConnection : text.perPerson;
+
     const classes = useStyles({
         language,
-        hasRatingInfo: Boolean(props.experience.rating),
+        hasRatingInfo,
         isSaved: Boolean(props.isSaved)
     });
-
-    const linkUrl = `${process.env.NEXT_PUBLIC_RAMBLE_URL}${routes.experienceDetails(props.experience._id).href}`;
-    const priceText = props.experience.isZoomExperience ? text.perConnection : text.perPerson;
 
     return (
         <div className={`${classes.root} ${props.containerClass}`}>
@@ -37,7 +41,7 @@ const ExperienceCard = (props: ExperienceCardProps) => {
                     <FontAwesomeIcon icon={faHeart} className={classes.heartIcon} />
                 </Fab>}
             <a className={classes.link} href={linkUrl} target="_blank" rel="noopener noreferrer" >
-                {props.experience.isZoomExperience && 
+                {props.experience.isOnlineExperience && 
                     <div className={classes.online}>
                         <Image
                         src={onlineIcon}
@@ -48,24 +52,24 @@ const ExperienceCard = (props: ExperienceCardProps) => {
                     </div>}
                 <div className={classes.image}>
                     <Image
-                    src={props.experience.image.src}
+                    src={image.src}
                     alt={props.experience.title}
                     placeholder="blur"
-                    blurDataURL={props.experience.image.placeholder}
+                    blurDataURL={image.placeholder}
                     layout="fill"
                     objectFit="cover" />
                 </div>
                 <div className={classes.body}>
                     <p className={classes.title}>{props.experience.title}</p>
                     <p className={classes.location}>{props.experience.location}</p>
-                    {props.experience.rating &&
+                    {hasRatingInfo &&
                         <p className={classes.rating}>
-                            {props.experience.rating.toFixed(2)} 
+                            {props.experience.ratingValue!.toFixed(2)} 
                             <StarRateIcon className={classes.starIcon} />
                         </p>}
                     <p className={classes.priceInfo}>
                         <span className={classes.price}>
-                            ${props.experience.price}{' '} 
+                            ${props.experience.pricePerPerson}{' '} 
                         </span>
                         {priceText.toUpperCase()}
                     </p>

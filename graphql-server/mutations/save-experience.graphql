@@ -1,0 +1,5 @@
+mutation saveExperience($experienceId: ID!) {
+    saveExperience(experienceId: $experienceId) {
+        _id
+    }
+}

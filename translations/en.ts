@@ -78,12 +78,12 @@ const englishTranslation: TranslationRecord = {
         title: "Sorry 'bout that."
     },
 
-    // SearchExperiences_Searchbar: {
-    //     personButtonLabel: 'Person',
-    //     peopleButtonLabel: 'People',
-    //     search: 'Search',
-    //     titlePlaceholder: 'Search experiences'
-    // },
+    SearchExperiences: {
+        personButtonLabel: 'Person',
+        peopleButtonLabel: 'People',
+        search: 'Search',
+        titlePlaceholder: 'Search experiences'
+    },
 
     ExperienceCard: {
         perConnection: 'per connection',
@@ -127,19 +127,19 @@ const englishTranslation: TranslationRecord = {
     //     perPerson: 'per person'
     // },
 
-    // BecomeACreator: {
-    //     becomeTitle: 'Become a Creator.',
-    //     shareTitle: 'Share your passion.',
-    //     getPaidTitle: 'Get paid.',
-    //     getStarted: 'Get Started',
-    //     currentCreators1: 'Meet current',
-    //     currentCreators2: 'Creators',
-    //     actTitle1: 'Get your act', 
-    //     actTitle2: 'out there.',
-    //     lightbulbText: 'Find a unique way to share your passion',
-    //     cloudText: 'Bring people into your own world',
-    //     walletText: 'Make money while sharing what really matters to you'
-    // },
+    BecomeACreator: {
+        becomeTitle: 'Become a Creator.',
+        shareTitle: 'Share your passion.',
+        getPaidTitle: 'Get paid.',
+        getStarted: 'Get Started',
+        currentCreators1: 'Meet current',
+        currentCreators2: 'Creators',
+        actTitle1: 'Get your act', 
+        actTitle2: 'out there.',
+        lightbulbText: 'Find a unique way to share your passion',
+        cloudText: 'Bring people into your own world',
+        walletText: 'Make money while sharing what really matters to you'
+    },
 
     // CreatorForm: {
     //     headerTitle: 'Before giving life to your experience we would like to get to know you a little bit better.',

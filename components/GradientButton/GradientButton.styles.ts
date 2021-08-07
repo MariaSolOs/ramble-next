@@ -27,6 +27,11 @@ const styles = (theme: Theme) => createStyles({
             pointerEvents: 'none',
             filter: 'brightness(70%)'
         }
+    },
+
+    link: { 
+        textDecoration: 'none',
+        display: 'contents' 
     }
 });
 
