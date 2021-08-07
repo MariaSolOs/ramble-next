@@ -49,8 +49,8 @@ const NavbarProfileMenu = (props: NavbarProfileMenuProps) => {
     return (
         <>
             <button onClick={e => setAnchorEl(e.currentTarget)} className={classes.button}>
-                <Avatar alt={props.userName} className={classes.avatar}>
-                    {props.userPhoto && 
+                <Avatar className={classes.avatar}>
+                    {props.userPhoto?.src ? 
                         <Image
                         src={props.userPhoto.src}
                         alt={props.userName}
@@ -58,7 +58,8 @@ const NavbarProfileMenu = (props: NavbarProfileMenuProps) => {
                         height={40}
                         objectFit="cover"
                         placeholder="blur"
-                        blurDataURL={props.userPhoto.placeholder} />}
+                        blurDataURL={props.userPhoto.placeholder} /> :
+                        props.userName.charAt(0)}
                 </Avatar>
                 <span className={classes.userName}>{props.userName}</span>
             </button>

@@ -6,11 +6,15 @@ generates:
   ./graphql-server/introspection.json:
     plugins:
       - introspection
-  ./graphql-server/operations.ts:
+  ./graphql-server/sdk.ts:
     plugins:
       - typescript
       - typescript-operations
-      - typed-document-node
+      - typescript-graphql-request
+      - plugin-typescript-swr
+    config:
+      excludeQueries:
+        - getFeaturedExperiences
   ./graphql-server/resolvers-types.ts:
     plugins:
       - typescript

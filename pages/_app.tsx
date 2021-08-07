@@ -5,6 +5,7 @@ import type { AppProps } from 'next/app';
 import { LanguageProvider } from 'context/languageContext';
 import { UiProvider } from 'context/uiContext';
 
+import Head from 'next/head';
 import Navbar from 'components/Navbar';
 import { LogInDialog, SignUpDialog } from 'components/AuthDialogs';
 import ErrorDialog from 'components/ErrorDialog';
@@ -26,6 +27,9 @@ const App = ({ Component, pageProps }: AppProps) => {
     
     return (
         <Provider session={pageProps.session}>
+            <Head>
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+            </Head>
             <LanguageProvider>
                 <UiProvider>
                     <GlobalStyles>

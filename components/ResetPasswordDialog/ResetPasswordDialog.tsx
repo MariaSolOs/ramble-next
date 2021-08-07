@@ -3,11 +3,7 @@ import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/client';
 
 import getGraphQLClient from 'graphQLClient';
-import {
-    ResetPasswordDocument,
-    ResetPasswordMutation,
-    ResetPasswordMutationVariables
-} from 'graphql-server/operations';
+import { getSdk } from 'graphql-server/sdk';
 import useLanguageContext from 'context/languageContext';
 import useUiContext from 'context/uiContext';
 
@@ -29,6 +25,7 @@ enum FormField {
 type Form = Record<FormField, string>;
 
 const graphQLClient = getGraphQLClient();
+const sdk = getSdk(graphQLClient);
 
 const ResetPasswordDialog = () => {
     const { ResetPasswordDialog: text } = useLanguageContext().appText;
@@ -78,10 +75,10 @@ const ResetPasswordDialog = () => {
             }
 
             const userId = query['password-reset'] as string;
-            const data = await graphQLClient.request<ResetPasswordMutation, ResetPasswordMutationVariables>(ResetPasswordDocument, {
-                userId,
+            const data = await sdk.resetPassword({
+                userId, 
                 password: values.password1
-            });
+            }); 
 
             const signInResponse = await signIn('credentials', {
                 email: data.resetPassword.email,

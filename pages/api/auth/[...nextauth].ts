@@ -2,14 +2,7 @@ import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
 
 import getGraphQLClient from 'graphQLClient';
-import { 
-    SignUpDocument,
-    SignUpMutation,
-    SignUpMutationVariables, 
-    LogInDocument,
-    LogInMutation,
-    LogInMutationVariables
-} from 'graphql-server/operations';
+import { getSdk } from 'graphql-server/sdk';
 
 type Credentials = {
     email: string;
@@ -19,6 +12,7 @@ type Credentials = {
 }
 
 const graphQLClient = getGraphQLClient();
+const sdk = getSdk(graphQLClient);
 
 export default NextAuth({
     secret: process.env.NEXTAUTH_SECRET!,
@@ -37,7 +31,7 @@ export default NextAuth({
                     const isNewUser = Boolean(credentials.firstName);
 
                     if (isNewUser) {
-                        const data = await graphQLClient.request<SignUpMutation, SignUpMutationVariables>(SignUpDocument, {
+                        const data = await sdk.signUp({
                             email: credentials.email,
                             password: credentials.password,
                             firstName: credentials.firstName!,
@@ -54,7 +48,7 @@ export default NextAuth({
                             } 
                         }
                     } else {
-                        const data = await graphQLClient.request<LogInMutation, LogInMutationVariables>(LogInDocument, {
+                        const data = await sdk.logIn({
                             email: credentials.email,
                             password: credentials.password
                         });

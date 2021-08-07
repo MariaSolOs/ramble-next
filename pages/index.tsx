@@ -1,11 +1,7 @@
 import { GetStaticProps } from 'next';
 
 import getGraphQLClient from 'graphQLClient';
-import { 
-    GetFeaturedExperiencesDocument,
-    GetFeaturedExperiencesQuery,
-    GetFeaturedExperiencesQueryVariables
-} from 'graphql-server/operations';
+import { getSdk } from 'graphql-server/sdk';
 import useLanguageContext from 'context/languageContext';
 import { getPlaceholder } from 'utils/cloudinary';
 import { CLOUDINARY_BASE_URI, FEATURED_EXPERIENCES_IDS } from 'global-constants';
@@ -13,6 +9,7 @@ import { getCardInfo } from 'models/experience-interface';
 import type { Image } from 'models/files';
 import type { ExperienceCard } from 'models/experience-interface';
 
+import RambleHead from 'components/RambleHead';
 import ResetPasswordDialog from 'components/ResetPasswordDialog';
 import Landing from 'components/home-page/Landing';
 import GallerySlide from 'components/home-page/GallerySlide';
@@ -46,6 +43,7 @@ type Props = {
 }
 
 const graphQLClient = getGraphQLClient();
+const sdk = getSdk(graphQLClient);
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
     // Images for the landing collage
@@ -72,7 +70,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     const adventureImages = await Promise.all(adventureImagesPromises);
 
     // Featured experiences
-    const data = await graphQLClient.request<GetFeaturedExperiencesQuery, GetFeaturedExperiencesQueryVariables>(GetFeaturedExperiencesDocument, {
+    const data = await sdk.getFeaturedExperiences({
         ids: FEATURED_EXPERIENCES_IDS
     });
     const featuredExperiences = data.experiencesById.map(getCardInfo);
@@ -92,6 +90,10 @@ const Home = (props: Props) => {
 
     return (
         <>
+            <RambleHead
+            title={`Ramble: ${text.experienceTitle}`}
+            description={text.discoverTitle}
+            imageUrl={`${process.env.RAMBLE_URL}/public/images/ramble-brand.png`} />
             <ResetPasswordDialog />
             <Landing
             collageImages={props.collageImages}

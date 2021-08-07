@@ -10,3 +10,6 @@ export const FEATURED_EXPERIENCES_IDS = [
 ]
 
 export const CLOUDINARY_BASE_URI = 'https://res.cloudinary.com/dxod7etqu/image/upload';
+
+// Stripe API configuration
+export const STRIPE_API_VERSION = '2020-08-27';

@@ -53,40 +53,40 @@ export const sendPasswordResetEmail = async (
     });
 }
 
-// /**
-//  * Sends an email to a creator when a booking is made.
-//  * 
-//  * @param clientName - The client's name
-//  * @param experienceName - The name of the experience that was booked
-//  * @param dashboardLink - The link that the creator will be redirected to
-//  * @param creatorEmail - The address to send the email to
-//  */
-// export const sendBookingNotificationEmail = async (
-//     clientName: string, 
-//     experienceName: string,
-//     dashboardLink: string,
-//     creatorEmail: string
-// ) => {
-//     const source = fs.readFileSync(path.resolve(__dirname, '../email-templates/new-booking.mjml'), 'utf-8');
-//     const template = compile(source);
-//     const mjml = template({
-//         clientName,
-//         experienceName,
-//         dashboardLink
-//     });
+/**
+ * Sends an email to a creator when a booking is made.
+ * 
+ * @param clientName - The client's name
+ * @param experienceName - The name of the experience that was booked
+ * @param dashboardLink - The link that the creator will be redirected to
+ * @param creatorEmail - The address to send the email to
+ */
+export const sendBookingNotificationEmail = async (
+    clientName: string, 
+    experienceName: string,
+    dashboardLink: string,
+    creatorEmail: string
+) => {
+    const source = fs.readFileSync(path.resolve(process.cwd(), 'email-templates', 'new-booking.mjml'), 'utf-8');     
+    const template = compile(source);
+    const mjml = template({
+        clientName,
+        experienceName,
+        dashboardLink
+    });
     
-//     await sgMail.send({
-//         from: {
-//             email: process.env.ZOHO_EMAIL!,
-//             name: 'ramble' 
-//         },
-//         to: creatorEmail,
-//         subject: 'You have a new booking request',
-//         text: `You have a new booking! ${clientName} just booked your experience ${
-//         experienceName}. Log in to your creator dashboard to check their booking request.`,
-//         html: mjml2html(mjml).html
-//     });
-// }
+    await sgMail.send({
+        from: {
+            email: process.env.ZOHO_EMAIL!,
+            name: 'ramble' 
+        },
+        to: creatorEmail,
+        subject: 'You have a new booking request',
+        text: `You have a new booking! ${clientName} just booked your experience ${
+        experienceName}. Log in to your creator dashboard to check their booking request.`,
+        html: mjml2html(mjml).html
+    });
+}
 
 // /**
 //  * Sends the booking confirmation email (once the creator accepted the request).

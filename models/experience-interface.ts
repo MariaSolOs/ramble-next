@@ -1,5 +1,5 @@
 import type { Image } from './files';
-import type { CardContentFragment } from 'graphql-server/operations';
+import type { CardContentFragment } from 'graphql-server/sdk';
 
 export const CURRENCIES = [
     'CAD',
