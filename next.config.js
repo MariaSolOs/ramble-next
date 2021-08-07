@@ -1,4 +1,5 @@
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 const { withPlaiceholder } = require('@plaiceholder/next');
 
 module.exports = withPlaiceholder({
