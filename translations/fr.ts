@@ -91,41 +91,41 @@ const frenchTranslation: TranslationRecord = {
         online: 'en ligne'
     },
 
-    // // CategoryBox: {
-    // //     taste: 'Goutez',
-    // //     create: 'Créez',
-    // //     relax: 'Relaxez',
-    // //     learn: 'Apprenez',
-    // //     move: 'Bougez'
-    // // },
+    CategoryBox: {
+        taste: 'Goutez',
+        create: 'Créez',
+        relax: 'Relaxez',
+        learn: 'Apprenez',
+        move: 'Bougez'
+    },
 
-    // Experience: {
-    //     online: 'en ligne',
-    //     duration: 'Durée',
-    //     upTo: "Jusqu'à",
-    //     person: 'Personne',
-    //     people: 'Personnes',
-    //     language: 'Langue',
-    //     languages: 'Langues',
-    //     ageRestriction: 'Âge requis',
-    //     hostedBy: 'Animé par',
-    //     aboutCreator: 'À propos du Créateur',
-    //     planning: 'Ce que vous ferez',
-    //     included: 'Ce qui est inclus',
-    //     toBring: 'À apporter',
-    //     location: 'Localisation'
-    // },
+    Experience: {
+        online: 'en ligne',
+        duration: 'Durée',
+        upTo: "Jusqu'à",
+        person: 'Personne',
+        people: 'Personnes',
+        language: 'Langue',
+        languages: 'Langues',
+        ageRestriction: 'Âge requis',
+        hostedBy: 'Animé par',
+        aboutCreator: 'À propos du Créateur',
+        planning: 'Ce que vous ferez',
+        included: 'Ce qui est inclus',
+        toBring: 'À apporter',
+        location: 'Localisation'
+    },
 
     // ShareExperienceDialog: {
     //     shareExperience: 'Partager cette expérience',
     //     copyLink: "Copier l'url"
     // },
     
-    // ViewExperience: {
-    //     bookExperience: 'Réserver',
-    //     perConnection: 'par connexion',
-    //     perPerson: 'par personne'
-    // },
+    ExperienceDetails: {
+        bookExperience: 'Réserver',
+        perConnection: 'par connexion',
+        perPerson: 'par personne'
+    },
 
     BecomeACreator: {
         becomeTitle: 'Devenez un créateur.',

@@ -8,6 +8,7 @@ import type { SearchState } from 'hooks/useExperienceSearchReducer';
 import useUiContext from 'context/uiContext';
 
 import Searchbar from 'components/search-experiences/Searchbar';
+import ExperienceGallery from 'components/search-experiences/ExperienceGallery';
 
 const graphQLClient = getGraphQLClient();
 const sdk = getSdkWithHooks(graphQLClient);
@@ -40,9 +41,8 @@ const SearchExperiences = () => {
     // Fetch the queried experiences
     const {
         data: experiencesData,
-        error: experiencesError,
-        mutate: mutateExperiences
-    } = sdk.useGetExperiences('getExperiences', {
+        error: experiencesError
+    } = sdk.useGetExperiences(['getExperiences', locationQuery, capacityQuery], {
         location: locationQuery,
         capacity: capacityQuery
     });
@@ -68,11 +68,6 @@ const SearchExperiences = () => {
             dispatch({ type: 'SET_LOCATIONS', locationsQuery: locationsData });
         }
     }, [locationsData, dispatch]);
-
-    // Refetch experiences when the URL changes
-    useEffect(() => {
-        mutateExperiences();
-    }, [locationQuery, capacityQuery, mutateExperiences]);
 
     useEffect(() => {
         /* For a smoother effect, wait until user stops writing before
@@ -104,7 +99,7 @@ const SearchExperiences = () => {
     }
 
     return (
-        <React.StrictMode>
+        <>
             <Searchbar
             location={state.location}
             locationList={state.locationList}
@@ -117,7 +112,8 @@ const SearchExperiences = () => {
             onTitleFilterChange={titleFilter => {
                 dispatch({ type: 'UPDATE_TITLE_FILTER', titleFilter });
             }} />
-        </React.StrictMode>
+            <ExperienceGallery experiences={state.filteredExperiences} />
+        </>
     );
 }
 

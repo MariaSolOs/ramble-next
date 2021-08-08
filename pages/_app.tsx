@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Provider } from 'next-auth/client';
+import { Provider as AuthProvider } from 'next-auth/client';
 import type { AppProps } from 'next/app';
 
 import { LanguageProvider } from 'context/languageContext';
@@ -26,7 +26,7 @@ const App = ({ Component, pageProps }: AppProps) => {
     }, []);
     
     return (
-        <Provider session={pageProps.session}>
+        <AuthProvider session={pageProps.session}>
             <Head>
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Head>
@@ -41,7 +41,7 @@ const App = ({ Component, pageProps }: AppProps) => {
                     </GlobalStyles>
                 </UiProvider>
             </LanguageProvider>
-        </Provider>
+        </AuthProvider>
     );
 }
 

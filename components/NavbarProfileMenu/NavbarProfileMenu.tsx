@@ -33,10 +33,10 @@ const NavbarProfileMenu = (props: NavbarProfileMenuProps) => {
         onClose();
     }, [onClose]);
 
-    const logout = async () => {
+    const logout = () => {
+        signOut({ redirect: false });
+        router.push('/');
         closeMenu();
-        const { url } = await signOut({ redirect: false });
-        router.push(url);
     }
 
     // Close menu when window resizes

@@ -1,3 +1,5 @@
+import { useSession } from 'next-auth/client';
+
 import getGraphQLClient from 'graphQLClient';
 import { getSdkWithHooks } from 'graphql-server/sdk';
 
@@ -8,9 +10,14 @@ const sdk = getSdkWithHooks(graphQLClient);
  * @returns Hook that saves/unsaves an experience from the user's 
  * list of saved experiences.
  */
-export default function useSavedExperiences(isLoggedIn: boolean) {
+export default function useSavedExperiences() {
+    const [session] = useSession();
+    const isLoggedIn = Boolean(session?.user.userId);
+
     // Only fetch if logged in
-    const { data, mutate } = sdk.useGetUserSavedExperiences(isLoggedIn ? 'getUserSavedExperiences' : null);
+    const { data, mutate } = sdk.useGetUserSavedExperiences(
+        isLoggedIn ? 'getUserSavedExperiences' : null
+    );
 
     const isExperienceSaved = (experienceId: string) => {
         return data?.me.savedExperiences.some(({ _id }) =>

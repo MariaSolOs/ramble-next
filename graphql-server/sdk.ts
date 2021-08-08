@@ -290,6 +290,14 @@ export type CardContentFragment = (
   & { images: Array<Pick<Image, 'src' | 'placeholder'>> }
 );
 
+export type ExperienceViewFragment = (
+  Pick<Experience, '_id' | 'title' | 'description' | 'location' | 'latitude' | 'longitude' | 'categories' | 'ageRestriction' | 'duration' | 'languages' | 'includedItems' | 'toBringItems' | 'capacity' | 'isOnlineExperience' | 'pricePerPerson'>
+  & { images: Array<Pick<Image, 'src' | 'placeholder'>>, creator: (
+    Pick<Creator, 'bio'>
+    & { user: UserAvatarFragment }
+  ) }
+);
+
 export type UserAvatarFragment = (
   Pick<User, 'firstName'>
   & { photo?: Maybe<Pick<Image, 'src' | 'placeholder'>> }
@@ -348,6 +356,13 @@ export type UpdateProfileMutationVariables = Exact<{
 
 
 export type UpdateProfileMutation = { editUser: CoreProfileFragment };
+
+export type GetExperienceQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type GetExperienceQuery = { experiencesById: Array<ExperienceViewFragment> };
 
 export type GetExperiencesQueryVariables = Exact<{
   location?: Maybe<Scalars['String']>;
@@ -408,6 +423,35 @@ export const CardContentFragmentDoc = gql`
   isOnlineExperience
 }
     `;
+export const ExperienceViewFragmentDoc = gql`
+    fragment ExperienceView on Experience {
+  _id
+  title
+  description
+  images {
+    src
+    placeholder
+  }
+  location
+  latitude
+  longitude
+  categories
+  ageRestriction
+  duration
+  languages
+  includedItems
+  toBringItems
+  capacity
+  isOnlineExperience
+  pricePerPerson
+  creator {
+    bio
+    user {
+      ...UserAvatar
+    }
+  }
+}
+    ${UserAvatarFragmentDoc}`;
 export const LogInDocument = gql`
     mutation logIn($email: String!, $password: String!) {
   logInUser(email: $email, password: $password) {
@@ -465,6 +509,13 @@ export const UpdateProfileDocument = gql`
   }
 }
     ${CoreProfileFragmentDoc}`;
+export const GetExperienceDocument = gql`
+    query getExperience($id: ID!) {
+  experiencesById(ids: [$id]) {
+    ...ExperienceView
+  }
+}
+    ${ExperienceViewFragmentDoc}`;
 export const GetExperiencesDocument = gql`
     query getExperiences($location: String, $capacity: Int, $creatorId: ID) {
   experiences(location: $location, capacity: $capacity, creatorId: $creatorId) {
@@ -521,6 +572,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     updateProfile(variables?: UpdateProfileMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateProfileMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<UpdateProfileMutation>(UpdateProfileDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'updateProfile');
     },
+    getExperience(variables: GetExperienceQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetExperienceQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetExperienceQuery>(GetExperienceDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getExperience');
+    },
     getExperiences(variables?: GetExperiencesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetExperiencesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetExperiencesQuery>(GetExperiencesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getExperiences');
     },
@@ -540,6 +594,9 @@ export function getSdkWithHooks(client: GraphQLClient, withWrapper: SdkFunctionW
   const sdk = getSdk(client, withWrapper);
   return {
     ...sdk,
+    useGetExperience(key: SWRKeyInterface, variables: GetExperienceQueryVariables, config?: SWRConfigInterface<GetExperienceQuery, ClientError>) {
+      return useSWR<GetExperienceQuery, ClientError>(key, () => sdk.getExperience(variables), config);
+    },
     useGetExperiences(key: SWRKeyInterface, variables?: GetExperiencesQueryVariables, config?: SWRConfigInterface<GetExperiencesQuery, ClientError>) {
       return useSWR<GetExperiencesQuery, ClientError>(key, () => sdk.getExperiences(variables), config);
     },

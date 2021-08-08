@@ -27,7 +27,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     
         await sendPasswordResetEmail(user._id.toHexString(), email);
         return res.status(201).json({ message: 'Reset email sent' });
-    } catch (err) {
+    } catch (err: any) {
         res.status(500).json({ error: err.message });
     }
 }

@@ -11,14 +11,14 @@ let cachedHandler: NextApiHandler | undefined = undefined;
 const handler: NextApiHandler = async (req, res) => {
     await mongodbConnection();
 
-    const session = await getSession({ req });
-
     if (!cachedHandler) {
         const apolloServer = new ApolloServer({
             typeDefs,
             resolvers,
-            context: {
-                userId: session?.user.userId || ''
+            context: async ({ req }) => {
+                const session = await getSession({ req });
+                const userId = session?.user.userId || '';
+                return { userId }
             }
         });
         cachedHandler = await apolloServer.start().then(() => 

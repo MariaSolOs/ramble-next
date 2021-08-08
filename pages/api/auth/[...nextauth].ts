@@ -64,7 +64,7 @@ export default NextAuth({
                             }
                         }
                     }
-                } catch (err) {
+                } catch (err: any) {
                     const errorMessage = err.message || "We couldn't sign you in.";
                     throw errorMessage;
                 }

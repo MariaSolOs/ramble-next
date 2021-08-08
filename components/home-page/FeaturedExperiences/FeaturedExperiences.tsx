@@ -1,5 +1,3 @@
-import { useSession } from 'next-auth/client';
-
 import routes from 'routes';
 import useSavedExperiences from 'hooks/useSavedExperiences';
 import useLanguageContext from 'context/languageContext';
@@ -14,9 +12,7 @@ const useStyles = makeStyles(styles);
 
 const FeaturedExperiences = (props: FeaturedExperiencesProps) => {
     const { Home: text } = useLanguageContext().appText;
-    const [session] = useSession();
-    const isLoggedIn = Boolean(session?.user.userId);
-    const { isExperienceSaved, handleSavingToggle } = useSavedExperiences(isLoggedIn);
+    const { isExperienceSaved, handleSavingToggle } = useSavedExperiences();
     const classes = useStyles();
 
     return (
@@ -32,10 +28,8 @@ const FeaturedExperiences = (props: FeaturedExperiencesProps) => {
                         key={exp._id}
                         experience={exp}
                         containerClass={classes.experienceCard}
-                        {...isLoggedIn && {
-                            isSaved: isExperienceSaved(exp._id),
-                            onHeartClick: () => handleSavingToggle(exp._id)
-                        }} />
+                        isSaved={isExperienceSaved(exp._id)}
+                        onHeartClick={() => handleSavingToggle(exp._id)} />
                     )}
                 </div>
             </div>

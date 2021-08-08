@@ -1,3 +1,4 @@
+import type { Category as ExperienceCategory } from './experience-interface';
 // import type { 
 //     Category as ExperienceCategory, 
 //     CreationStep as ExperienceCreationStep
@@ -30,13 +31,13 @@ export type TranslationRecord = {
 
     ExperienceCard: Record<'perConnection' | 'perPerson' | 'online', string>;
 
-    // CategoryBox: Record<ExperienceCategory, string>;
+    CategoryBox: Record<ExperienceCategory, string>;
 
-    // Experience: Record<'online' | 'duration' | 'upTo' | 'person' | 'people' | 'language' | 'languages' | 'ageRestriction' | 'hostedBy' | 'aboutCreator' | 'planning' | 'included' | 'toBring' | 'location', string>;
+    Experience: Record<'online' | 'duration' | 'upTo' | 'person' | 'people' | 'language' | 'languages' | 'ageRestriction' | 'hostedBy' | 'aboutCreator' | 'planning' | 'included' | 'toBring' | 'location', string>;
 
     // ShareExperienceDialog: Record<'shareExperience' | 'copyLink', string>;
 
-    // ViewExperience: Record<'bookExperience' | 'perConnection' | 'perPerson', string>;
+    ExperienceDetails: Record<'bookExperience' | 'perConnection' | 'perPerson', string>;
 
     BecomeACreator: Record<'becomeTitle' | 'shareTitle' | 'getPaidTitle' | 'getStarted' | 'currentCreators1' | 'currentCreators2' | 'actTitle1' | 'actTitle2' | 'lightbulbText' | 'cloudText' | 'walletText', string>;
 
