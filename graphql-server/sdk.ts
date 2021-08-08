@@ -349,12 +349,26 @@ export type UpdateProfileMutationVariables = Exact<{
 
 export type UpdateProfileMutation = { editUser: CoreProfileFragment };
 
+export type GetExperiencesQueryVariables = Exact<{
+  location?: Maybe<Scalars['String']>;
+  capacity?: Maybe<Scalars['Int']>;
+  creatorId?: Maybe<Scalars['ID']>;
+}>;
+
+
+export type GetExperiencesQuery = { experiences: Array<CardContentFragment> };
+
 export type GetFeaturedExperiencesQueryVariables = Exact<{
   ids: Array<Scalars['ID']> | Scalars['ID'];
 }>;
 
 
 export type GetFeaturedExperiencesQuery = { experiencesById: Array<CardContentFragment> };
+
+export type GetLocationsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetLocationsQuery = { experiences: Array<Pick<Experience, 'location'>> };
 
 export type GetUserSavedExperiencesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -451,6 +465,13 @@ export const UpdateProfileDocument = gql`
   }
 }
     ${CoreProfileFragmentDoc}`;
+export const GetExperiencesDocument = gql`
+    query getExperiences($location: String, $capacity: Int, $creatorId: ID) {
+  experiences(location: $location, capacity: $capacity, creatorId: $creatorId) {
+    ...CardContent
+  }
+}
+    ${CardContentFragmentDoc}`;
 export const GetFeaturedExperiencesDocument = gql`
     query getFeaturedExperiences($ids: [ID!]!) {
   experiencesById(ids: $ids) {
@@ -458,6 +479,13 @@ export const GetFeaturedExperiencesDocument = gql`
   }
 }
     ${CardContentFragmentDoc}`;
+export const GetLocationsDocument = gql`
+    query getLocations {
+  experiences {
+    location
+  }
+}
+    `;
 export const GetUserSavedExperiencesDocument = gql`
     query getUserSavedExperiences {
   me {
@@ -493,8 +521,14 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     updateProfile(variables?: UpdateProfileMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateProfileMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<UpdateProfileMutation>(UpdateProfileDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'updateProfile');
     },
+    getExperiences(variables?: GetExperiencesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetExperiencesQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetExperiencesQuery>(GetExperiencesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getExperiences');
+    },
     getFeaturedExperiences(variables: GetFeaturedExperiencesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetFeaturedExperiencesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetFeaturedExperiencesQuery>(GetFeaturedExperiencesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getFeaturedExperiences');
+    },
+    getLocations(variables?: GetLocationsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetLocationsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetLocationsQuery>(GetLocationsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getLocations');
     },
     getUserSavedExperiences(variables?: GetUserSavedExperiencesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetUserSavedExperiencesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetUserSavedExperiencesQuery>(GetUserSavedExperiencesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getUserSavedExperiences');
@@ -506,6 +540,12 @@ export function getSdkWithHooks(client: GraphQLClient, withWrapper: SdkFunctionW
   const sdk = getSdk(client, withWrapper);
   return {
     ...sdk,
+    useGetExperiences(key: SWRKeyInterface, variables?: GetExperiencesQueryVariables, config?: SWRConfigInterface<GetExperiencesQuery, ClientError>) {
+      return useSWR<GetExperiencesQuery, ClientError>(key, () => sdk.getExperiences(variables), config);
+    },
+    useGetLocations(key: SWRKeyInterface, variables?: GetLocationsQueryVariables, config?: SWRConfigInterface<GetLocationsQuery, ClientError>) {
+      return useSWR<GetLocationsQuery, ClientError>(key, () => sdk.getLocations(variables), config);
+    },
     useGetUserSavedExperiences(key: SWRKeyInterface, variables?: GetUserSavedExperiencesQueryVariables, config?: SWRConfigInterface<GetUserSavedExperiencesQuery, ClientError>) {
       return useSWR<GetUserSavedExperiencesQuery, ClientError>(key, () => sdk.getUserSavedExperiences(variables), config);
     }

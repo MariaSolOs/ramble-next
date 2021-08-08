@@ -1,31 +1,32 @@
-// import { useEffect } from 'react';
-// import { useHistory } from 'react-router-dom';
-
-// import useLanguageContext from 'context/languageContext';
+import routes from 'routes';
+import useLanguageContext from 'context/languageContext';
 import type { SearchbarProps } from './index';
 
-// import InputBase from '@material-ui/core/InputBase';
+import InputBase from '@material-ui/core/InputBase';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
-// import SearchIcon from '@material-ui/icons/Search';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faUsers } from '@fortawesome/free-solid-svg-icons/faUsers';
+import SearchIcon from '@material-ui/icons/Search';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUsers } from '@fortawesome/free-solid-svg-icons/faUsers';
 import Autocomplete from 'components/Autocomplete';
-// import PlusMinusInput from 'components/PlusMinusInput/PlusMinusInput';
-// import GradientButton from 'components/GradientButton';
+import PlusMinusInput from 'components/PlusMinusInput';
+import GradientButton from 'components/GradientButton';
 
 import { makeStyles } from '@material-ui/core/styles';
 import styles from './Searchbar.styles';
 const useStyles = makeStyles(styles);
 
 const Searchbar = (props: SearchbarProps) => {
-    // const { SearchExperiences: text } = useLanguageContext().appText;
-    // const history = useHistory();
-
+    const { SearchExperiences: text } = useLanguageContext().appText;
     const classes = useStyles();
 
+    const buttonLink = routes.experienceSearch(
+        props.location, 
+        props.capacity.toString()
+    );
+
     return (
-        <>
+        <div className={classes.container}>
             <div className={classes.mainRow}>
                 <Autocomplete
                 className={classes.autocomplete}
@@ -44,9 +45,6 @@ const Searchbar = (props: SearchbarProps) => {
                         </InputAdornment>
                     )
                 }} />
-
-            </div>
-            {/* <div className={classes.searchContainer}>
                 <div className={classes.collapsibleRow}>
                     <PlusMinusInput
                     containerClass={classes.capacityInput}
@@ -60,14 +58,12 @@ const Searchbar = (props: SearchbarProps) => {
                     inputProps={{
                         startAdornment: <FontAwesomeIcon icon={faUsers} />
                     }} />
-                    <Button 
-                    className={classes.searchButton} 
+                    <GradientButton 
                     variant="experience"
-                    onClick={() => {
-                        history.push(`/experience/search?location=${props.location}&capacity=${props.capacity}`);
-                    }}>
+                    className={classes.searchButton}
+                    { ...buttonLink }>
                         {text.search}
-                    </Button>
+                    </GradientButton>
                 </div>
             </div>
             <InputBase
@@ -79,8 +75,8 @@ const Searchbar = (props: SearchbarProps) => {
                 <InputAdornment position="start">
                     <SearchIcon />
                 </InputAdornment>
-            } /> */}
-        </>
+            } />
+        </div>
     );
 }
 

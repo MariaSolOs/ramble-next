@@ -1,16 +1,10 @@
 import { createStyles } from '@material-ui/core/styles';
 import type { Theme } from '@material-ui/core/styles';
 
-import type { StyleProps } from './PlusMinusInput';
+import type { PlusMinusInputStyleProps } from './index';
 
 const styles = (theme: Theme) => createStyles({
-    container: {
-        display: 'flex'
-    },
-
-    textFieldRoot: {
-        width: '100%'
-    },
+    container: { display: 'flex' },
 
     inputRoot: {
         backgroundColor: '#2A2A2A',
@@ -33,7 +27,7 @@ const styles = (theme: Theme) => createStyles({
     },
 
     input: {
-        width: (props : StyleProps) => theme.spacing(props.inputLength * 3),
+        width: (props: PlusMinusInputStyleProps) => theme.spacing(props.inputLength * 3),
         textAlign: 'center',
         padding: '6px 0'
     },

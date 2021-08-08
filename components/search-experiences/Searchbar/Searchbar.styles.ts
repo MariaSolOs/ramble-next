@@ -2,9 +2,16 @@ import { createStyles } from '@material-ui/core/styles';
 import type { Theme } from '@material-ui/core/styles';
 
 const styles = (theme: Theme) => createStyles({
+    container: {
+        margin: '100px auto 0',
+        width: '80vw',
+
+        [theme.breakpoints.down('sm')]: { width: '90vw' },  
+        [theme.breakpoints.down('xs')]: { margin: '80px auto 0' }
+    },
+
     mainRow: {
         display: 'flex',
-        width: '100%',
 
         [theme.breakpoints.down('xs')]: {
             flexDirection: 'column',
@@ -43,9 +50,8 @@ const styles = (theme: Theme) => createStyles({
                 width: 'calc(65% - 10px)',
                 marginRight: 10
             },
-            '& $searchButton': {
-                width: '35%'
-            }
+
+            '& $searchButton': { width: '35%' }
         }
     },
 

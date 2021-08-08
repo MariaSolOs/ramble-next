@@ -1,0 +1,5 @@
+query getExperiences($location: String, $capacity: Int, $creatorId: ID) {
+    experiences(location: $location, capacity: $capacity, creatorId: $creatorId) {
+        ...CardContent
+    }
+}

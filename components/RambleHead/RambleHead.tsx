@@ -15,6 +15,8 @@ const RambleHead = (props: RambleHeadProps) => {
             <meta name="og:title" property="og:title" content={props.title} />
             <meta name="og:description" property="og:description" content={props.description} />
             <meta property="og:site_name" content="Ramble" />
+            <meta property="og:image" content={props.imageUrl} />
+            <meta property="og:image:secure_url" content={props.imageUrl} />
             <meta property="og:url" content={`${process.env.RAMBLE_URL}${pathname}`} />  
         </Head>
     );
