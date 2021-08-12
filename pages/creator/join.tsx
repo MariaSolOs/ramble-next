@@ -24,9 +24,11 @@ const CreatorForm = () => {
     const [session] = useSession();
 
     // Make sure only users that are signed in but are not creators are here
-    if (!session || (session.user.creatorId && !state.creatorId)) {
-        router.push('/');
-    }
+    useEffect(() => {
+        if (!session || (session.user.creatorId && !state.creatorId)) {
+            router.push('/');
+        }
+    }, [session, state.creatorId, router]);
 
     // Get the fields to prefill the form
     const { data } = sdk.useGetCreatorFormFields('getCreatorFormFields', {
