@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/client';
 
-import getGraphQLClient from 'graphQLClient';
+import { getGraphQLClient } from 'lib/graphql';
 import { getSdk } from 'graphql-server/sdk';
 import useLanguageContext from 'context/languageContext';
 import useUiContext from 'context/uiContext';
@@ -31,7 +31,6 @@ const ResetPasswordDialog = () => {
     const { ResetPasswordDialog: text } = useLanguageContext().appText;
     const { uiDispatch } = useUiContext();
     const router = useRouter();
-    const { query } = router;
     const classes = useStyles();
     
     const [open, setOpen] = useState(false);
@@ -43,15 +42,15 @@ const ResetPasswordDialog = () => {
 
     // Check if URL has a reset password query
     useEffect(() => {
-        if (query['password-reset']) {
+        if (router.query['password-reset']) {
             setOpen(true);
         }
-    }, [query]);
+    }, [router.query]);
 
     const handleClose = () => { 
-        setOpen(false); 
-        // Remove the reset query from the URL
+        // Remove the query from the URL
         router.replace('/', undefined, { shallow: true });
+        setOpen(false); 
     }
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,7 +73,7 @@ const ResetPasswordDialog = () => {
                 return;
             }
 
-            const userId = query['password-reset'] as string;
+            const userId = router.query['password-reset'] as string;
             const data = await sdk.resetPassword({
                 userId, 
                 password: values.password1
@@ -90,7 +89,8 @@ const ResetPasswordDialog = () => {
                 const message = signInResponse.error;
                 uiDispatch({ type: 'OPEN_ERROR_DIALOG', message });
             }
-        } catch (err) {
+
+        } catch (err: any) {
             const message = err.message || "We couldn't reset your password...";
             uiDispatch({ type: 'OPEN_ERROR_DIALOG', message });
         } finally {

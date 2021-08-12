@@ -42,7 +42,7 @@ const ForgotPasswordDialog = (props: ForgotPasswordDialogProps) => {
             setLoading(false);
             if (res.ok) {
                 setShowSuccessMessage(true);
-            } else if (res.status === 404) {
+            } else if (res.status === 422) {
                 setErrorMessage("We couldn't find an account with that email...");
             } else {
                 setErrorMessage('Something went wrong...');

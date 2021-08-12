@@ -4,7 +4,7 @@ import {
     bookingReducer,
     userReducer,
     creatorReducer
-} from 'utils/graphql-data-mappers';
+} from 'lib/graphql';
 
 export type Context = { userId: string; }
 

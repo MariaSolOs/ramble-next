@@ -7,7 +7,7 @@ import type { Category as ExperienceCategory } from './experience-interface';
 export type Language = 'en' | 'fr';
 
 export type TranslationRecord = {
-    Home: Record<'experienceTitle' | 'discoverTitle' | 'seeAllButton' | 'partakeTitle' | 'partakeSubtitle' | 'adventureTitle' | 'adventureSubtitle', string>;
+    Home: Record<'experienceTitle' | 'discoverTitle' | 'seeAllButton' | 'partakeTitle' | 'partakeSubtitle' | 'adventureTitle' | 'adventureSubtitle' | 'onboardingReturnSuccess' | 'onboardingReturnFailure', string>;
 
     Navbar: Record<'languageChip' | 'signUp' | 'logIn' | 'becomeCreator' | 'creatorDashboard', string>;
 
@@ -35,15 +35,13 @@ export type TranslationRecord = {
 
     Experience: Record<'online' | 'duration' | 'upTo' | 'person' | 'people' | 'language' | 'languages' | 'ageRestriction' | 'hostedBy' | 'aboutCreator' | 'planning' | 'included' | 'toBring' | 'location', string>;
 
-    // ShareExperienceDialog: Record<'shareExperience' | 'copyLink', string>;
+    ShareExperienceDialog: Record<'shareExperience' | 'copyLink' | 'copyTooltip', string>;
 
     ExperienceDetails: Record<'bookExperience' | 'perConnection' | 'perPerson', string>;
 
     BecomeACreator: Record<'becomeTitle' | 'shareTitle' | 'getPaidTitle' | 'getStarted' | 'currentCreators1' | 'currentCreators2' | 'actTitle1' | 'actTitle2' | 'lightbulbText' | 'cloudText' | 'walletText', string>;
 
-    // CreatorForm: Record<'headerTitle' | 'profilePicture' | 'showSmile' | 'aboutYouTitle' | 'aboutYouSubtitle' | 'aboutYouTitle' | 'aboutYouTip' | 'phoneNumberTitle' | 'phoneNumberSubtitle' | 'phoneNumberError' | 'idTitle' | 'idSubtitle' | 'idTip1' | 'idTip2' | 'front' | 'back' | 'frontIdText' | 'backIdText' | 'addFront' | 'addBack' | 'done', string>;
-
-    // CreatorForm_StripeMessage: Record<'formSubmittedMessage' | 'stripeMessage' | 'continueWithStripe', string>;
+    CreatorForm: Record<'headerTitle' | 'profilePicture' | 'showSmile' | 'aboutYouTitle' | 'aboutYouSubtitle' | 'aboutYouTitle' | 'aboutYouTip' | 'phoneNumberTitle' | 'phoneNumberSubtitle' | 'phoneNumberError' | 'idTitle' | 'idSubtitle' | 'idTip1' | 'idTip2' | 'front' | 'back' | 'frontIdText' | 'backIdText' | 'addFront' | 'addBack' | 'done' | 'formSubmittedMessage' | 'stripeMessage' | 'continueWithStripe', string>;
 
     // StripeRedirect: Record<'onboardingMessage' | 'help' | 'continueWithStripe', string>;
 
@@ -95,7 +93,7 @@ export type TranslationRecord = {
 
     // BookExperience_Submitted: Record<'title' | 'subtitle1' | 'subtitle2' | 'guest' | 'guests' | 'host' | 'toBringTitle' | 'meetingSpotTitle' | 'online' | 'paymentDetails' | 'paymentMethod' | 'total' | 'buttonText', string>;
 
-    // CreatorDashboard_Layout: Record<'dashboardTitle' | 'bookingRequests' | 'calendar' | 'createdExperiences', string>;
+    CreatorDashboard_Layout: Record<'dashboardTitle' | 'bookingRequests' | 'calendar' | 'createdExperiences', string>;
 
     // BookingRequests: Record<'decisionError' | 'bookingAcceptedMessage' | 'bookingRejectedMessage', string>;
 

@@ -14,8 +14,6 @@ generates:
       - plugin-typescript-swr
     config:
       skipTypename: true
-      excludeQueries:
-        - getFeaturedExperiences
   ./graphql-server/resolvers-types.ts:
     plugins:
       - typescript

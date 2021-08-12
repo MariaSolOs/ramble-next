@@ -5,6 +5,7 @@ import type { Types, Model } from 'mongoose';
 import type { User } from './user';
 import type { Booking } from './booking';
 
+// TODO: Do we want to keep the verified?
 export interface Creator {
     _id: Types.ObjectId;
     user: Types.ObjectId | User;

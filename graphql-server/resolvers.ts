@@ -1,6 +1,6 @@
 import { AuthenticationError, ApolloError } from 'apollo-server-micro';
 import { Types } from 'mongoose';
-import Stripe from 'stripe';
+import type Stripe from 'stripe';
 import type { FilterQuery, Document } from 'mongoose';
 
 import { 
@@ -16,19 +16,18 @@ import {
     bookingReducer,
     userReducer,
     creatorReducer
-} from 'utils/graphql-data-mappers';
-import { getPlaceholder, deleteUserPicture } from 'utils/cloudinary';
-import { createOccurrence, computeBookingFees } from 'utils/booking';
-import { sendBookingNotificationEmail } from 'utils/sendgrid';
-import { STRIPE_API_VERSION, MONGOOSE_LEAN_DEFAULTS } from 'global-constants';
+} from 'lib/graphql';
+import { getPlaceholder, deleteUserPicture } from 'lib/cloudinary';
+import { createOccurrence, computeBookingFees } from 'lib/booking';
+import { sendBookingNotificationEmail } from 'lib/sendgrid';
+import { getServerStripe } from 'lib/stripe';
+import { MONGOOSE_LEAN_DEFAULTS } from 'global-constants';
 import type { Experience as ExperienceType } from 'models/mongodb/experience';
 import type { User as UserType } from 'models/mongodb/user';
 import type { Creator as CreatorType } from 'models/mongodb/creator';
 import type { Resolvers } from './resolvers-types';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-    apiVersion: STRIPE_API_VERSION
-});
+const stripe = getServerStripe();
 
 export const resolvers: Resolvers = {
     Experience: {
@@ -86,7 +85,7 @@ export const resolvers: Resolvers = {
     },
 
     Query: {
-        me: async (_, __, { userId }) => {
+        me: async (_, { userId }) => {
             if (!userId) {
                 throw new AuthenticationError('Invalid user ID');
             }
@@ -351,7 +350,7 @@ export const resolvers: Resolvers = {
                     select: 'user bookingRequests',
                     populate: {
                         path: 'user',
-                        select: '_id email phoneNumber'
+                        select: '_id emailAddress phoneNumber'
                     }
                 }
             });
@@ -361,6 +360,7 @@ export const resolvers: Resolvers = {
 
             const experience = occurrence.experience as ExperienceType;
             const creator = experience.creator as CreatorType & Document;
+            const creatorUser = creator.user as UserType;
 
             // Create booking
             const { creatorProfit } = computeBookingFees(
@@ -409,12 +409,12 @@ export const resolvers: Resolvers = {
             sendBookingNotificationEmail(
                 client?.fstName || '',
                 experience.title,
-                `${process.env.CLIENT_URL!}/email/creator-requests/${userId}`,
-                (creator.user as UserType).emailAddress
+                `${process.env.CLIENT_URL!}/email/creator-requests/${creatorUser._id}`,
+                creatorUser.emailAddress
             );
 
             return {
-                creatorPhone: (creator.user as UserType).phoneNumber!,
+                creatorPhone: creatorUser.phoneNumber!,
                 meetingPoint: experience.location.meetPoint,
                 cardBrand: (payment_method as Stripe.PaymentMethod).card?.brand || '',
                 cardLast4: (payment_method as Stripe.PaymentMethod).card?.last4 || ''

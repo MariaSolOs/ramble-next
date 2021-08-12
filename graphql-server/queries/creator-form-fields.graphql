@@ -1,0 +1,7 @@
+query getCreatorFormFields($userId: ID!) {
+    me(userId: $userId) {
+        _id
+        phoneNumber
+        ...UserAvatar
+    }
+}

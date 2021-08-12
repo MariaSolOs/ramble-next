@@ -1,8 +1,17 @@
+import { GraphQLClient } from 'graphql-request';
+
 import type { Experience } from 'models/mongodb/experience';
 import type { Occurrence } from 'models/mongodb/occurrence';
 import type { Booking } from 'models/mongodb/booking';
 import type { User } from 'models/mongodb/user';
 import type { Creator } from 'models/mongodb/creator';
+
+export const getGraphQLClient = () => {
+    /* Base URL depends on if we're calling this from the client 
+    or server. */
+    const rambleUrl = process.env.RAMBLE_URL || process.env.NEXT_PUBLIC_RAMBLE_URL;
+    return new GraphQLClient(`${rambleUrl}/api/graphql`);
+}
 
 export const experienceReducer = (exp: Experience | null) => ({
     _id: exp?._id || '',
@@ -24,7 +33,7 @@ export const experienceReducer = (exp: Experience | null) => ({
     pricePerPerson: exp?.price.perPerson || 0,
     privatePrice: exp?.price.private || null,
     currency: exp?.price.currency || 'CAD',
-    ratingValue: exp?.rating.value || null,
+    ratingValue: exp && exp.rating.numRatings > 0 ? exp.rating.value : null,
     creator: exp?.creator || ''
 });
 

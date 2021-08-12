@@ -5,7 +5,7 @@ export const typeDefs = gql`
         """
         The current logged in user.
         """
-        me: User!
+        me(userId: ID!): User!
 
         """
         Experiences filtered by location and with capacity >= to 

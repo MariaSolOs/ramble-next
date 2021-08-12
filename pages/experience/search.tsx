@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback } from 'react';
 import { useRouter } from 'next/router';
 
-import getGraphQLClient from 'graphQLClient';
+import { getGraphQLClient } from 'lib/graphql';
 import { getSdkWithHooks } from 'graphql-server/sdk';
 import useExperienceSearchReducer from 'hooks/useExperienceSearchReducer';
 import type { SearchState } from 'hooks/useExperienceSearchReducer';

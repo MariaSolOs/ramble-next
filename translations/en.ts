@@ -8,7 +8,9 @@ const englishTranslation: TranslationRecord = {
         partakeTitle: 'Partake in unforgettable moments',
         partakeSubtitle: 'Experiences are unique activities organized by passionate Creators who wish to share their expertise and give their guests a privileged access to their universe.',
         adventureTitle: 'With friends, family, on your own, or with your significant other.',
-        adventureSubtitle: 'Turn every occasion into a memorable adventure.'
+        adventureSubtitle: 'Turn every occasion into a memorable adventure.',
+        onboardingReturnSuccess: "Congrats! You've completed your onboarding with Stripe.",
+        onboardingReturnFailure: "It seems like you couldn't complete your Stripe onboarding! If you need help, please let us know."
     },
 
     Navbar: {
@@ -116,10 +118,11 @@ const englishTranslation: TranslationRecord = {
         location: 'Location'
     },
     
-    // ShareExperienceDialog: {
-    //     shareExperience: 'Share this experience',
-    //     copyLink: 'Copy link'
-    // },
+    ShareExperienceDialog: {
+        shareExperience: 'Share this experience',
+        copyLink: 'Copy link',
+        copyTooltip: 'Copied!'
+    },
 
     ExperienceDetails: {
         bookExperience: 'Book',
@@ -141,34 +144,32 @@ const englishTranslation: TranslationRecord = {
         walletText: 'Make money while sharing what really matters to you'
     },
 
-    // CreatorForm: {
-    //     headerTitle: 'Before giving life to your experience we would like to get to know you a little bit better.',
-    //     profilePicture: 'Profile picture',
-    //     showSmile: 'Show us your best smile',
-    //     aboutYouTitle: 'About you',
-    //     aboutYouSubtitle: 'Tell us a bit about yourself. How would your friends describe you?',
-    //     aboutYouTip: "Include fun facts, what you're passionate about, your professional experience and other pertinent information.",
-    //     phoneNumberTitle: "What's your phone number?",
-    //     phoneNumberSubtitle: 'Only us and guests who book your experience will have access to your phone number.',
-    //     phoneNumberError: 'Please provide a valid phone number', 
-    //     idTitle: 'Government ID',
-    //     idSubtitle: "That just allows us to check if it's really you. By verifying the identity of guests and Creators, we make sure everyone feels safe.",
-    //     idTip1: "Your ID won't be shared with anyone else.",
-    //     idTip2: "Please upload an ID with your picture on it, like your driver's license, passport or identity card. We accept .jpg, .jpeg or .png files.",
-    //     front: 'Front',
-    //     back: 'Back',
-    //     frontIdText: 'Show the front of your ID',
-    //     backIdText: 'Add the back of your ID',
-    //     addFront: 'Add front',
-    //     addBack: 'Add back',
-    //     done: 'Done'
-    // },
+    CreatorForm: {
+        headerTitle: 'Before giving life to your experience we would like to get to know you a little bit better.',
+        profilePicture: 'Profile picture',
+        showSmile: 'Show us your best smile',
+        aboutYouTitle: 'About you',
+        aboutYouSubtitle: 'Tell us a bit about yourself. How would your friends describe you?',
+        aboutYouTip: "Include fun facts, what you're passionate about, your professional experience and other pertinent information.",
+        phoneNumberTitle: "What's your phone number?",
+        phoneNumberSubtitle: 'Only us and guests who book your experience will have access to your phone number.',
+        phoneNumberError: 'Please provide a valid phone number', 
+        idTitle: 'Government ID',
+        idSubtitle: "That just allows us to check if it's really you. By verifying the identity of guests and Creators, we make sure everyone feels safe.",
+        idTip1: "Your ID won't be shared with anyone else.",
+        idTip2: "Please upload an ID with your picture on it, like your driver's license, passport or identity card. We accept .jpg, .jpeg or .png files.",
+        front: 'Front',
+        back: 'Back',
+        frontIdText: 'Show the front of your ID',
+        backIdText: 'Add the back of your ID',
+        addFront: 'Add front',
+        addBack: 'Add back',
+        done: 'Done',
+        formSubmittedMessage: 'Your form was submitted. All you have left to do is choose the way you want to receive your payments.',
+        stripeMessage: 'In order to keep your information secure, all payments are handled and processed by Stripe.',
+        continueWithStripe: 'Continue with Stripe'
+    },
 
-    // CreatorForm_StripeMessage: {
-    //     formSubmittedMessage: 'Your form was submitted. All you have left to do is choose the way you want to receive your payments.',
-    //     stripeMessage: 'In order to keep your information secure, all payments are handled and processed by Stripe.',
-    //     continueWithStripe: 'Continue with Stripe'
-    // },
 
     // StripeRedirect: {
     //     onboardingMessage: 'You’re almost there! Before you start creating, we need you to set up your payment information with Stripe.',
@@ -419,12 +420,12 @@ const englishTranslation: TranslationRecord = {
     //     buttonText: 'Got it'
     // },
 
-    // CreatorDashboard_Layout: {
-    //     dashboardTitle: 'My dashboard',
-    //     bookingRequests: 'Booking requests',
-    //     calendar: 'Calendar',
-    //     createdExperiences: 'My experiences'
-    // },
+    CreatorDashboard_Layout: {
+        dashboardTitle: 'My dashboard',
+        bookingRequests: 'Booking requests',
+        calendar: 'Calendar',
+        createdExperiences: 'My experiences'
+    },
 
     // BookingRequests: {
     //     decisionError: "We couldn't process your decision...",

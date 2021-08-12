@@ -1,5 +1,0 @@
-query getExperience($id: ID!) {
-    experiencesById(ids: [$id]) {
-        ...ExperienceView
-    }
-}

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import type { SpinnerProps } from './index';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -22,4 +20,4 @@ const Spinner = (props: SpinnerProps) => {
     );
 }
 
-export default React.memo(Spinner);
+export default Spinner;

@@ -33,10 +33,9 @@ const NavbarProfileMenu = (props: NavbarProfileMenuProps) => {
         onClose();
     }, [onClose]);
 
-    const logout = () => {
-        signOut({ redirect: false });
-        router.push('/');
-        closeMenu();
+    const logout = async () => {
+        const signOutData = await signOut({ redirect: false, callbackUrl: '/' });
+        router.push(signOutData.url);
     }
 
     // Close menu when window resizes
@@ -114,7 +113,10 @@ const NavbarProfileMenu = (props: NavbarProfileMenuProps) => {
                 </MenuItem>
                 <MenuItem 
                 component="div"
-                onClick={logout} 
+                onClick={() => {
+                    closeMenu();
+                    logout();
+                }} 
                 className={`${classes.menuItem} ${classes.itemContent}`}>
                     {text.logout}
                 </MenuItem>

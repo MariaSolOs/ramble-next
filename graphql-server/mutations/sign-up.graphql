@@ -10,6 +10,6 @@ mutation signUp(
         firstName: $firstName,
         lastName: $lastName
     ) {
-        ...CoreProfile
+        _id
     }
 }

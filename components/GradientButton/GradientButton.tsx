@@ -8,7 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import styles from './GradientButton.styles';
 const useStyles = makeStyles(styles);
 
-const GradientButton: React.FC<React.ButtonHTMLAttributes<HTMLButtonElement> & GradientButtonProps> = (props) => {
+const GradientButton: React.FC<GradientButtonProps> = (props) => {
     const classes = useStyles(props);
 
     const button = (

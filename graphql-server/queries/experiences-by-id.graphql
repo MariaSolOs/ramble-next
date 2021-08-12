@@ -1,0 +1,5 @@
+query getExperiencesById($ids: [ID!]!) {
+    experiencesById(ids: $ids) {
+        ...ExperienceView
+    }
+}

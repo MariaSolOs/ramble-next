@@ -1,10 +1,13 @@
+import { useEffect } from 'react';
 import { GetStaticProps } from 'next';
+import { useRouter } from 'next/router';
 
-import getGraphQLClient from 'graphQLClient';
+import { getGraphQLClient } from 'lib/graphql';
+import { getPlaceholder } from 'lib/cloudinary';
 import { getSdk } from 'graphql-server/sdk';
 import useLanguageContext from 'context/languageContext';
-import { getPlaceholder } from 'utils/cloudinary';
-import { CLOUDINARY_BASE_URI, FEATURED_EXPERIENCES_IDS } from 'global-constants';
+import useUiContext from 'context/uiContext';
+import { CLOUDINARY_BASE_URI } from 'global-constants';
 import type { Image } from 'models/files';
 import type { CardContentFragment as ExperienceCard } from 'graphql-server/sdk';
 
@@ -42,6 +45,13 @@ const ADVENTURE_IMGS_URLS = [
     'v1628286916/Ramble/Homepage/adventure3.jpg'
 ] as const;
 
+const FEATURED_EXPERIENCES_IDS = [
+    '610acbb332b5150004b20c9f', // Crée ta propre chaussure en carton
+    '60c50206daa7aa0017ca9c61', // #35mm Film Photography Introduction
+    '6069e90709d1ae00172f4ea4', // Cocktails estivaux avec un mixologue
+    '610c38c8e608d800042db49a' // Remi Lemieux X Le Cuisinomane // Ultimus -10
+];
+
 const graphQLClient = getGraphQLClient();
 const sdk = getSdk(graphQLClient);
 
@@ -70,7 +80,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     const adventureImages = await Promise.all(adventureImagesPromises);
 
     // Featured experiences
-    const experiencesData = await sdk.getFeaturedExperiences({
+    const experiencesData = await sdk.getExperiencesById({
         ids: FEATURED_EXPERIENCES_IDS
     });
     const featuredExperiences = experiencesData.experiencesById;
@@ -87,6 +97,20 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 
 const Home = (props: Props) => {
     const { Home: text } = useLanguageContext().appText;
+    const { uiDispatch } = useUiContext();
+    const router = useRouter();
+
+    // Check if we just got redirected from Stripe
+    useEffect(() => {
+        const onboardingStatus = router.query['onboarding-status'];
+        if (typeof onboardingStatus !== 'undefined') {
+            const message = onboardingStatus === 'true' ? 
+                text.onboardingReturnSuccess : text.onboardingReturnFailure;
+            uiDispatch({ type: 'OPEN_SNACKBAR', message });
+            // Remove the query from the URL
+            router.replace('/', undefined, { shallow: true });
+        }
+    }, [router, uiDispatch, text]);
 
     return (
         <>

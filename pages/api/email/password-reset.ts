@@ -1,11 +1,11 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
+import type { NextApiHandler } from 'next';
 
-import mongodbConnection from 'mongodb-connection';
+import mongodbConnection from 'lib/mongodb-connection';
 import { User } from 'models/mongodb';
-import { sendPasswordResetEmail } from 'utils/sendgrid';
+import { sendPasswordResetEmail } from 'lib/sendgrid';
 import { MONGOOSE_LEAN_DEFAULTS } from 'global-constants';
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+const handler: NextApiHandler = async (req, res) => {
     try {
         // Should only be here when submitting the password reset form
         if (req.method !== 'POST') {

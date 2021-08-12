@@ -1,7 +1,7 @@
 import { GetStaticProps } from 'next';
 
 import useLanguageContext from 'context/languageContext';
-import { getPlaceholder } from 'utils/cloudinary';
+import { getPlaceholder } from 'lib/cloudinary';
 import { CLOUDINARY_BASE_URI } from 'global-constants';
 import type { Image } from 'models/files';
 import type { CreatorBio } from 'models/creator-interface';

@@ -1,0 +1,5 @@
+query getCoreProfile($userId: ID!) {
+    me(userId: $userId) {
+        ...CoreProfile
+    }
+}

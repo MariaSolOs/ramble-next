@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid';
 import type { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 import useLanguageContext from 'context/languageContext';
-import { getFormattedDuration } from 'utils/date-time';
+import { getFormattedDuration } from 'lib/date-time';
 import type { ExperienceProps, CarouselItemProps } from './index';
 
 import Image from 'next/image';
@@ -27,19 +27,17 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { makeStyles } from '@material-ui/core/styles';
 import { desktopStyles, mobileStyles } from './Experience.styles';
 
-const CarouselItem = React.memo((props: CarouselItemProps) => {
-    return (
-        <div className="image-gallery-image">
-            <Image
-            src={props.original}
-            alt={props.alt}
-            layout="fill"
-            objectFit="cover"
-            placeholder="blur"
-            blurDataURL={props.placeholder} />
-        </div>
-    );
-});
+const CarouselItem = React.memo((props: CarouselItemProps) => (
+    <div className="image-gallery-image">
+        <Image
+        src={props.original}
+        alt={props.alt}
+        layout="fill"
+        objectFit="cover"
+        placeholder="blur"
+        blurDataURL={props.placeholder} />
+    </div>
+));
 
 CarouselItem.displayName = 'CarouselItem';
 

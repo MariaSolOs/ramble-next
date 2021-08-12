@@ -1,7 +1,7 @@
 import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
 
-import getGraphQLClient from 'graphQLClient';
+import { getGraphQLClient } from 'lib/graphql';
 import { getSdk } from 'graphql-server/sdk';
 
 type Credentials = {
@@ -38,14 +38,7 @@ export default NextAuth({
                             lastName: credentials.lastName!
                         });
                         return {
-                            userId: data.signUpUser._id,
-                            creatorId: '', // Cannot be a creator if just signed up
-                            firstName: data.signUpUser.firstName,
-                            email: data.signUpUser.email,
-                            photo: { // Cannot have a picture if just signed up
-                                src: '',
-                                placeholder: ''
-                            } 
+                            userId: data.signUpUser._id
                         }
                     } else {
                         const data = await sdk.logIn({
@@ -54,14 +47,7 @@ export default NextAuth({
                         });
                         
                         return {
-                            userId: data.logInUser._id,
-                            creatorId: data.logInUser.creator?._id || '',
-                            firstName: data.logInUser.firstName,
-                            email: data.logInUser.email,
-                            photo: {
-                                src: data.logInUser.photo?.src || '',
-                                placeholder: data.logInUser.photo?.placeholder || ''
-                            }
+                            userId: data.logInUser._id
                         }
                     }
                 } catch (err: any) {
@@ -81,14 +67,18 @@ export default NextAuth({
                 return token;
             }
         },
-        session(session, token) {
-            return { 
+        async session(session, token) {
+            const { me } = await sdk.getCoreProfile({ userId: token.userId });
+            return {
                 user: {
-                    userId: token.userId,
-                    creatorId: token.creatorId,
-                    firstName: token.firstName,
-                    email: token.email,
-                    photo: token.photo
+                    userId: me._id,
+                    creatorId: me.creator?._id || '',
+                    firstName: me.firstName,
+                    email: me.email,
+                    photo: {
+                        src: me.photo?.src || '',
+                        placeholder: me.photo?.placeholder || ''
+                    }
                 },
                 expires: session.expires
             }

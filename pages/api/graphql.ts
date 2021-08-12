@@ -1,10 +1,10 @@
 import { ApolloServer } from 'apollo-server-micro';
-import { getSession } from 'next-auth/client';
+import { getToken } from 'next-auth/jwt';
 import type { NextApiHandler, PageConfig } from 'next';
 
 import { typeDefs } from 'graphql-server/schema';
 import { resolvers } from 'graphql-server/resolvers';
-import mongodbConnection from 'mongodb-connection';
+import mongodbConnection from 'lib/mongodb-connection';
 
 let cachedHandler: NextApiHandler | undefined = undefined;
 
@@ -16,8 +16,12 @@ const handler: NextApiHandler = async (req, res) => {
             typeDefs,
             resolvers,
             context: async ({ req }) => {
-                const session = await getSession({ req });
-                const userId = session?.user.userId || '';
+                const token = await getToken({ 
+                    req, 
+                    secret: process.env.NEXTAUTH_SECRET, 
+                    signingKey: process.env.JWT_SIGNING_KEY 
+                });
+                const userId = token?.userId || '';
                 return { userId }
             }
         });

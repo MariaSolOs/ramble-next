@@ -1,7 +1,8 @@
+import { useState } from 'react';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { useRouter } from 'next/router';
 
-import getGraphQLClient from 'graphQLClient';
+import { getGraphQLClient } from 'lib/graphql';
 import { getSdk } from 'graphql-server/sdk';
 import useSavedExperiences from 'hooks/useSavedExperiences';
 import type { ExperienceViewFragment as ExperienceType } from 'graphql-server/sdk';
@@ -9,6 +10,7 @@ import type { ExperienceViewFragment as ExperienceType } from 'graphql-server/sd
 import Spinner from 'components/Spinner';
 import RambleHead from 'components/RambleHead';
 import Layout from 'components/experience-page/Layout';
+import ShareExperienceDialog from 'components/ShareExperienceDialog';
 import Experience from 'components/Experience';
 
 type Props = {
@@ -20,7 +22,7 @@ const sdk = getSdk(graphQLClient);
 
 export const getStaticProps: GetStaticProps<Props> = async (context) => {
     const id = context.params?.expid as string;
-    const data = await sdk.getExperience({ id });
+    const data = await sdk.getExperiencesById({ ids: [id] });
     const experience = data.experiencesById[0];
 
     // If experience couldn't be fetched, go to the homepage
@@ -56,10 +58,14 @@ const ExperienceDetails = (props: Props) => {
     const { isExperienceSaved, handleSavingToggle } = useSavedExperiences();
     const router = useRouter();
 
+    const [openShareDialog, setOpenShareDialog] = useState(false);
+
     // Wait until experience is loaded
     if (router.isFallback) {
         return <Spinner />;
     }
+
+    const shareUrl = `${process.env.NEXT_PUBLIC_RAMBLE_URL}${router.asPath}`;
 
     return (
         <>
@@ -71,9 +77,15 @@ const ExperienceDetails = (props: Props) => {
             experienceId={props.experience._id}
             experiencePrice={props.experience.pricePerPerson}
             isOnlineExperience={props.experience.isOnlineExperience}>
+                <ShareExperienceDialog
+                shareUrl={shareUrl}
+                experienceTitle={props.experience.title}
+                open={openShareDialog}
+                onClose={() => setOpenShareDialog(false)} />
                 <Experience 
                 experience={props.experience}
                 isExperienceSaved={isExperienceSaved(props.experience._id)}
+                onShareClick={() => setOpenShareDialog(true)}
                 onHeartClick={() => handleSavingToggle(props.experience._id)} />
             </Layout>
         </>

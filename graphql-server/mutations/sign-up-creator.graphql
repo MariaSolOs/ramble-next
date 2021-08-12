@@ -1,0 +1,5 @@
+mutation signUpCreator($bio: String!, $governmentIds: [String!]!) {
+    signUpCreator(bio: $bio, governmentIds: $governmentIds) {
+        _id
+    }
+}

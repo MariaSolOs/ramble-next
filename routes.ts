@@ -9,7 +9,9 @@ const routes = {
     userProfile: createRoute('/profile/personal-information'),
     becomeACreator: createRoute('/creator/become'),
     creatorForm: createRoute('/creator/join'),
-    bookingRequests: createRoute('/creator/dashboard/booking-requests')
+    bookingRequests: createRoute('/creator/dashboard/booking-requests'),
+    creatorCalendar: createRoute('/creator/dashboard/calendar'),
+    createdExperiences: createRoute('/creator/dashboard/experiences')
 }
 
 export default routes;

@@ -242,6 +242,11 @@ export type Query = {
 };
 
 
+export type QueryMeArgs = {
+  userId: Scalars['ID'];
+};
+
+
 export type QueryExperiencesArgs = {
   location?: Maybe<Scalars['String']>;
   capacity?: Maybe<Scalars['Int']>;
@@ -496,7 +501,7 @@ export type OccurrenceResolvers<ContextType = Context, ParentType extends Resolv
 };
 
 export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  me?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  me?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<QueryMeArgs, 'userId'>>;
   experiences?: Resolver<Array<ResolversTypes['Experience']>, ParentType, ContextType, RequireFields<QueryExperiencesArgs, never>>;
   experiencesById?: Resolver<Array<ResolversTypes['Experience']>, ParentType, ContextType, RequireFields<QueryExperiencesByIdArgs, 'ids'>>;
   occurrences?: Resolver<Array<ResolversTypes['Occurrence']>, ParentType, ContextType, RequireFields<QueryOccurrencesArgs, 'experienceIds'>>;
