@@ -4,13 +4,14 @@ import { useRouter } from 'next/router';
 
 import { getGraphQLClient } from 'lib/graphql';
 import { getSdkWithHooks } from 'graphql-server/sdk';
+import useLanguageContext from 'context/languageContext';
 import useUiContext from 'context/uiContext';
 import useCreatorFormReducer from 'hooks/useCreatorFormReducer';
 import type { FileField, StringField } from 'hooks/useCreatorFormReducer';
 
 import Spinner from 'components/Spinner';
 import Form from 'components/creator-form/Form';
-import StripeMessage from 'components/creator-form/StripeMessage';
+import StripeRedirect from 'components/StripeRedirect';
 
 const graphQLClient = getGraphQLClient();
 const sdk = getSdkWithHooks(graphQLClient);
@@ -18,23 +19,24 @@ const sdk = getSdkWithHooks(graphQLClient);
 const VALID_PHONE_NUMBER_REG = /^\(?([0-9]{3})\)?[- ]?([0-9]{3})[- ]?([0-9]{4})$/;
 
 const CreatorForm = () => {
+    const { CreatorForm: text } = useLanguageContext().appText;
     const [state, dispatch] = useCreatorFormReducer();
     const { uiDispatch } = useUiContext();
     const router = useRouter();
     const [session] = useSession();
 
+    // Get the fields to prefill the form
+    const { data } = sdk.useGetCreatorFormFields(session ? 'getCreatorFormFields' : null, {
+        userId: session?.user.userId || ''
+    });
+
     // Make sure only users that are signed in but are not creators are here
     useEffect(() => {
         if (!session || (session.user.creatorId && !state.creatorId)) {
-            router.push('/');
+            router.replace('/');
         }
     }, [session, state.creatorId, router]);
 
-    // Get the fields to prefill the form
-    const { data } = sdk.useGetCreatorFormFields('getCreatorFormFields', {
-        userId: session?.user.userId || ''
-    });
-    
     useEffect(() => {
         dispatch({ 
             type: 'SET_STRING_FIELD',
@@ -122,8 +124,13 @@ const CreatorForm = () => {
     }
 
     // When the form was successfully submitted, start Stripe onboarding
-    if (state.creatorId) {
-        return <StripeMessage creatorId={state.creatorId} />;
+    if (state.creatorId || state.phoneNumber) {
+        return (
+            <StripeRedirect 
+            creatorId={state.creatorId}
+            message1={text.formSubmittedMessage} 
+            message2={text.stripeMessage} />
+        )
     }
 
     return (

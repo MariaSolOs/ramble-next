@@ -2,21 +2,21 @@ import { useState } from 'react';
 
 import useLanguageContext from 'context/languageContext';
 import useUiContext from 'context/uiContext';
-import type { StripeMessageProps } from './index';
+import type { StripeRedirectProps } from './index';
 
-import Spinner from 'components/Spinner/Spinner';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStripe } from '@fortawesome/free-brands-svg-icons/faStripe';
-
+import Spinner from 'components/Spinner/Spinner';
+ 
 import { makeStyles } from '@material-ui/core/styles';
-import styles from './StripeMessage.styles';
+import styles from './StripeRedirect.styles';
 const useStyles = makeStyles(styles);
 
-const StripeMessage = (props: StripeMessageProps) => {
-    const { CreatorForm: text } = useLanguageContext().appText;
+const StripeRedirect = (props: StripeRedirectProps) => {
+    const { StripeRedirect: text } = useLanguageContext().appText;
     const { uiDispatch } = useUiContext();
     const classes = useStyles();
-
+    
     const [loading, setLoading] = useState(false);
 
     const handleStripeRedirect = () => {
@@ -37,8 +37,8 @@ const StripeMessage = (props: StripeMessageProps) => {
             window.location.href = res.stripeRedirect;
         })
         .catch(() => {
-            uiDispatch({ 
-                type: 'OPEN_ERROR_DIALOG', 
+            uiDispatch({
+                type: 'OPEN_ERROR_DIALOG',
                 message: "We couldn't complete your onboarding..."
             });
         });
@@ -47,8 +47,8 @@ const StripeMessage = (props: StripeMessageProps) => {
     return (
         <div className={classes.root}>
             {loading && <Spinner />}
-            <p className={classes.submittedMessage}>{text.formSubmittedMessage}</p>
-            <p className={classes.stripeMessage}>{text.stripeMessage}&trade;</p>
+            <p className={classes.message}>{props.message1}</p>
+            <p className={classes.message}>{props.message2}</p>
             <div className={classes.stripeLinkContainer} onClick={handleStripeRedirect}>
                 <p className={classes.stripeContinue}>{text.continueWithStripe}</p>
                 <FontAwesomeIcon icon={faStripe} className={classes.stripeButton} />
@@ -57,4 +57,4 @@ const StripeMessage = (props: StripeMessageProps) => {
     );
 }
 
-export default StripeMessage;
+export default StripeRedirect;

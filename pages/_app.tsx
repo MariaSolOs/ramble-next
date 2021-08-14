@@ -12,6 +12,11 @@ import ErrorDialog from 'components/ErrorDialog';
 import Snackbar from 'components/Snackbar';
 import GlobalStyles from 'GlobalStyles';
 
+// Fullcalendar styles
+import '@fullcalendar/common/main.css';
+import '@fullcalendar/daygrid/main.css';
+import '@fullcalendar/timegrid/main.css';
+
 // Fixes the huge icon initial flash
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css'; 

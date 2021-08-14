@@ -1,8 +1,7 @@
-import type { Category as ExperienceCategory } from './experience-interface';
-// import type { 
-//     Category as ExperienceCategory, 
-//     CreationStep as ExperienceCreationStep
-// } from './experience';
+import type { 
+    Category as ExperienceCategory,
+    CreationStep as ExperienceCreationStep 
+} from './experience-interface';
 
 export type Language = 'en' | 'fr';
 
@@ -41,45 +40,43 @@ export type TranslationRecord = {
 
     BecomeACreator: Record<'becomeTitle' | 'shareTitle' | 'getPaidTitle' | 'getStarted' | 'currentCreators1' | 'currentCreators2' | 'actTitle1' | 'actTitle2' | 'lightbulbText' | 'cloudText' | 'walletText', string>;
 
-    CreatorForm: Record<'headerTitle' | 'profilePicture' | 'showSmile' | 'aboutYouTitle' | 'aboutYouSubtitle' | 'aboutYouTitle' | 'aboutYouTip' | 'phoneNumberTitle' | 'phoneNumberSubtitle' | 'phoneNumberError' | 'idTitle' | 'idSubtitle' | 'idTip1' | 'idTip2' | 'front' | 'back' | 'frontIdText' | 'backIdText' | 'addFront' | 'addBack' | 'done' | 'formSubmittedMessage' | 'stripeMessage' | 'continueWithStripe', string>;
+    CreatorForm: Record<'headerTitle' | 'profilePicture' | 'showSmile' | 'aboutYouTitle' | 'aboutYouSubtitle' | 'aboutYouTitle' | 'aboutYouTip' | 'phoneNumberTitle' | 'phoneNumberSubtitle' | 'phoneNumberError' | 'idTitle' | 'idSubtitle' | 'idTip1' | 'idTip2' | 'front' | 'back' | 'frontIdText' | 'backIdText' | 'addFront' | 'addBack' | 'done' | 'formSubmittedMessage' | 'stripeMessage', string>;
 
-    // StripeRedirect: Record<'onboardingMessage' | 'help' | 'continueWithStripe', string>;
+    StripeRedirect: Record<'continueWithStripe', string>;
 
-    // CreateExperience: Record<'animationTitle1' | 'animationTitle2' | 'leavePageAlert', string>;
+    CreateExperience: Record<'stripeRedirectMessage1' | 'stripeRedirectMessage2' | 'animationTitle1' | 'animationTitle2' | 'leavePageAlert' | 'back' | 'next' | 'submit' | ExperienceCreationStep, string>;
     
     // CreateExperience_Submitted: Record<'title' | 'message1' | 'message2' | 'message3' | 'button', string>;
     
-    // // CreateExperience_Layout: Record<'back' | 'next' | 'submit' | ExperienceCreationStep, string>;
-
-    // BuilderSlides_Setting: Record<'title' | 'subtitle' | 'online' | 'onlineOption' | 'inPerson' | 'inPersonOption', string>;
+    BuilderSlides_Setting: Record<'title' | 'subtitle' | 'online' | 'onlineOption' | 'inPerson' | 'inPersonOption', string>;
     
-    // BuilderSlides_Location: Record<'locationTitle' | 'cityQuestion' | 'meetingPoint' | 'meetingPointQuestion' | 'accessTip' | 'sharedInfoRemark' | 'zoomPMI' | 'zoomPassword' | 'zoomPMIHelp' | 'zoomPasswordHelp' | 'zoomDocs', string>;
+    BuilderSlides_Location: Record<'locationTitle' | 'cityQuestion' | 'meetingPoint' | 'meetingPointQuestion' | 'accessTip' | 'sharedInfoRemark' | 'zoomPMI' | 'zoomPassword' | 'zoomPMIHelp' | 'zoomPasswordHelp' | 'zoomDocs', string>;
 
-    // BuilderSlides_Title: Record<'title' | 'subtitle' | 'tip', string>;
+    BuilderSlides_Title: Record<'title' | 'subtitle' | 'tip', string>;
 
-    // BuilderSlides_Category: Record<'title' | 'of' | 'question1' | 'question2' | 'tip', string>;
+    BuilderSlides_Category: Record<'title' | 'of' | 'question1' | 'question2' | 'tip', string>;
 
-    // BuilderSlides_Planning: Record<'title' | 'subtitle' | 'textfieldLabel', string>;
+    BuilderSlides_Planning: Record<'title' | 'subtitle' | 'textfieldLabel', string>;
 
-    // BuilderSlides_Duration: Record<'title' | 'subtitle' | 'tip' | 'hour' | 'hours' | 'halfHour', string>;
+    BuilderSlides_Duration: Record<'title' | 'subtitle' | 'tip' | 'hour' | 'hours' | 'halfHour', string>;
 
-    // BuilderSlides_Language: Record<'title' | 'subtitle' | 'tip' | 'maxLanguagesMessage', string>;
+    BuilderSlides_Language: Record<'title' | 'subtitle' | 'tip' | 'maxLanguagesMessage', string>;
     
-    // BuilderSlides_Capacity: Record<'title' | 'subtitle' | 'tip' | 'person' | 'people', string>;
+    BuilderSlides_Capacity: Record<'title' | 'subtitle' | 'tip' | 'person' | 'people', string>;
 
-    // BuilderSlides_AgeRequirements: Record<'title' | 'subtitle' | 'tip' | 'yes' | 'no' | 'yearsOld', string>;
+    BuilderSlides_AgeRequirements: Record<'title' | 'subtitle' | 'tip' | 'yes' | 'no' | 'yearsOld', string>;
     
-    // BuilderSlides_Preview: Record<'title' | 'subtitle' | 'tip' | 'coverImgTitle' | 'coverImgText' | 'creatorImgTitle' | 'creatorImgText' | 'actionImgTitle' | 'actionImgText' | 'locationImgTitle' | 'locationImgText', string>;
+    BuilderSlides_Preview: Record<'title' | 'subtitle' | 'tip' | 'coverImgTitle' | 'coverImgText' | 'creatorImgTitle' | 'creatorImgText' | 'actionImgTitle' | 'actionImgText' | 'locationImgTitle' | 'locationImgText', string>;
 
-    // BuilderSlides_IncludedItems: Record<'title' | 'subtitle' | 'tip' | 'fieldLabel' | 'placeholder' | 'alreadyIncluded', string>;
+    BuilderSlides_IncludedItems: Record<'title' | 'subtitle' | 'tip' | 'fieldLabel' | 'placeholder' | 'alreadyIncluded', string>;
     
-    // BuilderSlides_ToBringItems: Record<'title' | 'subtitle1' | 'subtitle2' | 'tip' | 'yes' | 'no' | 'fieldLabel' | 'placeholder' | 'alreadyIncluded', string>;
+    BuilderSlides_ToBringItems: Record<'title' | 'subtitle1' | 'subtitle2' | 'tip' | 'yes' | 'no' | 'fieldLabel' | 'placeholder' | 'alreadyIncluded', string>;
 
-    // BuilderSlides_Pricing: Record<'title' | 'subtitle1' | 'subtitle2' | 'tip1' | 'tip2' | 'tip3' | 'pricePerPerson' | 'currency' | 'revenue' | 'guest' | 'guests' | 'privatePriceDescription' | 'privatePrice', string>;
+    BuilderSlides_Pricing: Record<'title' | 'subtitle1' | 'subtitle2' | 'tip1' | 'tip2' | 'tip3' | 'pricePerPerson' | 'currency' | 'revenue' | 'creatorFee' | 'privatePriceDescription' | 'privatePrice', string>;
 
-    // BuilderSlides_Availabilities: Record<'title' | 'subtitle' | 'tip1' | 'tip2' | 'timezoneMessage' | 'today' | 'month' | 'day', string>;
+    BuilderSlides_Availabilities: Record<'title' | 'subtitle' | 'tip1' | 'tip2' | 'timezoneMessage' | 'today' | 'month' | 'day', string>;
 
-    // BuilderSlides_Review: Record<'title', string>;
+    BuilderSlides_Review: Record<'title', string>;
 
     // BookExperience_Layout: Record<'dateAndTime' | 'completeBooking' | 'payment' | 'next' | 'confirmPayment', string>;
 

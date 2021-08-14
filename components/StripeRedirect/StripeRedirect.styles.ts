@@ -13,12 +13,10 @@ const styles = (theme: Theme) => createStyles({
         }
     },
 
-    submittedMessage: {
+    message: { 
         fontSize: '1.1rem',
         fontWeight: theme.typography.fontWeightRegular
     },
-
-    stripeMessage: { fontSize: '1.2rem' },
 
     stripeLinkContainer: { 
         marginTop: '2rem',

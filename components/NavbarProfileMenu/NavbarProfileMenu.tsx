@@ -3,7 +3,7 @@ import { signOut } from 'next-auth/client';
 import { useRouter } from 'next/router';
 
 import routes from 'routes';
-import { useLanguageContext } from 'context/languageContext';
+import useLanguageContext from 'context/languageContext';
 import type { NavbarProfileMenuProps } from './index';
 
 import Link from 'next/link';

@@ -1,8 +1,15 @@
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const { withPlaiceholder } = require('@plaiceholder/next');
+const withTM = require('next-transpile-modules')([
+    '@fullcalendar/common',
+    '@fullcalendar/react',
+    '@fullcalendar/daygrid',
+    '@fullcalendar/interaction',
+    '@fullcalendar/timegrid'
+]);
 
-module.exports = withPlaiceholder({
+module.exports = withPlaiceholder(withTM({
     images: {
         domains: ['res.cloudinary.com']
     },
@@ -26,4 +33,4 @@ module.exports = withPlaiceholder({
      
         return config;
     }
-});
+}));

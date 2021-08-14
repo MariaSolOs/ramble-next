@@ -377,6 +377,19 @@ export type GetCoreProfileQueryVariables = Exact<{
 
 export type GetCoreProfileQuery = { me: CoreProfileFragment };
 
+export type GetCreationProfileQueryVariables = Exact<{
+  userId: Scalars['ID'];
+}>;
+
+
+export type GetCreationProfileQuery = { me: (
+    { creator?: Maybe<(
+      Pick<Creator, '_id' | 'bio'>
+      & { stripeProfile: Pick<StripeInfo, 'onboarded'> }
+    )> }
+    & UserAvatarFragment
+  ) };
+
 export type GetCreatorFormFieldsQueryVariables = Exact<{
   userId: Scalars['ID'];
 }>;
@@ -548,6 +561,20 @@ export const GetCoreProfileDocument = gql`
   }
 }
     ${CoreProfileFragmentDoc}`;
+export const GetCreationProfileDocument = gql`
+    query getCreationProfile($userId: ID!) {
+  me(userId: $userId) {
+    ...UserAvatar
+    creator {
+      _id
+      bio
+      stripeProfile {
+        onboarded
+      }
+    }
+  }
+}
+    ${UserAvatarFragmentDoc}`;
 export const GetCreatorFormFieldsDocument = gql`
     query getCreatorFormFields($userId: ID!) {
   me(userId: $userId) {
@@ -619,6 +646,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     getCoreProfile(variables: GetCoreProfileQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetCoreProfileQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetCoreProfileQuery>(GetCoreProfileDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getCoreProfile');
     },
+    getCreationProfile(variables: GetCreationProfileQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetCreationProfileQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetCreationProfileQuery>(GetCreationProfileDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getCreationProfile');
+    },
     getCreatorFormFields(variables: GetCreatorFormFieldsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetCreatorFormFieldsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetCreatorFormFieldsQuery>(GetCreatorFormFieldsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getCreatorFormFields');
     },
@@ -643,6 +673,9 @@ export function getSdkWithHooks(client: GraphQLClient, withWrapper: SdkFunctionW
     ...sdk,
     useGetCoreProfile(key: SWRKeyInterface, variables: GetCoreProfileQueryVariables, config?: SWRConfigInterface<GetCoreProfileQuery, ClientError>) {
       return useSWR<GetCoreProfileQuery, ClientError>(key, () => sdk.getCoreProfile(variables), config);
+    },
+    useGetCreationProfile(key: SWRKeyInterface, variables: GetCreationProfileQueryVariables, config?: SWRConfigInterface<GetCreationProfileQuery, ClientError>) {
+      return useSWR<GetCreationProfileQuery, ClientError>(key, () => sdk.getCreationProfile(variables), config);
     },
     useGetCreatorFormFields(key: SWRKeyInterface, variables: GetCreatorFormFieldsQueryVariables, config?: SWRConfigInterface<GetCreatorFormFieldsQuery, ClientError>) {
       return useSWR<GetCreatorFormFieldsQuery, ClientError>(key, () => sdk.getCreatorFormFields(variables), config);

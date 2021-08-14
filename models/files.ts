@@ -11,6 +11,13 @@ export type PreviewableFile = {
 } | null;
 
 /**
+ * @returns True if img is an Image object (with placeholder).
+ */
+export const isOptimizedImage = (img: any): img is Image => {
+    return (typeof img.src === 'string') && (typeof img.placeholder === 'string');
+}
+
+/**
  * @returns True if file is a File object.
  */
 export const isFile = (file: any): file is File => {

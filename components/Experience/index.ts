@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Experience from './Experience';
-import type { ExperienceViewFragment as ExperienceType } from 'graphql-server/sdk';
+import type { Experience as ExperienceType } from 'models/experience-interface';
 
 export type ExperienceProps = {
     experience: ExperienceType;

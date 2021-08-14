@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import type { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import type { ReactImageGalleryItem } from 'react-image-gallery';
 
 import useLanguageContext from 'context/languageContext';
 import { getFormattedDuration } from 'lib/date-time';
+import { isOptimizedImage } from 'models/files';
 import type { ExperienceProps, CarouselItemProps } from './index';
 
 import Image from 'next/image';
@@ -27,17 +29,21 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { makeStyles } from '@material-ui/core/styles';
 import { desktopStyles, mobileStyles } from './Experience.styles';
 
-const CarouselItem = React.memo((props: CarouselItemProps) => (
-    <div className="image-gallery-image">
-        <Image
-        src={props.original}
-        alt={props.alt}
-        layout="fill"
-        objectFit="cover"
-        placeholder="blur"
-        blurDataURL={props.placeholder} />
-    </div>
-));
+const CarouselItem = React.memo((props: ReactImageGalleryItem) => {
+    const item = props as CarouselItemProps;
+
+    return (
+        <div className="image-gallery-image">
+            <Image
+            src={item.original}
+            alt={item.alt}
+            layout="fill"
+            objectFit="cover"
+            placeholder="blur"
+            blurDataURL={item.placeholder} />
+        </div>
+    );
+});
 
 CarouselItem.displayName = 'CarouselItem';
 
@@ -55,12 +61,24 @@ const Experience = (props: ExperienceProps) => {
         numQuickInfosColumns: ageRestricted ? 4 : 3
     });
 
-    const carouselItems: CarouselItemProps[] = experience.images.map(img => ({
-        original: img.src.replace('h_400', 'h_700'),
-        thumbnail: img.src.replace('h_400', 'h_200'),
-        placeholder: img.placeholder,
-        alt: experience.title
-    }));
+    // Depending on the images we get, construct the carousel items
+    const carouselItems = experience.images.map(img => {
+        if (isOptimizedImage(img)) {
+            const item: CarouselItemProps = {
+                original: img.src.replace('h_400', 'h_700'),
+                thumbnail: img.src.replace('h_400', 'h_200'),
+                placeholder: img.placeholder,
+                alt: experience.title
+            }
+            return item;
+        } else { // The image is a string
+            const item: ReactImageGalleryItem = {
+                original: img.replace('h_400', 'h_700'),
+                thumbnail: img.replace('h_400', 'h_200')
+            }   
+            return item;
+        }
+    });
 
     const getQuickInfo = (icon: IconDefinition, label: string, content: string) => (
         <div className={classes.quickInfoColumn}>
@@ -82,7 +100,10 @@ const Experience = (props: ExperienceProps) => {
             showPlayButton={false}
             showNav={false}
             showBullets
-            renderItem={item => <CarouselItem { ...(item as CarouselItemProps) } />} />
+            {...isOptimizedImage(experience.images[0]) && {
+                // eslint-disable-next-line react/display-name
+                renderItem: item => <CarouselItem { ...item } />
+            }} />
             <div className={classes.body}>
                 <div className={classes.mainInfos}>
                     <div>

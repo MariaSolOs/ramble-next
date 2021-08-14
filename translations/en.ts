@@ -166,22 +166,38 @@ const englishTranslation: TranslationRecord = {
         addBack: 'Add back',
         done: 'Done',
         formSubmittedMessage: 'Your form was submitted. All you have left to do is choose the way you want to receive your payments.',
-        stripeMessage: 'In order to keep your information secure, all payments are handled and processed by Stripe.',
+        stripeMessage: 'In order to keep your information secure, all payments are handled and processed by Stripe.'
+    },
+
+    StripeRedirect: {
         continueWithStripe: 'Continue with Stripe'
     },
 
-
-    // StripeRedirect: {
-    //     onboardingMessage: 'You’re almost there! Before you start creating, we need you to set up your payment information with Stripe.',
-    //     help: 'If you need help, please let us know!',
-    //     continueWithStripe: 'Continue with Stripe'
-    // },
-
-    // CreateExperience: {
-    //     animationTitle1: 'Just like you.',
-    //     animationTitle2: "We're all about creating special moments.",
-    //     leavePageAlert: 'If you leave this page, your changes will be lost.'
-    // },
+    CreateExperience: {
+        stripeRedirectMessage1: 'You’re almost there! Before you start creating, we need you to set up your payment information with Stripe.',
+        stripeRedirectMessage2: 'If you need help, please let us know!',
+        animationTitle1: 'Just like you.',
+        animationTitle2: "We're all about creating special moments.",
+        leavePageAlert: 'If you leave this page, your changes will be lost.',
+        back: 'Back',
+        next: 'Next',
+        submit: 'Submit my experience',
+        setting: 'Setting',
+        location: 'Location',
+        title: 'Title',
+        category: 'Category',
+        planning: 'Planning',
+        duration: 'Duration',
+        language: 'Language',
+        capacity: 'Capacity',
+        age: 'Required age',
+        preview: 'Preview',
+        included: "What's included",
+        toBring: 'What to bring',
+        price: 'Pricing',
+        availabilities: 'Availabilities',
+        review: 'Review and submit'
+    },
     
     // CreateExperience_Submitted: {
     //     title: 'Your experience was submitted',
@@ -191,168 +207,146 @@ const englishTranslation: TranslationRecord = {
     //     button: 'Got it'
     // },
     
-    // CreateExperience_Layout: {
-    //     back: 'Back',
-    //     next: 'Next',
-    //     submit: 'Submit my experience',
-    //     setting: 'Setting',
-    //     location: 'Location',
-    //     title: 'Title',
-    //     category: 'Category',
-    //     planning: 'Planning',
-    //     duration: 'Duration',
-    //     language: 'Language',
-    //     capacity: 'Capacity',
-    //     age: 'Required age',
-    //     preview: 'Preview',
-    //     included: "What's included",
-    //     toBring: 'What to bring',
-    //     price: 'Pricing',
-    //     availabilities: 'Availabilities',
-    //     review: 'Review and submit'
-    // },
+    BuilderSlides_Setting: {
+        title: 'Setting',
+        subtitle: 'What type of experience are you hosting?',
+        online: 'Online',
+        onlineOption: 'Host your experience via Zoom',
+        inPerson: 'In person',
+        inPersonOption: 'Meet your guests in person',
+    },
 
-    // BuilderSlides_Setting: {
-    //     title: 'Setting',
-    //     subtitle: 'What type of experience are you hosting?',
-    //     online: 'Online',
-    //     onlineOption: 'Host your experience via Zoom',
-    //     inPerson: 'In person',
-    //     inPersonOption: 'Meet your guests in person',
-    // },
+    BuilderSlides_Location: {
+        locationTitle: 'Location',
+        cityQuestion: 'In which city will your experience take place?',
+        meetingPoint: 'Meeting point', 
+        meetingPointQuestion: 'Where exactly will you meet your guests?',
+        accessTip: 'Choose an easily accessible location.',
+        sharedInfoRemark: 'This information will be shared with guests only after booking.',
+        zoomPMI: 'ZOOM MEETING PERSONAL ID (PMI)',
+        zoomPassword: 'MEETING PASSWORD',
+        zoomPMIHelp: 'For help on setting your PMI, check the',
+        zoomPasswordHelp: 'For help on managing your password, check the',
+        zoomDocs: 'Zoom docs',
+    },
 
-    // BuilderSlides_Location: {
-    //     locationTitle: 'Location',
-    //     cityQuestion: 'In which city will your experience take place?',
-    //     meetingPoint: 'Meeting point', 
-    //     meetingPointQuestion: 'Where exactly will you meet your guests?',
-    //     accessTip: 'Choose an easily accessible location.',
-    //     sharedInfoRemark: 'This information will be shared with guests only after booking.',
-    //     zoomPMI: 'ZOOM MEETING PERSONAL ID (PMI)',
-    //     zoomPassword: 'MEETING PASSWORD',
-    //     zoomPMIHelp: 'For help on setting your PMI, check the',
-    //     zoomPasswordHelp: 'For help on managing your password, check the',
-    //     zoomDocs: 'Zoom docs',
-    // },
+    BuilderSlides_Title: {
+        title: 'Title',
+        subtitle: 'Give your experience a compelling title.',
+        tip: 'Try keeping it short and exciting.'
+    },
 
-    // BuilderSlides_Title: {
-    //     title: 'Title',
-    //     subtitle: 'Give your experience a compelling title.',
-    //     tip: 'Try keeping it short and exciting.'
-    // },
+    BuilderSlides_Category: {
+        title: 'Category',
+        of: 'of',
+        question1: 'Which category would you say your experience fits the most?',
+        question2: 'Which other category would your experience fit in?',
+        tip: 'Add a second category to give a unique touch to your experience.'
+    },
 
-    // BuilderSlides_Category: {
-    //     title: 'Category',
-    //     of: 'of',
-    //     question1: 'Which category would you say your experience fits the most?',
-    //     question2: 'Which other category would your experience fit in?',
-    //     tip: 'Add a second category to give a unique touch to your experience.'
-    // },
+    BuilderSlides_Planning: {
+        title: 'Planning',
+        subtitle: 'Please provide a precise summary of your experience. This description will be displayed on the experience page.',
+        textfieldLabel: 'Describe your experience'
+    },
 
-    // BuilderSlides_Planning: {
-    //     title: 'Planning',
-    //     subtitle: 'Please provide a precise summary of your experience. This description will be displayed on the experience page.',
-    //     textfieldLabel: 'Describe your experience'
-    // },
+    BuilderSlides_Duration: {
+        title: 'Duration', 
+        subtitle: 'How long is your experience?',
+        tip: 'Most experiences are between 1 to 3 hours.',
+        hour: 'hour',
+        hours: 'hours',
+        halfHour: 'and 30 minutes'
+    },
 
-    // BuilderSlides_Duration: {
-    //     title: 'Duration', 
-    //     subtitle: 'How long is your experience?',
-    //     tip: 'Most experiences are between 1 to 3 hours.',
-    //     hour: 'hour',
-    //     hours: 'hours',
-    //     halfHour: 'and 30 minutes'
-    // },
+    BuilderSlides_Language: {
+        title: 'Language',
+        subtitle: 'In which language will you interact with your guests?',
+        tip: 'You should host your experience in a language you speak fluently.',
+        maxLanguagesMessage: 'You can pick a maximum of 3 languages.'
+    },
 
-    // BuilderSlides_Language: {
-    //     title: 'Language',
-    //     subtitle: 'In which language will you interact with your guests?',
-    //     tip: 'You should host your experience in a language you speak fluently.',
-    //     maxLanguagesMessage: 'You can pick a maximum of 3 languages.'
-    // },
+    BuilderSlides_Capacity: {
+        title: 'Capacity', 
+        subtitle: 'Set a maximum number of guests for your experience.',
+        tip: 'Consider the nature of your experience. Some experiences require a certain intimacy and others work better with a bigger group.',
+        people: 'People',
+        person: 'Person'
+    },
 
-    // BuilderSlides_Capacity: {
-    //     title: 'Capacity', 
-    //     subtitle: 'Set a maximum number of guests for your experience.',
-    //     tip: 'Consider the nature of your experience. Some experiences require a certain intimacy and others work better with a bigger group.',
-    //     people: 'People',
-    //     person: 'Person'
-    // },
+    BuilderSlides_AgeRequirements: {
+        title: 'Age restriction',
+        subtitle: 'Do your guests have to be a certain age to access this experience?',
+        tip: 'If your experience includes alcohol or any other age-restricted matter, an age limit must be fixed accordingly.',
+        yes: 'Yes',
+        no: 'No',
+        yearsOld: 'years old'
+    },
 
-    // BuilderSlides_AgeRequirements: {
-    //     title: 'Age restriction',
-    //     subtitle: 'Do your guests have to be a certain age to access this experience?',
-    //     tip: 'If your experience includes alcohol or any other age-restricted matter, an age limit must be fixed accordingly.',
-    //     yes: 'Yes',
-    //     no: 'No',
-    //     yearsOld: 'years old'
-    // },
+    BuilderSlides_Preview: {
+        title: 'Preview',
+        subtitle: "Provide your guests with a teaser of what they'll do.",
+        tip: 'Use high quality pictures so that your experience sticks out. Try to include people in the pictures.',
+        coverImgTitle: 'Cover Picture',
+        coverImgText: 'This picture will appear on the front page of your experience',
+        creatorImgTitle: 'Creator',
+        creatorImgText: 'Share a picture of you conducting your experience',
+        actionImgTitle: 'Action Shot',
+        actionImgText: 'Show your guests having a great time',
+        locationImgTitle: 'Location',
+        locationImgText: 'Include a shot of the surroundings'
+    },
 
-    // BuilderSlides_Preview: {
-    //     title: 'Preview',
-    //     subtitle: "Provide your guests with a teaser of what they'll do.",
-    //     tip: 'Use high quality pictures so that your experience sticks out. Try to include people in the pictures.',
-    //     coverImgTitle: 'Cover Picture',
-    //     coverImgText: 'This picture will appear on the front page of your experience',
-    //     creatorImgTitle: 'Creator',
-    //     creatorImgText: 'Share a picture of you conducting your experience',
-    //     actionImgTitle: 'Action Shot',
-    //     actionImgText: 'Show your guests having a great time',
-    //     locationImgTitle: 'Location',
-    //     locationImgText: 'Include a shot of the surroundings'
-    // },
+    BuilderSlides_IncludedItems: {
+        title: "What's included",
+        subtitle: 'Please list the items you will provide your guests for this experience.',
+        tip: 'If your guests build or create something they will leave with, list it on here too.',
+        fieldLabel: 'I will provide...',
+        placeholder: 'E.g.: Paint brushes',
+        alreadyIncluded: 'You already included that item!'
+    },
 
-    // BuilderSlides_IncludedItems: {
-    //     title: "What's included",
-    //     subtitle: 'Please list the items you will provide your guests for this experience.',
-    //     tip: 'If your guests build or create something they will leave with, list it on here too.',
-    //     fieldLabel: 'I will provide...',
-    //     placeholder: 'E.g.: Paint brushes',
-    //     alreadyIncluded: 'You already included that item!'
-    // },
+    BuilderSlides_ToBringItems: {
+        title: 'What to bring',
+        subtitle1: 'Should your guests be bringing anything?',
+        subtitle2: 'What should your guests bring?',
+        tip: 'Be as precise as possible so your guests can prepare appropriately.',
+        yes: 'Yes',
+        no: 'No',
+        fieldLabel: 'My guests need...',
+        placeholder: 'E.g.: A canvas',
+        alreadyIncluded: 'You already included that item!'
+    },
 
-    // BuilderSlides_ToBringItems: {
-    //     title: 'What to bring',
-    //     subtitle1: 'Should your guests be bringing anything?',
-    //     subtitle2: 'What should your guests bring?',
-    //     tip: 'Be as precise as possible so your guests can prepare appropriately.',
-    //     yes: 'Yes',
-    //     no: 'No',
-    //     fieldLabel: 'My guests need...',
-    //     placeholder: 'E.g.: A canvas',
-    //     alreadyIncluded: 'You already included that item!'
-    // },
+    BuilderSlides_Pricing: {
+        title: 'Pricing',
+        subtitle1: 'Enter the price each guest should pay.',
+        subtitle2: 'Enable private bookings',
+        tip1: 'This price will be displayed as "Per person"',
+        tip2: 'This is a fixed price private groups have to pay to book the entire experience.',
+        tip3: 'This option will be offered to your guests if all spots are available for a time slot.',
+        pricePerPerson: 'Price per person',
+        currency: 'Currency',
+        revenue: 'Projected revenue',
+        creatorFee: '- 20% Creator fee',
+        privatePriceDescription: 'Charge a special price for people who want to be the only guests at your experience.',
+        privatePrice: 'Price for private bookings'
+    },
 
-    // BuilderSlides_Pricing: {
-    //     title: 'Pricing',
-    //     subtitle1: 'Enter the price each guest should pay.',
-    //     subtitle2: 'Enable private bookings',
-    //     tip1: 'This price will be displayed as "Per person"',
-    //     tip2: 'This is a fixed price private groups have to pay to book the entire experience.',
-    //     tip3: 'This option will be offered to your guests if all spots are available for a time slot.',
-    //     pricePerPerson: 'Price per person',
-    //     currency: 'Currency',
-    //     guest: 'guest',
-    //     guests: 'guests',
-    //     revenue: 'Projected revenue',
-    //     privatePriceDescription: 'Charge a special price for people who want to be the only guests at your experience.',
-    //     privatePrice: 'Price for private bookings'
-    // },
+    BuilderSlides_Availabilities: {
+        title: 'Availabilities',
+        subtitle: 'Pick the days and time slots for which guests can book your experience.',
+        tip1: 'Consider your weekly schedule. Set realistic availabilities during which you are sure to be free.',
+        tip2: "In your creator dashboard, you'll be able to add time slots for a certain date, or remove them if no bookings have been made yet.",
+        timezoneMessage: 'The reference time zone is Eastern Standard Time (EST).',
+        today: 'Today',
+        month: 'Month',
+        day: 'Day'
+    },
 
-    // BuilderSlides_Availabilities: {
-    //     title: 'Availabilities',
-    //     subtitle: 'Pick the days and time slots for which guests can book your experience.',
-    //     tip1: 'Consider your weekly schedule. Set realistic availabilities during which you are sure to be free.',
-    //     tip2: "In your creator dashboard, you'll be able to add time slots for a certain date, or remove them if no bookings have been made yet.",
-    //     timezoneMessage: 'The reference time zone is Eastern Standard Time (EST).',
-    //     today: 'Today',
-    //     month: 'Month',
-    //     day: 'Day'
-    // },
-
-    // BuilderSlides_Review: {
-    //     title: 'Review & Submit'
-    // },
+    BuilderSlides_Review: {
+        title: 'Review & Submit'
+    },
 
     // BookExperience_Layout: {
     //     dateAndTime: 'Date & Time',

@@ -24,7 +24,7 @@ const LanguageContext = createContext<LanguageContextType>({
     appText: dictionaries['en'],
 });
 
-export const useLanguageContext = () => useContext(LanguageContext);
+const useLanguageContext = () => useContext(LanguageContext);
 const useLanguageState = createPersistedState('ramble-lang');
 
 export const LanguageProvider: React.FC = (props) => {

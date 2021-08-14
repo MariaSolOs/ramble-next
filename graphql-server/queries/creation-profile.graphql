@@ -1,0 +1,12 @@
+query getCreationProfile($userId: ID!) {
+    me(userId: $userId) {
+        ...UserAvatar
+        creator {
+            _id
+            bio
+            stripeProfile {
+                onboarded
+            }
+        }
+    }
+}
