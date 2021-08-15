@@ -437,27 +437,27 @@ const englishTranslation: TranslationRecord = {
     //     privateBooking: 'Private booking'
     // },
 
-    // UserProfile_Layout: {
-    //     experiences: 'Experiences',
-    //     personalInformation: 'Personal infos'
-    // },
+    Profile_Layout: {
+        experiences: 'Experiences',
+        personalInformation: 'Personal infos'
+    },
 
     // UserProfile_Experiences: {
     //     booked: 'Booked',
     //     saved: 'Saved'
     // },
 
-    // UserProfile_PersonalInformation: {
-    //     firstName: 'First name',
-    //     lastName: 'Last name',
-    //     liveIn: 'I live in',
-    //     email: 'Email',
-    //     phoneNumber: 'Phone number',
-    //     birthday: 'Birthday',
-    //     aboutYou: 'About you',
-    //     submitButton: 'Save changes',
-    //     phoneError: 'Please provide a valid phone number'
-    // },
+    Profile_PersonalInformation: {
+        firstName: 'First name',
+        lastName: 'Last name',
+        liveIn: 'I live in',
+        email: 'Email',
+        phoneNumber: 'Phone number',
+        birthday: 'Birthday',
+        aboutYou: 'About you',
+        submitButton: 'Save changes',
+        phoneError: 'Please provide a valid phone number'
+    },
 
     // CreatorCalendar: {
     //     timezoneMessage: 'The reference time zone is Eastern Standard Time (EST).',

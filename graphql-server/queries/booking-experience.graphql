@@ -3,10 +3,5 @@ query getBookingExperience($id: ID!) {
         ...ExperienceView
         privatePrice
         currency
-        creator {
-            user {
-                phoneNumber
-            }
-        }
     }
 }

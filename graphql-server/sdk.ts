@@ -309,6 +309,16 @@ export type UserAvatarFragment = (
   & { photo?: Maybe<Pick<Image, 'src' | 'placeholder'>> }
 );
 
+export type CreateBookingMutationVariables = Exact<{
+  occurrenceId: Scalars['ID'];
+  bookingType: Reservation;
+  numGuests: Scalars['Int'];
+  paymentIntentId: Scalars['ID'];
+}>;
+
+
+export type CreateBookingMutation = { createBooking: Pick<CreateBookingResult, 'meetingPoint' | 'creatorPhone' | 'cardBrand' | 'cardLast4'> };
+
 export type CreateExperienceMutationVariables = Exact<{
   title: Scalars['String'];
   description: Scalars['String'];
@@ -405,7 +415,6 @@ export type GetBookingExperienceQueryVariables = Exact<{
 
 export type GetBookingExperienceQuery = { experiencesById: Array<(
     Pick<Experience, 'privatePrice' | 'currency'>
-    & { creator: { user: Pick<User, 'phoneNumber'> } }
     & ExperienceViewFragment
   )> };
 
@@ -466,6 +475,17 @@ export type GetLocationsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetLocationsQuery = { experiences: Array<Pick<Experience, 'location'>> };
+
+export type GetUserProfileQueryVariables = Exact<{
+  userId: Scalars['ID'];
+}>;
+
+
+export type GetUserProfileQuery = { me: (
+    Pick<User, '_id' | 'lastName' | 'city' | 'email' | 'phoneNumber' | 'birthday'>
+    & { creator?: Maybe<Pick<Creator, '_id' | 'bio'>> }
+    & UserAvatarFragment
+  ) };
 
 export type GetUserSavedExperiencesQueryVariables = Exact<{
   userId: Scalars['ID'];
@@ -536,6 +556,21 @@ export const ExperienceViewFragmentDoc = gql`
   }
 }
     ${UserAvatarFragmentDoc}`;
+export const CreateBookingDocument = gql`
+    mutation createBooking($occurrenceId: ID!, $bookingType: Reservation!, $numGuests: Int!, $paymentIntentId: ID!) {
+  createBooking(
+    occurrenceId: $occurrenceId
+    bookingType: $bookingType
+    numGuests: $numGuests
+    paymentIntentId: $paymentIntentId
+  ) {
+    meetingPoint
+    creatorPhone
+    cardBrand
+    cardLast4
+  }
+}
+    `;
 export const CreateExperienceDocument = gql`
     mutation createExperience($title: String!, $description: String!, $images: [String!]!, $location: String!, $meetingPoint: String, $latitude: Float, $longitude: Float, $categories: [ExperienceCategory!]!, $ageRestriction: Int, $duration: Float!, $languages: [String!]!, $includedItems: [String!]!, $toBringItems: [String!]!, $capacity: Int!, $zoomPMI: String, $zoomPassword: String, $pricePerPerson: Int!, $privatePrice: Int, $currency: String!, $slots: [OccurrenceInput!]!) {
   createExperience(
@@ -636,11 +671,6 @@ export const GetBookingExperienceDocument = gql`
     ...ExperienceView
     privatePrice
     currency
-    creator {
-      user {
-        phoneNumber
-      }
-    }
   }
 }
     ${ExperienceViewFragmentDoc}`;
@@ -705,6 +735,23 @@ export const GetLocationsDocument = gql`
   }
 }
     `;
+export const GetUserProfileDocument = gql`
+    query getUserProfile($userId: ID!) {
+  me(userId: $userId) {
+    _id
+    lastName
+    city
+    email
+    phoneNumber
+    birthday
+    creator {
+      _id
+      bio
+    }
+    ...UserAvatar
+  }
+}
+    ${UserAvatarFragmentDoc}`;
 export const GetUserSavedExperiencesDocument = gql`
     query getUserSavedExperiences($userId: ID!) {
   me(userId: $userId) {
@@ -722,6 +769,9 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action();
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
+    createBooking(variables: CreateBookingMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateBookingMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<CreateBookingMutation>(CreateBookingDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'createBooking');
+    },
     createExperience(variables: CreateExperienceMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateExperienceMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<CreateExperienceMutation>(CreateExperienceDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'createExperience');
     },
@@ -770,6 +820,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     getLocations(variables?: GetLocationsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetLocationsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetLocationsQuery>(GetLocationsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getLocations');
     },
+    getUserProfile(variables: GetUserProfileQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetUserProfileQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetUserProfileQuery>(GetUserProfileDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getUserProfile');
+    },
     getUserSavedExperiences(variables: GetUserSavedExperiencesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetUserSavedExperiencesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetUserSavedExperiencesQuery>(GetUserSavedExperiencesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getUserSavedExperiences');
     }
@@ -803,6 +856,9 @@ export function getSdkWithHooks(client: GraphQLClient, withWrapper: SdkFunctionW
     },
     useGetLocations(key: SWRKeyInterface, variables?: GetLocationsQueryVariables, config?: SWRConfigInterface<GetLocationsQuery, ClientError>) {
       return useSWR<GetLocationsQuery, ClientError>(key, () => sdk.getLocations(variables), config);
+    },
+    useGetUserProfile(key: SWRKeyInterface, variables: GetUserProfileQueryVariables, config?: SWRConfigInterface<GetUserProfileQuery, ClientError>) {
+      return useSWR<GetUserProfileQuery, ClientError>(key, () => sdk.getUserProfile(variables), config);
     },
     useGetUserSavedExperiences(key: SWRKeyInterface, variables: GetUserSavedExperiencesQueryVariables, config?: SWRConfigInterface<GetUserSavedExperiencesQuery, ClientError>) {
       return useSWR<GetUserSavedExperiencesQuery, ClientError>(key, () => sdk.getUserSavedExperiences(variables), config);

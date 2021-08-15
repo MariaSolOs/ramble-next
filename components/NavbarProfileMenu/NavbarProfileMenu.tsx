@@ -6,7 +6,7 @@ import routes from 'routes';
 import useLanguageContext from 'context/languageContext';
 import type { NavbarProfileMenuProps } from './index';
 
-import Link from 'next/link';
+import NavLink from 'components/NavLink';
 import Image from 'next/image';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -82,11 +82,12 @@ const NavbarProfileMenu = (props: NavbarProfileMenuProps) => {
                     ${classes.menuItem}
                     ${currentPath === routes.userProfile.as && classes.activeItem}
                 `}>
-                    <Link passHref { ...routes.userProfile }>
-                        <a onClick={closeMenu} className={classes.itemContent}>
-                            {text.profile}  
-                        </a>
-                    </Link>
+                    <NavLink 
+                    link={routes.userProfile}
+                    linkProps={{ onClick: closeMenu }}
+                    className={classes.itemContent}>
+                        {text.profile}
+                    </NavLink>
                 </MenuItem>
                 {props.isCreator &&
                     <MenuItem 
@@ -94,11 +95,12 @@ const NavbarProfileMenu = (props: NavbarProfileMenuProps) => {
                         ${classes.menuItem}
                         ${currentPath === routes.newExperience.as && classes.activeItem}
                     `}>
-                        <Link passHref { ...routes.newExperience }>
-                            <a onClick={closeMenu} className={classes.itemContent}>
-                                {text.newExperience}
-                            </a>
-                        </Link>
+                        <NavLink 
+                        link={routes.newExperience}
+                        linkProps={{ onClick: closeMenu }}
+                        className={classes.itemContent}>
+                            {text.newExperience}
+                        </NavLink>
                     </MenuItem>}
                 <MenuItem className={classes.menuItem}>
                     <span 

@@ -10,4 +10,6 @@ export const TIMEZONE_CONFIG: DateTimeOptions = {
     zone: 'America/Toronto'
 }
 
+export const MAX_CREATOR_BIO_LENGTH = 500;
+
 export const PHONE_NUMBER_REGEX = /^\(?([0-9]{3})\)?[- ]?([0-9]{3})[- ]?([0-9]{4})$/;

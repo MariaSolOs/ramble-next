@@ -1,4 +1,5 @@
 import useLanguageContext from 'context/languageContext';
+import { MAX_CREATOR_BIO_LENGTH } from 'global-constants';
 import type { FormProps } from './index';
 
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -11,8 +12,6 @@ import { faLock } from '@fortawesome/free-solid-svg-icons/faLock';
 import { makeStyles } from '@material-ui/core/styles';
 import styles from './Form.styles';
 const useStyles = makeStyles(styles);
-
-const MAX_BIO_LENGTH = 500;
 
 const Form = (props: FormProps) => {
     const { CreatorForm: text } = useLanguageContext().appText;
@@ -54,14 +53,14 @@ const Form = (props: FormProps) => {
                     className={classes.aboutYouTextField}
                     value={props.bio}
                     onChange={e => {
-                        if (e.target.value.length <= MAX_BIO_LENGTH) {
+                        if (e.target.value.length <= MAX_CREATOR_BIO_LENGTH) {
                             props.onBioChange(e.target.value);
                         }
                     }}
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">
-                                {MAX_BIO_LENGTH - props.bio.length}
+                                {MAX_CREATOR_BIO_LENGTH - props.bio.length}
                             </InputAdornment>
                         )
                     }} />

@@ -9,7 +9,8 @@ const stripe = getStripe();
 
 const handler: NextApiHandler = async (req, res) => {
     if (req.method !== 'GET') {
-        return;
+        res.setHeader('Allow', 'GET');
+        return res.status(405).end('Method Not Allowed');
     }
 
     const session = await getSession({ req });

@@ -61,32 +61,6 @@ export const computeBookingFees = (
 }
 
 /**
- * Creates a new experience occurrence.
- * 
- * @param experienceId - The experience's ID
- * @param dateStart - The start date of the occurrence
- * @param dateEnd - The end date of the occurrence
- */
-export const createOccurrence = async (
-    experienceId: string,
-    experienceCapacity: number,
-    dateStart: string, 
-    dateEnd: string
-) => {
-    // Load model dynamically to make sure we do it from the server
-    const Occurrence = (await import('models/mongodb/occurrence')).default;
-    const occurrence = await Occurrence.create({
-        experience: experienceId,
-        dateStart: new Date(dateStart),
-        dateEnd: new Date(dateEnd),
-        spotsLeft: experienceCapacity,
-        creatorProfit: 0
-    });
-
-    return occurrence;
-}
-
-/**
  * Computes the breakdown for the receipt.
  * 
  * @param price - The experience price (either the private or public/per person one)
@@ -94,7 +68,7 @@ export const createOccurrence = async (
  * @param numGuests - Number of guests. Only defined for public experiences
  * @returns The breakdown information
  */
- export const getFeesBreakdown = (price: number, isOnlineExperience: boolean, bookingType: BookingType, numGuests: number) => {
+export const getFeesBreakdown = (price: number, isOnlineExperience: boolean, bookingType: BookingType, numGuests: number) => {
     let bookingPrice = 0;
     let subTotalString = '';
 

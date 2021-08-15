@@ -6,12 +6,12 @@ import { sendPasswordResetEmail } from 'lib/sendgrid';
 import { MONGOOSE_LEAN_DEFAULTS } from 'global-constants';
 
 const handler: NextApiHandler = async (req, res) => {
+    if (req.method !== 'POST') {
+        res.setHeader('Allow', 'POST');
+        return res.status(405).end('Method Not Allowed');
+    }
+
     try {
-        // Should only be here when submitting the password reset form
-        if (req.method !== 'POST') {
-            return;
-        }
-        
         const { email } = req.body;
         await mongodbConnection();
 

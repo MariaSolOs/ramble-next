@@ -7,9 +7,9 @@ import { getStripe, getAccountLink } from 'lib/server-stripe';
 const stripe = getStripe();
 
 const handler: NextApiHandler = async (req, res) => {
-    // Verify request method
     if (req.method !== 'POST') {
-        return;
+        res.setHeader('Allow', 'POST');
+        return res.status(405).end('Method Not Allowed');
     }
 
     const { creatorId } = req.body;

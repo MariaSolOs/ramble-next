@@ -111,7 +111,7 @@ const CreatorFormPage: Page = () => {
                 });
             }
 
-            // Refresh the UI
+            // Refresh the user UI
             await getSession();
         } catch (err: any) {
             const message = err.message || "We couldn't create your creator profile...";

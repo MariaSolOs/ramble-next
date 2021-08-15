@@ -1,0 +1,15 @@
+query getUserProfile($userId: ID!) {
+    me(userId: $userId) {
+        _id
+        lastName
+        city
+        email
+        phoneNumber
+        birthday
+        creator {
+            _id
+            bio
+        }
+        ...UserAvatar
+    }
+}

@@ -16,7 +16,7 @@ import {
     creatorReducer
 } from 'lib/graphql';
 import { getPlaceholder, deleteUserPicture } from 'lib/cloudinary';
-import { createOccurrence, computeBookingFees } from 'lib/booking';
+import { computeBookingFees } from 'lib/booking';
 import { sendBookingNotificationEmail } from 'lib/sendgrid';
 import { getStripe } from 'lib/server-stripe';
 import { MONGOOSE_LEAN_DEFAULTS } from 'global-constants';
@@ -26,6 +26,30 @@ import type { Creator as CreatorType } from 'models/mongodb/creator';
 import type { Resolvers } from './resolvers-types';
 
 const stripe = getStripe();
+
+/**
+ * Creates a new experience occurrence.
+ * 
+ * @param experienceId - The experience's ID
+ * @param dateStart - The start date of the occurrence
+ * @param dateEnd - The end date of the occurrence
+ */
+const createOccurrence = async (
+    experienceId: string,
+    experienceCapacity: number,
+    dateStart: string, 
+    dateEnd: string
+) => {
+    const occurrence = await Occurrence.create({
+        experience: experienceId,
+        dateStart: new Date(dateStart),
+        dateEnd: new Date(dateEnd),
+        spotsLeft: experienceCapacity,
+        creatorProfit: 0
+    });
+
+    return occurrence;
+}
 
 export const resolvers: Resolvers = {
     Experience: {

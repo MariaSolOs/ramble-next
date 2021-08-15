@@ -1,0 +1,18 @@
+mutation createBooking(
+    $occurrenceId: ID!,
+    $bookingType: Reservation!,
+    $numGuests: Int!,
+    $paymentIntentId: ID!
+) {
+    createBooking(
+        occurrenceId: $occurrenceId, 
+        bookingType: $bookingType,
+        numGuests: $numGuests,
+        paymentIntentId: $paymentIntentId
+    ) {
+        meetingPoint
+        creatorPhone
+        cardBrand
+        cardLast4
+    }
+}

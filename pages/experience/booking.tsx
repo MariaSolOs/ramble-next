@@ -1,7 +1,5 @@
 import { useEffect, useCallback } from 'react';
-import { useStripe, useElements, 
-    // CardNumberElement 
-} from '@stripe/react-stripe-js';
+import { useStripe, useElements, CardNumberElement } from '@stripe/react-stripe-js';
 import { useSession } from 'next-auth/client';
 import { useRouter } from 'next/router';
 
@@ -9,9 +7,9 @@ import useBookingReducer from 'hooks/useBookingReducer';
 import useUiContext from 'context/uiContext';
 import { getSdkWithHooks } from 'graphql-server/sdk';
 import { getGraphQLClient } from 'lib/graphql';
-// import type { Reservation } from 'graphql-api';
 import { getFeesBreakdown } from 'lib/booking';
 import type { Currency } from 'models/experience-interface';
+import type { Reservation } from 'graphql-server/sdk';
 import type { Page } from 'models/application';
 
 import Spinner from 'components/Spinner';
@@ -58,13 +56,6 @@ const BookExperiencePage: Page = () => {
         },
         onError: () => handleError("We can't complete your booking right now...")
     });
-
-//     const [
-//         createBooking,
-//         { data: bookingData }
-//     ] = useCreateBookingMutation({
-//         onError: () => handleError("We couldn't process your booking...")
-//     });
 
     // Pre-fill the email field with the stored one
     useEffect(() => {
@@ -114,50 +105,49 @@ const BookExperiencePage: Page = () => {
 
         dispatch({ type: 'INIT_SUBMIT' });
 
-//         // Get the client ID
-//         const response = await fetch(`${process.env.REACT_APP_SERVER_URI}/stripe/payment-intent`, {
-//             method: 'POST',
-//             mode: 'cors',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//                 'Accept': 'application/json'
-//             },
-//             body: JSON.stringify({
-//                 experienceId,
-//                 bookingType: state.form.bookingType!,
-//                 numGuests: state.form.numGuests
-//             })
-//         }).then(res => res.json());
+        // Get the client secret
+        const response = await fetch(`/api/stripe/payment-intent`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                experienceId,
+                bookingType: state.form.bookingType!,
+                numGuests: state.form.numGuests
+            })
+        }).then(res => res.json());
 
-//         // Confirm the payment intent
-//         const result = await stripe.confirmCardPayment(response.clientSecret, {
-//             receipt_email: state.form.email,
-//             payment_method: {
-//                 card: elements.getElement(CardNumberElement)!,
-//                 billing_details: {
-//                     address: {
-//                         postal_code: state.form.zipCode
-//                     }
-//                 }
-//             }
-//         });
+        // Confirm the payment intent
+        const result = await stripe.confirmCardPayment(response.clientSecret, {
+            receipt_email: state.form.email,
+            payment_method: {
+                card: elements.getElement(CardNumberElement)!,
+                billing_details: {
+                    address: {
+                        postal_code: state.form.zipCode
+                    }
+                }
+            }
+        });
 
-//         // Check possible errors
-//         if (result.error) {
-//             return handleError(result.error.message);
-//         } else if (result.paymentIntent.status !== 'requires_capture') {
-//             return handleError("Your payment couldn't be processed.");
-//         }
+        // Check possible errors
+        if (result.error) {
+            return handleError(result.error.message);
+        } else if (result.paymentIntent.status !== 'requires_capture') {
+            return handleError("Your payment couldn't be processed.");
+        }
 
-//         // Create booking
-//         createBooking({
-//             variables: {
-//                 occurrenceId: state.form.timeslot!.id!,
-//                 bookingType: state.form.bookingType! as Reservation,
-//                 numGuests: state.form.numGuests,
-//                 paymentIntentId: result.paymentIntent.id
-//             }
-//         });
+        // Create booking
+        const bookingData = await sdk.createBooking({
+            occurrenceId: state.form.timeslot!.id!,
+            bookingType: state.form.bookingType as Reservation,
+            numGuests: state.form.numGuests,
+            paymentIntentId: result.paymentIntent.id
+        });
+
+        dispatch({ type: 'SET_BOOKING_DATA', data: bookingData });
     }
 
     const getSlideContent = () => {
@@ -224,35 +214,33 @@ const BookExperiencePage: Page = () => {
     }
 
     // Once the booking is created, show the summary slide
-    if (state.experience && state.form.timeslot) {
-    // if (bookingData) {
-        // const { 
-        //     meetingPoint, 
-        //     creatorPhone, 
-        //     cardBrand, 
-        //     cardLast4 
-        // } = bookingData.createBooking;
+    if (state.bookingData) {
+        const { 
+            meetingPoint, 
+            creatorPhone, 
+            cardBrand, 
+            cardLast4 
+        } = state.bookingData.createBooking;
 
         return (
             <SubmittedSlide
             startDate={state.form.timeslot!.dateStart}
             endDate={state.form.timeslot!.dateEnd}
             numGuests={state.form.numGuests}
-            cardBrand={'visa'}
-            // cardBrand={cardBrand}
-            cardLast4="1111"
+            cardBrand={cardBrand}
+            cardLast4={cardLast4}
             totalPrice={state.form.fees.totalPrice}
             currency={state.experience!.currency! as Currency}
             experience={{
                 title: state.experience!.title,
-                image: state.experience.images[0],
-                // meetingPoint: meetingPoint || undefined,
+                image: state.experience!.images[0],
+                meetingPoint: meetingPoint || undefined,
                 toBring: state.experience!.toBringItems
             }}
             host={{
-                name: state.experience.creator.user.firstName,
-                photo: state.experience.creator.user.photo!,
-                phoneNumber: state.experience.creator.user.phoneNumber!
+                name: state.experience!.creator.user.firstName,
+                photo: state.experience!.creator.user.photo!,
+                phoneNumber: creatorPhone
             }} />
         );
     }

@@ -437,27 +437,27 @@ const frenchTranslation: TranslationRecord = {
     //     privateBooking: 'Réservation privée'
     // },
 
-    // UserProfile_Layout: {
-    //     experiences: 'Expériences',
-    //     personalInformation: 'Infos personnelles'
-    // },
+    Profile_Layout: {
+        experiences: 'Expériences',
+        personalInformation: 'Infos personnelles'
+    },
 
     // UserProfile_Experiences: {
     //     booked: 'Réservées',
     //     saved: 'Enregistrées'
     // },
 
-    // UserProfile_PersonalInformation: {
-    //     firstName: 'Prénom',
-    //     lastName: 'Nom de famille',
-    //     liveIn: "J'habite à",
-    //     email: 'Courriel',
-    //     phoneNumber: 'Numéro de téléphone',
-    //     birthday: 'Anniversaire',
-    //     aboutYou: 'À propos de vous',
-    //     submitButton: 'Enregistrer',
-    //     phoneError: 'Veuillez indiquer un numéro de téléphone valable'
-    // },
+    Profile_PersonalInformation: {
+        firstName: 'Prénom',
+        lastName: 'Nom de famille',
+        liveIn: "J'habite à",
+        email: 'Courriel',
+        phoneNumber: 'Numéro de téléphone',
+        birthday: 'Anniversaire',
+        aboutYou: 'À propos de vous',
+        submitButton: 'Enregistrer',
+        phoneError: 'Veuillez indiquer un numéro de téléphone valable'
+    },
 
     // CreatorCalendar: {
     //     timezoneMessage: "L'heure affichée correspond à l'heure de Montréal (heure normale de l'Est).",

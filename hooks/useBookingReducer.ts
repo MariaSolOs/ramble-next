@@ -5,7 +5,8 @@ import type { EventInput } from '@fullcalendar/react';
 import { TIMEZONE_CONFIG } from 'global-constants';
 import type {
     GetBookingExperienceQuery,
-    GetBookingOccurrencesQuery as OccurrencesData
+    GetBookingOccurrencesQuery as OccurrencesData,
+    CreateBookingMutation
 } from 'graphql-server/sdk';
 import type { BookingType, Fees } from 'models/experience-interface';
 
@@ -26,27 +27,13 @@ export type Occurrence = EventInput & {
     spotsLeft: number;
 }
 
-type Action = 
-| { type: 'SET_EXPERIENCE'; experienceData: ExperienceData; }
-| { type: 'SET_OCCURRENCES'; occurrences: OccurrencesData; }
-| { type: 'SET_DATE'; date: string; }
-| { type: 'SET_TIMESLOT'; timeslot: Occurrence; }
-| { type: 'SET_BOOKING_TYPE'; bookingType: BookingType; }
-| { type: 'SET_NUM_GUESTS'; numGuests: number; }
-| { type: 'SET_ZIP_CODE'; zipCode: string; }
-| { type: 'SET_EMAIL'; email: string; }
-| { type: 'SET_FEES'; fees: Fees; }
-| { type: 'SET_CAN_CONTINUE'; value: boolean; }
-| { type: 'INIT_SUBMIT'; }
-| { type: 'GO_BACK'; }
-| { type: 'GO_TO_NEXT_STEP' }
-
 interface BookingState {
     step: BookingStep;
     experience?: ExperienceData;
     occurrences: Map<string, Occurrence[]>;
     canContinue: boolean;
     loading: boolean;
+    bookingData?: CreateBookingMutation;
     form: {
         date?: string;
         timeslot?: Occurrence;
@@ -77,6 +64,22 @@ const initialState: BookingState = {
         }
     }
 }
+
+type Action = 
+| { type: 'SET_EXPERIENCE'; experienceData: ExperienceData; }
+| { type: 'SET_OCCURRENCES'; occurrences: OccurrencesData; }
+| { type: 'SET_DATE'; date: string; }
+| { type: 'SET_TIMESLOT'; timeslot: Occurrence; }
+| { type: 'SET_BOOKING_TYPE'; bookingType: BookingType; }
+| { type: 'SET_NUM_GUESTS'; numGuests: number; }
+| { type: 'SET_ZIP_CODE'; zipCode: string; }
+| { type: 'SET_EMAIL'; email: string; }
+| { type: 'SET_FEES'; fees: Fees; }
+| { type: 'SET_CAN_CONTINUE'; value: boolean; }
+| { type: 'SET_BOOKING_DATA'; data: CreateBookingMutation; }
+| { type: 'INIT_SUBMIT'; }
+| { type: 'GO_BACK'; }
+| { type: 'GO_TO_NEXT_STEP' }
 
 export default function useBookingReducer() {
     const reducer = useCallback((state: BookingState, action: Action): BookingState => {
@@ -183,6 +186,11 @@ export default function useBookingReducer() {
                 return {
                     ...state,
                     canContinue: action.value
+                }
+            case 'SET_BOOKING_DATA':
+                return {
+                    ...state,
+                    bookingData: action.data
                 }
             case 'INIT_SUBMIT':
                 return {

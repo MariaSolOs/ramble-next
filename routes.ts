@@ -7,6 +7,7 @@ const routes = {
     bookExperience: (expid: string) => createRoute('/experience/booking', undefined, { expid }),
     newExperience: createRoute('/experience/new'),
     userProfile: createRoute('/profile/personal-information'),
+    userExperiences: createRoute('/profile/experiences'),
     becomeACreator: createRoute('/creator/become'),
     creatorForm: createRoute('/creator/join'),
     bookingRequests: createRoute('/creator/dashboard/booking-requests'),
