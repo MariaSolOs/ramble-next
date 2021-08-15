@@ -7,12 +7,8 @@ const serverStripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 /**
  * @returns The server-side Stripe instance.
  */
-export const getServerStripe = () => {
+export const getStripe = () => {
     return serverStripe;
-}
-
-export const getClientStripe = () => {
-
 }
 
 /**

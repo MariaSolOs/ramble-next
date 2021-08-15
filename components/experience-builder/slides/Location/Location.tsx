@@ -53,7 +53,7 @@ const Location = (props: LocationProps) => {
 
             const query = `${location}, ${meetingPoint}`;
     
-            fetch(`https://geocode.search.hereapi.com/v1/geocode?q=${query}&limit=1&apiKey=${process.env.REACT_APP_HERE_API_KEY}`)
+            fetch(`https://geocode.search.hereapi.com/v1/geocode?q=${query}&limit=1&apiKey=${process.env.NEXT_PUBLIC_HERE_API_KEY}`)
             .then(res => {
                 if (mounted && res.status === 200) {
                     return res.json();

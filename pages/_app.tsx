@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import { Provider as AuthProvider } from 'next-auth/client';
-import type { AppProps } from 'models/application';
+import { Elements } from '@stripe/react-stripe-js';
 
 import { LanguageProvider } from 'context/languageContext';
 import { UiProvider } from 'context/uiContext';
+import { getStripe } from 'lib/client-stripe';
+import type { AppProps } from 'models/application';
 
 import Head from 'next/head';
 import Navbar from 'components/Navbar';
@@ -47,7 +49,12 @@ const App = ({ Component, pageProps }: AppProps) => {
                         <ErrorDialog />
                         <Snackbar />
                         <PageLayout>
-                            <Component { ...pageProps } />
+                            {/* Add Stripe elements to the booking page only. */}
+                            {Component.displayName === 'BookExperiencePage' ?
+                                <Elements stripe={getStripe()}>
+                                    <Component { ...pageProps } />
+                                </Elements> :
+                                <Component { ...pageProps } />}
                         </PageLayout>
                     </GlobalStyles>
                 </UiProvider>

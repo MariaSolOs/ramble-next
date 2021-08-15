@@ -6,6 +6,7 @@ import { getGraphQLClient } from 'lib/graphql';
 import { getSdk } from 'graphql-server/sdk';
 import useSavedExperiences from 'hooks/useSavedExperiences';
 import type { ExperienceViewFragment as ExperienceType } from 'graphql-server/sdk';
+import type { Page } from 'models/application';
 
 import Spinner from 'components/Spinner';
 import RambleHead from 'components/RambleHead';
@@ -54,7 +55,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     }
 }
 
-const ExperienceDetails = (props: Props) => {
+const ExperienceDetailsPage: Page<Props> = (props) => {
     const { isExperienceSaved, handleSavingToggle } = useSavedExperiences();
     const router = useRouter();
 
@@ -92,4 +93,6 @@ const ExperienceDetails = (props: Props) => {
     );
 }
 
-export default ExperienceDetails;
+ExperienceDetailsPage.displayName = 'ExperienceDetailsPage';
+
+export default ExperienceDetailsPage;

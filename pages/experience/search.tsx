@@ -4,8 +4,9 @@ import { useRouter } from 'next/router';
 import { getGraphQLClient } from 'lib/graphql';
 import { getSdkWithHooks } from 'graphql-server/sdk';
 import useExperienceSearchReducer from 'hooks/useExperienceSearchReducer';
-import type { SearchState } from 'hooks/useExperienceSearchReducer';
 import useUiContext from 'context/uiContext';
+import type { SearchState } from 'hooks/useExperienceSearchReducer';
+import type { Page } from 'models/application';
 
 import Searchbar from 'components/search-experiences/Searchbar';
 import ExperienceGallery from 'components/search-experiences/ExperienceGallery';
@@ -13,7 +14,7 @@ import ExperienceGallery from 'components/search-experiences/ExperienceGallery';
 const graphQLClient = getGraphQLClient();
 const sdk = getSdkWithHooks(graphQLClient);
 
-const SearchExperiences = () => {
+const SearchExperiencesPage: Page = () => {
     const { uiDispatch } = useUiContext();
     const router = useRouter();
 
@@ -117,4 +118,6 @@ const SearchExperiences = () => {
     );
 }
 
-export default SearchExperiences;
+SearchExperiencesPage.displayName = 'SearchExperiencesPage';
+
+export default SearchExperiencesPage;

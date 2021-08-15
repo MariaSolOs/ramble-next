@@ -47,12 +47,14 @@ const frenchTranslation: TranslationRecord = {
         logIn: 'Connexion',
         firstName: 'Prénom',
         lastName: 'Nom de famille',
+        phoneNumber: 'Numéro de téléphone',
         email: 'Courriel',
         password: 'Mot de passe',
         confirmPassword: 'Confirmer le mot de passe',
         alreadyHaveAccount: 'Vous avez déjà un compte?',
         continue: 'Continuer',
-        passwordMismatch: 'Les mots de passe ne correspondent pas.'
+        passwordMismatch: 'Les mots de passe ne correspondent pas.',
+        phoneError: 'Veuillez indiquer un numéro de téléphone valable'
     },
 
     LogInDialog: {
@@ -150,7 +152,7 @@ const frenchTranslation: TranslationRecord = {
         showSmile: 'Montrez-nous votre plus beau sourire',
         aboutYouTitle: 'À propos de vous',
         aboutYouSubtitle: 'Parlez nous un peu de vous. Comment vos amis vous décriraient-ils?',
-        aboutYouTip: "Incluez des faits amusants, ce qui vous passionne, votre expérience professionnelle et d'autres informations pertinentes.",
+        aboutYouTip: "Votre bio apparaîtra sur la page de votre expérience. Incluez des faits amusants, ce qui vous passionne, votre expérience professionnelle et d'autres informations pertinentes.",
         phoneNumberTitle: 'Quel est votre numéro de téléphone?',
         phoneNumberSubtitle: 'Seuls nous et les invités qui réservent votre expérience auront accès à votre numéro de téléphone.',
         phoneNumberError: 'Veuillez indiquer un numéro de téléphone valable', 
@@ -196,16 +198,13 @@ const frenchTranslation: TranslationRecord = {
         toBring: 'Quoi emporter',
         price: 'Prix',
         availabilities: 'Disponibilités',
-        review: 'Reviser & soumettre'
+        review: 'Reviser & soumettre',
+        submittedTitle: 'Votre expérience a été soumise',
+        submittedMessage1: 'Votre expérience',
+        submittedMessage2: 'a été soumise avec succès.',
+        submittedMessage3: "Nous la passerons en revue et vous contacterons dès qu'elle est en ligne.",
+        submittedButton: 'Parfait'
     },
-    
-    // CreateExperience_Submitted: {
-    //     title: 'Votre expérience a été soumise',
-    //     message1: 'Votre expérience',
-    //     message2: 'a été soumise avec succès.',
-    //     message3: "Nous la passerons en revue et vous contacterons dès qu'elle est en ligne.",
-    //     button: 'Parfait'
-    // },
     
     BuilderSlides_Setting: {
         title: 'Environnement',
@@ -348,71 +347,71 @@ const frenchTranslation: TranslationRecord = {
         title: 'Reviser & Soumettre'
     },
 
-    // BookExperience_Layout: {
-    //     dateAndTime: 'Date & Heure',
-    //     completeBooking: 'Compléter la réservation',
-    //     payment: 'Paiement',
-    //     next: 'Suivant',
-    //     confirmPayment: 'Confirmer le paiement'
-    // },
+    BookExperience_Layout: {
+        dateAndTime: 'Date & Heure',
+        completeBooking: 'Compléter la réservation',
+        payment: 'Paiement',
+        next: 'Suivant',
+        confirmPayment: 'Confirmer le paiement'
+    },
 
-    // BookExperience_DateSlide: {
-    //     title: 'Veuillez choisir une date',
-    //     timezoneMessage: "L'heure affichée correspond à l'heure de Montréal (heure normale de l'Est)."
-    // },
+    BookExperience_DateSlide: {
+        title: 'Veuillez choisir une date',
+        timezoneMessage: "L'heure affichée correspond à l'heure de Montréal (heure normale de l'Est)."
+    },
 
-    // BookExperience_TimeslotSlide: {
-    //     title: 'Quel moment de la journée vous conviendrait le mieux?',
-    //     join: 'Joignez',
-    //     guest: 'invité',
-    //     guests: 'invités',
-    //     firstBooking: 'Soyez les premiers à reserver',
-    //     bookingUnavailable: 'Réservation indisponible'
-    // },
+    BookExperience_TimeslotSlide: {
+        title: 'Quel moment de la journée vous conviendrait le mieux?',
+        join: 'Joignez',
+        guest: 'invité',
+        guests: 'invités',
+        firstBooking: 'Soyez les premiers à reserver',
+        bookingUnavailable: 'Réservation indisponible'
+    },
 
-    // BookExperience_BookingTypeSlide: {
-    //     title: 'Options de réservation',
-    //     privateBookingTitle: "Réserver l'expérience au complet",
-    //     privateBookingSubtitle: 'Soyez les seuls invités lors de cette expérience',
-    //     publicBookingTitle: 'Réserver par personne',
-    //     publicBookingTitleOnline: 'Réserver par connexion',
-    //     publicBookingSubtitle: "Joignez vous à d'autres invités",
-    //     upTo: "Jusqu'à",
-    //     person: 'personne',
-    //     people: 'personnes',
-    //     guest: 'invité',
-    //     guests: 'invités',
-    //     join: 'Joignez',
-    //     numberOfGuests: "Nombre d'invités"
-    // },
+    BookExperience_BookingTypeSlide: {
+        title: 'Options de réservation',
+        privateBookingTitle: "Réserver l'expérience au complet",
+        privateBookingSubtitle: 'Soyez les seuls invités lors de cette expérience',
+        publicBookingTitle: 'Réserver par personne',
+        publicBookingTitleOnline: 'Réserver par connexion',
+        publicBookingSubtitle: "Joignez vous à d'autres invités",
+        upTo: "Jusqu'à",
+        person: 'personne',
+        people: 'personnes',
+        guest: 'invité',
+        guests: 'invités',
+        join: 'Joignez',
+        numberOfGuests: "Nombre d'invités"
+    },
 
-    // BookExperience_PaymentSlide: {
-    //     cardNumberPlaceholder: 'Numéro de carte de crédit',
-    //     expiryDatePlaceholder: 'MM / AA',
-    //     cvcPlaceholder: 'CVC',
-    //     zipCodePlaceholder: 'Code postal',
-    //     emailPlaceholder: 'Courriel',
-    //     emailMessage: 'Nous enverrons votre reçu à cette adresse courriel.',
-    //     subtotal: 'Sous-total',
-    //     total: 'Total',
-    //     serviceFee: 'Frais de service'
-    // },
+    BookExperience_PaymentSlide: {
+        cardNumberPlaceholder: 'Numéro de carte de crédit',
+        expiryDatePlaceholder: 'MM / AA',
+        cvcPlaceholder: 'CVC',
+        zipCodePlaceholder: 'Code postal',
+        emailPlaceholder: 'Courriel',
+        emailMessage: 'Nous enverrons votre reçu à cette adresse courriel.',
+        subtotal: 'Sous-total',
+        total: 'Total',
+        serviceFee: 'Frais de service'
+    },
 
-    // BookExperience_Submitted: {
-    //     title: 'Votre demande de réservation a été envoyée',
-    //     subtitle1: 'Nous vous avertirons dès que',
-    //     subtitle2: 'aura accepté votre demande',
-    //     guest: 'invité',
-    //     guests: 'invités',
-    //     host: 'Votre hôte',
-    //     toBringTitle: 'Quoi emporter',
-    //     meetingSpotTitle: 'Point de rencontre',
-    //     online: 'En ligne',
-    //     paymentDetails: 'Détails de paiement',
-    //     paymentMethod: 'Mode de paiement',
-    //     total: 'Total',
-    //     buttonText: 'Parfait'
-    // },
+    BookExperience_SubmittedSlide: {
+        title: 'Votre demande de réservation a été envoyée',
+        subtitle1: 'Nous vous avertirons dès que',
+        subtitle2: 'aura accepté votre demande',
+        guest: 'invité',
+        guests: 'invités',
+        host: 'Votre hôte',
+        toBringTitle: 'Quoi emporter',
+        meetingSpotTitle: 'Point de rencontre',
+        online: 'En ligne',
+        paymentDetails: 'Détails de paiement',
+        paymentMethod: 'Mode de paiement',
+        total: 'Total',
+        buttonText: 'Parfait'
+    },
 
     CreatorDashboard_Layout: {
         dashboardTitle: 'Mon tableau de bord',

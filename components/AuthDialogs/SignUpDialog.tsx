@@ -3,6 +3,7 @@ import { signIn } from 'next-auth/client';
 
 import useLanguageContext from 'context/languageContext';
 import useUiContext from 'context/uiContext';
+import { PHONE_NUMBER_REGEX } from 'global-constants';
 
 import Spinner from 'components/Spinner';
 import Dialog from '@material-ui/core/Dialog';
@@ -20,6 +21,7 @@ const useStyles = makeStyles(styles);
 enum FormField {
     FirstName = 'firstName',
     LastName = 'lastName',
+    PhoneNumber = 'phoneNumber',
     Email = 'email',
     Password1 = 'password1',
     Password2 = 'password2'
@@ -30,6 +32,7 @@ type Form = Record<FormField, string>;
 const initialForm: Form = {
     firstName: '',
     lastName: '',
+    phoneNumber: '',
     email: '',
     password1: '',
     password2: ''
@@ -44,6 +47,7 @@ const SignUpDialog = () => {
     const [values, setValues] = useState(initialForm);
     const [loading, setLoading] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
+    const [phoneError, setPhoneError] = useState(false);
 
     const handleFormChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const field = event.target.name;
@@ -62,7 +66,12 @@ const SignUpDialog = () => {
 
         setLoading(true);
 
-        // Password check
+        // Sanity checks
+        if (!PHONE_NUMBER_REGEX.test(values.phoneNumber)) {
+            setPhoneError(true);
+            return;
+        }
+
         if (values.password1 !== values.password2) {
             setPasswordError(true);
             return;
@@ -73,6 +82,7 @@ const SignUpDialog = () => {
             password: values.password1,
             firstName: values.firstName,
             lastName: values.lastName,
+            phoneNumber: values.phoneNumber.replace(PHONE_NUMBER_REGEX, '($1) $2-$3'), 
             redirect: false
         });
 
@@ -130,6 +140,21 @@ const SignUpDialog = () => {
                         required />
                     </FormControl>
                     <div className={classes.formDivisor} />
+                    <FormControl className={classes.formControl}>
+                        <FormLabel className={classes.formLabel} htmlFor={FormField.PhoneNumber}>
+                            {text.phoneNumber}
+                        </FormLabel>
+                        <TextField
+                        id={FormField.PhoneNumber}
+                        name={FormField.PhoneNumber}
+                        type="tel"
+                        className={classes.textField}
+                        fullWidth
+                        value={values.phoneNumber}
+                        onChange={handleFormChange}
+                        helperText={phoneError && text.phoneError}
+                        required />
+                    </FormControl>
                     <FormControl className={classes.formControl}>
                         <FormLabel className={classes.formLabel} htmlFor={FormField.Email}>
                             {text.email}

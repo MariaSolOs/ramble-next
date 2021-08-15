@@ -1,7 +1,7 @@
 import type { NextApiHandler } from 'next';
 
 import mongodbConnection from 'lib/mongodb-connection';
-import { User } from 'models/mongodb';
+import User from 'models/mongodb/user';
 import { sendPasswordResetEmail } from 'lib/sendgrid';
 import { MONGOOSE_LEAN_DEFAULTS } from 'global-constants';
 

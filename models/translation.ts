@@ -16,7 +16,7 @@ export type TranslationRecord = {
 
     CustomerServiceDialog: Record<'title' | 'message', string>;
 
-    SignUpDialog: Record<'signUp' | 'logIn' | 'firstName' | 'lastName' | 'email' | 'password' | 'confirmPassword' | 'alreadyHaveAccount' | 'continue' | 'passwordMismatch', string>;
+    SignUpDialog: Record<'signUp' | 'logIn' | 'firstName' | 'lastName' | 'phoneNumber' | 'email' | 'password' | 'confirmPassword' | 'alreadyHaveAccount' | 'continue' | 'passwordMismatch' | 'phoneError', string>;
 
     LogInDialog: Record<'logIn' | 'email' | 'password' | 'forgotPassword', string>;
 
@@ -44,9 +44,7 @@ export type TranslationRecord = {
 
     StripeRedirect: Record<'continueWithStripe', string>;
 
-    CreateExperience: Record<'stripeRedirectMessage1' | 'stripeRedirectMessage2' | 'animationTitle1' | 'animationTitle2' | 'leavePageAlert' | 'back' | 'next' | 'submit' | ExperienceCreationStep, string>;
-    
-    // CreateExperience_Submitted: Record<'title' | 'message1' | 'message2' | 'message3' | 'button', string>;
+    CreateExperience: Record<'stripeRedirectMessage1' | 'stripeRedirectMessage2' | 'animationTitle1' | 'animationTitle2' | 'leavePageAlert' | 'back' | 'next' | 'submit' | ExperienceCreationStep | 'submittedTitle' | 'submittedMessage1' | 'submittedMessage2' | 'submittedMessage3' | 'submittedButton', string>;
     
     BuilderSlides_Setting: Record<'title' | 'subtitle' | 'online' | 'onlineOption' | 'inPerson' | 'inPersonOption', string>;
     
@@ -78,17 +76,17 @@ export type TranslationRecord = {
 
     BuilderSlides_Review: Record<'title', string>;
 
-    // BookExperience_Layout: Record<'dateAndTime' | 'completeBooking' | 'payment' | 'next' | 'confirmPayment', string>;
+    BookExperience_Layout: Record<'dateAndTime' | 'completeBooking' | 'payment' | 'next' | 'confirmPayment', string>;
 
-    // BookExperience_DateSlide: Record<'title' | 'timezoneMessage', string>;
+    BookExperience_DateSlide: Record<'title' | 'timezoneMessage', string>;
 
-    // BookExperience_TimeslotSlide: Record<'title' | 'join' | 'guest' | 'guests' | 'bookingUnavailable' | 'firstBooking', string>;
+    BookExperience_TimeslotSlide: Record<'title' | 'join' | 'guest' | 'guests' | 'bookingUnavailable' | 'firstBooking', string>;
 
-    // BookExperience_BookingTypeSlide: Record<'title' | 'privateBookingTitle' | 'privateBookingSubtitle' | 'publicBookingTitle' | 'publicBookingTitleOnline' | 'publicBookingSubtitle' | 'upTo' | 'person' | 'people' | 'join' | 'guest' | 'guests' | 'numberOfGuests', string>;
+    BookExperience_BookingTypeSlide: Record<'title' | 'privateBookingTitle' | 'privateBookingSubtitle' | 'publicBookingTitle' | 'publicBookingTitleOnline' | 'publicBookingSubtitle' | 'upTo' | 'person' | 'people' | 'join' | 'guest' | 'guests' | 'numberOfGuests', string>;
 
-    // BookExperience_PaymentSlide: Record<'cardNumberPlaceholder' | 'expiryDatePlaceholder' | 'cvcPlaceholder' | 'zipCodePlaceholder' | 'emailPlaceholder' | 'emailMessage' | 'subtotal' | 'total' | 'serviceFee', string>;
+    BookExperience_PaymentSlide: Record<'cardNumberPlaceholder' | 'expiryDatePlaceholder' | 'cvcPlaceholder' | 'zipCodePlaceholder' | 'emailPlaceholder' | 'emailMessage' | 'subtotal' | 'total' | 'serviceFee', string>;
 
-    // BookExperience_Submitted: Record<'title' | 'subtitle1' | 'subtitle2' | 'guest' | 'guests' | 'host' | 'toBringTitle' | 'meetingSpotTitle' | 'online' | 'paymentDetails' | 'paymentMethod' | 'total' | 'buttonText', string>;
+    BookExperience_SubmittedSlide: Record<'title' | 'subtitle1' | 'subtitle2' | 'guest' | 'guests' | 'host' | 'toBringTitle' | 'meetingSpotTitle' | 'online' | 'paymentDetails' | 'paymentMethod' | 'total' | 'buttonText', string>;
 
     CreatorDashboard_Layout: Record<'dashboardTitle' | 'bookingRequests' | 'calendar' | 'createdExperiences', string>;
 

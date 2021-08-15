@@ -7,7 +7,9 @@ import { getSdkWithHooks } from 'graphql-server/sdk';
 import useLanguageContext from 'context/languageContext';
 import useUiContext from 'context/uiContext';
 import useCreatorFormReducer from 'hooks/useCreatorFormReducer';
+import { PHONE_NUMBER_REGEX } from 'global-constants';
 import type { FileField, StringField } from 'hooks/useCreatorFormReducer';
+import type { Page } from 'models/application';
 
 import Spinner from 'components/Spinner';
 import Form from 'components/creator-form/Form';
@@ -16,9 +18,7 @@ import StripeRedirect from 'components/StripeRedirect';
 const graphQLClient = getGraphQLClient();
 const sdk = getSdkWithHooks(graphQLClient);
 
-const VALID_PHONE_NUMBER_REG = /^\(?([0-9]{3})\)?[- ]?([0-9]{3})[- ]?([0-9]{4})$/;
-
-const CreatorForm = () => {
+const CreatorFormPage: Page = () => {
     const { CreatorForm: text } = useLanguageContext().appText;
     const [state, dispatch] = useCreatorFormReducer();
     const { uiDispatch } = useUiContext();
@@ -60,7 +60,7 @@ const CreatorForm = () => {
             dispatch({ type: 'START_UPLOADING' });
 
             // Check if phone number is valid
-            if (!VALID_PHONE_NUMBER_REG.test(state.phoneNumber)) {
+            if (!PHONE_NUMBER_REGEX.test(state.phoneNumber)) {
                 dispatch({ type: 'SET_PHONE_ERROR', error: true });
                 return;
             }
@@ -106,7 +106,7 @@ const CreatorForm = () => {
                 sdk.updateProfile({
                     ...state.profilePic && { photo: photoUrl },
                     ...isNewPhoneNumber && {
-                        phoneNumber: state.phoneNumber.replace(VALID_PHONE_NUMBER_REG, '($1) $2-$3') 
+                        phoneNumber: state.phoneNumber.replace(PHONE_NUMBER_REGEX, '($1) $2-$3') 
                     }
                 });
             }
@@ -162,4 +162,6 @@ const CreatorForm = () => {
     );
 }
 
-export default CreatorForm;
+CreatorFormPage.displayName = 'CreatorFormPage';
+
+export default CreatorFormPage;

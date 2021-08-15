@@ -316,6 +316,7 @@ export const mobileStyles = (theme: Theme) => createStyles({
             '& .image-gallery-image': { 
                 position: 'relative',
                 height: 'calc(55% - 70px)',
+                minHeight: 320,
             },
             '&:focus': { outline: 'none' }
         },

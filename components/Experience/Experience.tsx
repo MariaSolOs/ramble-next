@@ -9,11 +9,11 @@ import { isOptimizedImage } from 'models/files';
 import type { ExperienceProps, CarouselItemProps } from './index';
 
 import Image from 'next/image';
+import { StaticMap, Marker } from 'react-map-gl';
 import Fab from '@material-ui/core/Fab';
 import CategoryBox from 'components/CategoryBox';
 import Avatar from '@material-ui/core/Avatar';
 import Collapse from '@material-ui/core/Collapse';
-import { StaticMap, Marker } from 'react-map-gl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShareSquare } from '@fortawesome/free-solid-svg-icons/faShareSquare';
 import { faClock } from '@fortawesome/free-solid-svg-icons/faClock';
@@ -65,16 +65,16 @@ const Experience = (props: ExperienceProps) => {
     const carouselItems = experience.images.map(img => {
         if (isOptimizedImage(img)) {
             const item: CarouselItemProps = {
-                original: img.src.replace('h_400', 'h_700'),
-                thumbnail: img.src.replace('h_400', 'h_200'),
+                original: img.src,
+                thumbnail: img.src,
                 placeholder: img.placeholder,
                 alt: experience.title
             }
             return item;
         } else { // The image is a string
             const item: ReactImageGalleryItem = {
-                original: img.replace('h_400', 'h_700'),
-                thumbnail: img.replace('h_400', 'h_200')
+                original: img,
+                thumbnail: img
             }   
             return item;
         }

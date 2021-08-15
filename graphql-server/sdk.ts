@@ -115,6 +115,7 @@ export type MutationSignUpUserArgs = {
   password: Scalars['String'];
   firstName: Scalars['String'];
   lastName: Scalars['String'];
+  phoneNumber: Scalars['String'];
 };
 
 
@@ -308,6 +309,32 @@ export type UserAvatarFragment = (
   & { photo?: Maybe<Pick<Image, 'src' | 'placeholder'>> }
 );
 
+export type CreateExperienceMutationVariables = Exact<{
+  title: Scalars['String'];
+  description: Scalars['String'];
+  images: Array<Scalars['String']> | Scalars['String'];
+  location: Scalars['String'];
+  meetingPoint?: Maybe<Scalars['String']>;
+  latitude?: Maybe<Scalars['Float']>;
+  longitude?: Maybe<Scalars['Float']>;
+  categories: Array<ExperienceCategory> | ExperienceCategory;
+  ageRestriction?: Maybe<Scalars['Int']>;
+  duration: Scalars['Float'];
+  languages: Array<Scalars['String']> | Scalars['String'];
+  includedItems: Array<Scalars['String']> | Scalars['String'];
+  toBringItems: Array<Scalars['String']> | Scalars['String'];
+  capacity: Scalars['Int'];
+  zoomPMI?: Maybe<Scalars['String']>;
+  zoomPassword?: Maybe<Scalars['String']>;
+  pricePerPerson: Scalars['Int'];
+  privatePrice?: Maybe<Scalars['Int']>;
+  currency: Scalars['String'];
+  slots: Array<OccurrenceInput> | OccurrenceInput;
+}>;
+
+
+export type CreateExperienceMutation = { createExperience: Pick<Experience, '_id' | 'title'> };
+
 export type LogInMutationVariables = Exact<{
   email: Scalars['String'];
   password: Scalars['String'];
@@ -344,6 +371,7 @@ export type SignUpMutationVariables = Exact<{
   password: Scalars['String'];
   firstName: Scalars['String'];
   lastName: Scalars['String'];
+  phoneNumber: Scalars['String'];
 }>;
 
 
@@ -369,6 +397,24 @@ export type UpdateProfileMutationVariables = Exact<{
 
 
 export type UpdateProfileMutation = { editUser: CoreProfileFragment };
+
+export type GetBookingExperienceQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type GetBookingExperienceQuery = { experiencesById: Array<(
+    Pick<Experience, 'privatePrice' | 'currency'>
+    & { creator: { user: Pick<User, 'phoneNumber'> } }
+    & ExperienceViewFragment
+  )> };
+
+export type GetBookingOccurrencesQueryVariables = Exact<{
+  experienceIds: Array<Scalars['ID']> | Scalars['ID'];
+}>;
+
+
+export type GetBookingOccurrencesQuery = { occurrences: Array<Pick<Occurrence, '_id' | 'dateStart' | 'dateEnd' | 'spotsLeft'>> };
 
 export type GetCoreProfileQueryVariables = Exact<{
   userId: Scalars['ID'];
@@ -490,6 +536,35 @@ export const ExperienceViewFragmentDoc = gql`
   }
 }
     ${UserAvatarFragmentDoc}`;
+export const CreateExperienceDocument = gql`
+    mutation createExperience($title: String!, $description: String!, $images: [String!]!, $location: String!, $meetingPoint: String, $latitude: Float, $longitude: Float, $categories: [ExperienceCategory!]!, $ageRestriction: Int, $duration: Float!, $languages: [String!]!, $includedItems: [String!]!, $toBringItems: [String!]!, $capacity: Int!, $zoomPMI: String, $zoomPassword: String, $pricePerPerson: Int!, $privatePrice: Int, $currency: String!, $slots: [OccurrenceInput!]!) {
+  createExperience(
+    title: $title
+    description: $description
+    images: $images
+    location: $location
+    meetingPoint: $meetingPoint
+    latitude: $latitude
+    longitude: $longitude
+    categories: $categories
+    ageRestriction: $ageRestriction
+    duration: $duration
+    languages: $languages
+    includedItems: $includedItems
+    toBringItems: $toBringItems
+    capacity: $capacity
+    zoomPMI: $zoomPMI
+    zoomPassword: $zoomPassword
+    pricePerPerson: $pricePerPerson
+    privatePrice: $privatePrice
+    currency: $currency
+    slots: $slots
+  ) {
+    _id
+    title
+  }
+}
+    `;
 export const LogInDocument = gql`
     mutation logIn($email: String!, $password: String!) {
   logInUser(email: $email, password: $password) {
@@ -520,12 +595,13 @@ export const SignUpCreatorDocument = gql`
 }
     `;
 export const SignUpDocument = gql`
-    mutation signUp($email: String!, $password: String!, $firstName: String!, $lastName: String!) {
+    mutation signUp($email: String!, $password: String!, $firstName: String!, $lastName: String!, $phoneNumber: String!) {
   signUpUser(
     email: $email
     password: $password
     firstName: $firstName
     lastName: $lastName
+    phoneNumber: $phoneNumber
   ) {
     _id
   }
@@ -554,6 +630,30 @@ export const UpdateProfileDocument = gql`
   }
 }
     ${CoreProfileFragmentDoc}`;
+export const GetBookingExperienceDocument = gql`
+    query getBookingExperience($id: ID!) {
+  experiencesById(ids: [$id]) {
+    ...ExperienceView
+    privatePrice
+    currency
+    creator {
+      user {
+        phoneNumber
+      }
+    }
+  }
+}
+    ${ExperienceViewFragmentDoc}`;
+export const GetBookingOccurrencesDocument = gql`
+    query getBookingOccurrences($experienceIds: [ID!]!) {
+  occurrences(experienceIds: $experienceIds) {
+    _id
+    dateStart
+    dateEnd
+    spotsLeft
+  }
+}
+    `;
 export const GetCoreProfileDocument = gql`
     query getCoreProfile($userId: ID!) {
   me(userId: $userId) {
@@ -622,6 +722,9 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName) => action();
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
+    createExperience(variables: CreateExperienceMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateExperienceMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<CreateExperienceMutation>(CreateExperienceDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'createExperience');
+    },
     logIn(variables: LogInMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<LogInMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<LogInMutation>(LogInDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'logIn');
     },
@@ -642,6 +745,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     updateProfile(variables?: UpdateProfileMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateProfileMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<UpdateProfileMutation>(UpdateProfileDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'updateProfile');
+    },
+    getBookingExperience(variables: GetBookingExperienceQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetBookingExperienceQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetBookingExperienceQuery>(GetBookingExperienceDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getBookingExperience');
+    },
+    getBookingOccurrences(variables: GetBookingOccurrencesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetBookingOccurrencesQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetBookingOccurrencesQuery>(GetBookingOccurrencesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getBookingOccurrences');
     },
     getCoreProfile(variables: GetCoreProfileQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetCoreProfileQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetCoreProfileQuery>(GetCoreProfileDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getCoreProfile');
@@ -671,6 +780,12 @@ export function getSdkWithHooks(client: GraphQLClient, withWrapper: SdkFunctionW
   const sdk = getSdk(client, withWrapper);
   return {
     ...sdk,
+    useGetBookingExperience(key: SWRKeyInterface, variables: GetBookingExperienceQueryVariables, config?: SWRConfigInterface<GetBookingExperienceQuery, ClientError>) {
+      return useSWR<GetBookingExperienceQuery, ClientError>(key, () => sdk.getBookingExperience(variables), config);
+    },
+    useGetBookingOccurrences(key: SWRKeyInterface, variables: GetBookingOccurrencesQueryVariables, config?: SWRConfigInterface<GetBookingOccurrencesQuery, ClientError>) {
+      return useSWR<GetBookingOccurrencesQuery, ClientError>(key, () => sdk.getBookingOccurrences(variables), config);
+    },
     useGetCoreProfile(key: SWRKeyInterface, variables: GetCoreProfileQueryVariables, config?: SWRConfigInterface<GetCoreProfileQuery, ClientError>) {
       return useSWR<GetCoreProfileQuery, ClientError>(key, () => sdk.getCoreProfile(variables), config);
     },

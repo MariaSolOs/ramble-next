@@ -1,10 +1,10 @@
 import type { NextApiHandler } from 'next';
 
 import mongodbConnection from 'lib/mongodb-connection';
-import { Creator } from 'models/mongodb';
-import { getServerStripe, getAccountLink } from 'lib/stripe';
+import Creator from 'models/mongodb/creator';
+import { getStripe, getAccountLink } from 'lib/server-stripe';
 
-const stripe = getServerStripe();
+const stripe = getStripe();
 
 const handler: NextApiHandler = async (req, res) => {
     // Verify request method

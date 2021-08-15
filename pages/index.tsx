@@ -10,6 +10,7 @@ import useUiContext from 'context/uiContext';
 import { CLOUDINARY_BASE_URI } from 'global-constants';
 import type { Image } from 'models/files';
 import type { CardContentFragment as ExperienceCard } from 'graphql-server/sdk';
+import type { Page } from 'models/application';
 
 import RambleHead from 'components/RambleHead';
 import ResetPasswordDialog from 'components/ResetPasswordDialog';
@@ -95,7 +96,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     }
 }
 
-const Home = (props: Props) => {
+const HomePage: Page<Props> = (props) => {
     const { Home: text } = useLanguageContext().appText;
     const { uiDispatch } = useUiContext();
     const router = useRouter();
@@ -136,4 +137,6 @@ const Home = (props: Props) => {
     );
 }
 
-export default Home;
+HomePage.displayName = 'HomePage';
+
+export default HomePage;

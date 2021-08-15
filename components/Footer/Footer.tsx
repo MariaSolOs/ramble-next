@@ -65,7 +65,7 @@ const Footer = () => {
                         onClick={toggleLanguage} />
                     </div>
                 </div>
-                <p className={classes.greyText}>&copy; {text.copyright}</p>
+                <p className={classes.greyText}>2021 &copy; {text.copyright}</p>
             </footer>
         </>
     );

@@ -36,7 +36,8 @@ export const typeDefs = gql`
             email: String!, 
             password: String!, 
             firstName: String!, 
-            lastName: String!
+            lastName: String!,
+            phoneNumber: String!
         ): User!
 
         """

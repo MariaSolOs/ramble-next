@@ -5,6 +5,7 @@ import { getPlaceholder } from 'lib/cloudinary';
 import { CLOUDINARY_BASE_URI } from 'global-constants';
 import type { Image } from 'models/files';
 import type { CreatorBio } from 'models/creator-interface';
+import type { Page } from 'models/application';
 
 import RambleHead from 'components/RambleHead';
 import Landing from 'components/become-a-creator/Landing';
@@ -65,7 +66,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     }
 }
 
-const BecomeACreator = (props: Props) => {
+const BecomeACreatorPage: Page<Props> = (props) => {
     const { BecomeACreator: text } = useLanguageContext().appText;
 
     return (
@@ -82,4 +83,6 @@ const BecomeACreator = (props: Props) => {
     );
 }
 
-export default BecomeACreator;
+BecomeACreatorPage.displayName = 'BecomeACreatorPage';
+
+export default BecomeACreatorPage;

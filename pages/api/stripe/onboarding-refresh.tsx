@@ -1,9 +1,9 @@
 import { getSession } from 'next-auth/client';
 import type { NextApiHandler } from 'next';
 
-import { getAccountLink } from 'lib/stripe';
+import { getAccountLink } from 'lib/server-stripe';
 import mongodbConnection from 'lib/mongodb-connection';
-import { Creator } from 'models/mongodb';
+import Creator from 'models/mongodb/creator';
 import { MONGOOSE_LEAN_DEFAULTS } from 'global-constants';
 
 const handler: NextApiHandler = async (req, res) => {

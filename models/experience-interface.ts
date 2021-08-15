@@ -1,11 +1,14 @@
 import { v4 as uuid } from 'uuid';
 import type { EventInput } from '@fullcalendar/react';
 
+import { getFeesBreakdown } from 'lib/booking';
 import { ExperienceCategory } from 'graphql-server/sdk';
 import type { ExperienceViewFragment } from 'graphql-server/sdk';
 import type { Image } from './files';
 
 export type BookingType = 'public' | 'private';
+
+export type Fees = ReturnType<typeof getFeesBreakdown>;
 
 export const EXPERIENCE_CATEGORIES = Object.values(ExperienceCategory).filter(
     val => isNaN(+val)

@@ -1,0 +1,12 @@
+query getBookingExperience($id: ID!) {
+    experiencesById(ids: [$id]) {
+        ...ExperienceView
+        privatePrice
+        currency
+        creator {
+            user {
+                phoneNumber
+            }
+        }
+    }
+}

@@ -1,26 +1,30 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useSession } from 'next-auth/client';
 import { useRouter } from 'next/router';
+import { DateTime } from 'luxon';
 import type { EventInput } from '@fullcalendar/react';
 
 import useLanguageContext from 'context/languageContext';
 import useUiContext from 'context/uiContext';
 import useExperienceCreationReducer from 'hooks/useExperienceCreationReducer';
+import useRouterPrompt from 'hooks/useRouterPrompt';
+import useLanguages from 'hooks/useLanguages';
+import { getGraphQLClient } from 'lib/graphql';
+import { getSdkWithHooks } from 'graphql-server/sdk';
+import { TIMEZONE_CONFIG } from 'global-constants';
 import type {
     StringField,
     BooleanField,
     NumberField,
     ArrayField
 } from 'hooks/useExperienceCreationReducer';
-import useRouterPrompt from 'hooks/useRouterPrompt';
-import useLanguages from 'hooks/useLanguages';
-import { getGraphQLClient } from 'lib/graphql';
-import { getSdkWithHooks } from 'graphql-server/sdk';
+import type { Page } from 'models/application';
 
 import Spinner from 'components/Spinner';
 import StripeRedirect from 'components/StripeRedirect';
 import IntroAnimation from 'components/experience-builder/IntroAnimation';
 import CreationLayout from 'components/experience-builder/CreationLayout';
+import SubmittedMessage from 'components/experience-builder/SubmittedMessage';
 import Setting from 'components/experience-builder/slides/Setting';
 import Location from 'components/experience-builder/slides/Location';
 import Title from 'components/experience-builder/slides/Title';
@@ -40,19 +44,20 @@ import Review from 'components/experience-builder/slides/Review';
 const graphQLClient = getGraphQLClient();
 const sdk = getSdkWithHooks(graphQLClient);
 
-const CreateExperience = () => {
+const CreateExperiencePage: Page = () => {
     const { CreateExperience: text } = useLanguageContext().appText;
     const { uiDispatch } = useUiContext();
-    const [session] = useSession();
+    const [session, loading] = useSession();
     const router = useRouter();
-
-    // Show alert message when leaving
-    useRouterPrompt(Boolean(session), text.leavePageAlert);
     const languageList = useLanguages();
 
     const [state, dispatch] = useExperienceCreationReducer();
     const [animationIn, setAnimationIn] = useState(false);
     const [animationDone, setAnimationDone] = useState(false);
+    const [createdTitle, setCreatedTitle] = useState('');
+
+    // Show alert message when leaving
+    useRouterPrompt(Boolean(session) && !Boolean(createdTitle), text.leavePageAlert);
 
     const handleStringChange = useCallback((field: StringField, value: string) => {
         dispatch({ type: 'SET_STRING_FIELD', field, value });
@@ -88,55 +93,55 @@ const CreateExperience = () => {
         dispatch({ type: 'START_SUBMIT' });
         
         // Upload images to Cloudinary
-        // const images: string[] = [];
-        // for (const imgFile of state.form.images) {
-        //     const formData = new FormData();
-        //     formData.append('file', (imgFile as File));
-        //     formData.append('upload_preset', 'RAMBLE-experiences');
+        const images: string[] = [];
+        for (const imgFile of state.form.images) {
+            const formData = new FormData();
+            formData.append('file', (imgFile as File));
+            formData.append('upload_preset', 'RAMBLE-experiences');
 
-        //     const { secure_url } = await fetch(process.env.REACT_APP_CLOUDINARY_API_URI!, {
-        //         method: 'POST',
-        //         body: formData
-        //     }).then(res => res.json());
+            const { secure_url } = await fetch(process.env.NEXT_PUBLIC_CLOUDINARY_API_URI!, {
+                method: 'POST',
+                body: formData
+            }).then(res => res.json());
 
-        //     images.push(secure_url);
-        // }
+            images.push(secure_url);
+        }
         
-        // // Add experience to database
-        // createExperience({
-        //     variables: {
-        //         title: state.form.title,
-        //         description: state.form.planning,
-        //         images,
-        //         location: state.form.location,
-        //         meetingPoint: state.form.isOnlineExperience ? 
-        //             undefined : state.form.meetingPoint,
-        //         latitude: state.form.isOnlineExperience ? 
-        //             undefined : state.form.latitude,
-        //         longitude: state.form.isOnlineExperience ?
-        //             undefined : state.form.longitude,
-        //         categories: state.form.categories,
-        //         ageRestriction: state.form.isAgeRestricted ? 
-        //             state.form.ageRequired : undefined,
-        //         duration: state.form.duration,
-        //         languages: state.form.languages,
-        //         includedItems: state.form.included,
-        //         toBringItems: state.form.toBring,
-        //         capacity: state.form.capacity,
-        //         zoomPMI: state.form.isOnlineExperience ? 
-        //             state.form.zoomMeetingId : undefined,
-        //         zoomPassword: state.form.isOnlineExperience ?
-        //             state.form.zoomMeetingPassword : undefined,
-        //         pricePerPerson: state.form.pricePerPerson,
-        //         privatePrice: state.form.privatePrice > 0 ?
-        //             state.form.privatePrice : undefined,
-        //         currency: state.form.currency,
-        //         slots: state.form.slots!.map(({ startStr, endStr }) => ({
-        //             start: DateTime.fromISO(startStr, TIMEZONE_CONFIG).toISO(),
-        //             end: DateTime.fromISO(endStr, TIMEZONE_CONFIG).toISO()
-        //         }))
-        //     }
-        // });
+        // Add experience to database
+        const creationData = await sdk.createExperience({
+            title: state.form.title,
+            description: state.form.planning,
+            images,
+            location: state.form.location,
+            meetingPoint: state.form.isOnlineExperience ? 
+                undefined : state.form.meetingPoint,
+            latitude: state.form.isOnlineExperience ? 
+                undefined : state.form.latitude,
+            longitude: state.form.isOnlineExperience ?
+                undefined : state.form.longitude,
+            categories: state.form.categories,
+            ageRestriction: state.form.isAgeRestricted ? 
+                state.form.ageRequired : undefined,
+            duration: state.form.duration,
+            languages: state.form.languages,
+            includedItems: state.form.included,
+            toBringItems: state.form.toBring,
+            capacity: state.form.capacity,
+            zoomPMI: state.form.isOnlineExperience ? 
+                state.form.zoomMeetingId : undefined,
+            zoomPassword: state.form.isOnlineExperience ?
+                state.form.zoomMeetingPassword : undefined,
+            pricePerPerson: state.form.pricePerPerson,
+            privatePrice: state.form.privatePrice > 0 ?
+                state.form.privatePrice : undefined,
+            currency: state.form.currency,
+            slots: state.form.slots!.map(({ startStr, endStr }) => ({
+                start: DateTime.fromISO(startStr, TIMEZONE_CONFIG).toISO(),
+                end: DateTime.fromISO(endStr, TIMEZONE_CONFIG).toISO()
+            }))
+        });
+
+        setCreatedTitle(creationData.createExperience.title);
     }
 
     const { data: creatorData } = sdk.useGetCreationProfile(session ? 'getCreationProfile' : null, 
@@ -151,10 +156,10 @@ const CreateExperience = () => {
 
     // Make sure the user is logged in
     useEffect(() => {
-        if (!session) {
+        if (!session && !loading) {
             router.replace('/');
         }
-    }, [session, router]);
+    }, [session, router, loading]);
 
     useEffect(() => {
         // Start animation on mounting
@@ -195,6 +200,11 @@ const CreateExperience = () => {
             message1={text.stripeRedirectMessage1}
             message2={text.stripeRedirectMessage2} />
         );
+    }
+
+    // When done, show Submitted slide
+    if (createdTitle) {
+        return <SubmittedMessage experienceTitle={createdTitle} />;
     }
     
     const getSlide = () => {
@@ -337,7 +347,7 @@ const CreateExperience = () => {
                     form={state.form}
                     onSlideComplete={handleFieldValidity} />
                 );
-            default: return null; // Should never reach this case but just to be safe
+            default: throw Error('Invalid creation step.');
         }
     }
 
@@ -363,4 +373,6 @@ const CreateExperience = () => {
     }
 }
 
-export default CreateExperience;
+CreateExperiencePage.displayName = 'CreateExperiencePage';
+
+export default CreateExperiencePage;

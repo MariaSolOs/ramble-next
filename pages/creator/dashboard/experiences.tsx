@@ -1,11 +1,14 @@
+import type { Page } from 'models/application';
+
 import Layout from 'components/creator-dashboard/Layout';
 
-const CreatedExperiences = () => {
+const CreatedExperiencesPage: Page = () => {
     return (
         null
     );
 }
 
-CreatedExperiences.layout = Layout;
+CreatedExperiencesPage.displayName = 'CreatedExperiencesPage';
+CreatedExperiencesPage.layout = Layout;
 
-export default CreatedExperiences;
+export default CreatedExperiencesPage;

@@ -1,11 +1,11 @@
 import { getSession } from 'next-auth/client';
 import type { NextApiHandler } from 'next';
 
-import { getServerStripe } from 'lib/stripe';
+import { getStripe } from 'lib/server-stripe';
 import mongodbConnection from 'lib/mongodb-connection';
-import { Creator } from 'models/mongodb';
+import Creator from 'models/mongodb/creator';
 
-const stripe = getServerStripe();
+const stripe = getStripe();
 
 const handler: NextApiHandler = async (req, res) => {
     if (req.method !== 'GET') {

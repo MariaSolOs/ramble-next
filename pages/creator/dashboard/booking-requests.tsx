@@ -1,11 +1,14 @@
+import type { Page } from 'models/application';
+
 import Layout from 'components/creator-dashboard/Layout';
 
-const BookingRequests = () => {
+const BookingRequestsPage: Page = () => {
     return (
         null
     );
 }
 
-BookingRequests.layout = Layout;
+BookingRequestsPage.displayName = 'BookingRequestsPage';
+BookingRequestsPage.layout = Layout;
 
-export default BookingRequests;
+export default BookingRequestsPage;

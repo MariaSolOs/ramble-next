@@ -119,6 +119,7 @@ export type MutationSignUpUserArgs = {
   password: Scalars['String'];
   firstName: Scalars['String'];
   lastName: Scalars['String'];
+  phoneNumber: Scalars['String'];
 };
 
 
@@ -476,7 +477,7 @@ export type ImageResolvers<ContextType = Context, ParentType extends ResolversPa
 };
 
 export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  signUpUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationSignUpUserArgs, 'email' | 'password' | 'firstName' | 'lastName'>>;
+  signUpUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationSignUpUserArgs, 'email' | 'password' | 'firstName' | 'lastName' | 'phoneNumber'>>;
   logInUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationLogInUserArgs, 'email' | 'password'>>;
   resetPassword?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationResetPasswordArgs, 'userId' | 'password'>>;
   editUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationEditUserArgs, never>>;

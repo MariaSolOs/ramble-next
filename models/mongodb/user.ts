@@ -1,6 +1,6 @@
 import { Schema, model, models } from 'mongoose';
 import mongooseLeanDefaults from 'mongoose-lean-defaults';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import type { Types, Model } from 'mongoose';
 
 import type { Experience } from './experience';

@@ -3,13 +3,11 @@ import { Types } from 'mongoose';
 import type Stripe from 'stripe';
 import type { FilterQuery, Document } from 'mongoose';
 
-import { 
-    Experience,
-    Occurrence,
-    Booking,
-    User,
-    Creator 
-} from 'models/mongodb';
+import Experience from 'models/mongodb/experience';
+import Occurrence from 'models/mongodb/occurrence';
+import Booking from 'models/mongodb/booking';
+import User from 'models/mongodb/user';
+import Creator from 'models/mongodb/creator';
 import {
     experienceReducer,
     occurrenceReducer,
@@ -20,14 +18,14 @@ import {
 import { getPlaceholder, deleteUserPicture } from 'lib/cloudinary';
 import { createOccurrence, computeBookingFees } from 'lib/booking';
 import { sendBookingNotificationEmail } from 'lib/sendgrid';
-import { getServerStripe } from 'lib/stripe';
+import { getStripe } from 'lib/server-stripe';
 import { MONGOOSE_LEAN_DEFAULTS } from 'global-constants';
 import type { Experience as ExperienceType } from 'models/mongodb/experience';
 import type { User as UserType } from 'models/mongodb/user';
 import type { Creator as CreatorType } from 'models/mongodb/creator';
 import type { Resolvers } from './resolvers-types';
 
-const stripe = getServerStripe();
+const stripe = getStripe();
 
 export const resolvers: Resolvers = {
     Experience: {
@@ -140,7 +138,7 @@ export const resolvers: Resolvers = {
     },
 
     Mutation: {
-        signUpUser: async (_, { email, password, firstName, lastName }) => {
+        signUpUser: async (_, { email, password, firstName, lastName, phoneNumber }) => {
             const emailExists = await User.exists({ emailAddress: email });
             if (emailExists) {
                 throw new AuthenticationError('Email already in use.');
@@ -151,7 +149,8 @@ export const resolvers: Resolvers = {
                 lstName: lastName,
                 emailAddress: email,
                 passwordHash: User.generatePasswordHash(password),
-                lastLogin: new Date()
+                lastLogin: new Date(),
+                phoneNumber
             });
 
             return userReducer(createdUser);

@@ -2,13 +2,15 @@ mutation signUp(
     $email: String!,
     $password: String!,
     $firstName: String!,
-    $lastName: String!
+    $lastName: String!,
+    $phoneNumber: String!
 ) {
     signUpUser(
         email: $email,
         password: $password,
         firstName: $firstName,
-        lastName: $lastName
+        lastName: $lastName,
+        phoneNumber: $phoneNumber
     ) {
         _id
     }

@@ -48,11 +48,13 @@ const englishTranslation: TranslationRecord = {
         firstName: 'First name',
         lastName: 'Last name',
         email: 'Email',
+        phoneNumber: 'Phone number',
         password: 'Password',
         confirmPassword: 'Confirm password',
         alreadyHaveAccount: 'Already have an account?',
         continue: 'Continue',
-        passwordMismatch: "The passwords don't match."
+        passwordMismatch: "The passwords don't match.",
+        phoneError: 'Please provide a valid phone number'
     },
 
     LogInDialog: {
@@ -150,7 +152,7 @@ const englishTranslation: TranslationRecord = {
         showSmile: 'Show us your best smile',
         aboutYouTitle: 'About you',
         aboutYouSubtitle: 'Tell us a bit about yourself. How would your friends describe you?',
-        aboutYouTip: "Include fun facts, what you're passionate about, your professional experience and other pertinent information.",
+        aboutYouTip: "Your bio will appear on your experience page. Include fun facts, what you're passionate about, your professional experience and other pertinent information.",
         phoneNumberTitle: "What's your phone number?",
         phoneNumberSubtitle: 'Only us and guests who book your experience will have access to your phone number.',
         phoneNumberError: 'Please provide a valid phone number', 
@@ -196,16 +198,13 @@ const englishTranslation: TranslationRecord = {
         toBring: 'What to bring',
         price: 'Pricing',
         availabilities: 'Availabilities',
-        review: 'Review and submit'
+        review: 'Review and submit',
+        submittedTitle: 'Your experience was submitted',
+        submittedMessage1: 'Your experience',
+        submittedMessage2: 'was submitted successfully.',
+        submittedMessage3: "We'll review it and get back to you shortly so you can get your act out there as soon as possible.",
+        submittedButton: 'Got it'
     },
-    
-    // CreateExperience_Submitted: {
-    //     title: 'Your experience was submitted',
-    //     message1: 'Your experience',
-    //     message2: 'was submitted successfully.',
-    //     message3: "We'll review it and get back to you shortly so you can get your act out there as soon as possible.",
-    //     button: 'Got it'
-    // },
     
     BuilderSlides_Setting: {
         title: 'Setting',
@@ -348,71 +347,71 @@ const englishTranslation: TranslationRecord = {
         title: 'Review & Submit'
     },
 
-    // BookExperience_Layout: {
-    //     dateAndTime: 'Date & Time',
-    //     completeBooking: 'Complete booking',
-    //     payment: 'Payment',
-    //     next: 'Next',
-    //     confirmPayment: 'Confirm payment'
-    // },
+    BookExperience_Layout: {
+        dateAndTime: 'Date & Time',
+        completeBooking: 'Complete booking',
+        payment: 'Payment',
+        next: 'Next',
+        confirmPayment: 'Confirm payment'
+    },
 
-    // BookExperience_DateSlide: {
-    //     title: 'Please select a date',
-    //     timezoneMessage: "The reference time zone is Eastern Standard Time (EST)."
-    // },
+    BookExperience_DateSlide: {
+        title: 'Please select a date',
+        timezoneMessage: "The reference time zone is Eastern Standard Time (EST)."
+    },
 
-    // BookExperience_TimeslotSlide: {
-    //     title: 'What time of the day would suit you best?',
-    //     join: 'Join',
-    //     guest: 'guest',
-    //     guests: 'guests',
-    //     firstBooking: 'Be the first to book',
-    //     bookingUnavailable: 'Booking unavailable'
-    // },
+    BookExperience_TimeslotSlide: {
+        title: 'What time of the day would suit you best?',
+        join: 'Join',
+        guest: 'guest',
+        guests: 'guests',
+        firstBooking: 'Be the first to book',
+        bookingUnavailable: 'Booking unavailable'
+    },
 
-    // BookExperience_BookingTypeSlide: {
-    //     title: 'Booking options',
-    //     privateBookingTitle: 'Book entire experience',
-    //     privateBookingSubtitle: 'Be the only guest(s) at this experience',
-    //     publicBookingTitle: 'Book per person',
-    //     publicBookingTitleOnline: 'Book per connection',
-    //     publicBookingSubtitle: 'Join other guests',
-    //     upTo: 'Up to',
-    //     join: 'Join',
-    //     person: 'person',
-    //     people: 'people',
-    //     guest: 'guest',
-    //     guests: 'guests',
-    //     numberOfGuests: 'Number of guest(s)'
-    // },
+    BookExperience_BookingTypeSlide: {
+        title: 'Booking options',
+        privateBookingTitle: 'Book entire experience',
+        privateBookingSubtitle: 'Be the only guest(s) at this experience',
+        publicBookingTitle: 'Book per person',
+        publicBookingTitleOnline: 'Book per connection',
+        publicBookingSubtitle: 'Join other guests',
+        upTo: 'Up to',
+        join: 'Join',
+        person: 'person',
+        people: 'people',
+        guest: 'guest',
+        guests: 'guests',
+        numberOfGuests: 'Number of guest(s)'
+    },
 
-    // BookExperience_PaymentSlide: {
-    //     cardNumberPlaceholder: 'Credit card number',
-    //     expiryDatePlaceholder: 'MM / YY',
-    //     cvcPlaceholder: 'CVC',
-    //     zipCodePlaceholder: 'ZIP code',
-    //     emailPlaceholder: 'Email address',
-    //     emailMessage: "We'll send your receipt to this email address.",
-    //     subtotal: 'Subtotal',
-    //     total: 'Total',
-    //     serviceFee: 'Service fee'
-    // },
+    BookExperience_PaymentSlide: {
+        cardNumberPlaceholder: 'Credit card number',
+        expiryDatePlaceholder: 'MM / YY',
+        cvcPlaceholder: 'CVC',
+        zipCodePlaceholder: 'ZIP code',
+        emailPlaceholder: 'Email address',
+        emailMessage: "We'll send your receipt to this email address.",
+        subtotal: 'Subtotal',
+        total: 'Total',
+        serviceFee: 'Service fee'
+    },
 
-    // BookExperience_Submitted: {
-    //     title: 'Your booking request was sent',
-    //     subtitle1: "We'll let you know as soon as",
-    //     subtitle2: 'approves your request',
-    //     guest: 'guest',
-    //     guests: 'guests',
-    //     host: 'Your host',
-    //     toBringTitle: 'Be sure to bring',
-    //     meetingSpotTitle: 'Meeting spot',
-    //     online: 'Online',
-    //     paymentDetails: 'Payment details',
-    //     paymentMethod: 'Payment method',
-    //     total: 'Total',
-    //     buttonText: 'Got it'
-    // },
+    BookExperience_SubmittedSlide: {
+        title: 'Your booking request was sent',
+        subtitle1: "We'll let you know as soon as",
+        subtitle2: 'approves your request',
+        guest: 'guest',
+        guests: 'guests',
+        host: 'Your host',
+        toBringTitle: 'Be sure to bring',
+        meetingSpotTitle: 'Meeting spot',
+        online: 'Online',
+        paymentDetails: 'Payment details',
+        paymentMethod: 'Payment method',
+        total: 'Total',
+        buttonText: 'Got it'
+    },
 
     CreatorDashboard_Layout: {
         dashboardTitle: 'My dashboard',

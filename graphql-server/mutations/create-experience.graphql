@@ -1,0 +1,48 @@
+mutation createExperience(
+    $title: String!
+    $description: String!
+    $images: [String!]!
+    $location: String!
+    $meetingPoint: String
+    $latitude: Float
+    $longitude: Float
+    $categories: [ExperienceCategory!]!
+    $ageRestriction: Int
+    $duration: Float!
+    $languages: [String!]!
+    $includedItems: [String!]!
+    $toBringItems: [String!]!
+    $capacity: Int!
+    $zoomPMI: String
+    $zoomPassword: String
+    $pricePerPerson: Int!
+    $privatePrice: Int
+    $currency: String!
+    $slots: [OccurrenceInput!]! 
+) {
+    createExperience(
+        title: $title
+        description: $description
+        images: $images
+        location: $location
+        meetingPoint: $meetingPoint
+        latitude: $latitude
+        longitude: $longitude
+        categories: $categories
+        ageRestriction: $ageRestriction
+        duration: $duration
+        languages: $languages
+        includedItems: $includedItems
+        toBringItems: $toBringItems
+        capacity: $capacity
+        zoomPMI: $zoomPMI
+        zoomPassword: $zoomPassword
+        pricePerPerson: $pricePerPerson
+        privatePrice: $privatePrice
+        currency: $currency
+        slots: $slots
+    ) {
+        _id
+        title
+    }
+}

@@ -1,11 +1,14 @@
+import type { Page } from 'models/application';
+
 import Layout from 'components/creator-dashboard/Layout';
 
-const Calendar = () => {
+const CalendarPage: Page = () => {
     return (
         null
     );
 }
 
-Calendar.layout = Layout;
+CalendarPage.displayName = 'CalendarPage';
+CalendarPage.layout = Layout;
 
-export default Calendar;
+export default CalendarPage;

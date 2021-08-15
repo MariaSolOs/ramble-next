@@ -9,6 +9,7 @@ type Credentials = {
     password: string;
     firstName?: string;
     lastName?: string;
+    phoneNumber?: string;
 }
 
 const graphQLClient = getGraphQLClient();
@@ -35,7 +36,8 @@ export default NextAuth({
                             email: credentials.email,
                             password: credentials.password,
                             firstName: credentials.firstName!,
-                            lastName: credentials.lastName!
+                            lastName: credentials.lastName!,
+                            phoneNumber: credentials.phoneNumber!
                         });
                         return {
                             userId: data.signUpUser._id
