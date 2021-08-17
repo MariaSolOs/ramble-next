@@ -86,19 +86,8 @@ const UiContext = createContext<UiContextType>({
 
 const useUiContext = () => useContext(UiContext);
 
-export const UiProvider: React.FC = (props) => {
+export const UiContextProvider: React.FC = (props) => {
     const [uiState, uiDispatch] = useReducer(reducer, initialState);
-
-    // Show server messages
-    // TODO: Add this to specific pages
-    // useEffect(() => {
-    //     const serverMessage = Cookies.get('ramble-server_message');
-
-    //     if (serverMessage) {
-    //         Cookies.remove('ramble-server_message');
-    //         uiDispatch({ type: 'OPEN_SNACKBAR', message: serverMessage });
-    //     }
-    // }, []);
 
     return (
         <UiContext.Provider value={{ uiState, uiDispatch }}>

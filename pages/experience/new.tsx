@@ -158,8 +158,9 @@ const CreateExperiencePage: Page = () => {
     useEffect(() => {
         if (!session && !loading) {
             router.replace('/');
+            uiDispatch({ type: 'OPEN_LOG_IN_DIALOG' });
         }
-    }, [session, router, loading]);
+    }, [session, router, loading, uiDispatch]);
 
     useEffect(() => {
         // Start animation on mounting

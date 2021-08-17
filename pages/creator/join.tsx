@@ -1,11 +1,12 @@
 import React, { useEffect, useCallback } from 'react';
-import { useSession, getSession } from 'next-auth/client';
+import { useSession } from 'next-auth/client';
 import { useRouter } from 'next/router';
 
 import { getGraphQLClient } from 'lib/graphql';
 import { getSdkWithHooks } from 'graphql-server/sdk';
 import useLanguageContext from 'context/languageContext';
 import useUiContext from 'context/uiContext';
+import useUserContext from 'context/userContext';
 import useCreatorFormReducer from 'hooks/useCreatorFormReducer';
 import { PHONE_NUMBER_REGEX } from 'global-constants';
 import type { FileField, StringField } from 'hooks/useCreatorFormReducer';
@@ -22,6 +23,7 @@ const CreatorFormPage: Page = () => {
     const { CreatorForm: text } = useLanguageContext().appText;
     const [state, dispatch] = useCreatorFormReducer();
     const { uiDispatch } = useUiContext();
+    const { editUserUi } = useUserContext();
     const router = useRouter();
     const [session] = useSession();
 
@@ -102,17 +104,24 @@ const CreatorFormPage: Page = () => {
 
             // Update user information if needed
             const isNewPhoneNumber = data?.me.phoneNumber !== state.phoneNumber;
+            let userPhoto = data?.me.photo;
             if (state.profilePic || isNewPhoneNumber) {
-                sdk.updateProfile({
+                const updatedProfile = await sdk.updateProfile({
                     ...state.profilePic && { photo: photoUrl },
                     ...isNewPhoneNumber && {
                         phoneNumber: state.phoneNumber.replace(PHONE_NUMBER_REGEX, '($1) $2-$3') 
                     }
                 });
+                userPhoto = updatedProfile.editUser.photo;
             }
 
             // Refresh the user UI
-            await getSession();
+            editUserUi({
+                isLoggedIn: true,
+                isCreator: true,
+                userName: data?.me.firstName,
+                userPhoto: userPhoto || undefined
+            });
         } catch (err: any) {
             const message = err.message || "We couldn't create your creator profile...";
             uiDispatch({ type: 'OPEN_ERROR_DIALOG', message });

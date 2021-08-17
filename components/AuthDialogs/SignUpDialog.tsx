@@ -113,7 +113,7 @@ const SignUpDialog = () => {
             </div>
             <DialogContent className={classes.content}>
                 <form onSubmit={handleSubmit}>
-                    <FormControl className={classes.formControl}>
+                    <FormControl className={classes.smallFormControl}>
                         <FormLabel className={classes.formLabel} htmlFor={FormField.FirstName}>
                             {text.firstName}
                         </FormLabel>
@@ -121,12 +121,11 @@ const SignUpDialog = () => {
                         id={FormField.FirstName}
                         name={FormField.FirstName}
                         className={classes.textField}
-                        fullWidth
                         value={values.firstName}
                         onChange={handleFormChange}
                         required />
                     </FormControl>
-                    <FormControl className={classes.formControl}>
+                    <FormControl className={classes.smallFormControl}>
                         <FormLabel className={classes.formLabel} htmlFor={FormField.LastName}>
                             {text.lastName}
                         </FormLabel>
@@ -134,7 +133,6 @@ const SignUpDialog = () => {
                         id={FormField.LastName}
                         name={FormField.LastName}
                         className={classes.textField}
-                        fullWidth
                         value={values.lastName}
                         onChange={handleFormChange}
                         required />

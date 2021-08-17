@@ -432,7 +432,7 @@ export const resolvers: Resolvers = {
             sendBookingNotificationEmail(
                 client?.fstName || '',
                 experience.title,
-                `${process.env.CLIENT_URL!}/email/creator-requests/${creatorUser._id}`,
+                `${process.env.RAMBLE_URL!}/creator/dashboard/booking-requests`,
                 creatorUser.emailAddress
             );
 

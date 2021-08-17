@@ -83,6 +83,8 @@ const frenchTranslation: TranslationRecord = {
     },
 
     SearchExperiences: {
+        headTitle: "vivez montréal", 
+        headDescription: 'Découvrez des expériences uniques à Montréal',
         personButtonLabel: 'Personne',
         peopleButtonLabel: 'Personnes',
         search: 'Explorer',
@@ -420,32 +422,32 @@ const frenchTranslation: TranslationRecord = {
         calendar: 'Calendrier'
     },
 
-    // BookingRequests: {
-    //     decisionError: "Nous n'avons pas pu traiter votre décision...",
-    //     bookingAcceptedMessage: 'La réservation a été acceptée.',
-    //     bookingRejectedMessage: 'La réservation a été annulée.'
-    // },
+    BookingRequests: {
+        decisionError: "Nous n'avons pas pu traiter votre décision...",
+        bookingAcceptedMessage: 'La réservation a été acceptée.',
+        bookingRejectedMessage: 'La réservation a été annulée.'
+    },
 
-    // BookingCard: {
-    //     fromTitle: 'Demande de réservation de',
-    //     guest: 'invité',
-    //     guests: 'invités',
-    //     currentlyFor: 'Actuellement pour le',
-    //     accept: 'Accepter',
-    //     decline: 'Refuser',
-    //     currentPayment: 'Revenu actuel',
-    //     privateBooking: 'Réservation privée'
-    // },
+    BookingCard: {
+        fromTitle: 'Demande de réservation de',
+        guest: 'invité',
+        guests: 'invités',
+        currentlyFor: 'Actuellement pour le',
+        accept: 'Accepter',
+        decline: 'Refuser',
+        currentPayment: 'Revenu actuel',
+        privateBooking: 'Réservation privée'
+    },
 
     Profile_Layout: {
         experiences: 'Expériences',
         personalInformation: 'Infos personnelles'
     },
 
-    // UserProfile_Experiences: {
-    //     booked: 'Réservées',
-    //     saved: 'Enregistrées'
-    // },
+    Profile_Experiences: {
+        booked: 'Réservées',
+        saved: 'Enregistrées'
+    },
 
     Profile_PersonalInformation: {
         firstName: 'Prénom',
@@ -472,7 +474,14 @@ const frenchTranslation: TranslationRecord = {
     //     guests: 'Invités',
     //     closeDialog: 'Fermer',
     //     private: 'Privée'
-    // }
+    // },
+
+    ErrorPage: {
+        title: "Eh bien... Ce n'était pas prévu.",
+        pageNotFound: 'La page que vous cherchez ne semble pas exister.',
+        genericError: 'Une erreur est survenue.',
+        goBackButton: "Page d'accueil"
+    }
 }
 
 export default frenchTranslation;

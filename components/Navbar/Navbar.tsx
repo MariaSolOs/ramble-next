@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useSession } from 'next-auth/client';
 
+import routes from 'routes';
 import useLanguageContext from 'context/languageContext';
 import useUiContext from 'context/uiContext';
-import routes from 'routes';
+import useUserContext from 'context/userContext';
 
 import Link from 'next/link';
 import Menu from '@material-ui/core/Menu';
@@ -26,11 +26,12 @@ const Navbar = () => {
     const classes = useStyles();
     const { uiDispatch } = useUiContext();
 
-    const [session] = useSession();
-    const isLoggedIn = Boolean(session?.user.userId);
-    const isCreator = Boolean(session?.user.creatorId);
-    const userName = session?.user.firstName || '';
-    const userPhoto = session?.user.photo;
+    const { 
+        isLoggedIn,
+        isCreator,
+        userName,
+        userPhoto
+    } = useUserContext().userUi;
 
     const [anchorEl, setAnchorEl] = useState<Element | null>(null);
     const closeMenu = () => { setAnchorEl(null); }
@@ -44,7 +45,7 @@ const Navbar = () => {
 
     const profileMenu = (
         <NavbarProfileMenu
-        userName={userName}
+        userName={userName || ''}
         userPhoto={userPhoto}
         onClose={closeMenu}
         isCreator={isCreator} />

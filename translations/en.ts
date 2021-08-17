@@ -83,6 +83,8 @@ const englishTranslation: TranslationRecord = {
     },
 
     SearchExperiences: {
+        headTitle: 'experience montréal.',
+        headDescription: 'Discover unique experiences in Montréal',
         personButtonLabel: 'Person',
         peopleButtonLabel: 'People',
         search: 'Search',
@@ -420,32 +422,32 @@ const englishTranslation: TranslationRecord = {
         createdExperiences: 'My experiences'
     },
 
-    // BookingRequests: {
-    //     decisionError: "We couldn't process your decision...",
-    //     bookingAcceptedMessage: 'The booking was accepted.',
-    //     bookingRejectedMessage: 'The booking was canceled.'
-    // },
+    BookingRequests: {
+        decisionError: "We couldn't process your decision...",
+        bookingAcceptedMessage: 'The booking was accepted.',
+        bookingRejectedMessage: 'The booking was canceled.'
+    },
 
-    // BookingCard: {
-    //     fromTitle: 'Booking request from',
-    //     guest: 'guest',
-    //     guests: 'guests',
-    //     currentlyFor: 'Currently for',
-    //     accept: 'Accept',
-    //     decline: 'Decline',
-    //     currentPayment: 'Current payment',
-    //     privateBooking: 'Private booking'
-    // },
+    BookingCard: {
+        fromTitle: 'Booking request from',
+        guest: 'guest',
+        guests: 'guests',
+        currentlyFor: 'Currently for',
+        accept: 'Accept',
+        decline: 'Decline',
+        currentPayment: 'Current payment',
+        privateBooking: 'Private booking'
+    },
 
     Profile_Layout: {
         experiences: 'Experiences',
         personalInformation: 'Personal infos'
     },
 
-    // UserProfile_Experiences: {
-    //     booked: 'Booked',
-    //     saved: 'Saved'
-    // },
+    Profile_Experiences: {
+        booked: 'Booked',
+        saved: 'Saved'
+    },
 
     Profile_PersonalInformation: {
         firstName: 'First name',
@@ -472,7 +474,14 @@ const englishTranslation: TranslationRecord = {
     //     guests: 'Guests',
     //     closeDialog: 'Close',
     //     private: 'Private'
-    // }
+    // },
+
+    ErrorPage: {
+        title: "Well.. That wasn't planned.",
+        pageNotFound: "The page you're looking for doesn't seem to exist.",
+        genericError: 'We messed up and something wrong happened.',
+        goBackButton: 'Go back to home page'
+    }
 }
 
 export default englishTranslation;

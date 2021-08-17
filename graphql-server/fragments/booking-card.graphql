@@ -1,0 +1,29 @@
+fragment BookingCard on Booking {
+    _id
+    numGuests
+    bookingType
+    createdAt
+    creatorProfit
+    client {
+        ...UserAvatar
+        city
+    }
+    occurrence {
+        dateStart
+        dateEnd
+        creatorProfit
+        experience {
+            _id
+            images {
+                src
+                placeholder
+            }
+            title
+            capacity
+        }
+        bookings {
+            numGuests
+            paymentCaptured
+        }
+    }
+}

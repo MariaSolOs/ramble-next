@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useSession, getSession } from 'next-auth/client';
+import { useSession } from 'next-auth/client';
 import { useRouter } from 'next/router';
 
+import useUserContext from 'context/userContext';
+import useUiContext from 'context/uiContext';
 import { getGraphQLClient } from 'lib/graphql';
 import { getSdkWithHooks } from 'graphql-server/sdk';
 import { PHONE_NUMBER_REGEX, MAX_CREATOR_BIO_LENGTH } from 'global-constants';
@@ -30,6 +32,8 @@ const initialForm: Form = {
 const PersonalInformationPage: Page = () => {
     const [session, loading] = useSession();
     const router = useRouter();
+    const { uiDispatch } = useUiContext();
+    const { editUserUi } = useUserContext();
 
     // Form management
     const [values, setValues] = useState(initialForm);
@@ -41,10 +45,13 @@ const PersonalInformationPage: Page = () => {
     useEffect(() => {
         if (!session && !loading) {
             router.replace('/');
+            uiDispatch({ type: 'OPEN_LOG_IN_DIALOG' });
         }
-    }, [session, loading, router]);
+    }, [session, loading, router, uiDispatch]);
 
-    const { data, mutate } = sdk.useGetUserProfile(session ? 'getUserProfile' : null, { userId: session?.user.userId || '' }, {
+    const { data, mutate } = sdk.useGetUserProfile(
+        session ? 'getUserProfile' : null, 
+        { userId: session?.user.userId || '' }, {
         onSuccess: ({ me }) => {
             // Fill the form with the existing data
             setValues({
@@ -99,14 +106,18 @@ const PersonalInformationPage: Page = () => {
 
         const { creatorBio, ...userValues } = values;
         
-        await sdk.updateProfile({
+        const updatedProfile = await sdk.updateProfile({
             ...userValues,
             ...photoUrl && { photo: photoUrl },
             ...isCreator && { creatorBio: values.creatorBio }
         });
 
-        // Refresh the user UI
-        getSession();
+        editUserUi({
+            isLoggedIn: true,
+            isCreator,
+            userName: updatedProfile.editUser.firstName,
+            userPhoto: updatedProfile.editUser.photo || undefined
+        });
         mutate();
         setUpdatingProfile(false);
     }
@@ -121,7 +132,7 @@ const PersonalInformationPage: Page = () => {
         <Layout
         name={data.me.firstName}
         onPhotoChange={setPhoto}
-        photo={data.me.photo?.src || undefined}
+        photo={data.me.photo?.src}
         city={data.me.city || undefined}>
             {updatingProfile && <Spinner />}
             <InfosForm

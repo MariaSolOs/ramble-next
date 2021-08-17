@@ -5,7 +5,7 @@ import type { CardContentFragment as CardType } from 'graphql-server/sdk';
 export type ExperienceCardProps = {
     experience: CardType;
     isSaved?: boolean;
-    onHeartClick: React.MouseEventHandler;
+    onHeartClick?: React.MouseEventHandler;
     containerClass?: string;
 }
 

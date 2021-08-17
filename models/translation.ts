@@ -26,7 +26,7 @@ export type TranslationRecord = {
 
     ErrorDialog: Record<'title', string>;
 
-    SearchExperiences: Record<'personButtonLabel' | 'peopleButtonLabel' | 'search' | 'titlePlaceholder', string>;
+    SearchExperiences: Record<'headTitle' | 'headDescription' | 'personButtonLabel' | 'peopleButtonLabel' | 'search' | 'titlePlaceholder', string>;
 
     ExperienceCard: Record<'perConnection' | 'perPerson' | 'online', string>;
 
@@ -90,15 +90,17 @@ export type TranslationRecord = {
 
     CreatorDashboard_Layout: Record<'dashboardTitle' | 'bookingRequests' | 'calendar' | 'createdExperiences', string>;
 
-    // BookingRequests: Record<'decisionError' | 'bookingAcceptedMessage' | 'bookingRejectedMessage', string>;
+    BookingRequests: Record<'decisionError' | 'bookingAcceptedMessage' | 'bookingRejectedMessage', string>;
 
-    // BookingCard: Record<'fromTitle' | 'guest' | 'guests' | 'currentlyFor' | 'currentPayment' | 'accept' | 'decline' | 'privateBooking', string>;
+    BookingCard: Record<'fromTitle' | 'guest' | 'guests' | 'currentlyFor' | 'currentPayment' | 'accept' | 'decline' | 'privateBooking', string>;
 
     Profile_Layout: Record<'experiences' | 'personalInformation', string>;
 
-    // UserProfile_Experiences: Record<'booked' | 'saved', string>;
+    Profile_Experiences: Record<'booked' | 'saved', string>;
 
     Profile_PersonalInformation: Record<'firstName' | 'lastName' | 'liveIn' | 'email' | 'phoneNumber' | 'birthday' | 'aboutYou' | 'submitButton' | 'phoneError', string>;
 
     // CreatorCalendar: Record<'timezoneMessage' | 'formTitle' | 'formDescription' | 'dateAndTimeLabel' | 'experienceLabel' | 'addSlot' | 'today' | 'busySlotMessage' | 'guest' | 'guests' | 'closeDialog' | 'private', string>;
+
+    ErrorPage: Record<'title' | 'pageNotFound' | 'genericError' | 'goBackButton', string>;
 }

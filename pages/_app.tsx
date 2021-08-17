@@ -2,8 +2,9 @@ import React, { useEffect } from 'react';
 import { Provider as AuthProvider } from 'next-auth/client';
 import { Elements } from '@stripe/react-stripe-js';
 
-import { LanguageProvider } from 'context/languageContext';
-import { UiProvider } from 'context/uiContext';
+import { LanguageContextProvider } from 'context/languageContext';
+import { UiContextProvider } from 'context/uiContext';
+import { UserContextProvider } from 'context/userContext';
 import { getStripe } from 'lib/client-stripe';
 import type { AppProps } from 'models/application';
 
@@ -38,27 +39,29 @@ const App = ({ Component, pageProps }: AppProps) => {
     return (
         <AuthProvider session={pageProps.session}>
             <Head>
-                <meta name="vi ewport" content="width=device-width, initial-scale=1" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Head>
-            <LanguageProvider>
-                <UiProvider>
-                    <GlobalStyles>
-                        <Navbar />
-                        <LogInDialog />
-                        <SignUpDialog />
-                        <ErrorDialog />
-                        <Snackbar />
-                        <PageLayout>
-                            {/* Add Stripe elements to the booking page only. */}
-                            {Component.displayName === 'BookExperiencePage' ?
-                                <Elements stripe={getStripe()}>
-                                    <Component { ...pageProps } />
-                                </Elements> :
-                                <Component { ...pageProps } />}
-                        </PageLayout>
-                    </GlobalStyles>
-                </UiProvider>
-            </LanguageProvider>
+            <LanguageContextProvider>
+                <UiContextProvider>
+                    <UserContextProvider>
+                        <GlobalStyles>
+                            <Navbar />
+                            <LogInDialog />
+                            <SignUpDialog />
+                            <ErrorDialog />
+                            <Snackbar />
+                            <PageLayout>
+                                {/* Add Stripe elements to the booking page only. */}
+                                {Component.displayName === 'BookExperiencePage' ?
+                                    <Elements stripe={getStripe()}>
+                                        <Component { ...pageProps } />
+                                    </Elements> :
+                                    <Component { ...pageProps } />}
+                            </PageLayout>
+                        </GlobalStyles>
+                    </UserContextProvider>
+                </UiContextProvider>
+            </LanguageContextProvider>
         </AuthProvider>
     );
 }

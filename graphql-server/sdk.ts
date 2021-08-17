@@ -285,6 +285,20 @@ export type User = {
   creator?: Maybe<Creator>;
 };
 
+export type BookingCardFragment = (
+  Pick<Booking, '_id' | 'numGuests' | 'bookingType' | 'createdAt' | 'creatorProfit'>
+  & { client: (
+    Pick<User, 'city'>
+    & UserAvatarFragment
+  ), occurrence: (
+    Pick<Occurrence, 'dateStart' | 'dateEnd' | 'creatorProfit'>
+    & { experience: (
+      Pick<Experience, '_id' | 'title' | 'capacity'>
+      & { images: Array<Pick<Image, 'src' | 'placeholder'>> }
+    ), bookings: Array<Pick<Booking, 'numGuests' | 'paymentCaptured'>> }
+  ) }
+);
+
 export type CoreProfileFragment = (
   Pick<User, '_id' | 'email'>
   & { creator?: Maybe<Pick<Creator, '_id'>> }
@@ -425,6 +439,13 @@ export type GetBookingOccurrencesQueryVariables = Exact<{
 
 export type GetBookingOccurrencesQuery = { occurrences: Array<Pick<Occurrence, '_id' | 'dateStart' | 'dateEnd' | 'spotsLeft'>> };
 
+export type GetBookingRequestsQueryVariables = Exact<{
+  userId: Scalars['ID'];
+}>;
+
+
+export type GetBookingRequestsQuery = { me: { creator?: Maybe<{ bookingRequests: Array<BookingCardFragment> }> } };
+
 export type GetCoreProfileQueryVariables = Exact<{
   userId: Scalars['ID'];
 }>;
@@ -476,6 +497,17 @@ export type GetLocationsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetLocationsQuery = { experiences: Array<Pick<Experience, 'location'>> };
 
+export type GetUserExperiencesQueryVariables = Exact<{
+  userId: Scalars['ID'];
+}>;
+
+
+export type GetUserExperiencesQuery = { me: (
+    Pick<User, '_id' | 'city'>
+    & { savedExperiences: Array<CardContentFragment>, bookedExperiences: Array<CardContentFragment> }
+    & UserAvatarFragment
+  ) };
+
 export type GetUserProfileQueryVariables = Exact<{
   userId: Scalars['ID'];
 }>;
@@ -503,6 +535,37 @@ export const UserAvatarFragmentDoc = gql`
   }
 }
     `;
+export const BookingCardFragmentDoc = gql`
+    fragment BookingCard on Booking {
+  _id
+  numGuests
+  bookingType
+  createdAt
+  creatorProfit
+  client {
+    ...UserAvatar
+    city
+  }
+  occurrence {
+    dateStart
+    dateEnd
+    creatorProfit
+    experience {
+      _id
+      images {
+        src
+        placeholder
+      }
+      title
+      capacity
+    }
+    bookings {
+      numGuests
+      paymentCaptured
+    }
+  }
+}
+    ${UserAvatarFragmentDoc}`;
 export const CoreProfileFragmentDoc = gql`
     fragment CoreProfile on User {
   _id
@@ -684,6 +747,17 @@ export const GetBookingOccurrencesDocument = gql`
   }
 }
     `;
+export const GetBookingRequestsDocument = gql`
+    query getBookingRequests($userId: ID!) {
+  me(userId: $userId) {
+    creator {
+      bookingRequests {
+        ...BookingCard
+      }
+    }
+  }
+}
+    ${BookingCardFragmentDoc}`;
 export const GetCoreProfileDocument = gql`
     query getCoreProfile($userId: ID!) {
   me(userId: $userId) {
@@ -735,6 +809,22 @@ export const GetLocationsDocument = gql`
   }
 }
     `;
+export const GetUserExperiencesDocument = gql`
+    query getUserExperiences($userId: ID!) {
+  me(userId: $userId) {
+    _id
+    city
+    savedExperiences {
+      ...CardContent
+    }
+    bookedExperiences {
+      ...CardContent
+    }
+    ...UserAvatar
+  }
+}
+    ${CardContentFragmentDoc}
+${UserAvatarFragmentDoc}`;
 export const GetUserProfileDocument = gql`
     query getUserProfile($userId: ID!) {
   me(userId: $userId) {
@@ -802,6 +892,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     getBookingOccurrences(variables: GetBookingOccurrencesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetBookingOccurrencesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetBookingOccurrencesQuery>(GetBookingOccurrencesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getBookingOccurrences');
     },
+    getBookingRequests(variables: GetBookingRequestsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetBookingRequestsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetBookingRequestsQuery>(GetBookingRequestsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getBookingRequests');
+    },
     getCoreProfile(variables: GetCoreProfileQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetCoreProfileQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetCoreProfileQuery>(GetCoreProfileDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getCoreProfile');
     },
@@ -819,6 +912,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     getLocations(variables?: GetLocationsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetLocationsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetLocationsQuery>(GetLocationsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getLocations');
+    },
+    getUserExperiences(variables: GetUserExperiencesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetUserExperiencesQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetUserExperiencesQuery>(GetUserExperiencesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getUserExperiences');
     },
     getUserProfile(variables: GetUserProfileQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetUserProfileQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetUserProfileQuery>(GetUserProfileDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getUserProfile');
@@ -839,6 +935,9 @@ export function getSdkWithHooks(client: GraphQLClient, withWrapper: SdkFunctionW
     useGetBookingOccurrences(key: SWRKeyInterface, variables: GetBookingOccurrencesQueryVariables, config?: SWRConfigInterface<GetBookingOccurrencesQuery, ClientError>) {
       return useSWR<GetBookingOccurrencesQuery, ClientError>(key, () => sdk.getBookingOccurrences(variables), config);
     },
+    useGetBookingRequests(key: SWRKeyInterface, variables: GetBookingRequestsQueryVariables, config?: SWRConfigInterface<GetBookingRequestsQuery, ClientError>) {
+      return useSWR<GetBookingRequestsQuery, ClientError>(key, () => sdk.getBookingRequests(variables), config);
+    },
     useGetCoreProfile(key: SWRKeyInterface, variables: GetCoreProfileQueryVariables, config?: SWRConfigInterface<GetCoreProfileQuery, ClientError>) {
       return useSWR<GetCoreProfileQuery, ClientError>(key, () => sdk.getCoreProfile(variables), config);
     },
@@ -856,6 +955,9 @@ export function getSdkWithHooks(client: GraphQLClient, withWrapper: SdkFunctionW
     },
     useGetLocations(key: SWRKeyInterface, variables?: GetLocationsQueryVariables, config?: SWRConfigInterface<GetLocationsQuery, ClientError>) {
       return useSWR<GetLocationsQuery, ClientError>(key, () => sdk.getLocations(variables), config);
+    },
+    useGetUserExperiences(key: SWRKeyInterface, variables: GetUserExperiencesQueryVariables, config?: SWRConfigInterface<GetUserExperiencesQuery, ClientError>) {
+      return useSWR<GetUserExperiencesQuery, ClientError>(key, () => sdk.getUserExperiences(variables), config);
     },
     useGetUserProfile(key: SWRKeyInterface, variables: GetUserProfileQueryVariables, config?: SWRConfigInterface<GetUserProfileQuery, ClientError>) {
       return useSWR<GetUserProfileQuery, ClientError>(key, () => sdk.getUserProfile(variables), config);

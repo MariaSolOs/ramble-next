@@ -8,14 +8,15 @@ const styles = (theme: Theme) => createStyles({
         padding: '0.45rem 0.75rem',
         borderRadius: '2rem',
         border: 'none',
-        background: ({ variant } : GradientButtonProps) => {
-            switch(variant) {
+        background: (props: GradientButtonProps) => {
+            switch (props.variant) {
                 case 'experience': 
-                    return 'linear-gradient(to right, #2BB282 0%, #2D73EA 100%)'
+                    return 'linear-gradient(to right, #2BB282 0%, #2D73EA 100%)';
                 case 'creator':
-                    return 'radial-gradient(circle at 298%, #F7521E, #AC9EFF)'
-                default: 
-                    return ''
+                    return 'radial-gradient(circle at 298%, #F7521E, #AC9EFF)';
+                case 'error':
+                    return 'linear-gradient(to right, #1FA2FF 0%, #12D8FA 100%)';
+                default: return '';
             }
         },
         fontWeight: theme.typography.fontWeightBold,

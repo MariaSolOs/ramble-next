@@ -34,8 +34,8 @@ export default class CustomDocument extends Document {
                     <meta name="author" content="Maria Solano@Ramble" />
                     <link rel="canonical" href={process.env.RAMBLE_URL} />
                     <meta property="og:type" content="website" />
-                    {/* Fallback font for Futura */}
-                    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@700&display=swap" rel="stylesheet" />
+                    {/* Fallback font for Futura and for the error page */}
+                    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@700&family=Questrial&display=swap" rel="stylesheet" />
                 </Head>
                 <body>
                     <Main />

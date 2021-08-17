@@ -3,7 +3,7 @@ import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 
 import routes from 'routes';
 
-import Link from 'next/link';
+import NavLink from 'components/NavLink';
 import Image from 'next/image';
 import MUIAppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -27,16 +27,14 @@ const AppBar: React.FC = (props) => {
         position="fixed"
         className={`${classes.root} ${isScrolled && classes.scrolled}`}>
             <Toolbar>
-                <Link { ...routes.home } passHref>
-                    <a className={classes.brand}>
-                        <Image 
-                        src={rambleLogo}
-                        alt="Ramble"
-                        width={150}
-                        height={43}
-                        priority />
-                    </a>
-                </Link>
+                <NavLink link={routes.home} className={classes.brand}>
+                    <Image 
+                    src={rambleLogo}
+                    alt="Ramble"
+                    width={150}
+                    height={43}
+                    priority />
+                </NavLink>
                 {props.children}
             </Toolbar>
         </MUIAppBar>

@@ -1,3 +1,5 @@
+import { mutate } from 'swr';
+
 import routes from 'routes';
 import useLanguageContext from 'context/languageContext';
 import type { SearchbarProps } from './index';
@@ -61,6 +63,7 @@ const Searchbar = (props: SearchbarProps) => {
                     <GradientButton 
                     variant="experience"
                     className={classes.searchButton}
+                    onClick={() => mutate('getExperiences')}
                     { ...buttonLink }>
                         {text.search}
                     </GradientButton>

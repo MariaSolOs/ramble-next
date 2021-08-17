@@ -1,12 +1,8 @@
 import { useCallback, useReducer } from 'react';
 
-import type { 
-    CardContentFragment as ExperienceCard,
-    GetLocationsQuery
-} from 'graphql-server/sdk';
+import type { CardContentFragment as ExperienceCard } from 'graphql-server/sdk';
 
 export interface SearchState {
-    locationList: string[];
     location: string;
     capacity: number;
     titleFilter: string;
@@ -15,7 +11,6 @@ export interface SearchState {
 }
 
 type Action = 
-| { type: 'SET_LOCATIONS', locationsQuery: GetLocationsQuery; }
 | { type: 'SET_EXPERIENCES', location: string; capacity: number; experiences: ExperienceCard[]; }
 | { type: 'SET_FILTERED_EXPERIENCES', filteredExperiences: ExperienceCard[] }
 | { type: 'UPDATE_LOCATION', location: string; }
@@ -25,13 +20,6 @@ type Action =
 export default function useExperienceSearchReducer(initialState: SearchState) {
     const reducer = useCallback((state: SearchState, action: Action): SearchState => {
         switch (action.type) {
-            case 'SET_LOCATIONS': 
-                const data = action.locationsQuery.experiences;
-                const allLocations = data.map(({ location }) => location);
-                return {
-                    ...state,
-                    locationList: [ ...new Set(allLocations) ]
-                }
             case 'SET_EXPERIENCES': 
                 return {
                     ...state,

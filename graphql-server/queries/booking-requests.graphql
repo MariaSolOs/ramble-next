@@ -1,0 +1,9 @@
+query getBookingRequests($userId: ID!) {
+    me(userId: $userId) {
+        creator {
+            bookingRequests {
+                ...BookingCard
+            }
+        }
+    }
+}

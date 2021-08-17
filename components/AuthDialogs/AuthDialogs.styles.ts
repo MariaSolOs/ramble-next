@@ -47,6 +47,13 @@ const styles = (theme: Theme) => createStyles({
         marginBottom: 15
     },
 
+    smallFormControl: {
+        marginBottom: 15,
+        width: '49%',
+
+        '&:first-child': { marginRight: '2%' }
+    },
+
     formLabel: {
         color: '#ECEBE5', 
         fontFamily: theme.typography.fontFamily,
@@ -67,7 +74,7 @@ const styles = (theme: Theme) => createStyles({
         width: '30%',
         minWidth: 100,
         padding: '1.5%',
-        margin: '15px auto',
+        margin: '0 auto 15px',
         borderBottom: 'solid 1px #4F4F4F'
     },
 
