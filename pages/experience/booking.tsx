@@ -65,7 +65,7 @@ const BookExperiencePage: Page = () => {
     // If the user isn't logged in, prompt sign up before payment
     useEffect(() => {
         if (state.step === 'payment' && !isLoggedIn) {
-            uiDispatch({ type: 'OPEN_SIGN_UP_DIALOG' });
+            uiDispatch({ type: 'OPEN_LOG_IN_DIALOG' });
             dispatch({ type: 'GO_BACK' });
         }
     }, [state.step, isLoggedIn, uiDispatch, dispatch]);

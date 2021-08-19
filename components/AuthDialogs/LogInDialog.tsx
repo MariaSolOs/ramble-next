@@ -115,6 +115,17 @@ const LogInDialog = () => {
                     }}>
                         {text.forgotPassword}
                     </p>
+                    <p className={classes.switchDialogsText}>
+                        {text.noAccountYet}&nbsp;&nbsp;
+                        <span 
+                        className={classes.switchDialogsLink} 
+                        onClick={() => {
+                            handleClose();
+                            uiDispatch({ type: 'OPEN_SIGN_UP_DIALOG' });
+                        }}>
+                            {text.signUp}
+                        </span>
+                    </p>
                     <GradientButton 
                     variant="experience" 
                     type="submit"

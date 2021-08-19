@@ -129,14 +129,22 @@ const styles = (theme: Theme) => createStyles({
         marginBottom: '1rem'
     },
 
-    experienceImg: {
-        height: 70,
+    experienceImgContainer: {
+        height: 75,
         width: 'auto',
-        minWidth: 50,
         borderRadius: 10,
         marginRight: 10,
         overflow: 'hidden',
-        position: 'relative'
+        position: 'relative',
+
+        '& > div': { position: 'unset !important' }
+    },
+
+    experienceImg: {
+        width: 'unset !important',
+        height: '75px !important',
+        // @ts-ignore
+        position: 'unset !important'
     },
 
     experienceTitle: {

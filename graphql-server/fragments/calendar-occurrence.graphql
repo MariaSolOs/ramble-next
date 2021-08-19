@@ -1,0 +1,9 @@
+fragment CalendarOccurrence on Occurrence {
+    _id
+    dateStart
+    dateEnd
+    experience {
+        _id
+        title
+    }
+}

@@ -66,7 +66,8 @@ const SearchExperiencesPage: Page<Props> = (props) => {
     // Fetch the queried experiences
     const {
         data: experiencesData,
-        error: experiencesError
+        error: experiencesError,
+        mutate
     } = sdk.useGetExperiences(['getExperiences', locationQuery, capacityQuery], {
         location: locationQuery,
         capacity: capacityQuery
@@ -116,6 +117,10 @@ const SearchExperiencesPage: Page<Props> = (props) => {
             router.replace('/');
         }, 3000);
     }
+
+    useEffect(() => {
+        mutate();
+    }, [locationQuery, capacityQuery, mutate]);
 
     // Use the first image of the first experience in the head
     const headImage = props.initialExperiences.experiences[0].images[0].src;

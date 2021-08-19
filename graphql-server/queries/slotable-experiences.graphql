@@ -1,0 +1,8 @@
+query getSlotableExperiences($creatorId: ID!) {
+    experiences(creatorId: $creatorId) {
+        _id
+        title
+        duration
+        capacity
+    }
+}

@@ -18,7 +18,7 @@ export type TranslationRecord = {
 
     SignUpDialog: Record<'signUp' | 'logIn' | 'firstName' | 'lastName' | 'phoneNumber' | 'email' | 'password' | 'confirmPassword' | 'alreadyHaveAccount' | 'continue' | 'passwordMismatch' | 'phoneError', string>;
 
-    LogInDialog: Record<'logIn' | 'email' | 'password' | 'forgotPassword', string>;
+    LogInDialog: Record<'logIn' | 'signUp' | 'email' | 'password' | 'forgotPassword' | 'noAccountYet', string>;
 
     ForgotPasswordDialog: Record<'enterEmailTitle'| 'sendLinkMessage' | 'resetPassword' | 'emailSent', string>;
 
@@ -100,7 +100,7 @@ export type TranslationRecord = {
 
     Profile_PersonalInformation: Record<'firstName' | 'lastName' | 'liveIn' | 'email' | 'phoneNumber' | 'birthday' | 'aboutYou' | 'submitButton' | 'phoneError', string>;
 
-    // CreatorCalendar: Record<'timezoneMessage' | 'formTitle' | 'formDescription' | 'dateAndTimeLabel' | 'experienceLabel' | 'addSlot' | 'today' | 'busySlotMessage' | 'guest' | 'guests' | 'closeDialog' | 'private', string>;
+    CreatorCalendar: Record<'timezoneMessage' | 'formTitle' | 'formDescription' | 'dateAndTimeLabel' | 'experienceLabel' | 'addSlot' | 'today' | 'busySlotMessage' | 'guest' | 'guests' | 'closeDialog' | 'private', string>;
 
     ErrorPage: Record<'title' | 'pageNotFound' | 'genericError' | 'goBackButton', string>;
 }

@@ -1,6 +1,6 @@
 import type { Page } from 'models/application';
 
-import Layout from 'components/creator-dashboard/Layout';
+import DashboardLayout from 'components/creator-dashboard/DashboardLayout';
 
 const CreatedExperiencesPage: Page = () => {
     return (
@@ -9,6 +9,6 @@ const CreatedExperiencesPage: Page = () => {
 }
 
 CreatedExperiencesPage.displayName = 'CreatedExperiencesPage';
-CreatedExperiencesPage.layout = Layout;
+CreatedExperiencesPage.layout = DashboardLayout;
 
 export default CreatedExperiencesPage;

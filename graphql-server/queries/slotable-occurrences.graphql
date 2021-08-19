@@ -1,0 +1,17 @@
+query getSlotableOccurrences($experienceIds: [ID!]!) {
+    occurrences(experienceIds: $experienceIds) {
+        ...CalendarOccurrence
+        bookings {
+            _id
+            numGuests
+            bookingType
+            client {
+                firstName
+                photo {
+                    src
+                    placeholder
+                }
+            }
+        }
+    }
+}

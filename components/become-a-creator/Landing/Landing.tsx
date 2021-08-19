@@ -32,7 +32,7 @@ const Landing = (props: LandingProps) => {
                 variant="creator"
                 className={classes.button}
                 {...isLoggedIn ? linkProps : {
-                    onClick: () => uiDispatch({ type: 'OPEN_SIGN_UP_DIALOG' })
+                    onClick: () => uiDispatch({ type: 'OPEN_LOG_IN_DIALOG' })
                 }}>
                     {text.getStarted}
                 </GradientButton>

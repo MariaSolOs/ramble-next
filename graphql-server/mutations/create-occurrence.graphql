@@ -1,0 +1,13 @@
+mutation createOccurrence(
+    $experienceId: ID!, 
+    $experienceCapacity: Int!, 
+    $dates: OccurrenceInput!
+) {
+    createOccurrence(
+        experienceId: $experienceId, 
+        experienceCapacity: $experienceCapacity,
+        dates: $dates
+    ) {
+        ...CalendarOccurrence
+    }
+}

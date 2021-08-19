@@ -6,26 +6,36 @@ import type { ExperienceStyleProps } from './index';
 export const desktopStyles = (theme: Theme) => createStyles({
     carousel: {
         maxWidth: 480,
-        minWidth: 420,
         margin: '20px 15px 0 30px',
         [theme.breakpoints.down('sm')]: {
             maxWidth: '90%',
             margin: '10px auto 0'
         },
-        [theme.breakpoints.down('xs')]: { minWidth: '90vw' },
 
         '& .image-gallery-slide': {
             '&:focus': { outline: 'none' },
 
             '& .image-gallery-image': { 
                 height: 460,
-                position: 'relative',
+                objectFit: 'cover',
                 [theme.breakpoints.down('sm')]: { height: 'calc(70vh - 70px)' },
                 [theme.breakpoints.down('xs')]: { height: 'calc(55vh - 70px)' }
+            },
+
+            '& .main-image-wrapper > div': {
+                position: 'unset !important'
+            },
+
+            '& .main-image': {
+                width: 'unset !important',
+                height: '460px !important',
+                position: 'unset !important',
+                [theme.breakpoints.down('sm')]: { height: 'calc(70vh - 70px) !important' },
+                [theme.breakpoints.down('xs')]: { height: 'calc(55vh - 70px) !important' }
             }
         },
 
-        '& .image-gallery-thumbnail': {
+        '& .image-gallery-thumbnail, & .thumbnail-wrapper': {
             transform: 'none',
             border: 'none !important',
             cursor: 'pointer',
@@ -34,6 +44,16 @@ export const desktopStyles = (theme: Theme) => createStyles({
                 maxHeight: 'calc(460px / 3)',
                 [theme.breakpoints.down('sm')]: { maxHeight: 'calc((70vh - 70px) / 3)' }
             }
+        },
+
+        '& .thumbnail-wrapper > div': { position: 'unset !important' },
+
+        '& .thumbnail': {
+            width: '100px !important',
+            height: 'unset !important',
+            position: 'unset !important',
+            maxHeight: 'calc(460px / 3)',
+            [theme.breakpoints.down('sm')]: { maxHeight: 'calc((70vh - 70px) / 3)' }
         },
 
         '& .image-gallery-bullets': { 
@@ -309,19 +329,28 @@ export const desktopStyles = (theme: Theme) => createStyles({
 
 export const mobileStyles = (theme: Theme) => createStyles({
     carousel: {
-        width: '90%',
+        maxWidth: '90%',
         margin: '10px auto 0',
 
         '& .image-gallery-slide': {
             '& .image-gallery-image': { 
-                position: 'relative',
-                height: 'calc(55% - 70px)',
-                minHeight: 320,
+                objectFit: 'cover',
+                height: 320
             },
             '&:focus': { outline: 'none' }
         },
 
-        '& .image-gallery-thumbnail': {
+        '& .main-image-wrapper > div': {
+            position: 'unset !important'
+        },
+
+        '& .main-image': {
+            width: 'unset !important',
+            height: '320px !important',
+            position: 'unset !important'
+        },
+
+        '& .image-gallery-thumbnail, & .thumbnail-wrapper': {
             transform: 'none',
             border: 'none !important',
             cursor: 'pointer',
@@ -329,6 +358,15 @@ export const mobileStyles = (theme: Theme) => createStyles({
             '& .image-gallery-thumbnail-image': { 
                 maxHeight: 'calc((70% - 70px) / 3)'
             }
+        },
+
+        '& .thumbnail-wrapper > div': { position: 'unset !important' },
+
+        '& .thumbnail': {
+            width: '100px !important',
+            height: 'unset !important',
+            position: 'unset !important',
+            maxHeight: 'calc((70% - 70px) / 3)'
         },
 
         '& .image-gallery-bullets': { 

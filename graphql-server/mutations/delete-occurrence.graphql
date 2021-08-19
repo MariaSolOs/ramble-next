@@ -1,0 +1,6 @@
+mutation deleteOccurrence($occurrenceId: ID!) {
+    deleteOccurrence(occurrenceId: $occurrenceId) {
+        dateStart
+        _id
+    }
+}

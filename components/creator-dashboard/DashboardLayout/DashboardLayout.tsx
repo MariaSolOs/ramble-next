@@ -7,10 +7,10 @@ import Div100vh from 'react-div-100vh';
 import NavLink from 'components/NavLink';
 
 import { makeStyles } from '@material-ui/core/styles';
-import styles from './Layout.styles';
+import styles from './DashboardLayout.styles';
 const useStyles = makeStyles(styles);
 
-const Layout: React.FC = (props) => {
+const DashboardLayout: React.FC = (props) => {
     const { CreatorDashboard_Layout: text } = useLanguageContext().appText;
     const classes = useStyles();
 
@@ -42,4 +42,4 @@ const Layout: React.FC = (props) => {
     );
 }
 
-export default Layout;
+export default DashboardLayout;

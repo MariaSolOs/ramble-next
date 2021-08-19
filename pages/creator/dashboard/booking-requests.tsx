@@ -10,7 +10,7 @@ import type { Page } from 'models/application';
 
 import Spinner from 'components/Spinner';
 import BookingRequests from 'components/creator-dashboard/BookingRequests';
-import Layout from 'components/creator-dashboard/Layout';
+import DashboardLayout from 'components/creator-dashboard/DashboardLayout';
 
 const graphQLClient = getGraphQLClient();
 const sdk = getSdkWithHooks(graphQLClient);
@@ -75,6 +75,6 @@ const BookingRequestsPage: Page = () => {
 }
 
 BookingRequestsPage.displayName = 'BookingRequestsPage';
-BookingRequestsPage.layout = Layout;
+BookingRequestsPage.layout = DashboardLayout;
 
 export default BookingRequestsPage;

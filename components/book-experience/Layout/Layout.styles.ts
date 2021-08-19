@@ -68,11 +68,8 @@ const styles = (theme: Theme) => createStyles({
         width: 470,
         marginLeft: 100,
 
-        [theme.breakpoints.down('sm')]: { marginLeft: 42 },
-        [theme.breakpoints.down('xs')]: {
-            margin: '0 auto',
-            width: '100%'
-        }
+        [theme.breakpoints.down('sm')]: { margin: '0 auto' },
+        [theme.breakpoints.down('xs')]: { width: '100%' }
     },
 
     formContent: { 

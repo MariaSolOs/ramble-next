@@ -59,9 +59,11 @@ const frenchTranslation: TranslationRecord = {
 
     LogInDialog: {
         logIn: 'Connexion',
+        signUp: "M'inscrire",
         email: 'Courriel',
         password: 'Mot de passe',
-        forgotPassword: 'Mot de passe oublié'
+        forgotPassword: 'Mot de passe oublié',
+        noAccountYet: "Vous n'avez pas encore de compte?"
     },
 
     ForgotPasswordDialog: {
@@ -461,20 +463,20 @@ const frenchTranslation: TranslationRecord = {
         phoneError: 'Veuillez indiquer un numéro de téléphone valable'
     },
 
-    // CreatorCalendar: {
-    //     timezoneMessage: "L'heure affichée correspond à l'heure de Montréal (heure normale de l'Est).",
-    //     formTitle: 'Ajouter des disponibilités',
-    //     formDescription: "Choisissez la date et l'heure à ajouter",
-    //     dateAndTimeLabel: 'Date et heure',
-    //     experienceLabel: 'Expérience',
-    //     addSlot: 'Ajouter',
-    //     busySlotMessage: 'Vous avez déjà des disponibilités pour cette plage horaire',
-    //     today: "Aujourd'hui",
-    //     guest: 'Invité',
-    //     guests: 'Invités',
-    //     closeDialog: 'Fermer',
-    //     private: 'Privée'
-    // },
+    CreatorCalendar: {
+        timezoneMessage: "L'heure affichée correspond à l'heure de Montréal (heure normale de l'Est).",
+        formTitle: 'Ajouter des disponibilités',
+        formDescription: "Choisissez la date et l'heure à ajouter",
+        dateAndTimeLabel: 'Date et heure',
+        experienceLabel: 'Expérience',
+        addSlot: 'Ajouter',
+        busySlotMessage: 'Vous avez déjà des disponibilités pour cette plage horaire',
+        today: "Aujourd'hui",
+        guest: 'Invité',
+        guests: 'Invités',
+        closeDialog: 'Fermer',
+        private: 'Privée'
+    },
 
     ErrorPage: {
         title: "Eh bien... Ce n'était pas prévu.",

@@ -6,7 +6,7 @@ import type { ReactImageGalleryItem } from 'react-image-gallery';
 import useLanguageContext from 'context/languageContext';
 import { getFormattedDuration } from 'lib/date-time';
 import { isOptimizedImage } from 'models/files';
-import type { ExperienceProps, CarouselItemProps } from './index';
+import type { ExperienceProps, CarouselImgProps } from './index';
 
 import Image from 'next/image';
 import { StaticMap, Marker } from 'react-map-gl';
@@ -30,22 +30,42 @@ import { makeStyles } from '@material-ui/core/styles';
 import { desktopStyles, mobileStyles } from './Experience.styles';
 
 const CarouselItem = React.memo((props: ReactImageGalleryItem) => {
-    const item = props as CarouselItemProps;
+    const item = props as CarouselImgProps;
 
     return (
-        <div className="image-gallery-image">
+        <div className="main-image-wrapper">
             <Image
             src={item.original}
             alt={item.alt}
             layout="fill"
             objectFit="cover"
             placeholder="blur"
-            blurDataURL={item.placeholder} />
+            blurDataURL={item.placeholder}
+            className="main-image" />
         </div>
     );
 });
 
 CarouselItem.displayName = 'CarouselItem';
+
+const CarouselThumbnail = React.memo((props: ReactImageGalleryItem) => {
+    const item = props as CarouselImgProps;
+
+    return (
+        <div className="thumbnail-wrapper">
+            <Image
+            src={item.thumbnail}
+            alt={item.alt}
+            layout="fill"
+            objectFit="cover"
+            placeholder="blur"
+            blurDataURL={item.placeholder}
+            className="thumbnail" />
+        </div>
+    );
+});
+
+CarouselThumbnail.displayName = 'CarouselThumbnail';
 
 const Experience = (props: ExperienceProps) => {
     const { Experience: text } = useLanguageContext().appText;
@@ -64,7 +84,7 @@ const Experience = (props: ExperienceProps) => {
     // Depending on the images we get, construct the carousel items
     const carouselItems = experience.images.map(img => {
         if (isOptimizedImage(img)) {
-            const item: CarouselItemProps = {
+            const item: CarouselImgProps = {
                 original: img.src,
                 thumbnail: img.src,
                 placeholder: img.placeholder,
@@ -102,7 +122,9 @@ const Experience = (props: ExperienceProps) => {
             showBullets
             {...isOptimizedImage(experience.images[0]) && {
                 // eslint-disable-next-line react/display-name
-                renderItem: item => <CarouselItem { ...item } />
+                renderItem: item => <CarouselItem { ...item } />,
+                // eslint-disable-next-line react/display-name
+                renderThumbInner: item => <CarouselThumbnail { ...item } />
             }} />
             <div className={classes.body}>
                 <div className={classes.mainInfos}>

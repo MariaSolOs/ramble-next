@@ -59,9 +59,11 @@ const englishTranslation: TranslationRecord = {
 
     LogInDialog: {
         logIn: 'Log in',
+        signUp: 'Sign up',
         email: 'Email',
         password: 'Password',
-        forgotPassword: 'I forgot my password'
+        forgotPassword: 'I forgot my password',
+        noAccountYet: "Don't have an account yet?"
     },
 
     ForgotPasswordDialog: {
@@ -461,20 +463,20 @@ const englishTranslation: TranslationRecord = {
         phoneError: 'Please provide a valid phone number'
     },
 
-    // CreatorCalendar: {
-    //     timezoneMessage: 'The reference time zone is Eastern Standard Time (EST).',
-    //     formTitle: 'Add availabilities',
-    //     formDescription: 'Pick the date & time to add availabilities',
-    //     dateAndTimeLabel: 'Date and time',
-    //     experienceLabel: 'Experience',
-    //     addSlot: 'Add',
-    //     busySlotMessage: 'You have already set availabilities for this timeslot',
-    //     today: 'Today',
-    //     guest: 'Guest',
-    //     guests: 'Guests',
-    //     closeDialog: 'Close',
-    //     private: 'Private'
-    // },
+    CreatorCalendar: {
+        timezoneMessage: 'The reference time zone is Eastern Standard Time (EST).',
+        formTitle: 'Add availabilities',
+        formDescription: 'Pick the date & time to add availabilities',
+        dateAndTimeLabel: 'Date and time',
+        experienceLabel: 'Experience',
+        addSlot: 'Add',
+        busySlotMessage: 'You have already set availabilities for this timeslot',
+        today: 'Today',
+        guest: 'Guest',
+        guests: 'Guests',
+        closeDialog: 'Close',
+        private: 'Private'
+    },
 
     ErrorPage: {
         title: "Well.. That wasn't planned.",

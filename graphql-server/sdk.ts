@@ -299,6 +299,11 @@ export type BookingCardFragment = (
   ) }
 );
 
+export type CalendarOccurrenceFragment = (
+  Pick<Occurrence, '_id' | 'dateStart' | 'dateEnd'>
+  & { experience: Pick<Experience, '_id' | 'title'> }
+);
+
 export type CoreProfileFragment = (
   Pick<User, '_id' | 'email'>
   & { creator?: Maybe<Pick<Creator, '_id'>> }
@@ -358,6 +363,22 @@ export type CreateExperienceMutationVariables = Exact<{
 
 
 export type CreateExperienceMutation = { createExperience: Pick<Experience, '_id' | 'title'> };
+
+export type CreateOccurrenceMutationVariables = Exact<{
+  experienceId: Scalars['ID'];
+  experienceCapacity: Scalars['Int'];
+  dates: OccurrenceInput;
+}>;
+
+
+export type CreateOccurrenceMutation = { createOccurrence: CalendarOccurrenceFragment };
+
+export type DeleteOccurrenceMutationVariables = Exact<{
+  occurrenceId: Scalars['ID'];
+}>;
+
+
+export type DeleteOccurrenceMutation = { deleteOccurrence: Pick<Occurrence, 'dateStart' | '_id'> };
 
 export type LogInMutationVariables = Exact<{
   email: Scalars['String'];
@@ -497,6 +518,29 @@ export type GetLocationsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetLocationsQuery = { experiences: Array<Pick<Experience, 'location'>> };
 
+export type GetSlotableExperiencesQueryVariables = Exact<{
+  creatorId: Scalars['ID'];
+}>;
+
+
+export type GetSlotableExperiencesQuery = { experiences: Array<Pick<Experience, '_id' | 'title' | 'duration' | 'capacity'>> };
+
+export type GetSlotableOccurrencesQueryVariables = Exact<{
+  experienceIds: Array<Scalars['ID']> | Scalars['ID'];
+}>;
+
+
+export type GetSlotableOccurrencesQuery = { occurrences: Array<(
+    { bookings: Array<(
+      Pick<Booking, '_id' | 'numGuests' | 'bookingType'>
+      & { client: (
+        Pick<User, 'firstName'>
+        & { photo?: Maybe<Pick<Image, 'src' | 'placeholder'>> }
+      ) }
+    )> }
+    & CalendarOccurrenceFragment
+  )> };
+
 export type GetUserExperiencesQueryVariables = Exact<{
   userId: Scalars['ID'];
 }>;
@@ -566,6 +610,17 @@ export const BookingCardFragmentDoc = gql`
   }
 }
     ${UserAvatarFragmentDoc}`;
+export const CalendarOccurrenceFragmentDoc = gql`
+    fragment CalendarOccurrence on Occurrence {
+  _id
+  dateStart
+  dateEnd
+  experience {
+    _id
+    title
+  }
+}
+    `;
 export const CoreProfileFragmentDoc = gql`
     fragment CoreProfile on User {
   _id
@@ -660,6 +715,25 @@ export const CreateExperienceDocument = gql`
   ) {
     _id
     title
+  }
+}
+    `;
+export const CreateOccurrenceDocument = gql`
+    mutation createOccurrence($experienceId: ID!, $experienceCapacity: Int!, $dates: OccurrenceInput!) {
+  createOccurrence(
+    experienceId: $experienceId
+    experienceCapacity: $experienceCapacity
+    dates: $dates
+  ) {
+    ...CalendarOccurrence
+  }
+}
+    ${CalendarOccurrenceFragmentDoc}`;
+export const DeleteOccurrenceDocument = gql`
+    mutation deleteOccurrence($occurrenceId: ID!) {
+  deleteOccurrence(occurrenceId: $occurrenceId) {
+    dateStart
+    _id
   }
 }
     `;
@@ -809,6 +883,35 @@ export const GetLocationsDocument = gql`
   }
 }
     `;
+export const GetSlotableExperiencesDocument = gql`
+    query getSlotableExperiences($creatorId: ID!) {
+  experiences(creatorId: $creatorId) {
+    _id
+    title
+    duration
+    capacity
+  }
+}
+    `;
+export const GetSlotableOccurrencesDocument = gql`
+    query getSlotableOccurrences($experienceIds: [ID!]!) {
+  occurrences(experienceIds: $experienceIds) {
+    ...CalendarOccurrence
+    bookings {
+      _id
+      numGuests
+      bookingType
+      client {
+        firstName
+        photo {
+          src
+          placeholder
+        }
+      }
+    }
+  }
+}
+    ${CalendarOccurrenceFragmentDoc}`;
 export const GetUserExperiencesDocument = gql`
     query getUserExperiences($userId: ID!) {
   me(userId: $userId) {
@@ -865,6 +968,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     createExperience(variables: CreateExperienceMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateExperienceMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<CreateExperienceMutation>(CreateExperienceDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'createExperience');
     },
+    createOccurrence(variables: CreateOccurrenceMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateOccurrenceMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<CreateOccurrenceMutation>(CreateOccurrenceDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'createOccurrence');
+    },
+    deleteOccurrence(variables: DeleteOccurrenceMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<DeleteOccurrenceMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<DeleteOccurrenceMutation>(DeleteOccurrenceDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'deleteOccurrence');
+    },
     logIn(variables: LogInMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<LogInMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<LogInMutation>(LogInDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'logIn');
     },
@@ -913,6 +1022,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     getLocations(variables?: GetLocationsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetLocationsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetLocationsQuery>(GetLocationsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getLocations');
     },
+    getSlotableExperiences(variables: GetSlotableExperiencesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetSlotableExperiencesQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetSlotableExperiencesQuery>(GetSlotableExperiencesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getSlotableExperiences');
+    },
+    getSlotableOccurrences(variables: GetSlotableOccurrencesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetSlotableOccurrencesQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetSlotableOccurrencesQuery>(GetSlotableOccurrencesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getSlotableOccurrences');
+    },
     getUserExperiences(variables: GetUserExperiencesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetUserExperiencesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetUserExperiencesQuery>(GetUserExperiencesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getUserExperiences');
     },
@@ -955,6 +1070,12 @@ export function getSdkWithHooks(client: GraphQLClient, withWrapper: SdkFunctionW
     },
     useGetLocations(key: SWRKeyInterface, variables?: GetLocationsQueryVariables, config?: SWRConfigInterface<GetLocationsQuery, ClientError>) {
       return useSWR<GetLocationsQuery, ClientError>(key, () => sdk.getLocations(variables), config);
+    },
+    useGetSlotableExperiences(key: SWRKeyInterface, variables: GetSlotableExperiencesQueryVariables, config?: SWRConfigInterface<GetSlotableExperiencesQuery, ClientError>) {
+      return useSWR<GetSlotableExperiencesQuery, ClientError>(key, () => sdk.getSlotableExperiences(variables), config);
+    },
+    useGetSlotableOccurrences(key: SWRKeyInterface, variables: GetSlotableOccurrencesQueryVariables, config?: SWRConfigInterface<GetSlotableOccurrencesQuery, ClientError>) {
+      return useSWR<GetSlotableOccurrencesQuery, ClientError>(key, () => sdk.getSlotableOccurrences(variables), config);
     },
     useGetUserExperiences(key: SWRKeyInterface, variables: GetUserExperiencesQueryVariables, config?: SWRConfigInterface<GetUserExperiencesQuery, ClientError>) {
       return useSWR<GetUserExperiencesQuery, ClientError>(key, () => sdk.getUserExperiences(variables), config);

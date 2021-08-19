@@ -16,10 +16,10 @@ export type ExperienceStyleProps = {
     numQuickInfosColumns: number;
 }
 
-export type CarouselItemProps = {
+export type CarouselImgProps = {
     original: string;
-    thumbnail: string;
     placeholder: string;
+    thumbnail: string;
     alt: string;
 }
 

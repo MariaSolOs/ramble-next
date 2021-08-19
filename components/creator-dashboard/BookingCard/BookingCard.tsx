@@ -104,12 +104,13 @@ const BookingCard = React.memo((props: BookingCardProps) => {
                     </div>
                 </div>
                 <div className={classes.experienceInfo}>
-                    <div className={classes.experienceImg}>
+                    <div className={classes.experienceImgContainer}>
                         <Image
                         src={experience.images[0].src}
                         alt={experience.title}
                         layout="fill"
                         objectFit="cover"
+                        className={classes.experienceImg}
                         placeholder="blur"
                         blurDataURL={experience.images[0].placeholder} />
                     </div>
