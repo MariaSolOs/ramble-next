@@ -255,7 +255,6 @@ export const resolvers: Resolvers = {
             const creator = await Creator.create({
                 user: Types.ObjectId(userId),
                 bio,
-                verified: false,
                 governmentIds,
                 stripe: { onboarded: false }
             });

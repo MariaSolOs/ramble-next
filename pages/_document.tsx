@@ -30,6 +30,11 @@ export default class CustomDocument extends Document {
         return (
             <Html lang="en">
                 <Head>
+                    <meta charSet="utf-8" />
+                    <meta name="author" content="Maria Solano@Ramble" />
+                    <link rel="canonical" href={process.env.RAMBLE_URL || process.env.NEXT_PUBLIC_RAMBLE_URL} />
+                    <meta property="og:type" content="website" />
+
                     {/* PWA stuff */}
                     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
                     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
@@ -39,11 +44,6 @@ export default class CustomDocument extends Document {
                     <meta name="msapplication-TileColor" content="#B91D47" />
                     <meta name="theme-color" content="#000000" />
 
-                    <meta charSet="utf-8" />
-                    <meta name="author" content="Maria Solano@Ramble" />
-                    <link rel="canonical" href={process.env.RAMBLE_URL || process.env.NEXT_PUBLIC_RAMBLE_URL} />
-                    <meta property="og:type" content="website" />
-                    
                     {/* Fallback font for Futura and for the error page */}
                     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@700&family=Questrial&display=swap" rel="stylesheet" />
                 </Head>

@@ -5,11 +5,9 @@ import type { Types, Model } from 'mongoose';
 import type { User } from './user';
 import type { Booking } from './booking';
 
-// TODO: Do we want to keep the verified?
 export interface Creator {
     _id: Types.ObjectId;
     user: Types.ObjectId | User;
-    verified: boolean; // True if we verified their government ID
     governmentIds: string[];
     bio: string;
     stripe: {
@@ -23,11 +21,6 @@ const creatorSchemaFields: Record<keyof Omit<Creator, '_id'>, any> = {
     user: {
         type: Schema.Types.ObjectId,
         ref: 'User',
-        required: true
-    },
-
-    verified: {
-        type: Boolean,
         required: true
     },
 

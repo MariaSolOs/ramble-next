@@ -4,9 +4,14 @@ const styles = (theme: Theme) => createStyles({
     gallery: {
         display: 'flex',
         flexWrap: 'wrap',
+        minWidth: 'calc(265px * 4)',
         maxWidth: '80vw',
         margin: '0 auto 30px',
 
+        [theme.breakpoints.down('md')]: { 
+            width: 'calc(265px * 3)',
+            minWidth: 0
+        },
         [theme.breakpoints.down('sm')]: { 
             width: 'calc(265px * 2)',
             margin: '0 auto'
