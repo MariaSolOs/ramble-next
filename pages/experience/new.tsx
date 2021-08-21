@@ -183,7 +183,7 @@ const CreateExperiencePage: Page = () => {
         return () => { dispatch({ type: 'END_SUBMIT' }); }
     }, [dispatch]);
 
-    const creatorId = creatorData?.me.creator?._id;
+    const creatorId = session?.user.creatorId;
     const onboardedWithStripe = creatorData?.me.creator?.stripeProfile.onboarded;
 
     // Show alert message when leaving
@@ -197,7 +197,7 @@ const CreateExperiencePage: Page = () => {
     }
 
     // If creator hasn't completed the Stripe onboarding, let them try again
-    if (creatorId && !onboardedWithStripe) {
+    if (!loading && creatorId && !onboardedWithStripe) {
         return  (
             <StripeRedirect 
             creatorId={creatorId}

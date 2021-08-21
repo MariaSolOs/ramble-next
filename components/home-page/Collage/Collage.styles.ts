@@ -94,7 +94,7 @@ const styles = (theme: Theme) => createStyles({
         margin: '10px 0 0 10px',
         lineHeight: 1.2,
         fontFamily: 'Questrial, sans-serif',
-        '-webkit-text-stroke': '0.05px #FFF',
+        '-webkit-text-stroke': '0.5px #FFF',
         '-webkit-text-fill-color': 'transparent',
 
         [theme.breakpoints.down(450)]: {
@@ -110,7 +110,7 @@ const styles = (theme: Theme) => createStyles({
         marginLeft: 20,
         alignSelf: 'center',
         fontFamily: 'Questrial, sans-serif',
-        '-webkit-text-stroke': '0.05px #FFF',
+        '-webkit-text-stroke': '0.6px #FFF',
         '-webkit-text-fill-color': 'transparent',
         width: 350,
 
