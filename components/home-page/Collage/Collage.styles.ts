@@ -98,11 +98,11 @@ const styles = (theme: Theme) => createStyles({
         '-webkit-text-fill-color': 'transparent',
 
         [theme.breakpoints.down(450)]: {
-            fontSize: '1.35rem',
+            fontSize: '1.3rem',
             margin: '0 0 0 5px'
         },
-        [theme.breakpoints.down(380)]: { fontSize: '1.2rem' },
-        [theme.breakpoints.down(330)]: { fontSize: '1.1rem' }
+        [theme.breakpoints.down(380)]: { fontSize: '1.1rem' },
+        [theme.breakpoints.down(330)]: { fontSize: '1rem' }
     },
 
     title: {
