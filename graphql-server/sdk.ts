@@ -534,7 +534,7 @@ export type GetSlotableOccurrencesQuery = { occurrences: Array<(
     { bookings: Array<(
       Pick<Booking, '_id' | 'numGuests' | 'bookingType'>
       & { client: (
-        Pick<User, 'firstName'>
+        Pick<User, 'firstName' | 'phoneNumber'>
         & { photo?: Maybe<Pick<Image, 'src' | 'placeholder'>> }
       ) }
     )> }
@@ -903,6 +903,7 @@ export const GetSlotableOccurrencesDocument = gql`
       bookingType
       client {
         firstName
+        phoneNumber
         photo {
           src
           placeholder

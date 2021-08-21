@@ -6,10 +6,6 @@ const theme = createTheme({
     overrides: {
         MuiCssBaseline: {
             '@global': {
-                '*': {
-                    '&:focus-visible': { outline: 'none' }
-                },
-
                 body: {
                     backgroundColor: '#151515',
                     fontFamily: 'Helvetica, sans-serif',

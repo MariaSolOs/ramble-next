@@ -81,7 +81,16 @@ const styles = (theme: Theme) => createStyles({
         marginBottom: 5
     },
 
-    clientAvatar: { marginRight: 5 },
+    clientAvatar: { 
+        marginRight: 5,
+        width: 30,
+        height: 30,
+        fontSize: '0.8rem'
+    },
+
+    clientPhone: { marginLeft: 20 },
+
+    phoneIcon: { marginRight: 5 },
 
     privateBooking: {
         position: 'absolute',

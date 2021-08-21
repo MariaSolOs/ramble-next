@@ -34,10 +34,14 @@ const Collage = (props: CollageProps) => {
                 <figure className={classes.titleFigure}>
                     <h5 className={classes.gridTitle}>
                         {text.experienceTitle}
+                        <span className={classes.montreal}> Montréal.</span>
                     </h5>
                 </figure>
             </div>
-            <h2 className={classes.title}>{text.experienceTitle}</h2>
+            <h2 className={classes.title}>
+                {text.experienceTitle}
+                <span className={classes.montreal}> Montréal.</span>
+            </h2>
         </div>
     );
 }

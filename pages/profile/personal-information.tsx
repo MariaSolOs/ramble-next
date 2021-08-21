@@ -6,7 +6,7 @@ import useUserContext from 'context/userContext';
 import useUiContext from 'context/uiContext';
 import { getGraphQLClient } from 'lib/graphql';
 import { getSdkWithHooks } from 'graphql-server/sdk';
-import { PHONE_NUMBER_REGEX, MAX_CREATOR_BIO_LENGTH } from 'global-constants';
+import { MAX_CREATOR_BIO_LENGTH } from 'global-constants';
 import { ProfileFormField as FormField } from 'models/user-interface';
 import type { Page } from 'models/application';
 
@@ -38,7 +38,6 @@ const PersonalInformationPage: Page = () => {
     // Form management
     const [values, setValues] = useState(initialForm);
     const [photo, setPhoto] = useState<File>();
-    const [phoneError, setPhoneError] = useState(false);
     const [updatingProfile, setUpdatingProfile] = useState(false);
 
     // Make sure user is logged in
@@ -82,13 +81,6 @@ const PersonalInformationPage: Page = () => {
         event.preventDefault();
 
         setUpdatingProfile(true);
-
-        // Check if phone number is valid
-        if (!PHONE_NUMBER_REGEX.test(values.phoneNumber)) {
-            setPhoneError(true);
-            setUpdatingProfile(false);
-            return;
-        }
 
         // If the user uploaded a new photo, upload to Cloudinary
         let photoUrl = '';
@@ -138,7 +130,6 @@ const PersonalInformationPage: Page = () => {
             <InfosForm
             values={values}
             isCreator={Boolean(data.me.creator?._id)}
-            phoneError={phoneError}
             onChange={handleFormChange}
             onSubmit={handleSubmit} />
         </Layout>

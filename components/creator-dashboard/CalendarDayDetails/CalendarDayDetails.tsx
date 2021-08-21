@@ -10,6 +10,7 @@ import Avatar from '@material-ui/core/Avatar';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCrown } from '@fortawesome/free-solid-svg-icons/faCrown';
+import { faPhoneAlt } from '@fortawesome/free-solid-svg-icons/faPhoneAlt';
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import styles from './CalendarDayDetails.styles';
@@ -67,17 +68,24 @@ const CalendarDayDetails = (props: CalendarDayDetailsProps) => {
                                             {text.private}
                                         </div>}
                                     <Avatar className={classes.clientAvatar}>
-                                        {booking.clientPhoto ? 
+                                        {booking.clientPhoto?.src ? 
                                         <Image
                                         src={booking.clientPhoto.src}
                                         alt={booking.clientName}
-                                        width={25}
-                                        height={25}
+                                        width={30}
+                                        height={30}
                                         placeholder="blur"
                                         blurDataURL={booking.clientPhoto.placeholder} /> :
                                         booking.clientName.charAt(0)}
                                     </Avatar>
                                     {`${booking.clientName} (${booking.numGuests})`}
+                                    {booking.clientPhone && 
+                                        <span className={classes.clientPhone}>
+                                            <FontAwesomeIcon 
+                                            icon={faPhoneAlt} 
+                                            className={classes.phoneIcon} />
+                                            {booking.clientPhone}
+                                        </span>}
                                 </li>
                             )}
                         </ul>

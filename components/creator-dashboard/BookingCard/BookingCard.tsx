@@ -18,7 +18,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import styles from './BookingCard.styles';
 const useStyles = makeStyles(styles);
 
-const BookingCard = React.memo((props: BookingCardProps) => {
+const BookingCard = (props: BookingCardProps) => {
     const { appText, language } = useLanguageContext();
     const { BookingCard: text } = appText;
 
@@ -149,6 +149,6 @@ const BookingCard = React.memo((props: BookingCardProps) => {
             </div>
         </div>
     );
-});
+}
 
-export default BookingCard;
+export default React.memo(BookingCard);

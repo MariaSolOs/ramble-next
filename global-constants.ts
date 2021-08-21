@@ -11,5 +11,3 @@ export const TIMEZONE_CONFIG: DateTimeOptions = {
 }
 
 export const MAX_CREATOR_BIO_LENGTH = 500;
-
-export const PHONE_NUMBER_REGEX = /^\(?([0-9]{3})\)?[- ]?([0-9]{3})[- ]?([0-9]{4})$/;

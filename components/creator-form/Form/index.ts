@@ -10,7 +10,6 @@ export type FormProps = {
     phoneNumber: string;
     frontId?: File;
     backId?: File;
-    hasPhoneError: boolean;
     submitDisabled: boolean;
     onPhotoChange: (file?: File) => void;
     onBioChange: (bio: string) => void;

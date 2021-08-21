@@ -83,35 +83,41 @@ const styles = (theme: Theme) => createStyles({
             display: 'block',
             margin: 0,
             gridColumnStart: 4,
-            gridColumnEnd: 6,
+            gridColumnEnd: 7,
             gridRowStart: 1,
             gridRowEnd: 2
         }
     },
 
     gridTitle: {
-        fontSize: '1.8rem',
-        margin: '0 0 0 20px',
+        fontSize: '1.5rem',
+        margin: '10px 0 0 10px',
         lineHeight: 1.2,
+        fontFamily: 'Questrial, sans-serif',
+        '-webkit-text-stroke': '0.05px #FFF',
+        '-webkit-text-fill-color': 'transparent',
 
         [theme.breakpoints.down(450)]: {
-            fontSize: '1.6rem',
-            margin: '0 0 0 10px'
-        },
-
-        [theme.breakpoints.down(380)]: {
             fontSize: '1.35rem',
             margin: '0 0 0 5px'
-        }
+        },
+        [theme.breakpoints.down(380)]: { fontSize: '1.2rem' },
+        [theme.breakpoints.down(330)]: { fontSize: '1.1rem' }
     },
 
     title: {
         fontSize: '2.5rem',
         marginLeft: 20,
         alignSelf: 'center',
+        fontFamily: 'Questrial, sans-serif',
+        '-webkit-text-stroke': '0.05px #FFF',
+        '-webkit-text-fill-color': 'transparent',
+        width: 350,
 
         [theme.breakpoints.down('sm')]: { display: 'none' }
-    }
+    },
+
+    montreal: { '-webkit-text-fill-color': '#FFF' }
 });
 
 export default styles;

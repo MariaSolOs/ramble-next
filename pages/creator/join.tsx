@@ -8,7 +8,6 @@ import useLanguageContext from 'context/languageContext';
 import useUiContext from 'context/uiContext';
 import useUserContext from 'context/userContext';
 import useCreatorFormReducer from 'hooks/useCreatorFormReducer';
-import { PHONE_NUMBER_REGEX } from 'global-constants';
 import type { FileField, StringField } from 'hooks/useCreatorFormReducer';
 import type { Page } from 'models/application';
 
@@ -61,12 +60,6 @@ const CreatorFormPage: Page = () => {
         try {
             dispatch({ type: 'START_UPLOADING' });
 
-            // Check if phone number is valid
-            if (!PHONE_NUMBER_REGEX.test(state.phoneNumber)) {
-                dispatch({ type: 'SET_PHONE_ERROR', error: true });
-                return;
-            }
-
             let photoUrl = '';
             const governmentIds: string[] = [];
 
@@ -109,7 +102,7 @@ const CreatorFormPage: Page = () => {
                 const updatedProfile = await sdk.updateProfile({
                     ...state.profilePic && { photo: photoUrl },
                     ...isNewPhoneNumber && {
-                        phoneNumber: state.phoneNumber.replace(PHONE_NUMBER_REGEX, '($1) $2-$3') 
+                        phoneNumber: state.phoneNumber
                     }
                 });
                 userPhoto = updatedProfile.editUser.photo;
@@ -153,7 +146,6 @@ const CreatorFormPage: Page = () => {
             phoneNumber={state.phoneNumber}
             frontId={state.frontId}
             backId={state.backId}
-            hasPhoneError={state.phoneError}
             submitDisabled={
                 (!data.me.photo && !state.profilePic) ||
                 (state.bio.length === 0) || 

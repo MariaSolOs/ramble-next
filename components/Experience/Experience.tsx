@@ -29,7 +29,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { makeStyles } from '@material-ui/core/styles';
 import { desktopStyles, mobileStyles } from './Experience.styles';
 
-const CarouselItem = React.memo((props: ReactImageGalleryItem) => {
+const CarouselItem = React.memo(function CarouselItem(props: ReactImageGalleryItem) {
     const item = props as CarouselImgProps;
 
     return (
@@ -46,9 +46,7 @@ const CarouselItem = React.memo((props: ReactImageGalleryItem) => {
     );
 });
 
-CarouselItem.displayName = 'CarouselItem';
-
-const CarouselThumbnail = React.memo((props: ReactImageGalleryItem) => {
+const CarouselThumbnail = React.memo(function CarouselThumbnail(props: ReactImageGalleryItem) {
     const item = props as CarouselImgProps;
 
     return (
@@ -64,8 +62,6 @@ const CarouselThumbnail = React.memo((props: ReactImageGalleryItem) => {
         </div>
     );
 });
-
-CarouselThumbnail.displayName = 'CarouselThumbnail';
 
 const Experience = (props: ExperienceProps) => {
     const { Experience: text } = useLanguageContext().appText;
@@ -121,10 +117,12 @@ const Experience = (props: ExperienceProps) => {
             showNav={false}
             showBullets
             {...isOptimizedImage(experience.images[0]) && {
-                // eslint-disable-next-line react/display-name
-                renderItem: item => <CarouselItem { ...item } />,
-                // eslint-disable-next-line react/display-name
-                renderThumbInner: item => <CarouselThumbnail { ...item } />
+                renderItem: function Item(item) {
+                    return <CarouselItem { ...item } />;
+                },
+                renderThumbInner: function ThumbInner(item) {
+                    return <CarouselThumbnail { ...item } />;
+                }
             }} />
             <div className={classes.body}>
                 <div className={classes.mainInfos}>

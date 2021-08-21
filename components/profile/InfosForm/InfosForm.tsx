@@ -72,8 +72,6 @@ const InfosForm = (props: InfosFormProps) => {
                 name={FormField.PhoneNumber}
                 required={props.isCreator}
                 type="tel"
-                placeholder="(123) 456-7890"
-                helperText={props.phoneError && text.phoneError}
                 value={props.values.phoneNumber}
                 onChange={props.onChange} />
             </FormControl>

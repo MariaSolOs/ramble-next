@@ -26,6 +26,7 @@ export type Occurrence = EventInput & {
         _id: string; 
         clientName: string; 
         clientPhoto?: Image; 
+        clientPhone?: string;
         numGuests: number;
         bookingType: BookingType;
     }[];
@@ -123,6 +124,7 @@ const createCalendarOccurrence = (occ: ServerOccurrence) => {
             _id: booking._id,
             clientName: booking.client.firstName,
             clientPhoto: booking.client.photo || undefined,
+            clientPhone: booking.client.phoneNumber || undefined,
             numGuests: booking.numGuests,
             bookingType: booking.bookingType
         }))

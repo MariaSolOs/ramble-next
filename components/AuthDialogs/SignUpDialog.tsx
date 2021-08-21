@@ -3,14 +3,13 @@ import { signIn } from 'next-auth/client';
 
 import useLanguageContext from 'context/languageContext';
 import useUiContext from 'context/uiContext';
-import { PHONE_NUMBER_REGEX } from 'global-constants';
 
-import Spinner from 'components/Spinner';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import CloseIcon from '@material-ui/icons/Close';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+import Spinner from 'components/Spinner';
 import TextField from 'components/TextField';
 import GradientButton from 'components/GradientButton';
 
@@ -47,7 +46,6 @@ const SignUpDialog = () => {
     const [values, setValues] = useState(initialForm);
     const [loading, setLoading] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
-    const [phoneError, setPhoneError] = useState(false);
 
     const handleFormChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const field = event.target.name;
@@ -66,12 +64,7 @@ const SignUpDialog = () => {
 
         setLoading(true);
 
-        // Sanity checks
-        if (!PHONE_NUMBER_REGEX.test(values.phoneNumber)) {
-            setPhoneError(true);
-            return;
-        }
-
+        // Make sure passwords match
         if (values.password1 !== values.password2) {
             setPasswordError(true);
             return;
@@ -82,7 +75,7 @@ const SignUpDialog = () => {
             password: values.password1,
             firstName: values.firstName,
             lastName: values.lastName,
-            phoneNumber: values.phoneNumber.replace(PHONE_NUMBER_REGEX, '($1) $2-$3'), 
+            phoneNumber: values.phoneNumber,
             redirect: false
         });
 
@@ -150,7 +143,6 @@ const SignUpDialog = () => {
                         fullWidth
                         value={values.phoneNumber}
                         onChange={handleFormChange}
-                        helperText={phoneError && text.phoneError}
                         required />
                     </FormControl>
                     <FormControl className={classes.formControl}>

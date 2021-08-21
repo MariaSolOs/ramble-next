@@ -70,10 +70,8 @@ const Form = (props: FormProps) => {
                 <TextField
                 required
                 type="tel"
-                placeholder="(123) 456-7890"
                 className={classes.phoneTextField}
                 value={props.phoneNumber}
-                helperText={props.hasPhoneError && text.phoneNumberError}
                 onChange={e => props.onPhoneNumberChange(e.target.value)} />
                 <div className={classes.fieldContainer}>
                     <h2 className={classes.title}>{text.idTitle}</h2>
