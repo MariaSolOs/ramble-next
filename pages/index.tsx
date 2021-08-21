@@ -116,7 +116,7 @@ const HomePage: Page<Props> = (props) => {
     return (
         <>
             <RambleHead
-            title={`Ramble: ${text.experienceTitle}`}
+            title={`Ramble: ${text.experienceTitle} Montréal`}
             description={text.discoverTitle}
             imageUrl={`${process.env.RAMBLE_URL}/public/images/ramble-brand.png`} />
             <ResetPasswordDialog />

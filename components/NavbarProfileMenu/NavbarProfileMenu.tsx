@@ -104,7 +104,10 @@ const NavbarProfileMenu = (props: NavbarProfileMenuProps) => {
                     </MenuItem>}
                 <MenuItem className={classes.menuItem}>
                     <span 
-                    onClick={toggleLanguage} 
+                    onClick={() => {
+                        toggleLanguage();
+                        closeMenu();
+                    }} 
                     className={`
                         ${classes.itemContent}
                         ${classes.languageChip}

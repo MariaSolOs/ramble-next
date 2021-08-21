@@ -1,5 +1,6 @@
-import Setting from './Setting';
 import type { CompletableSlide } from 'models/application';
+
+import Setting from './Setting';
 
 export interface SettingProps extends CompletableSlide {
     isOnlineExperience?: boolean;

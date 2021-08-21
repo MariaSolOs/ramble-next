@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { GradientButtonProps } from './index';
 
-import Link from 'next/link';
+import NavLink from 'components/NavLink';
 
 import { makeStyles } from '@material-ui/core/styles';
 import styles from './GradientButton.styles';
@@ -19,9 +19,9 @@ const GradientButton: React.FC<GradientButtonProps> = (props) => {
 
     if (props.href) {
         return (
-            <Link href={props.href} as={props.as} passHref>
-                <a className={classes.link}>{button}</a>
-            </Link>
+            <NavLink link={{ href: props.href, as: props.as! }} className={classes.link}>
+                {button}
+            </NavLink>
         );
     } else {
         return button;

@@ -1,6 +1,7 @@
-import Pricing from './Pricing';
 import type { CompletableSlide } from 'models/application';
 import type { Currency } from 'models/experience-interface';
+
+import Pricing from './Pricing';
 
 export interface PricingProps extends CompletableSlide {
     pricePerPerson: number;

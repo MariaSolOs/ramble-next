@@ -1,5 +1,6 @@
-import ToBringItems from './ToBringItems';
 import type { CompletableSlide } from 'models/application';
+
+import ToBringItems from './ToBringItems';
 
 export interface ToBringItemsProps extends CompletableSlide {
     items: string[];

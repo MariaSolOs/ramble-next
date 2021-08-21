@@ -1,7 +1,8 @@
-import PaymentSlide from './PaymentSlide';
 import type { CompletableSlide } from 'models/application';
 import type { Currency, Fees } from 'models/experience-interface';
 import type { Occurrence } from 'hooks/useBookingReducer';
+
+import PaymentSlide from './PaymentSlide';
 
 export interface PaymentSlideProps extends CompletableSlide {
     email: string;

@@ -1,6 +1,7 @@
-import TimeslotSlide from './TimeslotSlide';
 import type { Occurrence } from 'hooks/useBookingReducer';
 import type { CompletableSlide } from 'models/application';
+
+import TimeslotSlide from './TimeslotSlide';
 
 export interface TimeslotSlideProps extends CompletableSlide {
     selectedDate: string;

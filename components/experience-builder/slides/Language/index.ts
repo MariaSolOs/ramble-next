@@ -1,5 +1,6 @@
-import Language from './Language';
 import type { CompletableSlide } from 'models/application';
+
+import Language from './Language';
 
 export interface LanguageProps extends CompletableSlide {
     languageList: string[];

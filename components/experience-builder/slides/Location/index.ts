@@ -1,5 +1,6 @@
-import Location from './Location';
 import type { CompletableSlide } from 'models/application';
+
+import Location from './Location';
 
 export interface LocationProps extends CompletableSlide {
     storedLocations: string[];

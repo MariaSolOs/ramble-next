@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 import useLanguageContext from 'context/languageContext';
 import useUiContext from 'context/uiContext';
@@ -15,6 +16,7 @@ const useStyles = makeStyles(styles);
 const StripeRedirect = (props: StripeRedirectProps) => {
     const { StripeRedirect: text } = useLanguageContext().appText;
     const { uiDispatch } = useUiContext();
+    const router = useRouter();
     const classes = useStyles();
     
     const [loading, setLoading] = useState(false);
@@ -31,7 +33,13 @@ const StripeRedirect = (props: StripeRedirectProps) => {
             },
             body: JSON.stringify({ creatorId: props.creatorId })
         })
-        .then(res => res.json())
+        .then(res => {
+            if (res.ok) {
+                return res.json()
+            } else {
+                throw Error();
+            }
+        })
         .then(res => {
             // Redirect them to Stripe
             window.location.href = res.stripeRedirect;
@@ -41,6 +49,7 @@ const StripeRedirect = (props: StripeRedirectProps) => {
                 type: 'OPEN_ERROR_DIALOG',
                 message: "We couldn't complete your onboarding..."
             });
+            router.replace('/');
         });
     }
 

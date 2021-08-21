@@ -1,6 +1,7 @@
-import ExperienceCard from './ExperienceCard';
 import type { Language } from 'models/translation';
 import type { CardContentFragment as CardType } from 'graphql-server/sdk';
+
+import ExperienceCard from './ExperienceCard';
 
 export type ExperienceCardProps = {
     experience: CardType;

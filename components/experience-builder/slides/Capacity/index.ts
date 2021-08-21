@@ -1,5 +1,6 @@
-import Capacity from './Capacity';
 import type { CompletableSlide } from 'models/application';
+
+import Capacity from './Capacity';
 
 export interface CapacityProps extends CompletableSlide {
     capacity: number;

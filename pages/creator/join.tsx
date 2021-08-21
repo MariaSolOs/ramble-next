@@ -64,7 +64,7 @@ const CreatorFormPage: Page = () => {
             const governmentIds: string[] = [];
 
             // Upload profile picture if the user didn't have one
-            if (data && !data.me!.photo) {
+            if (data && !data.me!.photo?.src) {
                 const photoData = new FormData();
                 photoData.append('file', state.profilePic!);
                 photoData.append('upload_preset', 'RAMBLE-users');
@@ -93,7 +93,6 @@ const CreatorFormPage: Page = () => {
                 bio: state.bio, 
                 governmentIds 
             });
-            handleStringChange('creatorId', creatorData.signUpCreator._id);
 
             // Update user information if needed
             const isNewPhoneNumber = data?.me.phoneNumber !== state.phoneNumber;
@@ -115,6 +114,8 @@ const CreatorFormPage: Page = () => {
                 userName: data?.me.firstName,
                 userPhoto: userPhoto || undefined
             });
+
+            handleStringChange('creatorId', creatorData.signUpCreator._id);
         } catch (err: any) {
             const message = err.message || "We couldn't create your creator profile...";
             uiDispatch({ type: 'OPEN_ERROR_DIALOG', message });
@@ -126,7 +127,7 @@ const CreatorFormPage: Page = () => {
     }
 
     // When the form was successfully submitted, start Stripe onboarding
-    if (state.creatorId || state.phoneNumber) {
+    if (state.creatorId) {
         return (
             <StripeRedirect 
             creatorId={state.creatorId}

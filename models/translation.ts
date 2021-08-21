@@ -16,7 +16,7 @@ export type TranslationRecord = {
 
     CustomerServiceDialog: Record<'title' | 'message', string>;
 
-    SignUpDialog: Record<'signUp' | 'logIn' | 'firstName' | 'lastName' | 'phoneNumber' | 'email' | 'password' | 'confirmPassword' | 'alreadyHaveAccount' | 'continue' | 'passwordMismatch' | 'phoneError', string>;
+    SignUpDialog: Record<'signUp' | 'logIn' | 'firstName' | 'lastName' | 'phoneNumber' | 'email' | 'password' | 'confirmPassword' | 'alreadyHaveAccount' | 'continue' | 'passwordMismatch', string>;
 
     LogInDialog: Record<'logIn' | 'signUp' | 'email' | 'password' | 'forgotPassword' | 'noAccountYet', string>;
 
@@ -40,7 +40,7 @@ export type TranslationRecord = {
 
     BecomeACreator: Record<'becomeTitle' | 'shareTitle' | 'getPaidTitle' | 'getStarted' | 'currentCreators1' | 'currentCreators2' | 'actTitle1' | 'actTitle2' | 'lightbulbText' | 'cloudText' | 'walletText', string>;
 
-    CreatorForm: Record<'headerTitle' | 'profilePicture' | 'showSmile' | 'aboutYouTitle' | 'aboutYouSubtitle' | 'aboutYouTitle' | 'aboutYouTip' | 'phoneNumberTitle' | 'phoneNumberSubtitle' | 'phoneNumberError' | 'idTitle' | 'idSubtitle' | 'idTip1' | 'idTip2' | 'front' | 'back' | 'frontIdText' | 'backIdText' | 'addFront' | 'addBack' | 'done' | 'formSubmittedMessage' | 'stripeMessage', string>;
+    CreatorForm: Record<'headerTitle' | 'profilePicture' | 'showSmile' | 'aboutYouTitle' | 'aboutYouSubtitle' | 'aboutYouTitle' | 'aboutYouTip' | 'phoneNumberTitle' | 'phoneNumberSubtitle' | 'idTitle' | 'idSubtitle' | 'idTip1' | 'idTip2' | 'front' | 'back' | 'frontIdText' | 'backIdText' | 'addFront' | 'addBack' | 'done' | 'formSubmittedMessage' | 'stripeMessage', string>;
 
     StripeRedirect: Record<'continueWithStripe', string>;
 
@@ -98,9 +98,11 @@ export type TranslationRecord = {
 
     Profile_Experiences: Record<'booked' | 'saved', string>;
 
-    Profile_PersonalInformation: Record<'firstName' | 'lastName' | 'liveIn' | 'email' | 'phoneNumber' | 'birthday' | 'aboutYou' | 'submitButton' | 'phoneError', string>;
+    Profile_PersonalInformation: Record<'firstName' | 'lastName' | 'liveIn' | 'email' | 'phoneNumber' | 'birthday' | 'aboutYou' | 'submitButton', string>;
 
     CreatorCalendar: Record<'timezoneMessage' | 'formTitle' | 'formDescription' | 'dateAndTimeLabel' | 'experienceLabel' | 'addSlot' | 'today' | 'busySlotMessage' | 'guest' | 'guests' | 'closeDialog' | 'private', string>;
 
     ErrorPage: Record<'title' | 'pageNotFound' | 'genericError' | 'goBackButton', string>;
+
+    NoExperiencesCard: Record<'message' | 'button', string>;
 }

@@ -1,5 +1,6 @@
-import BookingRequests from './BookingRequests';
 import type { BookingCardFragment as Booking } from 'graphql-server/sdk';
+
+import BookingRequests from './BookingRequests';
 
 export type BookingRequestsProps = {
     requests: Booking[];

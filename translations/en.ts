@@ -53,8 +53,7 @@ const englishTranslation: TranslationRecord = {
         confirmPassword: 'Confirm password',
         alreadyHaveAccount: 'Already have an account?',
         continue: 'Continue',
-        passwordMismatch: "The passwords don't match.",
-        phoneError: 'Please provide a valid phone number'
+        passwordMismatch: "The passwords don't match."
     },
 
     LogInDialog: {
@@ -159,7 +158,6 @@ const englishTranslation: TranslationRecord = {
         aboutYouTip: "Your bio will appear on your experience page. Include fun facts, what you're passionate about, your professional experience and other pertinent information.",
         phoneNumberTitle: "What's your phone number?",
         phoneNumberSubtitle: 'Only us and guests who book your experience will have access to your phone number.',
-        phoneNumberError: 'Please provide a valid phone number', 
         idTitle: 'Government ID',
         idSubtitle: "That just allows us to check if it's really you. By verifying the identity of guests and Creators, we make sure everyone feels safe.",
         idTip1: "Your ID won't be shared with anyone else.",
@@ -459,8 +457,7 @@ const englishTranslation: TranslationRecord = {
         phoneNumber: 'Phone number',
         birthday: 'Birthday',
         aboutYou: 'About you',
-        submitButton: 'Save changes',
-        phoneError: 'Please provide a valid phone number'
+        submitButton: 'Save changes'
     },
 
     CreatorCalendar: {
@@ -483,6 +480,11 @@ const englishTranslation: TranslationRecord = {
         pageNotFound: "The page you're looking for doesn't seem to exist.",
         genericError: 'We messed up and something wrong happened.',
         goBackButton: 'Go back to home page'
+    },
+
+    NoExperiencesCard: {
+        message: 'Go ahead and create your own experience.',
+        button: 'Get started'
     }
 }
 

@@ -1,7 +1,8 @@
 import type { EventInput } from '@fullcalendar/react';
 
-import Availabilities from './Availabilities';
 import type { CompletableSlide } from 'models/application';
+
+import Availabilities from './Availabilities';
 
 export interface AvailabilitiesProps extends CompletableSlide {
     slots: EventInput[];

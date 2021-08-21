@@ -1,5 +1,6 @@
-import AgeRequirements from './AgeRequirements';
 import type { CompletableSlide } from 'models/application';
+
+import AgeRequirements from './AgeRequirements';
 
 export interface AgeRequirementsProps extends CompletableSlide {
     isAgeRestricted: boolean;

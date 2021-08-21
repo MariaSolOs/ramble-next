@@ -1,6 +1,7 @@
 import React, { useEffect, useCallback } from 'react';
 import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
 
 import { getGraphQLClient } from 'lib/graphql';
 import { getSdkWithHooks } from 'graphql-server/sdk';
@@ -12,8 +13,10 @@ import type { SearchState } from 'hooks/useExperienceSearchReducer';
 import type { Page } from 'models/application';
 
 import RambleHead from 'components/RambleHead';
-import Searchbar from 'components/search-experiences/Searchbar';
 import ExperienceGallery from 'components/search-experiences/ExperienceGallery';
+/* Import the searchbar dynamically so that we can set the initial
+values from the client. */
+const Searchbar = dynamic(() => import('components/search-experiences/Searchbar'), { ssr: false });
 
 type Props = {
     locationsList: string[];

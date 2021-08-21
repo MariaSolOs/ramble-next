@@ -53,8 +53,7 @@ const frenchTranslation: TranslationRecord = {
         confirmPassword: 'Confirmer le mot de passe',
         alreadyHaveAccount: 'Vous avez déjà un compte?',
         continue: 'Continuer',
-        passwordMismatch: 'Les mots de passe ne correspondent pas.',
-        phoneError: 'Veuillez indiquer un numéro de téléphone valable'
+        passwordMismatch: 'Les mots de passe ne correspondent pas.'
     },
 
     LogInDialog: {
@@ -159,7 +158,6 @@ const frenchTranslation: TranslationRecord = {
         aboutYouTip: "Votre bio apparaîtra sur la page de votre expérience. Incluez des faits amusants, ce qui vous passionne, votre expérience professionnelle et d'autres informations pertinentes.",
         phoneNumberTitle: 'Quel est votre numéro de téléphone?',
         phoneNumberSubtitle: 'Seuls nous et les invités qui réservent votre expérience auront accès à votre numéro de téléphone.',
-        phoneNumberError: 'Veuillez indiquer un numéro de téléphone valable', 
         idTitle: "Pièce d'identité",
         idSubtitle: "Cela nous permet seulement de vérifier qu’il s’agît bien de vous. En vérifiant l'identité des invités et des créateurs, nous nous assurons que tout le monde se sent en sécurité.",
         idTip1: "Votre pièce d’identité ne sera partagée avec personne d'autre.",
@@ -459,8 +457,7 @@ const frenchTranslation: TranslationRecord = {
         phoneNumber: 'Numéro de téléphone',
         birthday: 'Anniversaire',
         aboutYou: 'À propos de vous',
-        submitButton: 'Enregistrer',
-        phoneError: 'Veuillez indiquer un numéro de téléphone valable'
+        submitButton: 'Enregistrer'
     },
 
     CreatorCalendar: {
@@ -483,6 +480,11 @@ const frenchTranslation: TranslationRecord = {
         pageNotFound: 'La page que vous cherchez ne semble pas exister.',
         genericError: 'Une erreur est survenue.',
         goBackButton: "Page d'accueil"
+    },
+
+    NoExperiencesCard: {
+        message: 'Lance-toi et crée ta propre experience.',
+        button: 'Commencer'
     }
 }
 

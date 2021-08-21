@@ -1,5 +1,6 @@
-import UserExperiences from './UserExperiences';
 import type { CardContentFragment } from 'graphql-server/sdk';
+
+import UserExperiences from './UserExperiences';
 
 export type UserExperiencesProps = {
     title: string;

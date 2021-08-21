@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 import type { IconDefinition } from '@fortawesome/fontawesome-common-types';
 
 import Tip from './Tip';

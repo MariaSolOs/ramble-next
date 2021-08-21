@@ -1,8 +1,9 @@
-import React from 'react';
-import { DateTime } from 'luxon';
+import type React from 'react';
+import type { DateTime } from 'luxon';
+
+import type { ExperienceOption } from 'hooks/useCreatorCalendarReducer';
 
 import AddSlotForm from './AddSlotForm';
-import type { ExperienceOption } from 'hooks/useCreatorCalendarReducer';
 
 export type AddSlotFormProps = {
     startDate: DateTime;

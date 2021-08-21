@@ -1,5 +1,6 @@
-import DateSlide from './DateSlide';
 import type { CompletableSlide } from 'models/application';
+
+import DateSlide from './DateSlide';
 
 export interface DateSlideProps extends CompletableSlide {
     allowedDates: Set<string>;

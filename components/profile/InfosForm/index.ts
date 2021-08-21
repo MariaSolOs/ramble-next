@@ -1,7 +1,8 @@
-import React from 'react';
+import type React from 'react';
+
+import type { ProfileFormField } from 'models/user-interface';
 
 import InfosForm from './InfosForm';
-import type { ProfileFormField } from 'models/user-interface';
 
 export type InfosFormProps = {
     values: Record<ProfileFormField, string>;

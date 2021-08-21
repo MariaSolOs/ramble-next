@@ -1,5 +1,6 @@
-import Collage from './Collage';
 import type { Image } from 'models/files';
+
+import Collage from './Collage';
 
 export type CollageProps = {
     images: Image[];

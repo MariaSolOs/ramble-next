@@ -1,5 +1,6 @@
-import NavbarProfileMenu from './NavbarProfileMenu';
 import type { Image } from 'models/files';
+
+import NavbarProfileMenu from './NavbarProfileMenu';
 
 export type NavbarProfileMenuProps = {
     userName: string;

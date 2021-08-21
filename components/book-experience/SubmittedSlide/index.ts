@@ -1,8 +1,9 @@
 import type { DateTime } from 'luxon';
 
-import SubmittedSlide from './SubmittedSlide';
 import type { Currency } from 'models/experience-interface';
 import type { Image } from 'models/files';
+
+import SubmittedSlide from './SubmittedSlide';
 
 export type SubmittedSlideProps = {
     startDate: DateTime;

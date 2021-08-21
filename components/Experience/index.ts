@@ -1,7 +1,8 @@
-import React from 'react';
+import type React from 'react';
+
+import type { Experience as ExperienceType } from 'models/experience-interface';
 
 import Experience from './Experience';
-import type { Experience as ExperienceType } from 'models/experience-interface';
 
 export type ExperienceProps = {
     experience: ExperienceType;

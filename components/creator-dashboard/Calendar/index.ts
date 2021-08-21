@@ -1,7 +1,8 @@
 import type { DateTime } from 'luxon';
 
-import Calendar from './Calendar';
 import type { Occurrence } from 'hooks/useCreatorCalendarReducer';
+
+import Calendar from './Calendar';
 
 export type CalendarProps = {
     bulletMap: Map<string, string>;

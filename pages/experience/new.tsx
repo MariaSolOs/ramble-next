@@ -56,9 +56,6 @@ const CreateExperiencePage: Page = () => {
     const [animationDone, setAnimationDone] = useState(false);
     const [createdTitle, setCreatedTitle] = useState('');
 
-    // Show alert message when leaving
-    useRouterPrompt(Boolean(session) && !Boolean(createdTitle), text.leavePageAlert);
-
     const handleStringChange = useCallback((field: StringField, value: string) => {
         dispatch({ type: 'SET_STRING_FIELD', field, value });
     }, [dispatch]);
@@ -186,12 +183,18 @@ const CreateExperiencePage: Page = () => {
         return () => { dispatch({ type: 'END_SUBMIT' }); }
     }, [dispatch]);
 
+    const creatorId = creatorData?.me.creator?._id;
+    const onboardedWithStripe = creatorData?.me.creator?.stripeProfile.onboarded;
+
+    // Show alert message when leaving
+    useRouterPrompt(
+        Boolean(session) && !Boolean(createdTitle) && Boolean(onboardedWithStripe), 
+        text.leavePageAlert
+    );
+
     if (!creatorData || !locationsData) {
         return <Spinner />;
     }
-
-    const creatorId = creatorData.me.creator?._id;
-    const onboardedWithStripe = creatorData.me.creator?.stripeProfile.onboarded;
 
     // If creator hasn't completed the Stripe onboarding, let them try again
     if (creatorId && !onboardedWithStripe) {

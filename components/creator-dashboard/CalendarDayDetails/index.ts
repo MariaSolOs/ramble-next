@@ -1,7 +1,8 @@
 import type { DateTime } from 'luxon';
 
-import CalendarDayDetails from './CalendarDayDetails';
 import type { Occurrence } from 'hooks/useCreatorCalendarReducer';
+
+import CalendarDayDetails from './CalendarDayDetails';
 
 export type CalendarDayDetailsProps = {
     day: DateTime;

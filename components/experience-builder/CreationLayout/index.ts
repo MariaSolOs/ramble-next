@@ -1,5 +1,6 @@
-import CreationLayout from './CreationLayout';
 import type { CreationStep } from 'models/experience-interface';
+
+import CreationLayout from './CreationLayout';
 
 export type CreateLayoutProps = {
     stepsCompleted: number;

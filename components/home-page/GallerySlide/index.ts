@@ -1,5 +1,6 @@
-import GallerySlide from './GallerySlide';
 import type { Image } from 'models/files';
+
+import GallerySlide from './GallerySlide';
 
 export type GallerySlideProps = {
     images: Image[];

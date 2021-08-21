@@ -1,6 +1,7 @@
-import Layout from './Layout';
 import type { Experience } from 'models/experience-interface';
 import type { BookingStep } from 'hooks/useBookingReducer';
+
+import Layout from './Layout';
 
 export type LayoutProps = {
     experience: Experience;
