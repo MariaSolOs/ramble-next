@@ -91,6 +91,7 @@ const styles = (theme: Theme) => createStyles({
 
     gridTitle: {
         fontSize: '1.5rem',
+        minWidth: 143,
         margin: '10px 0 0 10px',
         lineHeight: 1.2,
         fontFamily: 'Questrial, sans-serif',
@@ -98,7 +99,7 @@ const styles = (theme: Theme) => createStyles({
         '-webkit-text-fill-color': 'transparent',
 
         [theme.breakpoints.down(450)]: {
-            fontSize: '1.3rem',
+            fontSize: '1.2rem',
             margin: '0 0 0 5px'
         },
         [theme.breakpoints.down(380)]: { fontSize: '1.1rem' },
