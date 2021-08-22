@@ -518,6 +518,28 @@ export type GetLocationsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetLocationsQuery = { experiences: Array<Pick<Experience, 'location'>> };
 
+export type GetProfileExperiencesQueryVariables = Exact<{
+  userId: Scalars['ID'];
+}>;
+
+
+export type GetProfileExperiencesQuery = { me: (
+    Pick<User, '_id' | 'city'>
+    & { savedExperiences: Array<CardContentFragment>, bookedExperiences: Array<CardContentFragment> }
+    & UserAvatarFragment
+  ) };
+
+export type GetProfileInformationQueryVariables = Exact<{
+  userId: Scalars['ID'];
+}>;
+
+
+export type GetProfileInformationQuery = { me: (
+    Pick<User, '_id' | 'lastName' | 'city' | 'email' | 'phoneNumber' | 'birthday'>
+    & { creator?: Maybe<Pick<Creator, '_id' | 'bio'>> }
+    & UserAvatarFragment
+  ) };
+
 export type GetSlotableExperiencesQueryVariables = Exact<{
   creatorId: Scalars['ID'];
 }>;
@@ -546,29 +568,7 @@ export type GetUserExperiencesQueryVariables = Exact<{
 }>;
 
 
-export type GetUserExperiencesQuery = { me: (
-    Pick<User, '_id' | 'city'>
-    & { savedExperiences: Array<CardContentFragment>, bookedExperiences: Array<CardContentFragment> }
-    & UserAvatarFragment
-  ) };
-
-export type GetUserProfileQueryVariables = Exact<{
-  userId: Scalars['ID'];
-}>;
-
-
-export type GetUserProfileQuery = { me: (
-    Pick<User, '_id' | 'lastName' | 'city' | 'email' | 'phoneNumber' | 'birthday'>
-    & { creator?: Maybe<Pick<Creator, '_id' | 'bio'>> }
-    & UserAvatarFragment
-  ) };
-
-export type GetUserSavedExperiencesQueryVariables = Exact<{
-  userId: Scalars['ID'];
-}>;
-
-
-export type GetUserSavedExperiencesQuery = { me: { savedExperiences: Array<Pick<Experience, '_id'>> } };
+export type GetUserExperiencesQuery = { me: { savedExperiences: Array<Pick<Experience, '_id'>>, bookedExperiences: Array<Pick<Experience, '_id'>> } };
 
 export const UserAvatarFragmentDoc = gql`
     fragment UserAvatar on User {
@@ -883,6 +883,39 @@ export const GetLocationsDocument = gql`
   }
 }
     `;
+export const GetProfileExperiencesDocument = gql`
+    query getProfileExperiences($userId: ID!) {
+  me(userId: $userId) {
+    _id
+    city
+    savedExperiences {
+      ...CardContent
+    }
+    bookedExperiences {
+      ...CardContent
+    }
+    ...UserAvatar
+  }
+}
+    ${CardContentFragmentDoc}
+${UserAvatarFragmentDoc}`;
+export const GetProfileInformationDocument = gql`
+    query getProfileInformation($userId: ID!) {
+  me(userId: $userId) {
+    _id
+    lastName
+    city
+    email
+    phoneNumber
+    birthday
+    creator {
+      _id
+      bio
+    }
+    ...UserAvatar
+  }
+}
+    ${UserAvatarFragmentDoc}`;
 export const GetSlotableExperiencesDocument = gql`
     query getSlotableExperiences($creatorId: ID!) {
   experiences(creatorId: $creatorId) {
@@ -916,40 +949,10 @@ export const GetSlotableOccurrencesDocument = gql`
 export const GetUserExperiencesDocument = gql`
     query getUserExperiences($userId: ID!) {
   me(userId: $userId) {
-    _id
-    city
     savedExperiences {
-      ...CardContent
+      _id
     }
     bookedExperiences {
-      ...CardContent
-    }
-    ...UserAvatar
-  }
-}
-    ${CardContentFragmentDoc}
-${UserAvatarFragmentDoc}`;
-export const GetUserProfileDocument = gql`
-    query getUserProfile($userId: ID!) {
-  me(userId: $userId) {
-    _id
-    lastName
-    city
-    email
-    phoneNumber
-    birthday
-    creator {
-      _id
-      bio
-    }
-    ...UserAvatar
-  }
-}
-    ${UserAvatarFragmentDoc}`;
-export const GetUserSavedExperiencesDocument = gql`
-    query getUserSavedExperiences($userId: ID!) {
-  me(userId: $userId) {
-    savedExperiences {
       _id
     }
   }
@@ -1023,6 +1026,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     getLocations(variables?: GetLocationsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetLocationsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetLocationsQuery>(GetLocationsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getLocations');
     },
+    getProfileExperiences(variables: GetProfileExperiencesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetProfileExperiencesQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetProfileExperiencesQuery>(GetProfileExperiencesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getProfileExperiences');
+    },
+    getProfileInformation(variables: GetProfileInformationQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetProfileInformationQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetProfileInformationQuery>(GetProfileInformationDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getProfileInformation');
+    },
     getSlotableExperiences(variables: GetSlotableExperiencesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetSlotableExperiencesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetSlotableExperiencesQuery>(GetSlotableExperiencesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getSlotableExperiences');
     },
@@ -1031,12 +1040,6 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     getUserExperiences(variables: GetUserExperiencesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetUserExperiencesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetUserExperiencesQuery>(GetUserExperiencesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getUserExperiences');
-    },
-    getUserProfile(variables: GetUserProfileQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetUserProfileQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<GetUserProfileQuery>(GetUserProfileDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getUserProfile');
-    },
-    getUserSavedExperiences(variables: GetUserSavedExperiencesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetUserSavedExperiencesQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<GetUserSavedExperiencesQuery>(GetUserSavedExperiencesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getUserSavedExperiences');
     }
   };
 }
@@ -1072,6 +1075,12 @@ export function getSdkWithHooks(client: GraphQLClient, withWrapper: SdkFunctionW
     useGetLocations(key: SWRKeyInterface, variables?: GetLocationsQueryVariables, config?: SWRConfigInterface<GetLocationsQuery, ClientError>) {
       return useSWR<GetLocationsQuery, ClientError>(key, () => sdk.getLocations(variables), config);
     },
+    useGetProfileExperiences(key: SWRKeyInterface, variables: GetProfileExperiencesQueryVariables, config?: SWRConfigInterface<GetProfileExperiencesQuery, ClientError>) {
+      return useSWR<GetProfileExperiencesQuery, ClientError>(key, () => sdk.getProfileExperiences(variables), config);
+    },
+    useGetProfileInformation(key: SWRKeyInterface, variables: GetProfileInformationQueryVariables, config?: SWRConfigInterface<GetProfileInformationQuery, ClientError>) {
+      return useSWR<GetProfileInformationQuery, ClientError>(key, () => sdk.getProfileInformation(variables), config);
+    },
     useGetSlotableExperiences(key: SWRKeyInterface, variables: GetSlotableExperiencesQueryVariables, config?: SWRConfigInterface<GetSlotableExperiencesQuery, ClientError>) {
       return useSWR<GetSlotableExperiencesQuery, ClientError>(key, () => sdk.getSlotableExperiences(variables), config);
     },
@@ -1080,12 +1089,6 @@ export function getSdkWithHooks(client: GraphQLClient, withWrapper: SdkFunctionW
     },
     useGetUserExperiences(key: SWRKeyInterface, variables: GetUserExperiencesQueryVariables, config?: SWRConfigInterface<GetUserExperiencesQuery, ClientError>) {
       return useSWR<GetUserExperiencesQuery, ClientError>(key, () => sdk.getUserExperiences(variables), config);
-    },
-    useGetUserProfile(key: SWRKeyInterface, variables: GetUserProfileQueryVariables, config?: SWRConfigInterface<GetUserProfileQuery, ClientError>) {
-      return useSWR<GetUserProfileQuery, ClientError>(key, () => sdk.getUserProfile(variables), config);
-    },
-    useGetUserSavedExperiences(key: SWRKeyInterface, variables: GetUserSavedExperiencesQueryVariables, config?: SWRConfigInterface<GetUserSavedExperiencesQuery, ClientError>) {
-      return useSWR<GetUserSavedExperiencesQuery, ClientError>(key, () => sdk.getUserSavedExperiences(variables), config);
     }
   };
 }

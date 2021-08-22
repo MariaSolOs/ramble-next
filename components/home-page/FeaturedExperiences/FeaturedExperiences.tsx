@@ -1,5 +1,5 @@
 import routes from 'routes';
-import useSavedExperiences from 'hooks/useSavedExperiences';
+import useUserExperiences from 'hooks/useUserExperiences';
 import useLanguageContext from 'context/languageContext';
 import type { FeaturedExperiencesProps } from './index';
 
@@ -12,7 +12,7 @@ const useStyles = makeStyles(styles);
 
 const FeaturedExperiences = (props: FeaturedExperiencesProps) => {
     const { Home: text } = useLanguageContext().appText;
-    const { isExperienceSaved, handleSavingToggle } = useSavedExperiences();
+    const { isExperienceSaved, handleSavingToggle } = useUserExperiences();
     const classes = useStyles();
 
     return (

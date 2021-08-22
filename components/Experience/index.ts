@@ -10,6 +10,8 @@ export type ExperienceProps = {
     onHeartClick?: React.MouseEventHandler;
     onShareClick?: React.MouseEventHandler;
     useMobileDisplay?: boolean;
+    fetchReviews?: boolean;
+    showReviewButton?: boolean;
 }
 
 export type ExperienceStyleProps = {

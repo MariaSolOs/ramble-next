@@ -1,7 +1,7 @@
 import { Schema, model, models } from 'mongoose';
 import mongooseLeanDefaults from 'mongoose-lean-defaults';
 import bcrypt from 'bcryptjs';
-import type { Types, Model } from 'mongoose';
+import type { Types, Model, SchemaDefinitionProperty } from 'mongoose';
 
 import type { Experience } from './experience';
 import type { Creator } from './creator';
@@ -28,7 +28,7 @@ interface UserModel extends Model<User> {
     generatePasswordHash(password: string): string;
 }
 
-const userSchemaFields: Record<keyof Omit<User, '_id'>, any> = {
+const userSchemaFields: Record<keyof Omit<User, '_id'>, SchemaDefinitionProperty> = {
     fstName: {
         type: String,
         required: true,

@@ -1,4 +1,4 @@
-query getUserProfile($userId: ID!) {
+query getProfileInformation($userId: ID!) {
     me(userId: $userId) {
         _id
         lastName

@@ -1,13 +1,10 @@
 query getUserExperiences($userId: ID!) {
     me(userId: $userId) {
-        _id
-        city
         savedExperiences {
-            ...CardContent
+            _id
         }
         bookedExperiences {
-            ...CardContent
+            _id
         }
-        ...UserAvatar
     }
 }

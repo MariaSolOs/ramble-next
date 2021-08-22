@@ -120,13 +120,21 @@ const englishTranslation: TranslationRecord = {
         planning: 'Planning', 
         included: "What's included", 
         toBring: 'What to bring',
-        location: 'Location'
+        location: 'Location',
+        reviews: 'Reviews from other guests',
+        reviewButton: 'Leave a review'
     },
     
     ShareExperienceDialog: {
         shareExperience: 'Share this experience',
         copyLink: 'Copy link',
         copyTooltip: 'Copied!'
+    },
+
+    RateExperienceDialog: {
+        dialogTitle: 'Rate and review this experience',
+        textfieldLabel: 'Let future guests know what you liked about this experience.',
+        doneButton: 'Done'
     },
 
     ExperienceDetails: {
@@ -422,6 +430,11 @@ const englishTranslation: TranslationRecord = {
         createdExperiences: 'My experiences'
     },
 
+    NoExperiencesCard: {
+        message: 'Go ahead and create your own experience.',
+        button: 'Get started'
+    },
+
     BookingRequests: {
         decisionError: "We couldn't process your decision...",
         bookingAcceptedMessage: 'The booking was accepted.',
@@ -480,11 +493,6 @@ const englishTranslation: TranslationRecord = {
         pageNotFound: "The page you're looking for doesn't seem to exist.",
         genericError: 'We messed up and something wrong happened.',
         goBackButton: 'Go back to home page'
-    },
-
-    NoExperiencesCard: {
-        message: 'Go ahead and create your own experience.',
-        button: 'Get started'
     }
 }
 

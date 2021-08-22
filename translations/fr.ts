@@ -120,13 +120,21 @@ const frenchTranslation: TranslationRecord = {
         planning: 'Ce que vous ferez',
         included: 'Ce qui est inclus',
         toBring: 'À apporter',
-        location: 'Localisation'
+        location: 'Localisation',
+        reviews: "Commentaires d'autres invités",
+        reviewButton: 'Laisser un commentaire'
     },
 
     ShareExperienceDialog: {
         shareExperience: 'Partager cette expérience',
         copyLink: "Copier l'url",
         copyTooltip: 'Copié!'
+    },
+
+    RateExperienceDialog: {
+        dialogTitle: "Commentaires d'autres invités",
+        textfieldLabel: 'Faites savoir aux futurs clients ce que vous avez aimé de cette expérience.',
+        doneButton: 'Terminé'
     },
     
     ExperienceDetails: {
@@ -422,6 +430,11 @@ const frenchTranslation: TranslationRecord = {
         calendar: 'Calendrier'
     },
 
+    NoExperiencesCard: {
+        message: 'Lance-toi et crée ta propre experience.',
+        button: 'Commencer'
+    },
+
     BookingRequests: {
         decisionError: "Nous n'avons pas pu traiter votre décision...",
         bookingAcceptedMessage: 'La réservation a été acceptée.',
@@ -480,11 +493,6 @@ const frenchTranslation: TranslationRecord = {
         pageNotFound: 'La page que vous cherchez ne semble pas exister.',
         genericError: 'Une erreur est survenue.',
         goBackButton: "Page d'accueil"
-    },
-
-    NoExperiencesCard: {
-        message: 'Lance-toi et crée ta propre experience.',
-        button: 'Commencer'
     }
 }
 

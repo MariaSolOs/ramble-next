@@ -1,6 +1,6 @@
 import { Schema, model, models } from 'mongoose';
 import mongooseLeanDefaults from 'mongoose-lean-defaults';
-import type { Types, Model } from 'mongoose';
+import type { Types, Model, SchemaDefinitionProperty } from 'mongoose';
 
 import type { Creator } from './creator';
 import type { Currency } from 'models/experience-interface';
@@ -42,7 +42,7 @@ export interface Experience {
     creator: Types.ObjectId | Creator;
 }
 
-const experienceSchemaFields: Record<keyof Omit<Experience, '_id'>, any> = {
+const experienceSchemaFields: Record<keyof Omit<Experience, '_id'>, SchemaDefinitionProperty> = {
     status: {
         type: String,
         required: true,

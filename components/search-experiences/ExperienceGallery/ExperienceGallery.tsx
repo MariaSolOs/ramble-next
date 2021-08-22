@@ -1,4 +1,4 @@
-import useSavedExperiences from 'hooks/useSavedExperiences';
+import useUserExperiences from 'hooks/useUserExperiences';
 import type { ExperienceGalleryProps } from './index';
 
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -9,7 +9,7 @@ import styles from './ExperienceGallery.styles';
 const useStyles = makeStyles(styles);
 
 const ExperienceGallery = (props: ExperienceGalleryProps) => {
-    const { isExperienceSaved, handleSavingToggle } = useSavedExperiences();
+    const { isExperienceSaved, handleSavingToggle } = useUserExperiences();
     const classes = useStyles();
 
     return (

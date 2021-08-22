@@ -265,6 +265,11 @@ const Experience = (props: ExperienceProps) => {
                             </StaticMap>
                         </div>
                     </>}
+                {props.fetchReviews &&
+                    <>
+                        <div className={classes.reviewDivisor} />
+                        <h3 className={classes.sectionLabel}>{text.reviews}</h3>
+                    </>}
             </div>
         </>
     );

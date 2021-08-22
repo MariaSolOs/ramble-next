@@ -29,8 +29,8 @@ const UserExperiencesPage: Page = () => {
         }
     }, [session, loading, router, uiDispatch]);
 
-    const { data } = sdk.useGetUserExperiences(
-        session ? 'getUserExperiences' : null,
+    const { data } = sdk.useGetProfileExperiences(
+        session ? 'getProfileExperiences' : null,
         { userId: session?.user.userId || '' }
     );
 

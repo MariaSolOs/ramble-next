@@ -32,9 +32,11 @@ export type TranslationRecord = {
 
     CategoryBox: Record<ExperienceCategory, string>;
 
-    Experience: Record<'online' | 'duration' | 'upTo' | 'person' | 'people' | 'language' | 'languages' | 'ageRestriction' | 'hostedBy' | 'aboutCreator' | 'planning' | 'included' | 'toBring' | 'location', string>;
+    Experience: Record<'online' | 'duration' | 'upTo' | 'person' | 'people' | 'language' | 'languages' | 'ageRestriction' | 'hostedBy' | 'aboutCreator' | 'planning' | 'included' | 'toBring' | 'location' | 'reviews' | 'reviewButton', string>;
 
     ShareExperienceDialog: Record<'shareExperience' | 'copyLink' | 'copyTooltip', string>;
+
+    RateExperienceDialog: Record<'dialogTitle' | 'textfieldLabel' | 'doneButton', string>;
 
     ExperienceDetails: Record<'bookExperience' | 'perConnection' | 'perPerson', string>;
 
@@ -90,6 +92,8 @@ export type TranslationRecord = {
 
     CreatorDashboard_Layout: Record<'dashboardTitle' | 'bookingRequests' | 'calendar' | 'createdExperiences', string>;
 
+    NoExperiencesCard: Record<'message' | 'button', string>;
+
     BookingRequests: Record<'decisionError' | 'bookingAcceptedMessage' | 'bookingRejectedMessage', string>;
 
     BookingCard: Record<'fromTitle' | 'guest' | 'guests' | 'currentlyFor' | 'currentPayment' | 'accept' | 'decline' | 'privateBooking', string>;
@@ -103,6 +107,4 @@ export type TranslationRecord = {
     CreatorCalendar: Record<'timezoneMessage' | 'formTitle' | 'formDescription' | 'dateAndTimeLabel' | 'experienceLabel' | 'addSlot' | 'today' | 'busySlotMessage' | 'guest' | 'guests' | 'closeDialog' | 'private', string>;
 
     ErrorPage: Record<'title' | 'pageNotFound' | 'genericError' | 'goBackButton', string>;
-
-    NoExperiencesCard: Record<'message' | 'button', string>;
 }

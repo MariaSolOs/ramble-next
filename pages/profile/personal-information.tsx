@@ -48,8 +48,8 @@ const PersonalInformationPage: Page = () => {
         }
     }, [session, loading, router, uiDispatch]);
 
-    const { data, mutate } = sdk.useGetUserProfile(
-        session ? 'getUserProfile' : null, 
+    const { data, mutate } = sdk.useGetProfileInformation(
+        session ? 'getProfileInformation' : null, 
         { userId: session?.user.userId || '' }, {
         onSuccess: ({ me }) => {
             // Fill the form with the existing data

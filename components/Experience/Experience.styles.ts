@@ -324,6 +324,12 @@ export const desktopStyles = (theme: Theme) => createStyles({
         width: 15, 
         height: 15,
         borderRadius: '100%'
+    },
+
+    reviewDivisor: {
+        backgroundColor: 'rgba(197, 197, 197, 0.4)',
+        width: '40%',
+        padding: '0.5px 0'
     }
 });
 
@@ -593,5 +599,8 @@ export const mobileStyles = (theme: Theme) => createStyles({
         width: 15, 
         height: 15,
         borderRadius: '100%'
-    }
+    },
+
+    // For experiences that are just in preview, don't show reviews
+    reviewDivisor: {}
 });

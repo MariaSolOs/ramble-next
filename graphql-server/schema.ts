@@ -26,6 +26,11 @@ export const typeDefs = gql`
         Get the occurrences of the indicated experiences.
         """
         occurrences(experienceIds: [ID!]!): [Occurrence!]!
+
+        """
+        Get the reviews of a certain experience.
+        """
+        getReviews(experienceId: ID!): [Review!]!
     }
 
     type Mutation {
@@ -154,14 +159,6 @@ export const typeDefs = gql`
     }
 
     """
-    Image with placeholder URL
-    """
-    type Image {
-        src: String!
-        placeholder: String!
-    }
-
-    """
     Ramble's experience categories
     """
     enum ExperienceCategory {
@@ -269,6 +266,17 @@ export const typeDefs = gql`
         bio: String!
         stripeProfile: StripeInfo!
         bookingRequests: [Booking!]!
+    }
+
+    """
+    Experience reviews
+    """
+    type Review {
+        _id: ID!
+        experienceId: ID!
+        writtenBy: String!
+        text: String!
+        value: Int!
     }
 
     """

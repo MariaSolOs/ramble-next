@@ -8,20 +8,27 @@ const sdk = getSdkWithHooks(graphQLClient);
 
 /**
  * @returns Hook that saves/unsaves an experience from the user's 
- * list of saved experiences.
+ * list of saved experiences, and also checks if an experience was
+ * previously booked.
  */
-export default function useSavedExperiences() {
+export default function useUserExperiences() {
     const [session] = useSession();
     const isLoggedIn = Boolean(session?.user.userId);
 
     // Only fetch if logged in
-    const { data, mutate } = sdk.useGetUserSavedExperiences(
-        isLoggedIn ? 'getUserSavedExperiences' : null,
+    const { data, mutate } = sdk.useGetUserExperiences(
+        isLoggedIn ? 'getUserExperiences' : null,
         { userId: session?.user.userId || '' }
     );
 
     const isExperienceSaved = (experienceId: string) => {
         return data?.me.savedExperiences.some(({ _id }) =>
+            _id === experienceId
+        );
+    }
+
+    const isExperienceBooked = (experienceId: string) => {
+        return data?.me.bookedExperiences.some(({ _id }) =>
             _id === experienceId
         );
     }
@@ -37,7 +44,8 @@ export default function useSavedExperiences() {
                 me: {
                     savedExperiences: data?.me.savedExperiences.filter(({ _id }) => 
                         _id !== experienceId
-                    ) || []
+                    ) || [],
+                    bookedExperiences: data?.me.bookedExperiences || []
                 }
             }), false);
             sdk.unsaveExperience({ experienceId });
@@ -47,12 +55,17 @@ export default function useSavedExperiences() {
                     savedExperiences: [ 
                         ...(data?.me.savedExperiences || []), 
                         { _id: experienceId }
-                    ]
+                    ],
+                    bookedExperiences: data?.me.bookedExperiences || []
                 }
             }), false);
             sdk.saveExperience({ experienceId });
         }
     }
 
-    return { isExperienceSaved, handleSavingToggle }
+    return { 
+        isExperienceSaved, 
+        isExperienceBooked,
+        handleSavingToggle 
+    }
 }

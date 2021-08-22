@@ -1,7 +1,0 @@
-query getUserSavedExperiences($userId: ID!) {
-    me(userId: $userId) {
-        savedExperiences {
-            _id
-        }
-    }
-}

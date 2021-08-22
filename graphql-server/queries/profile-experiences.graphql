@@ -1,0 +1,13 @@
+query getProfileExperiences($userId: ID!) {
+    me(userId: $userId) {
+        _id
+        city
+        savedExperiences {
+            ...CardContent
+        }
+        bookedExperiences {
+            ...CardContent
+        }
+        ...UserAvatar
+    }
+}

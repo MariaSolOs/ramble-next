@@ -1,6 +1,6 @@
 import { Schema, model, models } from 'mongoose';
 import mongooseLeanDefaults from 'mongoose-lean-defaults';
-import type { Types, Model } from 'mongoose';
+import type { Types, Model, SchemaDefinitionProperty } from 'mongoose';
 
 import type { User } from './user';
 import type { Booking } from './booking';
@@ -17,7 +17,7 @@ export interface Creator {
     bookingRequests?: (Types.ObjectId | Booking)[];
 }
 
-const creatorSchemaFields: Record<keyof Omit<Creator, '_id'>, any> = {
+const creatorSchemaFields: Record<keyof Omit<Creator, '_id'>, SchemaDefinitionProperty> = {
     user: {
         type: Schema.Types.ObjectId,
         ref: 'User',
