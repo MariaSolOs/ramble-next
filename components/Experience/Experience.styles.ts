@@ -329,8 +329,48 @@ export const desktopStyles = (theme: Theme) => createStyles({
     reviewDivisor: {
         backgroundColor: 'rgba(197, 197, 197, 0.4)',
         width: '40%',
-        padding: '0.5px 0'
-    }
+        padding: '0.5px 0',
+        marginTop: '1.5rem'
+    },
+
+    reviewsContainer: { position: 'relative' },
+
+    showAllReviewsButton: {
+        fontFamily: theme.typography.fontFamily,
+        fontWeight: theme.typography.fontWeightBold,
+        color: '#FFF',
+        backgroundColor: 'transparent',
+        border: 'none',
+        letterSpacing: '-0.05rem',
+        fontSize: '1rem',
+        position: 'absolute',
+        top: 0,
+        right: 10,
+
+        [theme.breakpoints.down('xs')]: {
+            fontSize: '0.9rem',
+            top: 5
+        }
+    },
+
+    reviewList: {
+        padding: 0,
+        listStyle: 'none'
+    },
+
+    reviewTitle: {
+        fontSize: '1.2rem',
+        display: 'flex',
+        alignItems: 'center',
+        margin: '2rem 0 0'
+    },
+
+    rating: {
+        color: '#FFF',
+        marginLeft: '1.5rem',
+
+        '& .MuiRating-iconEmpty': { stroke: '#FFF' }
+    },
 });
 
 export const mobileStyles = (theme: Theme) => createStyles({
@@ -602,5 +642,10 @@ export const mobileStyles = (theme: Theme) => createStyles({
     },
 
     // For experiences that are just in preview, don't show reviews
-    reviewDivisor: {}
+    reviewsContainer: {},
+    reviewDivisor: {},
+    showAllReviewsButton: {},
+    reviewList: {},
+    reviewTitle: {},
+    rating: {}
 });

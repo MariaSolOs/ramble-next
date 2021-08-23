@@ -11,9 +11,9 @@ import type { ExperienceProps, CarouselImgProps } from './index';
 import Image from 'next/image';
 import { StaticMap, Marker } from 'react-map-gl';
 import Fab from '@material-ui/core/Fab';
-import CategoryBox from 'components/CategoryBox';
 import Avatar from '@material-ui/core/Avatar';
 import Collapse from '@material-ui/core/Collapse';
+import Rating from '@material-ui/lab/Rating';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShareSquare } from '@fortawesome/free-solid-svg-icons/faShareSquare';
 import { faClock } from '@fortawesome/free-solid-svg-icons/faClock';
@@ -22,6 +22,7 @@ import { faComments } from '@fortawesome/free-solid-svg-icons/faComments';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons/faUserPlus';
 import { faHeart } from '@fortawesome/free-solid-svg-icons/faHeart';
 import Carousel from 'react-image-gallery';
+import CategoryBox from 'components/CategoryBox';
 import onlineIcon from 'public/images/online-experience-icon.svg';
 
 import 'react-image-gallery/styles/css/image-gallery.css';
@@ -265,10 +266,31 @@ const Experience = (props: ExperienceProps) => {
                             </StaticMap>
                         </div>
                     </>}
-                {props.fetchReviews &&
+                {(props.reviews && props.reviews.length > 0) &&
                     <>
                         <div className={classes.reviewDivisor} />
-                        <h3 className={classes.sectionLabel}>{text.reviews}</h3>
+                        <div className={classes.reviewsContainer}>
+                            <h3 className={classes.sectionLabel}>{text.reviews}</h3>
+                            <button className={classes.showAllReviewsButton}>
+                                {text.seeAllReviewsButton}
+                            </button>
+                            <ul className={classes.reviewList}>
+                                {props.reviews.slice(0, 4).map(review =>
+                                    <li key={review._id}>
+                                        <h4 className={classes.reviewTitle}>
+                                            {review.writtenBy}
+                                            <Rating
+                                            readOnly
+                                            value={review.value}
+                                            className={classes.rating} />
+                                        </h4>
+                                        <p className={classes.bodyText}>
+                                            {review.text}
+                                        </p>
+                                    </li>
+                                )}
+                            </ul>
+                        </div>
                     </>}
             </div>
         </>

@@ -44,9 +44,7 @@ const styles = (theme: Theme) => createStyles({
     rating: {
         color: '#FFF',
 
-        '& .MuiRating-iconEmpty': {
-            stroke: '#FFF'
-        }
+        '& .MuiRating-iconEmpty': { stroke: '#FFF' }
     },
 
     reviewLabel: {

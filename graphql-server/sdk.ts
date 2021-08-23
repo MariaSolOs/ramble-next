@@ -66,6 +66,7 @@ export type Experience = {
   pricePerPerson: Scalars['Int'];
   privatePrice?: Maybe<Scalars['Int']>;
   currency: Scalars['String'];
+  numRatings: Scalars['Int'];
   ratingValue?: Maybe<Scalars['Float']>;
   creator: Creator;
 };
@@ -81,8 +82,8 @@ export enum ExperienceCategory {
 
 /** Image with blurred placeholder */
 export type Image = {
-  placeholder: Scalars['String'];
   src: Scalars['String'];
+  placeholder: Scalars['String'];
 };
 
 export type Mutation = {
@@ -107,6 +108,8 @@ export type Mutation = {
   createOccurrence: Occurrence;
   /** Deletes an occurrence. */
   deleteOccurrence: Occurrence;
+  /** Create a new review for the indicated experience. */
+  createReview: Review;
 };
 
 
@@ -202,6 +205,13 @@ export type MutationDeleteOccurrenceArgs = {
   occurrenceId: Scalars['ID'];
 };
 
+
+export type MutationCreateReviewArgs = {
+  experienceId: Scalars['ID'];
+  value: Scalars['Int'];
+  text: Scalars['String'];
+};
+
 /**
  * Representation of a single occurrence in time of an
  * experience
@@ -234,6 +244,8 @@ export type Query = {
   experiencesById: Array<Experience>;
   /** Get the occurrences of the indicated experiences. */
   occurrences: Array<Occurrence>;
+  /** Get the reviews of a certain experience. */
+  getReviews: Array<Review>;
 };
 
 
@@ -258,11 +270,25 @@ export type QueryOccurrencesArgs = {
   experienceIds: Array<Scalars['ID']>;
 };
 
+
+export type QueryGetReviewsArgs = {
+  experienceId: Scalars['ID'];
+};
+
 /** Booking types */
 export enum Reservation {
   Public = 'public',
   Private = 'private'
 }
+
+/** Experience reviews */
+export type Review = {
+  _id: Scalars['ID'];
+  experienceId: Scalars['ID'];
+  writtenBy: Scalars['String'];
+  text: Scalars['String'];
+  value: Scalars['Int'];
+};
 
 /** Representation of a creator's Stripe profile */
 export type StripeInfo = {
@@ -316,7 +342,7 @@ export type CardContentFragment = (
 );
 
 export type ExperienceViewFragment = (
-  Pick<Experience, '_id' | 'title' | 'description' | 'location' | 'latitude' | 'longitude' | 'categories' | 'ageRestriction' | 'duration' | 'languages' | 'includedItems' | 'toBringItems' | 'capacity' | 'isOnlineExperience' | 'pricePerPerson'>
+  Pick<Experience, '_id' | 'title' | 'description' | 'location' | 'latitude' | 'longitude' | 'categories' | 'ageRestriction' | 'duration' | 'languages' | 'includedItems' | 'toBringItems' | 'capacity' | 'isOnlineExperience' | 'pricePerPerson' | 'numRatings' | 'ratingValue'>
   & { images: Array<Pick<Image, 'src' | 'placeholder'>>, creator: (
     Pick<Creator, 'bio'>
     & { user: UserAvatarFragment }
@@ -372,6 +398,15 @@ export type CreateOccurrenceMutationVariables = Exact<{
 
 
 export type CreateOccurrenceMutation = { createOccurrence: CalendarOccurrenceFragment };
+
+export type CreateReviewMutationVariables = Exact<{
+  experienceId: Scalars['ID'];
+  value: Scalars['Int'];
+  text: Scalars['String'];
+}>;
+
+
+export type CreateReviewMutation = { createReview: Pick<Review, '_id'> };
 
 export type DeleteOccurrenceMutationVariables = Exact<{
   occurrenceId: Scalars['ID'];
@@ -540,6 +575,13 @@ export type GetProfileInformationQuery = { me: (
     & UserAvatarFragment
   ) };
 
+export type GetReviewsQueryVariables = Exact<{
+  experienceId: Scalars['ID'];
+}>;
+
+
+export type GetReviewsQuery = { getReviews: Array<Pick<Review, '_id' | 'writtenBy' | 'text' | 'value'>> };
+
 export type GetSlotableExperiencesQueryVariables = Exact<{
   creatorId: Scalars['ID'];
 }>;
@@ -666,6 +708,8 @@ export const ExperienceViewFragmentDoc = gql`
   capacity
   isOnlineExperience
   pricePerPerson
+  numRatings
+  ratingValue
   creator {
     bio
     user {
@@ -729,6 +773,13 @@ export const CreateOccurrenceDocument = gql`
   }
 }
     ${CalendarOccurrenceFragmentDoc}`;
+export const CreateReviewDocument = gql`
+    mutation createReview($experienceId: ID!, $value: Int!, $text: String!) {
+  createReview(experienceId: $experienceId, value: $value, text: $text) {
+    _id
+  }
+}
+    `;
 export const DeleteOccurrenceDocument = gql`
     mutation deleteOccurrence($occurrenceId: ID!) {
   deleteOccurrence(occurrenceId: $occurrenceId) {
@@ -916,6 +967,16 @@ export const GetProfileInformationDocument = gql`
   }
 }
     ${UserAvatarFragmentDoc}`;
+export const GetReviewsDocument = gql`
+    query getReviews($experienceId: ID!) {
+  getReviews(experienceId: $experienceId) {
+    _id
+    writtenBy
+    text
+    value
+  }
+}
+    `;
 export const GetSlotableExperiencesDocument = gql`
     query getSlotableExperiences($creatorId: ID!) {
   experiences(creatorId: $creatorId) {
@@ -975,6 +1036,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     createOccurrence(variables: CreateOccurrenceMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateOccurrenceMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<CreateOccurrenceMutation>(CreateOccurrenceDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'createOccurrence');
     },
+    createReview(variables: CreateReviewMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CreateReviewMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<CreateReviewMutation>(CreateReviewDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'createReview');
+    },
     deleteOccurrence(variables: DeleteOccurrenceMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<DeleteOccurrenceMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<DeleteOccurrenceMutation>(DeleteOccurrenceDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'deleteOccurrence');
     },
@@ -1032,6 +1096,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     getProfileInformation(variables: GetProfileInformationQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetProfileInformationQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetProfileInformationQuery>(GetProfileInformationDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getProfileInformation');
     },
+    getReviews(variables: GetReviewsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetReviewsQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetReviewsQuery>(GetReviewsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getReviews');
+    },
     getSlotableExperiences(variables: GetSlotableExperiencesQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetSlotableExperiencesQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetSlotableExperiencesQuery>(GetSlotableExperiencesDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getSlotableExperiences');
     },
@@ -1080,6 +1147,9 @@ export function getSdkWithHooks(client: GraphQLClient, withWrapper: SdkFunctionW
     },
     useGetProfileInformation(key: SWRKeyInterface, variables: GetProfileInformationQueryVariables, config?: SWRConfigInterface<GetProfileInformationQuery, ClientError>) {
       return useSWR<GetProfileInformationQuery, ClientError>(key, () => sdk.getProfileInformation(variables), config);
+    },
+    useGetReviews(key: SWRKeyInterface, variables: GetReviewsQueryVariables, config?: SWRConfigInterface<GetReviewsQuery, ClientError>) {
+      return useSWR<GetReviewsQuery, ClientError>(key, () => sdk.getReviews(variables), config);
     },
     useGetSlotableExperiences(key: SWRKeyInterface, variables: GetSlotableExperiencesQueryVariables, config?: SWRConfigInterface<GetSlotableExperiencesQuery, ClientError>) {
       return useSWR<GetSlotableExperiencesQuery, ClientError>(key, () => sdk.getSlotableExperiences(variables), config);

@@ -1,0 +1,8 @@
+query getReviews($experienceId: ID!) {
+    getReviews(experienceId: $experienceId) {
+        _id
+        writtenBy
+        text
+        value
+    }
+}

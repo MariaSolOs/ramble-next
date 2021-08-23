@@ -122,7 +122,8 @@ const englishTranslation: TranslationRecord = {
         toBring: 'What to bring',
         location: 'Location',
         reviews: 'Reviews from other guests',
-        reviewButton: 'Leave a review'
+        seeAllReviewsButton: 'See all',
+        addReviewButton: 'Leave a review'
     },
     
     ShareExperienceDialog: {

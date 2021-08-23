@@ -1,10 +1,10 @@
-import { useState } from 'react';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { useRouter } from 'next/router';
 
 import { getGraphQLClient } from 'lib/graphql';
-import { getSdk } from 'graphql-server/sdk';
+import { getSdkWithHooks } from 'graphql-server/sdk';
 import useUserExperiences from 'hooks/useUserExperiences';
+import useExperiencePageReducer from 'hooks/useExperiencePageReducer';
 import type { ExperienceViewFragment as ExperienceType } from 'graphql-server/sdk';
 import type { Page } from 'models/application';
 
@@ -20,7 +20,7 @@ type Props = {
 }
 
 const graphQLClient = getGraphQLClient();
-const sdk = getSdk(graphQLClient);
+const sdk = getSdkWithHooks(graphQLClient);
 
 export const getStaticProps: GetStaticProps<Props> = async (context) => {
     const id = context.params?.expid as string;
@@ -64,16 +64,20 @@ const ExperienceDetailsPage: Page<Props> = (props) => {
     } = useUserExperiences();
     const router = useRouter();
 
-    const [openShareDialog, setOpenShareDialog] = useState(false);
-    const [openReviewDialog, setOpenReviewDialog] = useState(false);
+    const [state, dispatch] = useExperiencePageReducer();
+
+    // Get the experience's reviews 
+    const { data: reviewsData } = sdk.useGetReviews(['getReviews', props.experience._id], {
+        experienceId: props.experience._id
+    });
 
     // Wait until experience is loaded
     if (router.isFallback) {
         return <Spinner />;
     }
 
+    const allowUserReview = isExperienceBooked(props.experience._id);
     const shareUrl = `${process.env.NEXT_PUBLIC_RAMBLE_URL}${router.asPath}`;
-    const showReviews = isExperienceBooked(props.experience._id);
 
     return (
         <>
@@ -88,22 +92,29 @@ const ExperienceDetailsPage: Page<Props> = (props) => {
                 <ShareExperienceDialog
                 shareUrl={shareUrl}
                 experienceTitle={props.experience.title}
-                open={openShareDialog}
-                onClose={() => setOpenShareDialog(false)} />
-                {showReviews && 
+                open={state.openShareDialog}
+                onClose={() => {
+                    dispatch({ type: 'TOGGLE_SHARE_DIALOG', open: false });
+                }} />
+                {allowUserReview && 
                     <RateExperienceDialog 
-                    open={openReviewDialog}
-                    onClose={() => setOpenReviewDialog(false)} />}
+                    experienceId={props.experience._id}
+                    open={state.openNewReviewDialog}
+                    onClose={() => {
+                        dispatch({ type: 'TOGGLE_NEW_REVIEW_DIALOG', open: false })
+                    }} />}
                 <Experience 
                 experience={props.experience}
                 isExperienceSaved={isExperienceSaved(props.experience._id)}
-                fetchReviews
-                showReviewButton={showReviews}
+                showReviewButton={allowUserReview}
+                reviews={reviewsData?.getReviews}
                 onShareClick={() => {
-                    setOpenReviewDialog(false);
-                    setOpenShareDialog(true);
+                    dispatch({ type: 'TOGGLE_SHARE_DIALOG', open: true });
                 }}
-                onHeartClick={() => handleSavingToggle(props.experience._id)} />
+                onHeartClick={() => handleSavingToggle(props.experience._id)}
+                onSeeAllReviews={() => {
+                    dispatch({ type: 'TOGGLE_ALL_REVIEWS_DIALOG', open: true });
+                }} />
             </Layout>
         </>
     );

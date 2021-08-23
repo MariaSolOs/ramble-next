@@ -1,6 +1,7 @@
 import type React from 'react';
 
 import type { Experience as ExperienceType } from 'models/experience-interface';
+import type { GetReviewsQuery } from 'graphql-server/sdk';
 
 import Experience from './Experience';
 
@@ -10,7 +11,8 @@ export type ExperienceProps = {
     onHeartClick?: React.MouseEventHandler;
     onShareClick?: React.MouseEventHandler;
     useMobileDisplay?: boolean;
-    fetchReviews?: boolean;
+    reviews?: GetReviewsQuery['getReviews'];
+    onSeeAllReviews?: React.MouseEventHandler;
     showReviewButton?: boolean;
 }
 

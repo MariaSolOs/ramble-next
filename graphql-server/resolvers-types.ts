@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql';
-import { ExperienceType, OccurrenceType, BookingType, UserType, CreatorType, Context } from 'models/codegen';
+import { ExperienceType, OccurrenceType, BookingType, UserType, CreatorType, ReviewType, Context } from 'models/codegen';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -68,6 +68,7 @@ export type Experience = {
   pricePerPerson: Scalars['Int'];
   privatePrice?: Maybe<Scalars['Int']>;
   currency: Scalars['String'];
+  numRatings: Scalars['Int'];
   ratingValue?: Maybe<Scalars['Float']>;
   creator: Creator;
 };
@@ -84,8 +85,8 @@ export enum ExperienceCategory {
 /** Image with blurred placeholder */
 export type Image = {
   __typename?: 'Image';
-  placeholder: Scalars['String'];
   src: Scalars['String'];
+  placeholder: Scalars['String'];
 };
 
 export type Mutation = {
@@ -111,6 +112,8 @@ export type Mutation = {
   createOccurrence: Occurrence;
   /** Deletes an occurrence. */
   deleteOccurrence: Occurrence;
+  /** Create a new review for the indicated experience. */
+  createReview: Review;
 };
 
 
@@ -206,6 +209,13 @@ export type MutationDeleteOccurrenceArgs = {
   occurrenceId: Scalars['ID'];
 };
 
+
+export type MutationCreateReviewArgs = {
+  experienceId: Scalars['ID'];
+  value: Scalars['Int'];
+  text: Scalars['String'];
+};
+
 /**
  * Representation of a single occurrence in time of an
  * experience
@@ -240,6 +250,8 @@ export type Query = {
   experiencesById: Array<Experience>;
   /** Get the occurrences of the indicated experiences. */
   occurrences: Array<Occurrence>;
+  /** Get the reviews of a certain experience. */
+  getReviews: Array<Review>;
 };
 
 
@@ -264,11 +276,26 @@ export type QueryOccurrencesArgs = {
   experienceIds: Array<Scalars['ID']>;
 };
 
+
+export type QueryGetReviewsArgs = {
+  experienceId: Scalars['ID'];
+};
+
 /** Booking types */
 export enum Reservation {
   Public = 'public',
   Private = 'private'
 }
+
+/** Experience reviews */
+export type Review = {
+  __typename?: 'Review';
+  _id: Scalars['ID'];
+  experienceId: Scalars['ID'];
+  writtenBy: Scalars['String'];
+  text: Scalars['String'];
+  value: Scalars['Int'];
+};
 
 /** Representation of a creator's Stripe profile */
 export type StripeInfo = {
@@ -392,6 +419,7 @@ export type ResolversTypes = {
   OccurrenceInput: OccurrenceInput;
   Query: ResolverTypeWrapper<{}>;
   Reservation: Reservation;
+  Review: ResolverTypeWrapper<ReviewType>;
   StripeInfo: ResolverTypeWrapper<StripeInfo>;
   User: ResolverTypeWrapper<UserType>;
 };
@@ -412,6 +440,7 @@ export type ResolversParentTypes = {
   Occurrence: OccurrenceType;
   OccurrenceInput: OccurrenceInput;
   Query: {};
+  Review: ReviewType;
   StripeInfo: StripeInfo;
   User: UserType;
 };
@@ -465,14 +494,15 @@ export type ExperienceResolvers<ContextType = Context, ParentType extends Resolv
   pricePerPerson?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   privatePrice?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   currency?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  numRatings?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   ratingValue?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   creator?: Resolver<ResolversTypes['Creator'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type ImageResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Image'] = ResolversParentTypes['Image']> = {
-  placeholder?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   src?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  placeholder?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -488,6 +518,7 @@ export type MutationResolvers<ContextType = Context, ParentType extends Resolver
   createBooking?: Resolver<ResolversTypes['CreateBookingResult'], ParentType, ContextType, RequireFields<MutationCreateBookingArgs, 'occurrenceId' | 'bookingType' | 'numGuests' | 'paymentIntentId'>>;
   createOccurrence?: Resolver<ResolversTypes['Occurrence'], ParentType, ContextType, RequireFields<MutationCreateOccurrenceArgs, 'experienceId' | 'experienceCapacity' | 'dates'>>;
   deleteOccurrence?: Resolver<ResolversTypes['Occurrence'], ParentType, ContextType, RequireFields<MutationDeleteOccurrenceArgs, 'occurrenceId'>>;
+  createReview?: Resolver<ResolversTypes['Review'], ParentType, ContextType, RequireFields<MutationCreateReviewArgs, 'experienceId' | 'value' | 'text'>>;
 };
 
 export type OccurrenceResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Occurrence'] = ResolversParentTypes['Occurrence']> = {
@@ -506,6 +537,16 @@ export type QueryResolvers<ContextType = Context, ParentType extends ResolversPa
   experiences?: Resolver<Array<ResolversTypes['Experience']>, ParentType, ContextType, RequireFields<QueryExperiencesArgs, never>>;
   experiencesById?: Resolver<Array<ResolversTypes['Experience']>, ParentType, ContextType, RequireFields<QueryExperiencesByIdArgs, 'ids'>>;
   occurrences?: Resolver<Array<ResolversTypes['Occurrence']>, ParentType, ContextType, RequireFields<QueryOccurrencesArgs, 'experienceIds'>>;
+  getReviews?: Resolver<Array<ResolversTypes['Review']>, ParentType, ContextType, RequireFields<QueryGetReviewsArgs, 'experienceId'>>;
+};
+
+export type ReviewResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Review'] = ResolversParentTypes['Review']> = {
+  _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  experienceId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  writtenBy?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  text?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  value?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type StripeInfoResolvers<ContextType = Context, ParentType extends ResolversParentTypes['StripeInfo'] = ResolversParentTypes['StripeInfo']> = {
@@ -538,6 +579,7 @@ export type Resolvers<ContextType = Context> = {
   Mutation?: MutationResolvers<ContextType>;
   Occurrence?: OccurrenceResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  Review?: ReviewResolvers<ContextType>;
   StripeInfo?: StripeInfoResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 };

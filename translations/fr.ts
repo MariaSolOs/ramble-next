@@ -122,7 +122,8 @@ const frenchTranslation: TranslationRecord = {
         toBring: 'À apporter',
         location: 'Localisation',
         reviews: "Commentaires d'autres invités",
-        reviewButton: 'Laisser un commentaire'
+        seeAllReviewsButton: 'Voir tout',
+        addReviewButton: 'Laisser un commentaire'
     },
 
     ShareExperienceDialog: {

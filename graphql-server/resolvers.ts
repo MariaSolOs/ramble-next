@@ -8,12 +8,14 @@ import Occurrence from 'models/mongodb/occurrence';
 import Booking from 'models/mongodb/booking';
 import User from 'models/mongodb/user';
 import Creator from 'models/mongodb/creator';
+import Review from 'models/mongodb/review';
 import {
     experienceReducer,
     occurrenceReducer,
     bookingReducer,
     userReducer,
-    creatorReducer
+    creatorReducer,
+    reviewReducer
 } from 'lib/graphql';
 import { getPlaceholder, deleteUserPicture } from 'lib/cloudinary';
 import { computeBookingFees } from 'lib/booking';
@@ -158,6 +160,14 @@ export const resolvers: Resolvers = {
             }).lean(MONGOOSE_LEAN_DEFAULTS);
 
             return occs.map(occurrenceReducer);
+        },
+
+        getReviews: async (_, { experienceId }) => {
+            const reviews = await Review.find({ 
+                experience: experienceId 
+            }).lean(MONGOOSE_LEAN_DEFAULTS);
+
+            return reviews.map(reviewReducer);
         }
     },
 
@@ -459,6 +469,27 @@ export const resolvers: Resolvers = {
                 bookings: { $size: 0 }
             });
             return occurrenceReducer(occurrence);
+        },
+
+        createReview: async (_, { experienceId, value, text  }, { userId }) => {
+            // Find the user writing the review
+            const reviewer = await User.findById(userId, 'fstName lstName').lean();
+            if (!reviewer) {
+                throw new ApolloError('Reviewer not found.');
+            }
+
+            // Create the review
+            const reviewerName = `${reviewer.fstName} ${reviewer.lstName.charAt(0)}.`;
+            const newReview = await Review.create({
+                experience: experienceId,
+                reviewer: userId,
+                reviewerName,
+                value,
+                text,
+                approved: false
+            });
+
+            return reviewReducer(newReview);
         }
     }
 }

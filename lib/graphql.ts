@@ -5,6 +5,7 @@ import type { Occurrence } from 'models/mongodb/occurrence';
 import type { Booking } from 'models/mongodb/booking';
 import type { User } from 'models/mongodb/user';
 import type { Creator } from 'models/mongodb/creator';
+import type { Review } from 'models/mongodb/review';
 
 export const getGraphQLClient = () => {
     /* Base URL depends on if we're calling this from the client 
@@ -33,6 +34,7 @@ export const experienceReducer = (exp: Experience | null) => ({
     pricePerPerson: exp?.price.perPerson || 0,
     privatePrice: exp?.price.private || null,
     currency: exp?.price.currency || 'CAD',
+    numRatings: exp?.rating.numRatings || 0,
     ratingValue: exp && exp.rating.numRatings > 0 ? exp.rating.value : null,
     creator: exp?.creator || ''
 });
@@ -82,4 +84,12 @@ export const creatorReducer = (creator: Creator | null) => ({
         accountId: creator?.stripe ? creator.stripe.accountId : ''
     },
     bookingRequests: creator?.bookingRequests || []
+});
+
+export const reviewReducer = (review: Review | null) => ({
+    _id: review?._id || '',
+    experienceId: review?.experience || '',
+    writtenBy: review?.reviewerName || '',
+    text: review?.text || '',
+    value: review?.value || 5
 });

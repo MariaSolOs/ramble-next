@@ -32,7 +32,7 @@ export type TranslationRecord = {
 
     CategoryBox: Record<ExperienceCategory, string>;
 
-    Experience: Record<'online' | 'duration' | 'upTo' | 'person' | 'people' | 'language' | 'languages' | 'ageRestriction' | 'hostedBy' | 'aboutCreator' | 'planning' | 'included' | 'toBring' | 'location' | 'reviews' | 'reviewButton', string>;
+    Experience: Record<'online' | 'duration' | 'upTo' | 'person' | 'people' | 'language' | 'languages' | 'ageRestriction' | 'hostedBy' | 'aboutCreator' | 'planning' | 'included' | 'toBring' | 'location' | 'reviews' | 'seeAllReviewsButton' | 'addReviewButton', string>;
 
     ShareExperienceDialog: Record<'shareExperience' | 'copyLink' | 'copyTooltip', string>;
 

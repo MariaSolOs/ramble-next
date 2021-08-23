@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { getGraphQLClient } from 'lib/graphql';
+import { getSdk } from 'graphql-server/sdk';
 import useLanguageContext from 'context/languageContext';
 import type { RateExperienceDialogProps } from './index';
 
@@ -8,6 +10,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Rating from '@material-ui/lab/Rating';
 import CloseIcon from '@material-ui/icons/Close';
 import TextField from 'components/TextField';
+import Spinner from 'components/Spinner';
 
 import { makeStyles } from '@material-ui/core/styles';
 import styles from './RateExperienceDialog.styles';
@@ -15,16 +18,30 @@ const useStyles = makeStyles(styles);
 
 const MAX_RATING_LENGTH = 300;
 
+const graphQLClient = getGraphQLClient();
+const sdk = getSdk(graphQLClient);
+
 const RateExperienceDialog = (props: RateExperienceDialogProps) => {
     const { RateExperienceDialog: text } = useLanguageContext().appText;
     const classes = useStyles();
 
     const [ratingValue, setRatingValue] = useState<number>(5);
     const [review, setReview] = useState('');
+    const [loading, setLoading] = useState(false);
 
-    const handleSubmit = (event: React.FormEvent) => {
+    const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
 
+        setLoading(true);
+
+        // Submit rating
+        await sdk.createReview({
+            experienceId: props.experienceId,
+            value: ratingValue,
+            text: review
+        });
+
+        setLoading(false);
         props.onClose();
     }
 
@@ -35,6 +52,7 @@ const RateExperienceDialog = (props: RateExperienceDialogProps) => {
         maxWidth="xs" 
         fullWidth 
         className={classes.dialog}>
+            {loading && <Spinner />}
             <form className={classes.form} onSubmit={handleSubmit}>
                 <div className={classes.header}>
                     <h3 className={classes.title}>{text.dialogTitle}</h3>

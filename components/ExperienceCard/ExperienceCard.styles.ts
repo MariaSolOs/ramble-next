@@ -29,7 +29,6 @@ const styles = (theme: Theme) => createStyles({
         letterSpacing: '-0.02rem',
         color: '#ECEBE5',
         height: 'calc(40% + 5px)',
-        marginTop: -5,
         padding: '5px 10px 10px',
 
         [theme.breakpoints.down('xs')]: { padding: '5px 10px' }

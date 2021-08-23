@@ -1,0 +1,5 @@
+mutation createReview($experienceId: ID!, $value: Int!, $text: String!) {
+    createReview(experienceId: $experienceId, value: $value, text: $text) {
+        _id
+    }
+}

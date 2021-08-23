@@ -138,6 +138,15 @@ export const typeDefs = gql`
         Deletes an occurrence.
         """
         deleteOccurrence(occurrenceId: ID!): Occurrence!
+
+        """
+        Create a new review for the indicated experience.
+        """
+        createReview(
+            experienceId: ID!,
+            value: Int!, 
+            text: String!
+        ): Review!
     }
 
     """
@@ -208,6 +217,7 @@ export const typeDefs = gql`
         pricePerPerson: Int!
         privatePrice: Int
         currency: String!
+        numRatings: Int!
         ratingValue: Float
         creator: Creator!
     }
