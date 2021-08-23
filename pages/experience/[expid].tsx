@@ -68,7 +68,7 @@ const ExperienceDetailsPage: Page<Props> = (props) => {
 
     // Get the experience's reviews 
     const { data: reviewsData } = sdk.useGetReviews(router.isFallback ? null : ['getReviews', props.experience._id], 
-    { experienceId: props.experience._id }
+    { experienceId: props.experience?._id }
     );
 
     // Wait until experience is loaded
