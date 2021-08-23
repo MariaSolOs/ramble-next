@@ -125,6 +125,10 @@ const englishTranslation: TranslationRecord = {
         seeAllReviewsButton: 'See all',
         addReviewButton: 'Leave a review'
     },
+
+    AllReviewsDialog: {
+        title: 'Reviews from other guests'
+    },
     
     ShareExperienceDialog: {
         shareExperience: 'Share this experience',

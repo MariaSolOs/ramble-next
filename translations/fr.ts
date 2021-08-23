@@ -132,8 +132,12 @@ const frenchTranslation: TranslationRecord = {
         copyTooltip: 'Copié!'
     },
 
+    AllReviewsDialog: {
+        title: "Commentaires d'autres invités"
+    },
+
     RateExperienceDialog: {
-        dialogTitle: "Commentaires d'autres invités",
+        dialogTitle: 'Notez et commentez cette expérience',
         textfieldLabel: 'Faites savoir aux futurs clients ce que vous avez aimé de cette expérience.',
         doneButton: 'Terminé'
     },

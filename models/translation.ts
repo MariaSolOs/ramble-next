@@ -36,6 +36,8 @@ export type TranslationRecord = {
 
     ShareExperienceDialog: Record<'shareExperience' | 'copyLink' | 'copyTooltip', string>;
 
+    AllReviewsDialog: Record<'title', string>;
+
     RateExperienceDialog: Record<'dialogTitle' | 'textfieldLabel' | 'doneButton', string>;
 
     ExperienceDetails: Record<'bookExperience' | 'perConnection' | 'perPerson', string>;

@@ -342,7 +342,7 @@ export type CardContentFragment = (
 );
 
 export type ExperienceViewFragment = (
-  Pick<Experience, '_id' | 'title' | 'description' | 'location' | 'latitude' | 'longitude' | 'categories' | 'ageRestriction' | 'duration' | 'languages' | 'includedItems' | 'toBringItems' | 'capacity' | 'isOnlineExperience' | 'pricePerPerson' | 'ratingValue'>
+  Pick<Experience, '_id' | 'title' | 'description' | 'location' | 'latitude' | 'longitude' | 'categories' | 'ageRestriction' | 'duration' | 'languages' | 'includedItems' | 'toBringItems' | 'capacity' | 'isOnlineExperience' | 'pricePerPerson' | 'ratingValue' | 'numRatings'>
   & { images: Array<Pick<Image, 'src' | 'placeholder'>>, creator: (
     Pick<Creator, 'bio'>
     & { user: UserAvatarFragment }
@@ -709,6 +709,7 @@ export const ExperienceViewFragmentDoc = gql`
   isOnlineExperience
   pricePerPerson
   ratingValue
+  numRatings
   creator {
     bio
     user {
