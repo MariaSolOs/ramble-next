@@ -66,7 +66,7 @@ const ExperienceDetailsPage: Page<Props> = (props) => {
 
     const [state, dispatch] = useExperiencePageReducer();
 
-    // Get the experience's reviews 
+    // Get the experience's reviews when experience is defined
     const { data: reviewsData } = sdk.useGetReviews(router.isFallback ? null : ['getReviews', props.experience._id], 
     { experienceId: props.experience?._id }
     );
