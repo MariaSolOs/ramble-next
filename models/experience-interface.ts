@@ -111,7 +111,7 @@ export const getFormPreview = (
         includedItems: form.included,
         toBringItems: form.toBring,
         pricePerPerson: form.pricePerPerson,
-        numRatings: 0,
+        // numRatings: 0,
         creator: {
             bio: creatorBio,
             user: {
