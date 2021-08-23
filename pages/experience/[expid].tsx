@@ -67,16 +67,16 @@ const ExperienceDetailsPage: Page<Props> = (props) => {
     const [state, dispatch] = useExperiencePageReducer();
 
     // Get the experience's reviews 
-    const { data: reviewsData } = sdk.useGetReviews(['getReviews', props.experience._id], {
-        experienceId: props.experience._id
-    });
+    const { data: reviewsData } = sdk.useGetReviews(router.isFallback ? null : ['getReviews', props.experience._id], 
+    { experienceId: props.experience._id }
+    );
 
     // Wait until experience is loaded
     if (router.isFallback) {
         return <Spinner />;
     }
 
-    const allowUserReview = isExperienceBooked(props.experience._id);
+    const allowUserReview = isExperienceBooked(props.experience?._id);
     const shareUrl = `${process.env.NEXT_PUBLIC_RAMBLE_URL}${router.asPath}`;
 
     return (
