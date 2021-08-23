@@ -18,7 +18,6 @@ fragment ExperienceView on Experience {
     capacity
     isOnlineExperience
     pricePerPerson
-    numRatings
     ratingValue
     creator {
         bio
