@@ -370,7 +370,7 @@ export const desktopStyles = (theme: Theme) => createStyles({
         marginLeft: '1.5rem',
 
         '& .MuiRating-iconEmpty': { stroke: '#FFF' }
-    },
+    }
 });
 
 export const mobileStyles = (theme: Theme) => createStyles({

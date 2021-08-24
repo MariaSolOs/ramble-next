@@ -8,13 +8,6 @@ import Booking from 'models/mongodb/booking';
 import Creator from 'models/mongodb/creator';
 
 const handler: NextApiHandler = async (req, res) => {
-    // TODO: Remove this after we change domains
-    if (process.env.VERCEL_ENV !== 'development') {
-        return res.status(201).json({ 
-            message: 'Doing nothing for now.'
-        });
-    }
-
     // Security checks
     if (req.method !== 'POST') {
         res.setHeader('Allow', 'POST');

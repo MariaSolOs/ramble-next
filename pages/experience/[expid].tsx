@@ -12,6 +12,7 @@ import Spinner from 'components/Spinner';
 import RambleHead from 'components/RambleHead';
 import Layout from 'components/experience-page/Layout';
 import ShareExperienceDialog from 'components/ShareExperienceDialog';
+import AllReviewsDialog from 'components/experience-page/AllReviewsDialog';
 import RateExperienceDialog from 'components/experience-page/RateExperienceDialog';
 import Experience from 'components/Experience';
 
@@ -95,6 +96,12 @@ const ExperienceDetailsPage: Page<Props> = (props) => {
                 open={state.openShareDialog}
                 onClose={() => {
                     dispatch({ type: 'TOGGLE_SHARE_DIALOG', open: false });
+                }} />
+                <AllReviewsDialog
+                open={state.openAllReviews}
+                reviews={reviewsData?.getReviews || []}
+                onClose={() => {
+                    dispatch({ type: 'TOGGLE_ALL_REVIEWS_DIALOG', open: false });
                 }} />
                 {allowUserReview && 
                     <RateExperienceDialog 

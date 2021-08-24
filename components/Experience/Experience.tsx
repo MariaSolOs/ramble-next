@@ -271,7 +271,9 @@ const Experience = (props: ExperienceProps) => {
                         <div className={classes.reviewDivisor} />
                         <div className={classes.reviewsContainer}>
                             <h3 className={classes.sectionLabel}>{text.reviews}</h3>
-                            <button className={classes.showAllReviewsButton}>
+                            <button 
+                            onClick={props.onSeeAllReviews}
+                            className={classes.showAllReviewsButton}>
                                 {text.seeAllReviewsButton}
                             </button>
                             <ul className={classes.reviewList}>
