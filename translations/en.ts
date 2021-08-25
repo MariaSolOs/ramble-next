@@ -435,6 +435,10 @@ const englishTranslation: TranslationRecord = {
         createdExperiences: 'My experiences'
     },
 
+    CreatedExperiences: {
+        tip: 'Click on an experience to edit it.'
+    },
+
     NoExperiencesCard: {
         message: 'Go ahead and create your own experience.',
         button: 'Get started'

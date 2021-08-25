@@ -50,7 +50,7 @@ const FEATURED_EXPERIENCES_IDS = [
     '610acbb332b5150004b20c9f', // Crée ta propre chaussure en carton
     '60c50206daa7aa0017ca9c61', // #35mm Film Photography Introduction
     '6069e90709d1ae00172f4ea4', // Cocktails estivaux avec un mixologue
-    '610c38c8e608d800042db49a' // Remi Lemieux X Le Cuisinomane // Ultimus -10
+    '60f76485dbbabe0017308801' // Graffiti 101
 ];
 
 const graphQLClient = getGraphQLClient();

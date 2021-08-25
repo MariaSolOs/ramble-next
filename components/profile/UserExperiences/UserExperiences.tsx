@@ -1,5 +1,7 @@
-import ExperienceCard from 'components/ExperienceCard';
+import routes from 'routes';
 import type { UserExperiencesProps } from './index';
+
+import ExperienceCard from 'components/ExperienceCard';
 
 import { makeStyles } from '@material-ui/core/styles';
 import styles from './UserExperiences.styles';
@@ -16,6 +18,7 @@ const UserExperiences = (props: UserExperiencesProps) => {
                     <ExperienceCard
                     key={exp._id}
                     experience={exp}
+                    linkTo={routes.experienceDetails(exp._id)}
                     containerClass={classes.card} />
                 )}
             </div>

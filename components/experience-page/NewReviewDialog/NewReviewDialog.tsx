@@ -42,6 +42,7 @@ const NewReviewDialog = (props: NewReviewDialogProps) => {
         });
 
         setLoading(false);
+        
         props.onClose();
     }
 

@@ -5,6 +5,7 @@ import ExperienceCard from './ExperienceCard';
 
 export type ExperienceCardProps = {
     experience: CardType;
+    linkTo: { href: string; as: string };
     isSaved?: boolean;
     onHeartClick?: React.MouseEventHandler;
     containerClass?: string;

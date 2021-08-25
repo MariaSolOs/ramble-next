@@ -27,6 +27,7 @@ const FeaturedExperiences = (props: FeaturedExperiencesProps) => {
                         <ExperienceCard
                         key={exp._id}
                         experience={exp}
+                        linkTo={routes.experienceDetails(exp._id)}
                         containerClass={classes.experienceCard}
                         isSaved={isExperienceSaved(exp._id)}
                         onHeartClick={() => handleSavingToggle(exp._id)} />

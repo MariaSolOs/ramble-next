@@ -435,6 +435,10 @@ const frenchTranslation: TranslationRecord = {
         calendar: 'Calendrier'
     },
 
+    CreatedExperiences: {
+        tip: 'Cliquez sur une expérience pour la modifier.'
+    },
+
     NoExperiencesCard: {
         message: 'Lance-toi et crée ta propre experience.',
         button: 'Commencer'

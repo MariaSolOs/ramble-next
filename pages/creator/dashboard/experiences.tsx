@@ -7,8 +7,10 @@ import { getSdkWithHooks } from 'graphql-server/sdk';
 import useUiContext from 'context/uiContext';
 import type { Page } from 'models/application';
 
+import Spinner from 'components/Spinner';
 import DashboardLayout from 'components/creator-dashboard/DashboardLayout';
 import NoExperiencesCard from 'components/creator-dashboard/NoExperiencesCard';
+import CreatedExperiences from 'components/creator-dashboard/CreatedExperiences';
 
 const graphQLClient = getGraphQLClient();
 const sdk = getSdkWithHooks(graphQLClient);
@@ -31,17 +33,20 @@ const CreatedExperiencesPage: Page = () => {
         creatorId: session?.user.creatorId || ''
     });
 
-    if (data?.experiences.length === 0) {
+    if (!data) {
+        return <Spinner />;
+    }
+
+    if (data.experiences.length === 0) {
         return (
             <NoExperiencesCard 
             creatorName={session!.user.firstName} 
             creatorPhoto={session!.user.photo} />
         );
+    } else {
+        return <CreatedExperiences experiences={data.experiences} />;
     }
 
-    return (
-        <h1>Coming soon!</h1>
-    );
 }
 
 CreatedExperiencesPage.displayName = 'CreatedExperiencesPage';

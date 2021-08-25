@@ -1,3 +1,4 @@
+import routes from 'routes';
 import useUserExperiences from 'hooks/useUserExperiences';
 import type { ExperienceGalleryProps } from './index';
 
@@ -27,6 +28,7 @@ const ExperienceGallery = (props: ExperienceGalleryProps) => {
                     <div style={{ transitionDelay: `${index * 70}ms` }}>
                         <ExperienceCard
                         experience={exp}
+                        linkTo={routes.experienceDetails(exp._id)}
                         containerClass={classes.card}
                         isSaved={isExperienceSaved(exp._id)}
                         onHeartClick={() => handleSavingToggle(exp._id)} />

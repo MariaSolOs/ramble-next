@@ -6,6 +6,7 @@ const routes = {
     experienceDetails: (expid: string) => createRoute('/experience/[expid]', { expid }),
     bookExperience: (expid: string) => createRoute('/experience/booking', undefined, { expid }),
     newExperience: createRoute('/experience/new'),
+    editExperience: (expid: string) => createRoute('/experience/edit', undefined, { expid }),
     userProfile: createRoute('/profile/personal-information'),
     userExperiences: createRoute('/profile/experiences'),
     becomeACreator: createRoute('/creator/become'),

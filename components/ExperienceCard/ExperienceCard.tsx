@@ -1,11 +1,10 @@
 import React from 'react';
 
-import routes from 'routes';
 import useLanguageContext from 'context/languageContext';
 import type { ExperienceCardProps } from './index';
 
-import Link from 'next/link';
 import Image from 'next/image';
+import NavLink from 'components/NavLink';
 import StarRateIcon from '@material-ui/icons/StarRate';
 import Fab from '@material-ui/core/Fab';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -41,8 +40,7 @@ const ExperienceCard = (props: ExperienceCardProps) => {
                 onClick={props.onHeartClick}>
                     <FontAwesomeIcon icon={faHeart} className={classes.heartIcon} />
                 </Fab>}
-            <Link { ...routes.experienceDetails(props.experience._id) } passHref>
-                <a className={classes.link}>
+                <NavLink link={props.linkTo} className={classes.link}>
                     {props.experience.isOnlineExperience && 
                         <div className={classes.online}>
                             <Image
@@ -76,8 +74,7 @@ const ExperienceCard = (props: ExperienceCardProps) => {
                             {priceText.toUpperCase()}
                         </p>
                     </div>
-                </a>
-            </Link>
+            </NavLink>
         </div>
     );
 }
