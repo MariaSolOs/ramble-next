@@ -9,11 +9,12 @@ import { isOptimizedImage } from 'models/files';
 import type { ExperienceProps, CarouselImgProps } from './index';
 
 import Image from 'next/image';
-import { StaticMap, Marker } from 'react-map-gl';
 import Fab from '@material-ui/core/Fab';
 import Avatar from '@material-ui/core/Avatar';
 import Collapse from '@material-ui/core/Collapse';
 import Rating from '@material-ui/lab/Rating';
+import Carousel from 'react-image-gallery';
+import StarRateIcon from '@material-ui/icons/StarRate';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShareSquare } from '@fortawesome/free-solid-svg-icons/faShareSquare';
 import { faClock } from '@fortawesome/free-solid-svg-icons/faClock';
@@ -21,12 +22,10 @@ import { faUsers } from '@fortawesome/free-solid-svg-icons/faUsers';
 import { faComments } from '@fortawesome/free-solid-svg-icons/faComments';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons/faUserPlus';
 import { faHeart } from '@fortawesome/free-solid-svg-icons/faHeart';
-import Carousel from 'react-image-gallery';
 import CategoryBox from 'components/CategoryBox';
 import onlineIcon from 'public/images/online-experience-icon.svg';
 
 import 'react-image-gallery/styles/css/image-gallery.css';
-import 'mapbox-gl/dist/mapbox-gl.css';
 import { makeStyles } from '@material-ui/core/styles';
 import { desktopStyles, mobileStyles } from './Experience.styles';
 
@@ -143,6 +142,11 @@ const Experience = (props: ExperienceProps) => {
                         <h3 className={classes.location}>
                             {experience.location}
                         </h3>
+                        {experience.ratingValue && 
+                            <p className={classes.ratingValue}>
+                                <StarRateIcon />
+                                {experience.ratingValue.toFixed(1)}
+                            </p>}
                     </div>
                     <div className={classes.shareSaveContainer}>
                         {props.onShareClick && 
@@ -249,21 +253,11 @@ const Experience = (props: ExperienceProps) => {
                     <>
                         <h3 className={classes.sectionLabel}>{text.location}</h3>
                         <div className={classes.map}>
-                            <StaticMap
-                            mapboxApiAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
-                            mapStyle="mapbox://styles/mapbox/dark-v9"
-                            width="100%"
-                            height={300}
-                            zoom={13}
-                            latitude={experience.latitude || undefined}
-                            longitude={experience.longitude || undefined}>
-                                <Marker 
-                                latitude={experience.latitude!}
-                                longitude={experience.longitude!} 
-                                className={classes.mapMarker}>
-                                    <div className={classes.mapMarkerDot} />
-                                </Marker>
-                            </StaticMap>
+                            <Image
+                            alt="map"
+                            src={`https://api.mapbox.com/styles/v1/mapbox/dark-v9/static/pin-l+FFF(${experience.longitude},${experience.latitude})/${experience.longitude},${experience.latitude},13/500x300@2x?access_token=${process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}`}
+                            layout="fill"
+                            objectFit="cover" />
                         </div>
                     </>}
                 {(props.reviews && props.reviews.length > 0) &&

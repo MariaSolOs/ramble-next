@@ -5,8 +5,8 @@ import routes from 'routes';
 import useLanguageContext from 'context/languageContext';
 import type { LayoutProps } from './index';
 
-import GradientButton from 'components/GradientButton';
 import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
+import GradientButton from 'components/GradientButton';
 
 import { makeStyles } from '@material-ui/core/styles';
 import styles from './Layout.styles';

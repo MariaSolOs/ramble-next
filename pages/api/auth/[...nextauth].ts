@@ -39,6 +39,7 @@ export default NextAuth({
                             lastName: credentials.lastName!,
                             phoneNumber: credentials.phoneNumber!
                         });
+
                         return {
                             userId: data.signUpUser._id
                         }
@@ -53,8 +54,8 @@ export default NextAuth({
                         }
                     }
                 } catch (err: any) {
-                    const errorMessage = err.message || "We couldn't sign you in.";
-                    throw errorMessage;
+                    const errorMessage = err.response?.errors[0]?.message || "We couldn't sign you in.";
+                    throw new Error(errorMessage);
                 }
             }
         })

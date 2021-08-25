@@ -9,11 +9,7 @@ import { getStripe } from 'lib/client-stripe';
 import type { AppProps } from 'models/application';
 
 import Head from 'next/head';
-import Navbar from 'components/Navbar';
-import { LogInDialog, SignUpDialog } from 'components/AuthDialogs';
-import ErrorDialog from 'components/ErrorDialog';
-import Snackbar from 'components/Snackbar';
-import GlobalStyles from 'GlobalStyles';
+import GlobalLayout from 'components/GlobalLayout';
 
 // Fullcalendar styles
 import '@fullcalendar/common/main.css';
@@ -45,12 +41,7 @@ const App = ({ Component, pageProps }: AppProps) => {
             <LanguageContextProvider>
                 <UiContextProvider>
                     <UserContextProvider>
-                        <GlobalStyles>
-                            <Navbar />
-                            <LogInDialog />
-                            <SignUpDialog />
-                            <ErrorDialog />
-                            <Snackbar />
+                        <GlobalLayout>
                             <PageLayout>
                                 {/* Add Stripe elements to the booking page only. */}
                                 {Component.displayName === 'BookExperiencePage' ?
@@ -59,7 +50,7 @@ const App = ({ Component, pageProps }: AppProps) => {
                                     </Elements> :
                                     <Component { ...pageProps } />}
                             </PageLayout>
-                        </GlobalStyles>
+                        </GlobalLayout>
                     </UserContextProvider>
                 </UiContextProvider>
             </LanguageContextProvider>

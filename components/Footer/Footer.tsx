@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import dynamic from 'next/dynamic';
 
 import useLanguageContext from 'context/languageContext';
 
@@ -7,11 +8,15 @@ import LanguageIcon from '@material-ui/icons/Language';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons/faFacebook';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons/faInstagram';
-import CustomerServiceDialog from 'components/CustomerServiceDialog';
+import type { CustomerServiceDialogProps } from 'components/CustomerServiceDialog';
 
 import { makeStyles } from '@material-ui/core/styles';
 import styles from './Footer.styles';
 const useStyles = makeStyles(styles);
+
+const CustomerServiceDialog = dynamic<CustomerServiceDialogProps>(() => 
+    import('components/CustomerServiceDialog')
+);
 
 const Footer = () => {
     const { appText, toggleLanguage } = useLanguageContext();
@@ -22,9 +27,10 @@ const Footer = () => {
 
     return (
         <>
-            <CustomerServiceDialog 
-            open={showCustomerServiceDialog}
-            onClose={() => setShowCustomerServiceDialog(false)} />
+            {showCustomerServiceDialog && 
+                <CustomerServiceDialog 
+                open
+                onClose={() => setShowCustomerServiceDialog(false)} />}
             <footer className={classes.footer}>
                 <h4 className={classes.title}>ramble</h4>
                 <div className={classes.body}>

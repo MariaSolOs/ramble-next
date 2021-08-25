@@ -8,10 +8,13 @@ const withTM = require('next-transpile-modules')([
     '@fullcalendar/interaction',
     '@fullcalendar/timegrid'
 ]);
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+    enabled: process.env.ANALYZE === 'true'
+});
 
-module.exports = withPlaiceholder(withTM({
+module.exports = withBundleAnalyzer(withPlaiceholder(withTM({
     images: {
-        domains: ['res.cloudinary.com']
+        domains: ['res.cloudinary.com', 'api.mapbox.com']
     },
     webpack(config, { dev, isServer }) {
         // For getting all Typescript errors
@@ -35,4 +38,4 @@ module.exports = withPlaiceholder(withTM({
      
         return config;
     }
-}));
+})));

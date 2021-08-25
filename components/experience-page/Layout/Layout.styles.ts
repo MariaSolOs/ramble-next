@@ -32,17 +32,17 @@ const styles = (theme: Theme) => createStyles({
 
         [theme.breakpoints.down('xs')]: { height: 60 }
     },
-
+    
     footerPriceInfo: {
-        margin: '0 0 0 calc(50% - 82px)',
         color: '#BFBFBF',
         fontSize: '0.9rem',
-        letterSpacing: '-0.03rem',
         textTransform: 'uppercase',
+        letterSpacing: '-0.03rem',
+        margin: '0 auto 0 calc(50% - 85px)',
 
-        [theme.breakpoints.down('sm')]: { 
-            margin: '0 0 0 10px',
-            fontSize: '0.75rem'
+        [theme.breakpoints.down('xs')]: { 
+            fontSize: '0.75rem',
+            margin: '0 auto'
         }
     },
 
@@ -54,7 +54,7 @@ const styles = (theme: Theme) => createStyles({
 
         '&:first-letter': { fontSize: '1rem' },
 
-        [theme.breakpoints.down('sm')]: { fontSize: '1.25rem' }
+        [theme.breakpoints.down('sm')]: { fontSize: '1.2rem' }
     },
 
     bookingButton: {
@@ -63,10 +63,10 @@ const styles = (theme: Theme) => createStyles({
         borderRadius: '0.5rem',
         fontSize: '1rem',
         padding: '0 10px',
-        margin: '0 150px 0 auto',
+        marginRight: 120,
 
         [theme.breakpoints.down('sm')]: { 
-            margin: '0 10px 0 auto',
+            marginRight: 10,
             fontSize: '0.9rem',
             width: 100
         }
@@ -75,10 +75,9 @@ const styles = (theme: Theme) => createStyles({
     goBackIcon: {
         fontSize: '1.8rem',
         marginLeft: 10,
-        display: 'none',
         cursor: 'pointer',
 
-        [theme.breakpoints.down('sm')]: { display: 'inline-block' }
+        [theme.breakpoints.up('sm')]: { display: 'none' }
     }
 });
 

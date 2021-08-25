@@ -70,6 +70,7 @@ const CategoryBox = (props: CategoryBoxProps) => {
                     <Image
                     src={category.icon}
                     alt={category.title}
+                    priority
                     layout="fill" />
                 </div>
                 <span className={`${classes.title} ${props.titleClass}`}>

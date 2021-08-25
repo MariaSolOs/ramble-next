@@ -138,6 +138,18 @@ export const desktopStyles = (theme: Theme) => createStyles({
         [theme.breakpoints.down('xs')]: { fontSize: '0.85rem' }
     },
 
+    ratingValue: {
+        alignItems: 'center',
+        display: 'flex',
+        margin: '8px 0 0',
+        fontSize: '1.1rem',
+
+        [theme.breakpoints.down('xs')]: {
+            margin: 0,
+            fontSize: '0.9rem'
+        }
+    },
+
     shareSaveContainer: {
         display: 'flex',
         marginTop: 33,
@@ -303,27 +315,12 @@ export const desktopStyles = (theme: Theme) => createStyles({
     map: {
         maxWidth: 500,
         marginTop: 10,
-        '& div > *': { cursor: 'default' },
-        '& .mapboxgl-map': {
-            borderRadius: '1.7rem',
-        }
-    },
-
-    mapMarker: {
-        backgroundColor: 'rgba(197, 197, 197, 0.4)',
-        width: 40, 
-        height: 40,
-        borderRadius: '100%',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-
-    mapMarkerDot: {
-        backgroundColor: '#FFF',
-        width: 15, 
-        height: 15,
-        borderRadius: '100%'
+        borderRadius: '1.7rem',
+        overflow: 'hidden',
+        position: 'relative',
+        height: 300,
+        color: '#FFF',
+        backgroundColor: '#1C1C1C'
     },
 
     reviewDivisor: {
@@ -474,6 +471,13 @@ export const mobileStyles = (theme: Theme) => createStyles({
         fontSize: '0.85rem'
     },
 
+    ratingValue: {
+        alignItems: 'center',
+        display: 'flex',
+        margin: 0,
+        fontSize: '0.9rem'
+    },
+
     shareSaveContainer: {
         display: 'flex',
         margin: 0,
@@ -618,27 +622,12 @@ export const mobileStyles = (theme: Theme) => createStyles({
     map: {
         maxWidth: 500,
         marginTop: 10,
-        '& div > *': { cursor: 'default' },
-        '& .mapboxgl-map': {
-            borderRadius: '1.7rem',
-        }
-    },
-
-    mapMarker: {
-        backgroundColor: 'rgba(197, 197, 197, 0.4)',
-        width: 40, 
-        height: 40,
-        borderRadius: '100%',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-
-    mapMarkerDot: {
-        backgroundColor: '#FFF',
-        width: 15, 
-        height: 15,
-        borderRadius: '100%'
+        borderRadius: '1.7rem',
+        overflow: 'hidden',
+        position: 'relative',
+        height: 300,
+        color: '#FFF',
+        backgroundColor: '#1C1C1C'
     },
 
     // For experiences that are just in preview, don't show reviews

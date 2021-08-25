@@ -164,7 +164,8 @@ export const resolvers: Resolvers = {
 
         getReviews: async (_, { experienceId }) => {
             const reviews = await Review.find({ 
-                experience: experienceId 
+                experience: experienceId,
+                approved: true
             }).lean(MONGOOSE_LEAN_DEFAULTS);
 
             return reviews.map(reviewReducer);
