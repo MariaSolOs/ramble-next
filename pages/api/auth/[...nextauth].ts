@@ -1,5 +1,6 @@
 import NextAuth from 'next-auth';
 import Providers from 'next-auth/providers';
+import type { ClientError } from 'graphql-request';
 
 import { getGraphQLClient } from 'lib/graphql';
 import { getSdk } from 'graphql-server/sdk';
@@ -54,7 +55,8 @@ export default NextAuth({
                         }
                     }
                 } catch (err: any) {
-                    const errorMessage = err.response?.errors[0]?.message || "We couldn't sign you in.";
+                    const errors = (err as ClientError).response.errors;
+                    const errorMessage = errors ? errors[0].message : "We couldn't sign you in.";
                     throw new Error(errorMessage);
                 }
             }

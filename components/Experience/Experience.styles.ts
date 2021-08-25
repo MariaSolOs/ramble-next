@@ -138,7 +138,7 @@ export const desktopStyles = (theme: Theme) => createStyles({
         [theme.breakpoints.down('xs')]: { fontSize: '0.85rem' }
     },
 
-    ratingValue: {
+    rating: {
         alignItems: 'center',
         display: 'flex',
         margin: '8px 0 0',
@@ -148,6 +148,14 @@ export const desktopStyles = (theme: Theme) => createStyles({
             margin: 0,
             fontSize: '0.9rem'
         }
+    },
+
+    numRatings: {
+        fontSize: '0.9rem',
+        marginLeft: 10,
+        color: '#BFBFBF',
+
+        [theme.breakpoints.down('xs')]: { fontSize: '0.75rem' }
     },
 
     shareSaveContainer: {
@@ -282,7 +290,7 @@ export const desktopStyles = (theme: Theme) => createStyles({
         margin: '0 10px'
     },
 
-    bioToggler: {
+    darkButton: {
         backgroundColor: '#242424',
         borderRadius: '0.5rem',
         color: '#ECEBE5',
@@ -330,7 +338,14 @@ export const desktopStyles = (theme: Theme) => createStyles({
         marginTop: '1.5rem'
     },
 
-    reviewsContainer: { position: 'relative' },
+    reviewsContainer: { 
+        position: 'relative',
+        
+        '& $darkButton': {
+            margin: '1rem auto 0',
+            display: 'block'
+        }
+    },
 
     showAllReviewsButton: {
         fontFamily: theme.typography.fontFamily,
@@ -362,7 +377,7 @@ export const desktopStyles = (theme: Theme) => createStyles({
         margin: '2rem 0 0'
     },
 
-    rating: {
+    ratingStars: {
         color: '#FFF',
         marginLeft: '1.5rem',
 
@@ -471,11 +486,19 @@ export const mobileStyles = (theme: Theme) => createStyles({
         fontSize: '0.85rem'
     },
 
-    ratingValue: {
+    rating: {
         alignItems: 'center',
         display: 'flex',
         margin: 0,
         fontSize: '0.9rem'
+    },
+
+    numRatings: {
+        fontSize: '0.9rem',
+        marginLeft: 10,
+        color: '#BFBFBF',
+
+        [theme.breakpoints.down('xs')]: { fontSize: '0.75rem' }
     },
 
     shareSaveContainer: {
@@ -589,7 +612,7 @@ export const mobileStyles = (theme: Theme) => createStyles({
         margin: '0 10px'
     },
 
-    bioToggler: {
+    darkButton: {
         backgroundColor: '#242424',
         borderRadius: '0.5rem',
         color: '#ECEBE5',
@@ -636,5 +659,5 @@ export const mobileStyles = (theme: Theme) => createStyles({
     showAllReviewsButton: {},
     reviewList: {},
     reviewTitle: {},
-    rating: {}
+    ratingStars: {}
 });

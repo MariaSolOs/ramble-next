@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { getGraphQLClient } from 'lib/graphql';
 import { getSdk } from 'graphql-server/sdk';
 import useLanguageContext from 'context/languageContext';
-import type { RateExperienceDialogProps } from './index';
+import type { NewReviewDialogProps } from './index';
 
 import Dialog from '@material-ui/core/Dialog';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -13,7 +13,7 @@ import TextField from 'components/TextField';
 import Spinner from 'components/Spinner';
 
 import { makeStyles } from '@material-ui/core/styles';
-import styles from './RateExperienceDialog.styles';
+import styles from './NewReviewDialog.styles';
 const useStyles = makeStyles(styles);
 
 const MAX_RATING_LENGTH = 300;
@@ -21,7 +21,7 @@ const MAX_RATING_LENGTH = 300;
 const graphQLClient = getGraphQLClient();
 const sdk = getSdk(graphQLClient);
 
-const RateExperienceDialog = (props: RateExperienceDialogProps) => {
+const NewReviewDialog = (props: NewReviewDialogProps) => {
     const { RateExperienceDialog: text } = useLanguageContext().appText;
     const classes = useStyles();
 
@@ -93,12 +93,15 @@ const RateExperienceDialog = (props: RateExperienceDialogProps) => {
                         </InputAdornment>
                     )
                 }} />
+                <button 
+                disabled={review.length === 0}
+                type="submit" 
+                className={classes.doneButton}>
+                    {text.doneButton}
+                </button>
             </form>
-            <button type="submit" className={classes.doneButton}>
-                {text.doneButton}
-            </button>
         </Dialog>
     );
 }
 
-export default RateExperienceDialog;
+export default NewReviewDialog;

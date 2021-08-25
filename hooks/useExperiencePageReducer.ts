@@ -34,6 +34,13 @@ export default function useExperiencePageReducer() {
                     openAllReviews: action.open,
                     openNewReviewDialog: false
                 }
+            case 'TOGGLE_NEW_REVIEW_DIALOG':
+                return {
+                    ...state,
+                    openShareDialog: false,
+                    openAllReviews: false,
+                    openNewReviewDialog: action.open
+                }
             default: return state;
         }
     }, []);

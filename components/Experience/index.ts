@@ -13,7 +13,7 @@ export type ExperienceProps = {
     useMobileDisplay?: boolean;
     reviews?: GetReviewsQuery['getReviews'];
     onSeeAllReviews?: React.MouseEventHandler;
-    showReviewButton?: boolean;
+    onAddReview?: React.MouseEventHandler;
 }
 
 export type ExperienceStyleProps = {

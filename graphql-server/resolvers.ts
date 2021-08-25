@@ -479,16 +479,30 @@ export const resolvers: Resolvers = {
                 throw new ApolloError('Reviewer not found.');
             }
 
+            // Find the experience
+            const experience = await Experience.findById(experienceId, '_id rating');
+            if (!experience) {
+                throw new ApolloError('Experience not found.');
+            }
+
             // Create the review
             const reviewerName = `${reviewer.fstName} ${reviewer.lstName.charAt(0)}.`;
             const newReview = await Review.create({
-                experience: experienceId,
+                experience: experience._id,
                 reviewer: userId,
                 reviewerName,
                 value,
                 text,
                 approved: false
             });
+
+            /* New rating value = value/numRatings + newValue
+                                = (value + (numRatings * newValue)) / (numRatings + 1) */
+            const ratingNumerator = experience.rating.value + (value * experience.rating.numRatings);
+            const ratingDenominator = experience.rating.numRatings + 1;
+            experience.rating.value = ratingNumerator / ratingDenominator;
+            experience.rating.numRatings += 1;
+            await experience.save();
 
             return reviewReducer(newReview);
         }

@@ -6,10 +6,14 @@ import useUiContext from 'context/uiContext';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Navbar from 'components/Navbar';
-const Snackbar = dynamic(() => import('components/Snackbar'));
-const ErrorDialog = dynamic(() => import('components/ErrorDialog'));
+const Snackbar = dynamic(() => 
+    import('components/Snackbar')
+);
+const ErrorDialog = dynamic(() => 
+    import('components/ErrorDialog')
+);
 const SignUpDialog = dynamic<{}>(() => 
-    import('components/AuthDialogs').then(mod => mod.SignUpDialog)
+import('components/AuthDialogs').then(mod => mod.SignUpDialog)
 );
 const LogInDialog = dynamic<{}>(() => 
     import('components/AuthDialogs').then(mod => mod.LogInDialog)

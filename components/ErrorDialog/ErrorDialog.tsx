@@ -27,7 +27,7 @@ const ErrorDialog = () => {
                     src={errorImage}
                     alt={errorMessage}
                     className={classes.image}
-                    placeholder="blur" />
+                    priority />
                 </div>
                 <h4 className={classes.title}>{text.title}</h4>
             </div>

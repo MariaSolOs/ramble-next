@@ -16,7 +16,9 @@ import RambleHead from 'components/RambleHead';
 import ExperienceGallery from 'components/search-experiences/ExperienceGallery';
 /* Import the searchbar dynamically so that we can set the initial
 values from the client. */
-const Searchbar = dynamic(() => import('components/search-experiences/Searchbar'), { ssr: false });
+const Searchbar = dynamic(() => 
+    import('components/search-experiences/Searchbar'), { ssr: false }
+);
 
 type Props = {
     locationsList: string[];

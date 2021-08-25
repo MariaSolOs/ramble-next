@@ -143,9 +143,12 @@ const Experience = (props: ExperienceProps) => {
                             {experience.location}
                         </h3>
                         {experience.ratingValue && 
-                            <p className={classes.ratingValue}>
+                            <p className={classes.rating}>
                                 <StarRateIcon />
                                 {experience.ratingValue.toFixed(1)}
+                                <span className={classes.numRatings}>
+                                    ({experience.numRatings})
+                                </span>
                             </p>}
                     </div>
                     <div className={classes.shareSaveContainer}>
@@ -221,7 +224,7 @@ const Experience = (props: ExperienceProps) => {
                         {creator.user.firstName}
                     </span>
                     <button 
-                    className={classes.bioToggler} 
+                    className={classes.darkButton} 
                     onClick={() => setIsBioExpanded(!isBioExpanded)}>
                         {text.aboutCreator}
                     </button>
@@ -260,32 +263,40 @@ const Experience = (props: ExperienceProps) => {
                             objectFit="cover" />
                         </div>
                     </>}
-                {(props.reviews && props.reviews.length > 0) &&
+                {props.reviews &&
                     <>
                         <div className={classes.reviewDivisor} />
                         <div className={classes.reviewsContainer}>
                             <h3 className={classes.sectionLabel}>{text.reviews}</h3>
                             <button 
+                            disabled={props.reviews.length === 0}
                             onClick={props.onSeeAllReviews}
                             className={classes.showAllReviewsButton}>
                                 {text.seeAllReviewsButton}
                             </button>
-                            <ul className={classes.reviewList}>
-                                {props.reviews.slice(0, 4).map(review =>
-                                    <li key={review._id}>
-                                        <h4 className={classes.reviewTitle}>
-                                            {review.writtenBy}
-                                            <Rating
-                                            readOnly
-                                            value={review.value}
-                                            className={classes.rating} />
-                                        </h4>
-                                        <p className={classes.bodyText}>
-                                            {review.text}
-                                        </p>
-                                    </li>
-                                )}
-                            </ul>
+                            {props.reviews.length > 0 && 
+                                <ul className={classes.reviewList}>
+                                    {props.reviews.slice(0, 4).map(review =>
+                                        <li key={review._id}>
+                                            <h4 className={classes.reviewTitle}>
+                                                {review.writtenBy}
+                                                <Rating
+                                                readOnly
+                                                value={review.value}
+                                                className={classes.ratingStars} />
+                                            </h4>
+                                            <p className={classes.bodyText}>
+                                                {review.text}
+                                            </p>
+                                        </li>
+                                    )}
+                                </ul>}
+                            {props.onAddReview &&
+                                <button 
+                                className={classes.darkButton} 
+                                onClick={props.onAddReview}>
+                                    {text.addReviewButton}
+                                </button>}
                         </div>
                     </>}
             </div>

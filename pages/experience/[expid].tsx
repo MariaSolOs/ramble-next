@@ -1,5 +1,6 @@
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
 
 import { getGraphQLClient } from 'lib/graphql';
 import { getSdkWithHooks } from 'graphql-server/sdk';
@@ -11,10 +12,16 @@ import type { Page } from 'models/application';
 import Spinner from 'components/Spinner';
 import RambleHead from 'components/RambleHead';
 import Layout from 'components/experience-page/Layout';
-import ShareExperienceDialog from 'components/ShareExperienceDialog';
-import AllReviewsDialog from 'components/experience-page/AllReviewsDialog';
-import RateExperienceDialog from 'components/experience-page/RateExperienceDialog';
 import Experience from 'components/Experience';
+const ShareExperienceDialog = dynamic(() => 
+    import('components/experience-page/ShareExperienceDialog')
+);
+const AllReviewsDialog = dynamic(() => 
+    import('components/experience-page/AllReviewsDialog')
+);
+const NewReviewDialog = dynamic(() => 
+    import('components/experience-page/NewReviewDialog')
+);
 
 type Props = {
     experience: ExperienceType;
@@ -90,21 +97,23 @@ const ExperienceDetailsPage: Page<Props> = (props) => {
             experienceId={props.experience._id}
             experiencePrice={props.experience.pricePerPerson}
             isOnlineExperience={props.experience.isOnlineExperience}>
-                <ShareExperienceDialog
-                shareUrl={shareUrl}
-                experienceTitle={props.experience.title}
-                open={state.openShareDialog}
-                onClose={() => {
-                    dispatch({ type: 'TOGGLE_SHARE_DIALOG', open: false });
-                }} />
-                <AllReviewsDialog
-                open={state.openAllReviews}
-                reviews={reviewsData?.getReviews || []}
-                onClose={() => {
-                    dispatch({ type: 'TOGGLE_ALL_REVIEWS_DIALOG', open: false });
-                }} />
-                {allowUserReview && 
-                    <RateExperienceDialog 
+                {state.openShareDialog && 
+                    <ShareExperienceDialog
+                    shareUrl={shareUrl}
+                    experienceTitle={props.experience.title}
+                    open={state.openShareDialog}
+                    onClose={() => {
+                        dispatch({ type: 'TOGGLE_SHARE_DIALOG', open: false });
+                    }} />}
+                {state.openAllReviews && 
+                    <AllReviewsDialog
+                    open={state.openAllReviews}
+                    reviews={reviewsData?.getReviews || []}
+                    onClose={() => {
+                        dispatch({ type: 'TOGGLE_ALL_REVIEWS_DIALOG', open: false });
+                    }} />}
+                {(allowUserReview && state.openNewReviewDialog) && 
+                    <NewReviewDialog 
                     experienceId={props.experience._id}
                     open={state.openNewReviewDialog}
                     onClose={() => {
@@ -113,8 +122,10 @@ const ExperienceDetailsPage: Page<Props> = (props) => {
                 <Experience 
                 experience={props.experience}
                 isExperienceSaved={isExperienceSaved(props.experience._id)}
-                showReviewButton={allowUserReview}
                 reviews={reviewsData?.getReviews}
+                onAddReview={allowUserReview ? () => {
+                    dispatch({ type: 'TOGGLE_NEW_REVIEW_DIALOG', open: true });
+                } : undefined}
                 onShareClick={() => {
                     dispatch({ type: 'TOGGLE_SHARE_DIALOG', open: true });
                 }}
