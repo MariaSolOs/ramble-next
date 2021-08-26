@@ -72,7 +72,7 @@ const LogInDialog = () => {
         <Dialog 
         fullWidth 
         className={classes.dialog} 
-        open={open}
+        open={open && !showForgotPwdDialog}
         onClose={handleClose}>
             {loading && <Spinner />}
             <div className={classes.header}>
