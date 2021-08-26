@@ -6,7 +6,7 @@ import type { EventInput } from '@fullcalendar/react';
 
 import useLanguageContext from 'context/languageContext';
 import useUiContext from 'context/uiContext';
-import useExperienceCreationReducer from 'hooks/useExperienceCreationReducer';
+import useCreateExperienceReducer from 'hooks/useCreateExperienceReducer';
 import useRouterPrompt from 'hooks/useRouterPrompt';
 import useLanguages from 'hooks/useLanguages';
 import { getGraphQLClient } from 'lib/graphql';
@@ -17,7 +17,7 @@ import type {
     BooleanField,
     NumberField,
     ArrayField
-} from 'hooks/useExperienceCreationReducer';
+} from 'hooks/useCreateExperienceReducer';
 import type { Page } from 'models/application';
 
 import Spinner from 'components/Spinner';
@@ -51,7 +51,7 @@ const CreateExperiencePage: Page = () => {
     const router = useRouter();
     const languageList = useLanguages();
 
-    const [state, dispatch] = useExperienceCreationReducer();
+    const [state, dispatch] = useCreateExperienceReducer();
     const [animationIn, setAnimationIn] = useState(false);
     const [animationDone, setAnimationDone] = useState(false);
     const [createdTitle, setCreatedTitle] = useState('');

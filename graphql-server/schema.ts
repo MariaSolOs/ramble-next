@@ -283,7 +283,7 @@ export const typeDefs = gql`
     """
     type Review {
         _id: ID!
-        experienceId: ID!
+        experience: ID!
         writtenBy: String!
         text: String!
         value: Int!

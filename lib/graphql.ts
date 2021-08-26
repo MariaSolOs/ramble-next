@@ -88,7 +88,7 @@ export const creatorReducer = (creator: Creator | null) => ({
 
 export const reviewReducer = (review: Review | null) => ({
     _id: review?._id || '',
-    experienceId: review?.experience || '',
+    experience: review?.experience || '',
     writtenBy: review?.reviewerName || '',
     text: review?.text || '',
     value: review?.value || 5

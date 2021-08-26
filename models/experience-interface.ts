@@ -44,6 +44,22 @@ export const CREATION_STEPS = [
 
 export type CreationStep = typeof CREATION_STEPS[number];
 
+// The following are ordered as displayed on the editing navbar
+export const EDIT_STEPS = [
+    'location',
+    'planning',
+    'duration',
+    'language',
+    'age',
+    'preview', 
+    'included',
+    'toBring',
+    'price',
+    'review'
+] as const;
+
+export type EditStep = typeof EDIT_STEPS[number];
+
 export type Experience = Omit<ExperienceViewFragment, 'images'> & {
     images: Image[] | string[];
 }

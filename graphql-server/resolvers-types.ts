@@ -291,7 +291,7 @@ export enum Reservation {
 export type Review = {
   __typename?: 'Review';
   _id: Scalars['ID'];
-  experienceId: Scalars['ID'];
+  experience: Scalars['ID'];
   writtenBy: Scalars['String'];
   text: Scalars['String'];
   value: Scalars['Int'];
@@ -542,7 +542,7 @@ export type QueryResolvers<ContextType = Context, ParentType extends ResolversPa
 
 export type ReviewResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Review'] = ResolversParentTypes['Review']> = {
   _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  experienceId?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  experience?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   writtenBy?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   text?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   value?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;

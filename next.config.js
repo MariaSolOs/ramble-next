@@ -28,6 +28,8 @@ module.exports = withBundleAnalyzer(withPlaiceholder(withTM({
                 fs: false
             }
         }
+
+        // Copy our email templates
         if (!dev) {
             config.plugins.push(
                 new CopyPlugin({

@@ -12,7 +12,6 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import TextField from 'components/TextField';
 import GradientButton from 'components/GradientButton';
-import ForgotPasswordDialog from 'components/ForgotPasswordDialog';
 
 import { makeStyles } from '@material-ui/core/styles';
 import styles from './AuthDialogs.styles';
@@ -33,7 +32,6 @@ const LogInDialog = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
-    const [showForgotPwdDialog, setShowForgotPwdDialog] = useState(false);
 
     const handleClose = () => {
         setEmail('');
@@ -60,19 +58,11 @@ const LogInDialog = () => {
         handleClose();
     }
 
-    if (showForgotPwdDialog) {
-        return (
-            <ForgotPasswordDialog
-            open={showForgotPwdDialog}
-            onClose={() => setShowForgotPwdDialog(false)} />
-        );
-    }
-
     return (
         <Dialog 
         fullWidth 
         className={classes.dialog} 
-        open={open && !showForgotPwdDialog}
+        open={open}
         onClose={handleClose}>
             {loading && <Spinner />}
             <div className={classes.header}>
@@ -110,8 +100,7 @@ const LogInDialog = () => {
                     <p 
                     className={classes.forgotPasswordLink}
                     onClick={() => {
-                        setShowForgotPwdDialog(true);
-                        handleClose();
+                        uiDispatch({ type: 'OPEN_FORGOT_PASSWORD_DIALOG' });
                     }}>
                         {text.forgotPassword}
                     </p>

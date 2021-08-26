@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
 
 import { getGraphQLClient } from 'lib/graphql';
 import { getPlaceholder } from 'lib/cloudinary';
@@ -13,11 +14,13 @@ import type { CardContentFragment as ExperienceCard } from 'graphql-server/sdk';
 import type { Page } from 'models/application';
 
 import RambleHead from 'components/RambleHead';
-import ResetPasswordDialog from 'components/ResetPasswordDialog';
 import Collage from 'components/home-page/Collage';
 import FeaturedExperiences from 'components/home-page/FeaturedExperiences';
 import GallerySlide from 'components/home-page/GallerySlide';
 import Footer from 'components/Footer';
+const ResetPasswordDialog = dynamic(() => 
+    import('components/ResetPasswordDialog')
+);
 
 type Props = {
     collageImages: Image[];
@@ -101,6 +104,15 @@ const HomePage: Page<Props> = (props) => {
     const { uiDispatch } = useUiContext();
     const router = useRouter();
 
+    const [openResetPwdDialog, setOpenResetPwdDialog] = useState(false);
+
+    // Check if the URL has a reset password query
+    useEffect(() => {
+        if (router.query['password-reset']) {
+            setOpenResetPwdDialog(true);
+        }
+    }, [router.query]);
+
     // Check if we just got redirected from Stripe
     useEffect(() => {
         const onboardingStatus = router.query['onboarding-status'];
@@ -113,14 +125,16 @@ const HomePage: Page<Props> = (props) => {
         }
     }, [router, uiDispatch, text]);
 
-    // TODO: Import resetpassword dialog dynamically
     return (
         <>
             <RambleHead
             title={`Ramble: ${text.experienceTitle} Montréal`}
             description={text.discoverTitle}
             imageUrl={`${process.env.RAMBLE_URL}/public/images/ramble-brand.png`} />
-            <ResetPasswordDialog />
+            {openResetPwdDialog &&
+                <ResetPasswordDialog
+                open={openResetPwdDialog}
+                onClose={() => setOpenResetPwdDialog(false)} />}
             <Collage images={props.collageImages} />
             <FeaturedExperiences experiences={props.featuredExperiences} />
             <GallerySlide 

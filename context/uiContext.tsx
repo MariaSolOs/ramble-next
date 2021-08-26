@@ -8,6 +8,7 @@ import React, {
 interface UiState {
     showSignUpDialog: boolean;
     showLogInDialog: boolean;
+    showForgotPasswordDialog: boolean;
     errorMessage: string;
     snackbarMessage: string;
 }
@@ -15,6 +16,7 @@ interface UiState {
 const initialState: UiState = {
     showSignUpDialog: false,
     showLogInDialog: false,
+    showForgotPasswordDialog: false,
     errorMessage: '',
     snackbarMessage: ''
 }
@@ -24,6 +26,8 @@ type Action =
 | { type: 'CLOSE_SIGN_UP_DIALOG' }
 | { type: 'OPEN_LOG_IN_DIALOG' }
 | { type: 'CLOSE_LOG_IN_DIALOG' }
+| { type: 'OPEN_FORGOT_PASSWORD_DIALOG' }
+| { type: 'CLOSE_FORGOT_PASSWORD_DIALOG' }
 | { type: 'OPEN_ERROR_DIALOG', message: string }
 | { type: 'CLOSE_ERROR_DIALOG' }
 | { type: 'OPEN_SNACKBAR', message: string }
@@ -52,6 +56,17 @@ const reducer = (state: UiState, action: Action): UiState => {
             return {
                 ...state,
                 showLogInDialog: false
+            }
+        case 'OPEN_FORGOT_PASSWORD_DIALOG':
+            return {
+                ...state,
+                showLogInDialog: false,
+                showForgotPasswordDialog: true
+            }
+        case 'CLOSE_FORGOT_PASSWORD_DIALOG':
+            return {
+                ...state,
+                showForgotPasswordDialog: false
             }
         case 'OPEN_ERROR_DIALOG':
             return {

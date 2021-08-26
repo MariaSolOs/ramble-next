@@ -5,7 +5,6 @@ import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import useUiContext from 'context/uiContext';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { LogInDialog } from 'components/AuthDialogs';
 import Navbar from 'components/Navbar';
 const Snackbar = dynamic(() => 
     import('components/Snackbar')
@@ -15,6 +14,12 @@ const ErrorDialog = dynamic(() =>
 );
 const SignUpDialog = dynamic<{}>(() => 
 import('components/AuthDialogs').then(mod => mod.SignUpDialog)
+);
+const LogInDialog = dynamic<{}>(() => 
+    import('components/AuthDialogs').then(mod => mod.LogInDialog)
+);
+const ForgotPasswordDialog = dynamic(() =>
+    import('components/ForgotPasswordDialog')
 );
 
 const theme = createTheme({
@@ -52,7 +57,8 @@ const GlobalLayout: React.FC = (props) => {
             {uiState.snackbarMessage && <Snackbar />}
             {uiState.errorMessage && <ErrorDialog />}
             {uiState.showSignUpDialog && <SignUpDialog />}
-            <LogInDialog />
+            {uiState.showLogInDialog && <LogInDialog />}
+            {uiState.showForgotPasswordDialog && <ForgotPasswordDialog />}
             {props.children}
         </ThemeProvider>
     );

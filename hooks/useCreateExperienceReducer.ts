@@ -4,15 +4,6 @@ import type { EventInput } from '@fullcalendar/react';
 import { CREATION_STEPS } from 'models/experience-interface';
 import type { CreationStep, Category, ExperienceForm } from 'models/experience-interface';
 
-interface CreationState {
-    currentStep: CreationStep;
-    currentStepIdx: number;
-    stepsCompleted: number;
-    canContinue: boolean;
-    loading: boolean;
-    form: ExperienceForm;
-}
-
 // Form fields that have a string as a value
 export type StringField = 
 | 'location'
@@ -39,20 +30,14 @@ export type NumberField =
 // Form fields corresponding to arrays of strings
 export type ArrayField = 'languages' | 'included' | 'toBring' | 'slots';
 
-type Action = 
-| { type: 'GO_TO_NEXT_STEP'; }
-| { type: 'GO_TO_PREV_STEP'; }
-| { type: 'GO_TO_STEP'; stepIdx: number; }
-| { type: 'SET_STRING_FIELD'; field: StringField; value: string; }
-| { type: 'SET_BOOLEAN_FIELD'; field: BooleanField; value: boolean; }
-| { type: 'SET_NUMBER_FIELD'; field: NumberField; value: number; }
-| { type: 'SET_CATEGORY'; value: Category; remove: boolean; }
-| { type: 'SET_CATEGORY'; value: Category; remove: boolean; }
-| { type: 'SET_IMAGE_FILE'; index: number; value?: File; }
-| { type: 'SET_ARRAY_FIELD'; field: ArrayField; value: string[] | EventInput[]; }
-| { type: 'SET_CAN_CONTINUE'; value: boolean; }
-| { type: 'START_SUBMIT' }
-| { type: 'END_SUBMIT' }
+interface CreationState {
+    currentStep: CreationStep;
+    currentStepIdx: number;
+    stepsCompleted: number;
+    canContinue: boolean;
+    loading: boolean;
+    form: ExperienceForm;
+}
 
 const initialState: CreationState = {
     currentStep: 'setting',
@@ -85,7 +70,22 @@ const initialState: CreationState = {
     }
 }
 
-export default function useExperienceCreationReducer() {
+type Action = 
+| { type: 'GO_TO_NEXT_STEP'; }
+| { type: 'GO_TO_PREV_STEP'; }
+| { type: 'GO_TO_STEP'; stepIdx: number; }
+| { type: 'SET_STRING_FIELD'; field: StringField; value: string; }
+| { type: 'SET_BOOLEAN_FIELD'; field: BooleanField; value: boolean; }
+| { type: 'SET_NUMBER_FIELD'; field: NumberField; value: number; }
+| { type: 'SET_CATEGORY'; value: Category; remove: boolean; }
+| { type: 'SET_CATEGORY'; value: Category; remove: boolean; }
+| { type: 'SET_IMAGE_FILE'; index: number; value?: File; }
+| { type: 'SET_ARRAY_FIELD'; field: ArrayField; value: string[] | EventInput[]; }
+| { type: 'SET_CAN_CONTINUE'; value: boolean; }
+| { type: 'START_SUBMIT' }
+| { type: 'END_SUBMIT' }
+
+export default function useCreateExperienceReducer() {
     const reducer = useCallback((state: CreationState, action: Action): CreationState => {
         switch (action.type) {
             case 'GO_TO_NEXT_STEP':

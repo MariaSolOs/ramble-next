@@ -1,0 +1,8 @@
+query getEditExperience($id: ID!) {
+    experiencesById(ids: [$id]) {
+        ...ExperienceView
+        meetingPoint
+        privatePrice
+        currency
+    }
+}

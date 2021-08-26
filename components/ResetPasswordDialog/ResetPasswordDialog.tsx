@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/client';
 
@@ -6,6 +6,7 @@ import { getGraphQLClient } from 'lib/graphql';
 import { getSdk } from 'graphql-server/sdk';
 import useLanguageContext from 'context/languageContext';
 import useUiContext from 'context/uiContext';
+import type { ResetPasswordDialogProps } from './index';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -27,30 +28,22 @@ type Form = Record<FormField, string>;
 const graphQLClient = getGraphQLClient();
 const sdk = getSdk(graphQLClient);
 
-const ResetPasswordDialog = () => {
+const ResetPasswordDialog = (props: ResetPasswordDialogProps) => {
     const { ResetPasswordDialog: text } = useLanguageContext().appText;
     const { uiDispatch } = useUiContext();
     const router = useRouter();
     const classes = useStyles();
     
-    const [open, setOpen] = useState(false);
-        const [passwordMismatch, setPasswordMismatch] = useState(false);
-        const [values, setValues] = useState<Form>({
-            password1: '',
-            password2: ''
-        });
-
-    // Check if URL has a reset password query
-    useEffect(() => {
-        if (router.query['password-reset']) {
-            setOpen(true);
-        }
-    }, [router.query]);
+    const [passwordMismatch, setPasswordMismatch] = useState(false);
+    const [values, setValues] = useState<Form>({
+        password1: '',
+        password2: ''
+    });
 
     const handleClose = () => { 
         // Remove the query from the URL
         router.replace('/', undefined, { shallow: true });
-        setOpen(false); 
+        props.onClose();
     }
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -99,7 +92,7 @@ const ResetPasswordDialog = () => {
     }
 
     return (
-        <Dialog open={open} maxWidth="xs" className={classes.dialog}>
+        <Dialog open={props.open} maxWidth="xs" className={classes.dialog}>
             <DialogContent className={classes.content}>
                 <form onSubmit={handleSubmit}>
                     <FormControl className={classes.formControl} fullWidth>

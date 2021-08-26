@@ -284,7 +284,7 @@ export enum Reservation {
 /** Experience reviews */
 export type Review = {
   _id: Scalars['ID'];
-  experienceId: Scalars['ID'];
+  experience: Scalars['ID'];
   writtenBy: Scalars['String'];
   text: Scalars['String'];
   value: Scalars['Int'];
@@ -531,6 +531,16 @@ export type GetCreatorFormFieldsQuery = { me: (
     Pick<User, '_id' | 'phoneNumber'>
     & UserAvatarFragment
   ) };
+
+export type GetEditExperienceQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type GetEditExperienceQuery = { experiencesById: Array<(
+    Pick<Experience, 'meetingPoint' | 'privatePrice' | 'currency'>
+    & ExperienceViewFragment
+  )> };
 
 export type GetExperiencesByIdQueryVariables = Exact<{
   ids: Array<Scalars['ID']> | Scalars['ID'];
@@ -913,6 +923,16 @@ export const GetCreatorFormFieldsDocument = gql`
   }
 }
     ${UserAvatarFragmentDoc}`;
+export const GetEditExperienceDocument = gql`
+    query getEditExperience($id: ID!) {
+  experiencesById(ids: [$id]) {
+    ...ExperienceView
+    meetingPoint
+    privatePrice
+    currency
+  }
+}
+    ${ExperienceViewFragmentDoc}`;
 export const GetExperiencesByIdDocument = gql`
     query getExperiencesById($ids: [ID!]!) {
   experiencesById(ids: $ids) {
@@ -1081,6 +1101,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     getCreatorFormFields(variables: GetCreatorFormFieldsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetCreatorFormFieldsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetCreatorFormFieldsQuery>(GetCreatorFormFieldsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getCreatorFormFields');
     },
+    getEditExperience(variables: GetEditExperienceQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetEditExperienceQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetEditExperienceQuery>(GetEditExperienceDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getEditExperience');
+    },
     getExperiencesById(variables: GetExperiencesByIdQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetExperiencesByIdQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetExperiencesByIdQuery>(GetExperiencesByIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getExperiencesById');
     },
@@ -1132,6 +1155,9 @@ export function getSdkWithHooks(client: GraphQLClient, withWrapper: SdkFunctionW
     },
     useGetCreatorFormFields(key: SWRKeyInterface, variables: GetCreatorFormFieldsQueryVariables, config?: SWRConfigInterface<GetCreatorFormFieldsQuery, ClientError>) {
       return useSWR<GetCreatorFormFieldsQuery, ClientError>(key, () => sdk.getCreatorFormFields(variables), config);
+    },
+    useGetEditExperience(key: SWRKeyInterface, variables: GetEditExperienceQueryVariables, config?: SWRConfigInterface<GetEditExperienceQuery, ClientError>) {
+      return useSWR<GetEditExperienceQuery, ClientError>(key, () => sdk.getEditExperience(variables), config);
     },
     useGetExperiencesById(key: SWRKeyInterface, variables: GetExperiencesByIdQueryVariables, config?: SWRConfigInterface<GetExperiencesByIdQuery, ClientError>) {
       return useSWR<GetExperiencesByIdQuery, ClientError>(key, () => sdk.getExperiencesById(variables), config);

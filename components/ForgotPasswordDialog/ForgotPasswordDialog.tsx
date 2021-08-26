@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
+import useUiContext from 'context/uiContext';
 import useLanguageContext from 'context/languageContext';
-import type { ForgotPasswordDialogProps } from './index';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -16,8 +16,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import styles from './ForgotPasswordDialog.styles';
 const useStyles = makeStyles(styles);
 
-const ForgotPasswordDialog = (props: ForgotPasswordDialogProps) => {
+const ForgotPasswordDialog = () => {
     const { ForgotPasswordDialog: text } = useLanguageContext().appText;
+    const { uiState, uiDispatch } = useUiContext();
     const classes = useStyles();
 
     const [email, setEmail] = useState('');
@@ -56,8 +57,8 @@ const ForgotPasswordDialog = (props: ForgotPasswordDialogProps) => {
 
     return (
         <Dialog 
-        open={props.open} 
-        onClose={props.onClose}
+        open={uiState.showForgotPasswordDialog} 
+        onClose={() => uiDispatch({ type: 'CLOSE_FORGOT_PASSWORD_DIALOG' })}
         className={classes.dialog}>
             {loading && <Spinner />}
             {showSuccessMessage ? 
@@ -66,7 +67,9 @@ const ForgotPasswordDialog = (props: ForgotPasswordDialogProps) => {
                     <p className={classes.title}>{text.emailSent}</p>
                 </div> :
                 <>
-                    <CloseIcon onClick={props.onClose} className={classes.closeIcon} />
+                    <CloseIcon 
+                    onClick={() => uiDispatch({ type: 'CLOSE_FORGOT_PASSWORD_DIALOG' })} 
+                    className={classes.closeIcon} />
                     <DialogContent>
                         <form onSubmit={handleSubmit}>
                             <h4 className={classes.title}>{text.enterEmailTitle}</h4>

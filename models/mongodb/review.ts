@@ -8,7 +8,7 @@ export interface Review {
     reviewer: Types.ObjectId;
     reviewerName: string;
     text: string;
-    value: string;
+    value: number;
     approved: boolean; // If true, review is made public
 }
 
