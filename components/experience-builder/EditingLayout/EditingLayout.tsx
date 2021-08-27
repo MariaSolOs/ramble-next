@@ -4,6 +4,7 @@ import { v4 as uuid } from 'uuid';
 
 import useLanguageContext from 'context/languageContext';
 import { EDIT_STEPS } from 'models/experience-interface';
+import type { EditStep } from 'models/experience-interface';
 import type { EditingLayoutProps } from './index';
 
 import Div100vh from 'react-div-100vh';
@@ -26,6 +27,8 @@ const EditingLayout: React.FC<EditingLayoutProps> = (props) => {
     const collapseDrawer = () => { setOpenDrawer(false); }
 
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const firstStep: EditStep = props.isOnlineExperience ? 'planning' : 'location';
+    const lastStep: EditStep = 'price';
 
     // For closing the navigation drawer when resizing
     useEffect(() => {
@@ -94,14 +97,14 @@ const EditingLayout: React.FC<EditingLayoutProps> = (props) => {
                     className={`${classes.footerButton} ${classes.saveButton}`}>
                         {text.saveChanges}
                     </button>
-                    {props.currentStep !== 'location' &&
+                    {props.currentStep !== firstStep &&
                         <button
                         disabled={!props.canContinue}
                         className={`${classes.footerButton} ${classes.backButton}`}
                         onClick={props.onBack}>
                             {text.back}
                         </button>}
-                    {props.currentStep !== 'price' && 
+                    {props.currentStep !== lastStep && 
                         <GradientButton 
                         disabled={!props.canContinue}
                         className={`${classes.footerButton} ${classes.nextButton}`} 

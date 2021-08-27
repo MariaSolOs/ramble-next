@@ -24,6 +24,7 @@ const Collage = (props: CollageProps) => {
                             <Image
                             src={img.src}
                             alt="Experience grid"
+                            priority
                             placeholder="blur"
                             layout="fill"
                             objectFit="cover"
