@@ -170,7 +170,8 @@ export const resolvers: Resolvers = {
             const reviews = await Review.find({ 
                 experience: experienceId,
                 approved: true
-            }).lean(MONGOOSE_LEAN_DEFAULTS);
+            }).sort('-createdAt').lean(MONGOOSE_LEAN_DEFAULTS);
+            // Newest reviews are at the top
 
             return reviews.map(reviewReducer);
         }

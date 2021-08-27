@@ -10,9 +10,11 @@ export interface Review {
     text: string;
     value: number;
     approved: boolean; // If true, review is made public
+    createdAt: Date;
+    updatedAt: Date;
 }
 
-const reviewSchemaFields: Record<keyof Omit<Review, '_id'>, SchemaDefinitionProperty> = {
+const reviewSchemaFields: Record<keyof Omit<Review | 'createdAt' | 'updatedAt', '_id'>, SchemaDefinitionProperty> = {
     experience: {
         type: Schema.Types.ObjectId,
         ref: 'Experience',
@@ -48,7 +50,9 @@ const reviewSchemaFields: Record<keyof Omit<Review, '_id'>, SchemaDefinitionProp
     }
 }
 
-const reviewSchema = new Schema<Review>(reviewSchemaFields);
+const reviewSchema = new Schema<Review>(reviewSchemaFields, {
+    timestamps: true
+});
 reviewSchema.plugin(mongooseLeanDefaults);
 
 export default (models.Review as Model<Review, {}, {}>) || model<Review>('Review', reviewSchema);
