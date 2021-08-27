@@ -98,7 +98,7 @@ const CreatorFormPage: Page = () => {
             const isNewPhoneNumber = data?.me.phoneNumber !== state.phoneNumber;
             let userPhoto = data?.me.photo;
             if (state.profilePic || isNewPhoneNumber) {
-                const updatedProfile = await sdk.updateProfile({
+                const updatedProfile = await sdk.editProfile({
                     ...state.profilePic && { photo: photoUrl },
                     ...isNewPhoneNumber && {
                         phoneNumber: state.phoneNumber

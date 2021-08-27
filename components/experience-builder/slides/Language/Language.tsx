@@ -49,6 +49,7 @@ const Language = (props: LanguageProps) => {
             // The loading feature is used to disable further selection
             loading={disableSelection}
             loadingText={text.maxLanguagesMessage}
+            value={props.languages}
             onChange={handleChange}
             getOptionSelected={(option: string, value: string) => 
                 value.includes(option)

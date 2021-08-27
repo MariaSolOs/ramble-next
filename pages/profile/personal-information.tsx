@@ -98,7 +98,7 @@ const PersonalInformationPage: Page = () => {
 
         const { creatorBio, ...userValues } = values;
         
-        const updatedProfile = await sdk.updateProfile({
+        const updatedProfile = await sdk.editProfile({
             ...userValues,
             ...photoUrl && { photo: photoUrl },
             ...isCreator && { creatorBio: values.creatorBio }

@@ -37,21 +37,22 @@ const Preview = (props: PreviewProps) => {
                     { title: text.actionImgTitle, description: text.actionImgText },
                     { title: text.locationImgTitle, description: text.locationImgText }
                 ].map(({ title, description }, idx) => 
-                <div key={uuid()} className={classes.dropzoneItem}>
-                    <p className={`${classes.picText} ${classes.picTitle}`}>
-                        {title}
-                    </p>
-                    <p className={`${classes.picText} ${classes.picDescription}`}>
-                        {description}
-                    </p>
-                    <Dropzone
-                    image={images[idx]}
-                    onFileDrop={file => props.onImageChange(idx, file)}
-                    dropzoneClassName={classes.dropzone}
-                    addButtonClassName={classes.addIcon}
-                    deleteButtonClassName={classes.deleteIcon}
-                    previewImageClassName={classes.previewImg} />
-                </div>)}
+                    <div key={uuid()} className={classes.dropzoneItem}>
+                        <p className={`${classes.picText} ${classes.picTitle}`}>
+                            {title}
+                        </p>
+                        <p className={`${classes.picText} ${classes.picDescription}`}>
+                            {description}
+                        </p>
+                        <Dropzone
+                        image={images[idx]}
+                        onFileDrop={file => props.onImageChange(idx, file)}
+                        dropzoneClassName={classes.dropzone}
+                        addButtonClassName={classes.addIcon}
+                        deleteButtonClassName={classes.deleteIcon}
+                        previewImageClassName={classes.previewImg} />
+                    </div>
+                )}
             </div>
         </>
     );

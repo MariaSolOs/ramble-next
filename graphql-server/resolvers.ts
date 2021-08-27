@@ -121,10 +121,13 @@ export const resolvers: Resolvers = {
     
         experiences: async (_, { location, capacity, creatorId }) => {
             // Only approved experiences are made public
-            const filter: FilterQuery<typeof Experience> = { status: 'approved' }
+            const filter: FilterQuery<typeof Experience> = {}
 
-            if (creatorId) {
+            // Creators can see experiences that haven't been approved
+            if (creatorId) { 
                 filter.creator = creatorId;
+            } else {
+                filter.status = 'approved';
             }
     
             if (location) {
@@ -222,7 +225,6 @@ export const resolvers: Resolvers = {
             }
 
             const user = await User.findById(userId);
-
             if (!user) {
                 throw new ApolloError('User not found.');
             }
@@ -250,10 +252,10 @@ export const resolvers: Resolvers = {
                 ...(typeof args.city === 'string') && { city: args.city }
             }
 
+            // Save changes
             for (const [field, value] of Object.entries(newFields)) {
                 (user as any)[field] = value;
             }
-            
             await user.save();
 
             return userReducer(user);
@@ -379,7 +381,16 @@ export const resolvers: Resolvers = {
                 throw new ApolloError('Experience not found');
             }
 
+            // Delete Cloudinary images if applicable
+            if (args.images) {
+                const oldImages = experience.images.filter(oldImg =>
+                    !args.images!.some(img => img === oldImg)
+                );
+                deletePhotos(oldImages, 'Experiences');
+            }
+
             // Set the fields to update
+            const isInPersonExperience = !Boolean(experience.zoomInfo?.PMI);
             const priceChanged = (
                 Boolean(args.pricePerPerson) || 
                 Boolean(args.privatePrice) || 
@@ -388,7 +399,7 @@ export const resolvers: Resolvers = {
             const newFields: Partial<ExperienceType> = {
                 ...args.description && { description: args.description },
                 ...args.images && { images: args.images },
-                ...args.meetingPoint && {
+                ...(args.meetingPoint && isInPersonExperience) && {
                     location: {
                         // The location never changes, only the meeting point
                         displayLocation: experience.location.displayLocation,
@@ -412,8 +423,11 @@ export const resolvers: Resolvers = {
                     }
                 }
             }
-            console.log(newFields);
 
+            // Save changes
+            for (const [field, value] of Object.entries(newFields)) {
+                (experience as any)[field] = value;
+            }
             await experience.save();
 
             return experienceReducer(experience);

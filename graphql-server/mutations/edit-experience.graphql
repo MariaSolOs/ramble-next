@@ -1,0 +1,35 @@
+mutation editExperience(
+    $_id: ID!,
+    $description: String,
+    $images: [String!],
+    $meetingPoint: String,
+    $latitude: Float,
+    $longitude: Float,
+    $ageRestriction: Int,
+    $duration: Float,
+    $languages: [String!],
+    $includedItems: [String!],
+    $toBringItems: [String!],
+    $pricePerPerson: Int,
+    $privatePrice: Int,
+    $currency: Currency
+) {
+    editExperience(
+        _id: $_id,
+        description: $description,
+        images: $images,
+        meetingPoint: $meetingPoint,
+        latitude: $latitude,
+        longitude: $longitude,
+        ageRestriction: $ageRestriction,
+        duration: $duration,
+        languages: $languages,
+        includedItems: $includedItems,
+        toBringItems: $toBringItems,
+        pricePerPerson: $pricePerPerson,
+        privatePrice: $privatePrice,
+        currency: $currency
+    ) {
+        _id
+    }
+}

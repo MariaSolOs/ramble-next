@@ -1,4 +1,4 @@
-mutation updateProfile(
+mutation editProfile(
     $firstName: String, 
     $lastName: String, 
     $birthday: String, 

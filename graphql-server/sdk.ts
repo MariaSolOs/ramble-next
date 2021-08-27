@@ -441,6 +441,40 @@ export type DeleteOccurrenceMutationVariables = Exact<{
 
 export type DeleteOccurrenceMutation = { deleteOccurrence: Pick<Occurrence, 'dateStart' | '_id'> };
 
+export type EditExperienceMutationVariables = Exact<{
+  _id: Scalars['ID'];
+  description?: Maybe<Scalars['String']>;
+  images?: Maybe<Array<Scalars['String']> | Scalars['String']>;
+  meetingPoint?: Maybe<Scalars['String']>;
+  latitude?: Maybe<Scalars['Float']>;
+  longitude?: Maybe<Scalars['Float']>;
+  ageRestriction?: Maybe<Scalars['Int']>;
+  duration?: Maybe<Scalars['Float']>;
+  languages?: Maybe<Array<Scalars['String']> | Scalars['String']>;
+  includedItems?: Maybe<Array<Scalars['String']> | Scalars['String']>;
+  toBringItems?: Maybe<Array<Scalars['String']> | Scalars['String']>;
+  pricePerPerson?: Maybe<Scalars['Int']>;
+  privatePrice?: Maybe<Scalars['Int']>;
+  currency?: Maybe<Currency>;
+}>;
+
+
+export type EditExperienceMutation = { editExperience: Pick<Experience, '_id'> };
+
+export type EditProfileMutationVariables = Exact<{
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  birthday?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  photo?: Maybe<Scalars['String']>;
+  phoneNumber?: Maybe<Scalars['String']>;
+  city?: Maybe<Scalars['String']>;
+  creatorBio?: Maybe<Scalars['String']>;
+}>;
+
+
+export type EditProfileMutation = { editUser: CoreProfileFragment };
+
 export type LogInMutationVariables = Exact<{
   email: Scalars['String'];
   password: Scalars['String'];
@@ -489,20 +523,6 @@ export type UnsaveExperienceMutationVariables = Exact<{
 
 
 export type UnsaveExperienceMutation = { unsaveExperience: Pick<Experience, '_id'> };
-
-export type UpdateProfileMutationVariables = Exact<{
-  firstName?: Maybe<Scalars['String']>;
-  lastName?: Maybe<Scalars['String']>;
-  birthday?: Maybe<Scalars['String']>;
-  email?: Maybe<Scalars['String']>;
-  photo?: Maybe<Scalars['String']>;
-  phoneNumber?: Maybe<Scalars['String']>;
-  city?: Maybe<Scalars['String']>;
-  creatorBio?: Maybe<Scalars['String']>;
-}>;
-
-
-export type UpdateProfileMutation = { editUser: CoreProfileFragment };
 
 export type GetBookingExperienceQueryVariables = Exact<{
   id: Scalars['ID'];
@@ -824,6 +844,44 @@ export const DeleteOccurrenceDocument = gql`
   }
 }
     `;
+export const EditExperienceDocument = gql`
+    mutation editExperience($_id: ID!, $description: String, $images: [String!], $meetingPoint: String, $latitude: Float, $longitude: Float, $ageRestriction: Int, $duration: Float, $languages: [String!], $includedItems: [String!], $toBringItems: [String!], $pricePerPerson: Int, $privatePrice: Int, $currency: Currency) {
+  editExperience(
+    _id: $_id
+    description: $description
+    images: $images
+    meetingPoint: $meetingPoint
+    latitude: $latitude
+    longitude: $longitude
+    ageRestriction: $ageRestriction
+    duration: $duration
+    languages: $languages
+    includedItems: $includedItems
+    toBringItems: $toBringItems
+    pricePerPerson: $pricePerPerson
+    privatePrice: $privatePrice
+    currency: $currency
+  ) {
+    _id
+  }
+}
+    `;
+export const EditProfileDocument = gql`
+    mutation editProfile($firstName: String, $lastName: String, $birthday: String, $email: String, $photo: String, $phoneNumber: String, $city: String, $creatorBio: String) {
+  editUser(
+    firstName: $firstName
+    lastName: $lastName
+    birthday: $birthday
+    email: $email
+    photo: $photo
+    phoneNumber: $phoneNumber
+    city: $city
+    creatorBio: $creatorBio
+  ) {
+    ...CoreProfile
+  }
+}
+    ${CoreProfileFragmentDoc}`;
 export const LogInDocument = gql`
     mutation logIn($email: String!, $password: String!) {
   logInUser(email: $email, password: $password) {
@@ -873,22 +931,6 @@ export const UnsaveExperienceDocument = gql`
   }
 }
     `;
-export const UpdateProfileDocument = gql`
-    mutation updateProfile($firstName: String, $lastName: String, $birthday: String, $email: String, $photo: String, $phoneNumber: String, $city: String, $creatorBio: String) {
-  editUser(
-    firstName: $firstName
-    lastName: $lastName
-    birthday: $birthday
-    email: $email
-    photo: $photo
-    phoneNumber: $phoneNumber
-    city: $city
-    creatorBio: $creatorBio
-  ) {
-    ...CoreProfile
-  }
-}
-    ${CoreProfileFragmentDoc}`;
 export const GetBookingExperienceDocument = gql`
     query getBookingExperience($id: ID!) {
   experiencesById(ids: [$id]) {
@@ -1102,6 +1144,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     deleteOccurrence(variables: DeleteOccurrenceMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<DeleteOccurrenceMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<DeleteOccurrenceMutation>(DeleteOccurrenceDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'deleteOccurrence');
     },
+    editExperience(variables: EditExperienceMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<EditExperienceMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<EditExperienceMutation>(EditExperienceDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'editExperience');
+    },
+    editProfile(variables?: EditProfileMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<EditProfileMutation> {
+      return withWrapper((wrappedRequestHeaders) => client.request<EditProfileMutation>(EditProfileDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'editProfile');
+    },
     logIn(variables: LogInMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<LogInMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<LogInMutation>(LogInDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'logIn');
     },
@@ -1119,9 +1167,6 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     unsaveExperience(variables: UnsaveExperienceMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UnsaveExperienceMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<UnsaveExperienceMutation>(UnsaveExperienceDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'unsaveExperience');
-    },
-    updateProfile(variables?: UpdateProfileMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UpdateProfileMutation> {
-      return withWrapper((wrappedRequestHeaders) => client.request<UpdateProfileMutation>(UpdateProfileDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'updateProfile');
     },
     getBookingExperience(variables: GetBookingExperienceQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetBookingExperienceQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetBookingExperienceQuery>(GetBookingExperienceDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getBookingExperience');

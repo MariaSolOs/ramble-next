@@ -9,6 +9,7 @@ import useUiContext from 'context/uiContext';
 import useEditExperinceReducer from 'hooks/useEditExperienceReducer';
 import useLanguages from 'hooks/useLanguages';
 import useRouterPrompt from 'hooks/useRouterPrompt';
+import { isFile } from 'models/files';
 import type {
     StringField, 
     NumberField,
@@ -70,23 +71,58 @@ const EditExperiencePage: Page = () => {
 
     const handleSave = async () => {
         try {
+            // Make sure changes are valid
+            if (!state.canContinue) {
+                uiDispatch({ type: 'OPEN_SNACKBAR', message: 'Invalid changes!' });
+                return;
+            }
+
             dispatch({ type: 'START_SAVING' });
     
-            // Upload images to Cloudinary
-            // const images: string[] = [];
-            // for (const imgFile of state.form.images) {
-            //     const formData = new FormData();
-            //     formData.append('file', (imgFile as File));
-            //     formData.append('upload_preset', 'RAMBLE-experiences');
-    
-            //     const { secure_url } = await fetch(process.env.NEXT_PUBLIC_CLOUDINARY_API_URI!, {
-            //         method: 'POST',
-            //         body: formData
-            //     }).then(res => res.json());
-    
-            //     images.push(secure_url);
-            // }
-    
+            // Upload new images to Cloudinary
+            const images: string[] = [];
+            for (const img of state.form!.images) {
+                if (isFile(img)) {
+                    const formData = new FormData();
+                    formData.append('file', img);
+                    formData.append('upload_preset', 'RAMBLE-experiences');
+        
+                    const { secure_url } = await fetch(process.env.NEXT_PUBLIC_CLOUDINARY_API_URI!, {
+                        method: 'POST',
+                        body: formData
+                    }).then(res => res.json());
+        
+                    images.push(secure_url);
+                } else if (img) { // img is a string, so just push the URL
+                    images.push(img);
+                } else {
+                    handleError('Invalid experience images!');
+                    return;
+                }
+            }
+
+            // Save changes
+            await sdk.editExperience({
+                _id: experienceId,
+                description: state.form?.planning,
+                images,
+                ...state.form?.isOnlineExperience && {
+                    meetingPoint: state.form?.meetingPoint,
+                    latitude: state.form.latitude,
+                    longitude: state.form.longitude
+                },
+                ...state.form?.isAgeRestricted && {
+                    ageRestriction: state.form.ageRequired
+                },
+                duration: state.form?.duration,
+                languages: state.form?.languages,
+                includedItems: state.form?.included,
+                toBringItems: state.form?.toBring,
+                pricePerPerson: state.form?.pricePerPerson,
+                privatePrice: state.form?.privatePrice,
+                currency: state.form?.currency
+            });
+            
             dispatch({ type: 'END_SAVING' });
         } catch (err) {
             handleError("We couldn't save your changes...");
@@ -94,7 +130,7 @@ const EditExperiencePage: Page = () => {
     }
 
     // Get the experience for editing
-    sdk.useGetEditExperience((experienceId && session?.user.creatorId) ? 'getEditExperience' : null,
+    sdk.useGetEditExperience((experienceId && session?.user.creatorId && !state.form) ? 'getEditExperience' : null,
         { id: experienceId },
         { 
             onSuccess: ({ experiencesById }) => {

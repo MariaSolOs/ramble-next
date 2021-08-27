@@ -3,7 +3,7 @@ import mongooseLeanDefaults from 'mongoose-lean-defaults';
 import type { Types, Model, SchemaDefinitionProperty } from 'mongoose';
 
 import type { Creator } from './creator';
-import type { Currency } from 'graphql-server/sdk';
+import type { Currency, ExperienceCategory } from 'graphql-server/sdk';
 
 export interface Experience {
     _id: Types.ObjectId;
@@ -21,7 +21,7 @@ export interface Experience {
         }
     }
     title: string;
-    categories: ('taste' | 'create' | 'relax' | 'learn' | 'move')[];
+    categories: [ExperienceCategory] | [ExperienceCategory, ExperienceCategory];
     description: string;
     ageRestriction?: number;
     duration: number;
@@ -73,7 +73,9 @@ const experienceSchemaFields: Record<keyof Omit<Experience, '_id'>, SchemaDefini
 
     categories: [{
         type: String,
-        enum: ['taste', 'create', 'relax', 'learn', 'move']
+        enum: ['taste', 'create', 'relax', 'learn', 'move'],
+        minlength: 1,
+        maxlength: 2
     }],
 
     description: {

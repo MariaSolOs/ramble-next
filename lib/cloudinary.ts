@@ -22,6 +22,11 @@ export const getPlaceholder = async (url: string) => {
  * @param imageUrl - The URLs of the assets in Cloudinary
  */
 export const deletePhotos = async (urls: string[], folder: 'Users' | 'Experiences') => {
+    // Easy case
+    if (urls.length === 0) {
+        return;
+    }
+
     // Get the public IDs from the URLs
     const publicIds = urls.map(url => {
         const id = url.split('/').pop()?.split('.')[0]!;
