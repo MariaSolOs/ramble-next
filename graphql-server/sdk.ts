@@ -538,8 +538,8 @@ export type GetEditExperienceQueryVariables = Exact<{
 
 
 export type GetEditExperienceQuery = { experiencesById: Array<(
-    Pick<Experience, 'meetingPoint' | 'privatePrice' | 'currency'>
-    & ExperienceViewFragment
+    Pick<Experience, 'isOnlineExperience' | 'location' | 'meetingPoint' | 'latitude' | 'longitude' | 'description' | 'duration' | 'languages' | 'ageRestriction' | 'includedItems' | 'toBringItems' | 'capacity' | 'pricePerPerson' | 'privatePrice' | 'currency'>
+    & { images: Array<Pick<Image, 'src'>> }
   )> };
 
 export type GetExperiencesByIdQueryVariables = Exact<{
@@ -926,13 +926,27 @@ export const GetCreatorFormFieldsDocument = gql`
 export const GetEditExperienceDocument = gql`
     query getEditExperience($id: ID!) {
   experiencesById(ids: [$id]) {
-    ...ExperienceView
+    isOnlineExperience
+    location
     meetingPoint
+    latitude
+    longitude
+    description
+    duration
+    languages
+    ageRestriction
+    images {
+      src
+    }
+    includedItems
+    toBringItems
+    capacity
+    pricePerPerson
     privatePrice
     currency
   }
 }
-    ${ExperienceViewFragmentDoc}`;
+    `;
 export const GetExperiencesByIdDocument = gql`
     query getExperiencesById($ids: [ID!]!) {
   experiencesById(ids: $ids) {

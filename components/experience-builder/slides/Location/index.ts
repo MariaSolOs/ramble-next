@@ -9,6 +9,7 @@ export interface LocationProps extends CompletableSlide {
     meetingPoint: string;
     zoomPMI: string;
     zoomPassword: string;
+    disableLocation: boolean;
     onLocationChange: (loc: string) => void;
     onMeetingPointChange: (meetPoint: string) => void;
     onZoomPMIChange: (pmi: string) => void;

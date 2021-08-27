@@ -25,7 +25,7 @@ const styles = (theme: Theme) => createStyles({
         fontSize: '1.3rem',
         whiteSpace: 'nowrap',
 
-        [theme.breakpoints.down('xs')]: { fontSize: '1rem' }
+        [theme.breakpoints.down('xs')]: { fontSize: '1.15rem' }
     },
 
     closeIcon: {
@@ -45,9 +45,7 @@ const styles = (theme: Theme) => createStyles({
         fontSize: '1.1rem',
         display: 'flex',
         alignItems: 'center',
-        margin: 0,
-
-        [theme.breakpoints.down('xs')]: { fontSize: '0.9rem' }
+        margin: 0
     },
 
     rating: {
@@ -61,10 +59,8 @@ const styles = (theme: Theme) => createStyles({
 
     reviewText: {
         color: '#C8C8C8',
-        fontSize: '0.9rem',
-        margin: '5px 0 1rem',
-
-        [theme.breakpoints.down('xs')]: { fontSize: '0.8rem' }
+        fontSize: '0.95rem',
+        margin: '5px 0 1rem'
     }
 });
 

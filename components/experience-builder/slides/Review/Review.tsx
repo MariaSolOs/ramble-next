@@ -29,8 +29,7 @@ const Review = (props: ReviewProps) => {
         props.creatorName,
         props.creatorPhoto,
         imageUrls,
-        props.form,
-        props.previousExperience
+        props.form
     );
 
     const { onSlideComplete } = props;

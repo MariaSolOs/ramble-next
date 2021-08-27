@@ -85,7 +85,7 @@ const styles = (theme: Theme) => createStyles({
         transition: 'all 0.3s ease-in-out'
     },
 
-    languageChip: {
+    languageItem: {
         display: 'flex',
         alignItems: 'center',
         marginLeft: -20

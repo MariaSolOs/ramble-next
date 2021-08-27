@@ -83,6 +83,7 @@ const Location = (props: LocationProps) => {
             options={props.storedLocations}
             value={location}
             freeSolo
+            disabled={props.disableLocation}
             onInputChange={(_, value, __) => props.onLocationChange(value)} />
             {isOnlineExperience ? 
                 <div className={classes.locationInfoContainer}>

@@ -94,6 +94,7 @@ const styles = (theme: Theme) => createStyles({
         textIndent: 30,
         cursor: 'pointer',
         whiteSpace: 'nowrap',
+        
         [theme.breakpoints.down('xs')]: { 
             fontSize: '1rem',
             margin: '0 0 10px' 

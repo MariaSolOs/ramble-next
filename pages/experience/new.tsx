@@ -226,6 +226,7 @@ const CreateExperiencePage: Page = () => {
                     storedLocations={[ ...new Set(locationsData.experiences.map(({ location }) => 
                         location
                     ))]}
+                    disableLocation={false}
                     isOnlineExperience={state.form.isOnlineExperience!}
                     location={state.form.location}
                     meetingPoint={state.form.meetingPoint}

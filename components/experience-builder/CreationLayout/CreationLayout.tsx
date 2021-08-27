@@ -76,8 +76,7 @@ const CreationLayout: React.FC<CreateLayoutProps> = (props) => {
                         open={openDrawer} 
                         onClose={collapseDrawer}>
                             {navbar}
-                        </Drawer> : 
-                        <ul className={classes.navbar}>{navbar}</ul>}
+                        </Drawer> : navbar}
                     <div className={classes.pageContent}>{props.children}</div>
                 </div>
                 <footer className={classes.footer}>

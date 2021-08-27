@@ -110,10 +110,10 @@ const NavbarProfileMenu = (props: NavbarProfileMenuProps) => {
                     }} 
                     className={`
                         ${classes.itemContent}
-                        ${classes.languageChip}
+                        ${classes.languageItem}
                     `}>
                         <LanguageIcon className={classes.languageIcon} />
-                        {text.languageChip}
+                        {text.languageItem}
                     </span>
                 </MenuItem>
                 <MenuItem 

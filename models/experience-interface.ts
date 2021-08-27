@@ -54,8 +54,7 @@ export const EDIT_STEPS = [
     'preview', 
     'included',
     'toBring',
-    'price',
-    'review'
+    'price'
 ] as const;
 
 export type EditStep = typeof EDIT_STEPS[number];
@@ -64,7 +63,7 @@ export type Experience = Omit<ExperienceViewFragment, 'images'> & {
     images: Image[] | string[];
 }
 
-export interface ExperienceForm {
+export interface NewExperienceForm {
     isOnlineExperience?: boolean;
     location: string;
     meetingPoint: string;
@@ -95,7 +94,6 @@ export interface ExperienceForm {
  * @param creatorPhoto - The creator's photo
  * @param form - Experience builder form
  * @param images - Array of image URLs
- * @param experience - Current experience (if the builder was in edit mode)
  * @returns Experience to use as parameter for the experience component
  */
 export const getFormPreview = (
@@ -103,24 +101,23 @@ export const getFormPreview = (
     creatorName: string,
     creatorPhoto: Image,
     images: string[], 
-    form: ExperienceForm, 
-    experience?: Experience,
+    form: NewExperienceForm
 ): Experience => {
     return {
-        _id: experience ? experience._id : uuid(),
-        title: experience ? experience.title : form.title, 
+        _id: uuid(),
+        title: form.title, 
         description: form.planning,
-        location: experience ? experience.location : form.location,
-        isOnlineExperience: experience ? experience.isOnlineExperience : form.isOnlineExperience!,
+        location: form.location,
+        isOnlineExperience: form.isOnlineExperience!,
         ...!form.isOnlineExperience && {
-            latitude: experience ? experience.latitude : form.latitude,
-            longitude: experience ? experience.longitude : form.longitude
+            latitude: form.latitude,
+            longitude: form.longitude
         },
         images,
-        categories: experience ? experience.categories : form.categories,
+        categories: form.categories,
         duration: form.duration,
         languages: form.languages,
-        capacity: experience ? experience.capacity : form.capacity,
+        capacity: form.capacity,
         ...form.isAgeRestricted && {
             ageRestriction: form.ageRequired
         },

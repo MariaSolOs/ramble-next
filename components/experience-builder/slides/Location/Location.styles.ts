@@ -6,7 +6,8 @@ const styles = (theme: Theme) => createStyles({
     
     autocomplete: {
         marginTop: '1rem',
-        '& .MuiInputBase-root': { borderRadius: 4 }
+        '& .MuiInputBase-root': { borderRadius: 4 },
+        '& .MuiInputBase-root.Mui-disabled': { color: '#929293' }
     },
 
     autocompletePaper: {

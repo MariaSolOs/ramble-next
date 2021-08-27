@@ -15,6 +15,7 @@ const frenchTranslation: TranslationRecord = {
 
     Navbar: {
         languageChip: 'EN',
+        languageItem: 'English',
         signUp: "M'inscrire",
         logIn: 'Connexion',
         becomeCreator: 'Devenir un Créateur',
@@ -24,7 +25,7 @@ const frenchTranslation: TranslationRecord = {
     NavbarProfileMenu: {
         profile: 'Profil',
         newExperience: 'Nouvelle expérience',
-        languageChip: 'English',
+        languageItem: 'English',
         logout: 'Déconnexion'
     },
 
@@ -219,6 +220,22 @@ const frenchTranslation: TranslationRecord = {
         submittedMessage2: 'a été soumise avec succès.',
         submittedMessage3: "Nous la passerons en revue et vous contacterons dès qu'elle est en ligne.",
         submittedButton: 'Parfait'
+    },
+
+    EditExperience: {
+        location: 'Localisation',
+        planning: 'Ce que vous ferez',
+        duration: 'Durée',
+        language: 'Langue',
+        age: 'Âge requis',
+        preview: 'Aperçu',
+        included: 'Ce qui est inclus',
+        toBring: 'Quoi emporter',
+        price: 'Prix',
+        back: 'Retour',
+        next: 'Suivant',
+        saveChanges: 'Sauvegarder',
+        leavePageAlert: 'Si vous quittez cette page, les changements ne seront pas sauvegardés.'
     },
     
     BuilderSlides_Setting: {

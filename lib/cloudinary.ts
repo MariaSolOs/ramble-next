@@ -17,13 +17,16 @@ export const getPlaceholder = async (url: string) => {
 }
 
 /**
- * Deletes the profile picture of a user in Cloudinary.
+ * Deletes assets from Cloudinary.
  * 
- * @param imageUrl - The URL of the asset in Cloudinary
+ * @param imageUrl - The URLs of the assets in Cloudinary
  */
-export const deleteUserPicture = async (imageUrl: string) => {
-    // Get the public ID from the URL
-    const publicId = imageUrl.split('/').pop()?.split('.')[0]!;
+export const deletePhotos = async (urls: string[], folder: 'Users' | 'Experiences') => {
+    // Get the public IDs from the URLs
+    const publicIds = urls.map(url => {
+        const id = url.split('/').pop()?.split('.')[0]!;
+        return `Ramble/${folder}/${id}`;
+    });
 
-    await cloudinary.api.delete_resources([`Ramble/Users/${publicId}`]);
+    await cloudinary.api.delete_resources(publicIds);
 }

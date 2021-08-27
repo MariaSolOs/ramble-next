@@ -17,7 +17,7 @@ import {
     creatorReducer,
     reviewReducer
 } from 'lib/graphql';
-import { getPlaceholder, deleteUserPicture } from 'lib/cloudinary';
+import { getPlaceholder, deletePhotos } from 'lib/cloudinary';
 import { computeBookingFees } from 'lib/booking';
 import { sendBookingNotificationEmail } from 'lib/sendgrid';
 import { getStripe } from 'lib/server-stripe';
@@ -228,7 +228,7 @@ export const resolvers: Resolvers = {
 
             // Delete old pictures from Cloudinary
             if (args.photo && user.photo) {
-                deleteUserPicture(user.photo);
+                deletePhotos([user.photo], 'Users');
             }
 
             // The creator bio is updated in the creator object

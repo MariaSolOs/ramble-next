@@ -15,6 +15,7 @@ const englishTranslation: TranslationRecord = {
 
     Navbar: {
         languageChip: 'FR',
+        languageItem: 'Français',
         signUp: 'Sign up',
         logIn: 'Log in',
         becomeCreator: 'Become a Creator',
@@ -24,7 +25,7 @@ const englishTranslation: TranslationRecord = {
     NavbarProfileMenu: {
         profile: 'View Profile',
         newExperience: 'New Experience',
-        languageChip: 'Français',
+        languageItem: 'Français',
         logout: 'Logout'
     },
 
@@ -219,6 +220,22 @@ const englishTranslation: TranslationRecord = {
         submittedMessage2: 'was submitted successfully.',
         submittedMessage3: "We'll review it and get back to you shortly so you can get your act out there as soon as possible.",
         submittedButton: 'Got it'
+    },
+
+    EditExperience: {
+        location: 'Location',
+        planning: 'Planning',
+        duration: 'Duration',
+        language: 'Language',
+        age: 'Required age',
+        preview: 'Preview',
+        included: "What's included",
+        toBring: 'What to bring',
+        price: 'Pricing',
+        back: 'Back',
+        next: 'Next',
+        saveChanges: 'Save changes',
+        leavePageAlert: 'If you leave this page, your changes will be lost.'
     },
     
     BuilderSlides_Setting: {

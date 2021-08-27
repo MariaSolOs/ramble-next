@@ -75,7 +75,7 @@ const styles = (theme: Theme) => createStyles({
         border: 'none'
     },
 
-    menuLink: {
+    menuItem: {
         fontFamily: theme.typography.fontFamily,
         fontWeight: theme.typography.fontWeightBold,
         fontSize: '0.9rem',
@@ -104,6 +104,18 @@ const styles = (theme: Theme) => createStyles({
         letterSpacing: '-0.05rem',
         width: 'fit-content',
         marginRight: 10
+    },
+
+    languageItem: {
+        display: 'flex',
+        alignItems: 'center',
+        marginLeft: -20
+    },
+
+    languageIcon: {
+        marginRight: 3,
+        color: '#616161',
+        fontSize: '1.4rem'
     }
 });
 

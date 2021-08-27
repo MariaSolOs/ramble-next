@@ -24,7 +24,7 @@ const styles = (theme: Theme) => createStyles({
             bottom: 20,
             right: 15
         },
-        '& .MuiOutlinedInput-input': { padding: '0 0 15px' },
+        '& .MuiOutlinedInput-input': { padding: '0 25px 15px 0' },
         '& .MuiInputBase-input': { width: 'cacl(100% - 30px)' }
     }
 });

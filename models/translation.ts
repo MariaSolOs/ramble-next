@@ -1,6 +1,7 @@
 import type { 
     Category as ExperienceCategory,
-    CreationStep as ExperienceCreationStep 
+    CreationStep as CreateExperienceStep,
+    EditStep as EditExperinceStep
 } from './experience-interface';
 
 export type Language = 'en' | 'fr';
@@ -8,9 +9,9 @@ export type Language = 'en' | 'fr';
 export type TranslationRecord = {
     Home: Record<'experienceTitle' | 'discoverTitle' | 'seeAllButton' | 'partakeTitle' | 'partakeSubtitle' | 'adventureTitle' | 'adventureSubtitle' | 'onboardingReturnSuccess' | 'onboardingReturnFailure', string>;
 
-    Navbar: Record<'languageChip' | 'signUp' | 'logIn' | 'becomeCreator' | 'creatorDashboard', string>;
+    Navbar: Record<'languageChip' | 'languageItem' | 'signUp' | 'logIn' | 'becomeCreator' | 'creatorDashboard', string>;
 
-    NavbarProfileMenu: Record<'profile' | 'newExperience' | 'languageChip' | 'logout', string>,
+    NavbarProfileMenu: Record<'profile' | 'newExperience' | 'languageItem' | 'logout', string>,
 
     Footer: Record<'supportColumnName' | 'supportLink' | 'socialColumnName' | 'languageColumnName' | 'languageChip' | 'copyright', string>;
 
@@ -48,7 +49,9 @@ export type TranslationRecord = {
 
     StripeRedirect: Record<'continueWithStripe', string>;
 
-    CreateExperience: Record<'stripeRedirectMessage1' | 'stripeRedirectMessage2' | 'animationTitle1' | 'animationTitle2' | 'leavePageAlert' | 'back' | 'next' | 'submit' | ExperienceCreationStep | 'submittedTitle' | 'submittedMessage1' | 'submittedMessage2' | 'submittedMessage3' | 'submittedButton', string>;
+    CreateExperience: Record<'stripeRedirectMessage1' | 'stripeRedirectMessage2' | 'animationTitle1' | 'animationTitle2' | 'leavePageAlert' | 'back' | 'next' | 'submit' | CreateExperienceStep | 'submittedTitle' | 'submittedMessage1' | 'submittedMessage2' | 'submittedMessage3' | 'submittedButton', string>;
+
+    EditExperience: Record<EditExperinceStep | 'back' | 'next' | 'saveChanges' | 'leavePageAlert', string>;
     
     BuilderSlides_Setting: Record<'title' | 'subtitle' | 'online' | 'onlineOption' | 'inPerson' | 'inPersonOption', string>;
     

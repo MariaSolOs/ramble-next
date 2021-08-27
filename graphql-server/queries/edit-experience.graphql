@@ -1,7 +1,21 @@
 query getEditExperience($id: ID!) {
     experiencesById(ids: [$id]) {
-        ...ExperienceView
+        isOnlineExperience
+        location
         meetingPoint
+        latitude
+        longitude
+        description
+        duration
+        languages
+        ageRestriction
+        images {
+            src
+        }
+        includedItems
+        toBringItems
+        capacity
+        pricePerPerson
         privatePrice
         currency
     }

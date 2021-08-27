@@ -76,6 +76,21 @@ const Navbar = () => {
                     open={Boolean(anchorEl)}
                     onClose={closeMenu}
                     className={classes.menu}>
+                        {!isLoggedIn && 
+                            <MenuItem>
+                                <span 
+                                onClick={() => {
+                                    toggleLanguage();
+                                    closeMenu();
+                                }} 
+                                className={`
+                                    ${classes.languageItem}
+                                    ${classes.menuItem}
+                                `}>
+                                    <LanguageIcon className={classes.languageIcon} />
+                                    {text.languageItem}
+                                </span>
+                            </MenuItem>}
                         <MenuItem>
                             <Link 
                             passHref 
@@ -83,7 +98,7 @@ const Navbar = () => {
                                 routes.bookingRequests.href : 
                                 routes.becomeACreator.href
                             }>
-                                <a onClick={closeMenu} className={classes.menuLink}>
+                                <a onClick={closeMenu} className={classes.menuItem}>
                                     {isCreator ? text.creatorDashboard : text.becomeCreator}
                                 </a>
                             </Link>
@@ -95,7 +110,7 @@ const Navbar = () => {
                             [<MenuItem
                             key={0}
                             component="button"
-                            className={classes.menuLink}
+                            className={classes.menuItem}
                             onClick={() => {
                                 uiDispatch({ type: 'OPEN_SIGN_UP_DIALOG' });
                                 closeMenu();
@@ -105,7 +120,7 @@ const Navbar = () => {
                             <MenuItem
                             key={1}
                             component="button"
-                            className={classes.menuLink}
+                            className={classes.menuItem}
                             onClick={() => {
                                 uiDispatch({ type: 'OPEN_LOG_IN_DIALOG' });
                                 closeMenu();
@@ -115,7 +130,7 @@ const Navbar = () => {
                     </Menu>
                 </div>
                 <div className={classes.expandedLinks}>
-                    {!isLoggedIn &&
+                    {!isLoggedIn && 
                         <Chip
                         icon={<LanguageIcon />}
                         label={text.languageChip}

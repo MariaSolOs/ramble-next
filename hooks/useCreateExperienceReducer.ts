@@ -2,7 +2,7 @@ import { useReducer, useCallback } from 'react';
 import type { EventInput } from '@fullcalendar/react';
 
 import { CREATION_STEPS } from 'models/experience-interface';
-import type { CreationStep, Category, ExperienceForm } from 'models/experience-interface';
+import type { CreationStep, Category, NewExperienceForm } from 'models/experience-interface';
 
 // Form fields that have a string as a value
 export type StringField = 
@@ -36,7 +36,7 @@ interface CreationState {
     stepsCompleted: number;
     canContinue: boolean;
     loading: boolean;
-    form: ExperienceForm;
+    form: NewExperienceForm;
 }
 
 const initialState: CreationState = {
@@ -112,6 +112,7 @@ export default function useCreateExperienceReducer() {
             case 'SET_STRING_FIELD':
             case 'SET_BOOLEAN_FIELD':
             case 'SET_NUMBER_FIELD':
+            case 'SET_ARRAY_FIELD':
                 return {
                     ...state,
                     form: {
@@ -140,14 +141,6 @@ export default function useCreateExperienceReducer() {
                     form: {
                         ...state.form,
                         images
-                    }
-                }
-            case 'SET_ARRAY_FIELD':
-                return {
-                    ...state,
-                    form: {
-                        ...state.form,
-                        [action.field]: action.value
                     }
                 }
             case 'SET_CAN_CONTINUE':
