@@ -1,7 +1,7 @@
 import React from 'react';
 
 import useLanguageContext from 'context/languageContext';
-import type { Category } from 'models/experience-interface';
+import type { ExperienceCategory } from 'graphql-server/sdk';
 import type { CategoryBoxProps } from './index';
 
 import Image from 'next/image';
@@ -21,7 +21,7 @@ type CategoryInfo = {
     backgroundImage: string;
 }
 
-const categories: Record<Category, CategoryInfo> = {
+const categories: Record<ExperienceCategory, CategoryInfo> = {
     taste: {
         icon: tasteIcon,
         backgroundColor: '#FBAB7E',

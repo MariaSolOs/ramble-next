@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { v4 as uuid } from 'uuid';
 
 import useLanguageContext from 'context/languageContext';
-import { CURRENCIES } from 'models/experience-interface';
-import type { Currency } from 'models/experience-interface';
+import { Currency } from 'graphql-server/sdk';
 import type { PricingProps } from './index';
 
 import Title from 'components/experience-builder/SlideTitle';
@@ -18,6 +17,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import styles from './Pricing.styles';
 const useStyles = makeStyles(styles);
 
+const CURRENCIES = Object.values(Currency).filter(val => isNaN(+val));
 const PRICE_REGEX = /^\d+$/;
 
 const Pricing = (props: PricingProps) => {

@@ -1,5 +1,5 @@
 import type { CompletableSlide } from 'models/application';
-import type { BookingType } from 'models/experience-interface';
+import type { BookingType } from 'graphql-server/sdk';
 import type { Occurrence } from 'hooks/useBookingReducer';
 
 import BookingTypeSlide from './BookingTypeSlide';

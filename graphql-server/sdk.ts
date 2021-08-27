@@ -20,13 +20,19 @@ export type Scalars = {
 export type Booking = {
   _id: Scalars['ID'];
   occurrence: Occurrence;
-  bookingType: Reservation;
+  bookingType: BookingType;
   numGuests: Scalars['Int'];
   client: User;
   creatorProfit: Scalars['Int'];
   createdAt: Scalars['String'];
   paymentCaptured: Scalars['Boolean'];
 };
+
+/** Booking types */
+export enum BookingType {
+  Public = 'public',
+  Private = 'private'
+}
 
 /** Mutation results */
 export type CreateBookingResult = {
@@ -44,6 +50,12 @@ export type Creator = {
   stripeProfile: StripeInfo;
   bookingRequests: Array<Booking>;
 };
+
+/** Supported currencies */
+export enum Currency {
+  Cad = 'CAD',
+  Usd = 'USD'
+}
 
 /** Experience */
 export type Experience = {
@@ -65,7 +77,7 @@ export type Experience = {
   isOnlineExperience: Scalars['Boolean'];
   pricePerPerson: Scalars['Int'];
   privatePrice?: Maybe<Scalars['Int']>;
-  currency: Scalars['String'];
+  currency: Currency;
   numRatings: Scalars['Int'];
   ratingValue?: Maybe<Scalars['Float']>;
   creator: Creator;
@@ -102,6 +114,8 @@ export type Mutation = {
   unsaveExperience: Experience;
   /** Experience creation. */
   createExperience: Experience;
+  /** Experience editing. */
+  editExperience: Experience;
   /** Booking creation. */
   createBooking: CreateBookingResult;
   /** Creates a new occurrence for the indicated experience. */
@@ -181,14 +195,32 @@ export type MutationCreateExperienceArgs = {
   zoomPassword?: Maybe<Scalars['String']>;
   pricePerPerson: Scalars['Int'];
   privatePrice?: Maybe<Scalars['Int']>;
-  currency: Scalars['String'];
+  currency: Currency;
   slots: Array<OccurrenceInput>;
+};
+
+
+export type MutationEditExperienceArgs = {
+  _id: Scalars['ID'];
+  description?: Maybe<Scalars['String']>;
+  images?: Maybe<Array<Scalars['String']>>;
+  meetingPoint?: Maybe<Scalars['String']>;
+  latitude?: Maybe<Scalars['Float']>;
+  longitude?: Maybe<Scalars['Float']>;
+  ageRestriction?: Maybe<Scalars['Int']>;
+  duration?: Maybe<Scalars['Float']>;
+  languages?: Maybe<Array<Scalars['String']>>;
+  includedItems?: Maybe<Array<Scalars['String']>>;
+  toBringItems?: Maybe<Array<Scalars['String']>>;
+  pricePerPerson?: Maybe<Scalars['Int']>;
+  privatePrice?: Maybe<Scalars['Int']>;
+  currency?: Maybe<Currency>;
 };
 
 
 export type MutationCreateBookingArgs = {
   occurrenceId: Scalars['ID'];
-  bookingType: Reservation;
+  bookingType: BookingType;
   numGuests: Scalars['Int'];
   paymentIntentId: Scalars['ID'];
 };
@@ -275,12 +307,6 @@ export type QueryGetReviewsArgs = {
   experienceId: Scalars['ID'];
 };
 
-/** Booking types */
-export enum Reservation {
-  Public = 'public',
-  Private = 'private'
-}
-
 /** Experience reviews */
 export type Review = {
   _id: Scalars['ID'];
@@ -356,7 +382,7 @@ export type UserAvatarFragment = (
 
 export type CreateBookingMutationVariables = Exact<{
   occurrenceId: Scalars['ID'];
-  bookingType: Reservation;
+  bookingType: BookingType;
   numGuests: Scalars['Int'];
   paymentIntentId: Scalars['ID'];
 }>;
@@ -383,7 +409,7 @@ export type CreateExperienceMutationVariables = Exact<{
   zoomPassword?: Maybe<Scalars['String']>;
   pricePerPerson: Scalars['Int'];
   privatePrice?: Maybe<Scalars['Int']>;
-  currency: Scalars['String'];
+  currency: Currency;
   slots: Array<OccurrenceInput> | OccurrenceInput;
 }>;
 
@@ -729,7 +755,7 @@ export const ExperienceViewFragmentDoc = gql`
 }
     ${UserAvatarFragmentDoc}`;
 export const CreateBookingDocument = gql`
-    mutation createBooking($occurrenceId: ID!, $bookingType: Reservation!, $numGuests: Int!, $paymentIntentId: ID!) {
+    mutation createBooking($occurrenceId: ID!, $bookingType: BookingType!, $numGuests: Int!, $paymentIntentId: ID!) {
   createBooking(
     occurrenceId: $occurrenceId
     bookingType: $bookingType
@@ -744,7 +770,7 @@ export const CreateBookingDocument = gql`
 }
     `;
 export const CreateExperienceDocument = gql`
-    mutation createExperience($title: String!, $description: String!, $images: [String!]!, $location: String!, $meetingPoint: String, $latitude: Float, $longitude: Float, $categories: [ExperienceCategory!]!, $ageRestriction: Int, $duration: Float!, $languages: [String!]!, $includedItems: [String!]!, $toBringItems: [String!]!, $capacity: Int!, $zoomPMI: String, $zoomPassword: String, $pricePerPerson: Int!, $privatePrice: Int, $currency: String!, $slots: [OccurrenceInput!]!) {
+    mutation createExperience($title: String!, $description: String!, $images: [String!]!, $location: String!, $meetingPoint: String, $latitude: Float, $longitude: Float, $categories: [ExperienceCategory!]!, $ageRestriction: Int, $duration: Float!, $languages: [String!]!, $includedItems: [String!]!, $toBringItems: [String!]!, $capacity: Int!, $zoomPMI: String, $zoomPassword: String, $pricePerPerson: Int!, $privatePrice: Int, $currency: Currency!, $slots: [OccurrenceInput!]!) {
   createExperience(
     title: $title
     description: $description

@@ -52,6 +52,7 @@ const CreateExperiencePage: Page = () => {
     const languageList = useLanguages();
 
     const [state, dispatch] = useCreateExperienceReducer();
+    const [handlingError, setHandlingError] = useState(false);
     const [animationIn, setAnimationIn] = useState(false);
     const [animationDone, setAnimationDone] = useState(false);
     const [createdTitle, setCreatedTitle] = useState('');
@@ -76,79 +77,81 @@ const CreateExperiencePage: Page = () => {
         dispatch({ type: 'SET_CAN_CONTINUE', value });
     }, [dispatch]);
 
-    const handleError = () => {
-        uiDispatch({
-            type: 'OPEN_ERROR_DIALOG',
-            message: 'Something went wrong...'
-        })
+    const handleError = (message = 'Something went wrong...') => {
+        setHandlingError(true);
+        uiDispatch({ type: 'OPEN_ERROR_DIALOG', message });
         setTimeout(() => {
             router.push('/');
         }, 4000);
     }
 
     const handleSubmit = async () => {
-        dispatch({ type: 'START_SUBMIT' });
+        try {
+            dispatch({ type: 'START_SUBMIT' });
         
-        // Upload images to Cloudinary
-        const images: string[] = [];
-        for (const imgFile of state.form.images) {
-            const formData = new FormData();
-            formData.append('file', (imgFile as File));
-            formData.append('upload_preset', 'RAMBLE-experiences');
+            // Upload images to Cloudinary
+            const images: string[] = [];
+            for (const imgFile of state.form.images) {
+                const formData = new FormData();
+                formData.append('file', (imgFile as File));
+                formData.append('upload_preset', 'RAMBLE-experiences');
 
-            const { secure_url } = await fetch(process.env.NEXT_PUBLIC_CLOUDINARY_API_URI!, {
-                method: 'POST',
-                body: formData
-            }).then(res => res.json());
+                const { secure_url } = await fetch(process.env.NEXT_PUBLIC_CLOUDINARY_API_URI!, {
+                    method: 'POST',
+                    body: formData
+                }).then(res => res.json());
 
-            images.push(secure_url);
+                images.push(secure_url);
+            }
+            
+            // Add experience to database
+            const creationData = await sdk.createExperience({
+                title: state.form.title,
+                description: state.form.planning,
+                images,
+                location: state.form.location,
+                meetingPoint: state.form.isOnlineExperience ? 
+                    undefined : state.form.meetingPoint,
+                latitude: state.form.isOnlineExperience ? 
+                    undefined : state.form.latitude,
+                longitude: state.form.isOnlineExperience ?
+                    undefined : state.form.longitude,
+                categories: state.form.categories,
+                ageRestriction: state.form.isAgeRestricted ? 
+                    state.form.ageRequired : undefined,
+                duration: state.form.duration,
+                languages: state.form.languages,
+                includedItems: state.form.included,
+                toBringItems: state.form.toBring,
+                capacity: state.form.capacity,
+                zoomPMI: state.form.isOnlineExperience ? 
+                    state.form.zoomMeetingId : undefined,
+                zoomPassword: state.form.isOnlineExperience ?
+                    state.form.zoomMeetingPassword : undefined,
+                pricePerPerson: state.form.pricePerPerson,
+                privatePrice: state.form.privatePrice > 0 ?
+                    state.form.privatePrice : undefined,
+                currency: state.form.currency,
+                slots: state.form.slots!.map(({ startStr, endStr }) => ({
+                    start: DateTime.fromISO(startStr, TIMEZONE_CONFIG).toISO(),
+                    end: DateTime.fromISO(endStr, TIMEZONE_CONFIG).toISO()
+                }))
+            });
+
+            setCreatedTitle(creationData.createExperience.title);
+        } catch (err) {
+            handleError("We couldn't create your experience...");
         }
-        
-        // Add experience to database
-        const creationData = await sdk.createExperience({
-            title: state.form.title,
-            description: state.form.planning,
-            images,
-            location: state.form.location,
-            meetingPoint: state.form.isOnlineExperience ? 
-                undefined : state.form.meetingPoint,
-            latitude: state.form.isOnlineExperience ? 
-                undefined : state.form.latitude,
-            longitude: state.form.isOnlineExperience ?
-                undefined : state.form.longitude,
-            categories: state.form.categories,
-            ageRestriction: state.form.isAgeRestricted ? 
-                state.form.ageRequired : undefined,
-            duration: state.form.duration,
-            languages: state.form.languages,
-            includedItems: state.form.included,
-            toBringItems: state.form.toBring,
-            capacity: state.form.capacity,
-            zoomPMI: state.form.isOnlineExperience ? 
-                state.form.zoomMeetingId : undefined,
-            zoomPassword: state.form.isOnlineExperience ?
-                state.form.zoomMeetingPassword : undefined,
-            pricePerPerson: state.form.pricePerPerson,
-            privatePrice: state.form.privatePrice > 0 ?
-                state.form.privatePrice : undefined,
-            currency: state.form.currency,
-            slots: state.form.slots!.map(({ startStr, endStr }) => ({
-                start: DateTime.fromISO(startStr, TIMEZONE_CONFIG).toISO(),
-                end: DateTime.fromISO(endStr, TIMEZONE_CONFIG).toISO()
-            }))
-        });
-
-        setCreatedTitle(creationData.createExperience.title);
     }
 
     const { data: creatorData } = sdk.useGetCreationProfile(session ? 'getCreationProfile' : null, 
         { userId: session?.user.userId || '' },
-        { onError: handleError }
+        { onError: () => handleError("We couldn't get your creator profile...") }
     );
 
     // Use existing locations for location autocomplete
     const { data: locationsData } = sdk.useGetLocations('getLocations', undefined, {
-        onError: handleError
+        onError: () => handleError()
     });
 
     // Make sure the user is logged in
@@ -188,7 +191,12 @@ const CreateExperiencePage: Page = () => {
 
     // Show alert message when leaving
     useRouterPrompt(
-        Boolean(session) && !Boolean(createdTitle) && Boolean(onboardedWithStripe), 
+        (
+            Boolean(session) && 
+            !Boolean(createdTitle) && 
+            Boolean(onboardedWithStripe) && 
+            !handlingError
+        ), 
         text.leavePageAlert
     );
 

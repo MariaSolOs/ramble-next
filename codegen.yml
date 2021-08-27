@@ -23,7 +23,7 @@ generates:
       mappers:
         Experience: models/codegen#ExperienceType
         Occurrence: models/codegen#OccurrenceType
-        Booking: models/codegen#BookingType
+        Booking: models/codegen#BookingGraphQLType
         User: models/codegen#UserType
         Creator: models/codegen#CreatorType
         Review: models/codegen#ReviewType

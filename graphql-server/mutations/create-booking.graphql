@@ -1,6 +1,6 @@
 mutation createBooking(
     $occurrenceId: ID!,
-    $bookingType: Reservation!,
+    $bookingType: BookingType!,
     $numGuests: Int!,
     $paymentIntentId: ID!
 ) {

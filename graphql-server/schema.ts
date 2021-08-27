@@ -12,8 +12,8 @@ export const typeDefs = gql`
         the indicated capacity, or those created by the specified creator.
         """
         experiences(
-            location: String
-            capacity: Int
+            location: String,
+            capacity: Int,
             creatorId: ID
         ): [Experience!]!
 
@@ -93,35 +93,55 @@ export const typeDefs = gql`
         Experience creation.
         """
         createExperience(
-            title: String!
-            description: String!
-            images: [String!]!
-            location: String!
-            meetingPoint: String
-            latitude: Float
-            longitude: Float
-            categories: [ExperienceCategory!]!
-            ageRestriction: Int
-            duration: Float!
-            languages: [String!]!
-            includedItems: [String!]!
-            toBringItems: [String!]!
-            capacity: Int!
-            zoomPMI: String
-            zoomPassword: String
-            pricePerPerson: Int!
-            privatePrice: Int
-            currency: String!
+            title: String!,
+            description: String!,
+            images: [String!]!,
+            location: String!,
+            meetingPoint: String,
+            latitude: Float,
+            longitude: Float,
+            categories: [ExperienceCategory!]!,
+            ageRestriction: Int,
+            duration: Float!,
+            languages: [String!]!,
+            includedItems: [String!]!,
+            toBringItems: [String!]!,
+            capacity: Int!,
+            zoomPMI: String,
+            zoomPassword: String,
+            pricePerPerson: Int!,
+            privatePrice: Int,
+            currency: Currency!,
             slots: [OccurrenceInput!]!
+        ): Experience!
+
+        """
+        Experience editing.
+        """
+        editExperience(
+            _id: ID!,
+            description: String,
+            images: [String!],
+            meetingPoint: String,
+            latitude: Float,
+            longitude: Float,
+            ageRestriction: Int,
+            duration: Float,
+            languages: [String!],
+            includedItems: [String!],
+            toBringItems: [String!],
+            pricePerPerson: Int,
+            privatePrice: Int,
+            currency: Currency
         ): Experience!
 
         """
         Booking creation.
         """
         createBooking(
-            occurrenceId: ID!
-            bookingType: Reservation!
-            numGuests: Int!
+            occurrenceId: ID!,
+            bookingType: BookingType!,
+            numGuests: Int!,
             paymentIntentId: ID!
         ): CreateBookingResult!
 
@@ -129,8 +149,8 @@ export const typeDefs = gql`
         Creates a new occurrence for the indicated experience.
         """
         createOccurrence(
-            experienceId: ID!
-            experienceCapacity: Int!
+            experienceId: ID!,
+            experienceCapacity: Int!,
             dates: OccurrenceInput!
         ): Occurrence!
 
@@ -179,9 +199,17 @@ export const typeDefs = gql`
     }
 
     """
+    Supported currencies
+    """
+    enum Currency {
+        CAD
+        USD
+    }
+
+    """
     Booking types
     """
-    enum Reservation {
+    enum BookingType {
         public
         private
     }
@@ -216,7 +244,7 @@ export const typeDefs = gql`
         isOnlineExperience: Boolean!
         pricePerPerson: Int!
         privatePrice: Int
-        currency: String!
+        currency: Currency!
         numRatings: Int!
         ratingValue: Float
         creator: Creator!
@@ -242,7 +270,7 @@ export const typeDefs = gql`
     type Booking {
         _id: ID!
         occurrence: Occurrence!
-        bookingType: Reservation!
+        bookingType: BookingType!
         numGuests: Int!
         client: User!
         creatorProfit: Int!

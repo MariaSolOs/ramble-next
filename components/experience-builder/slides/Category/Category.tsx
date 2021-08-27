@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { v4 as uuid } from 'uuid';
 
 import useLanguageContext from 'context/languageContext';
-import { EXPERIENCE_CATEGORIES } from 'models/experience-interface';
+import { ExperienceCategory } from 'graphql-server/sdk';
 import type { CategoryProps } from './index';
 
 import Title from 'components/experience-builder/SlideTitle';
@@ -14,6 +14,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import styles from './Category.styles';
 const useStyles = makeStyles(styles);
 
+const EXPERIENCE_CATEGORIES = Object.values(ExperienceCategory).filter(val =>
+    isNaN(+val) 
+);
 const NUM_STEPS = 2;
 
 const Category = (props: CategoryProps) => {

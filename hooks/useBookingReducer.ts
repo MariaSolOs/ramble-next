@@ -2,13 +2,14 @@ import { useReducer, useCallback } from 'react';
 import { DateTime } from 'luxon';
 import type { EventInput } from '@fullcalendar/react';
 
+import { BookingType } from 'graphql-server/sdk';
 import { TIMEZONE_CONFIG } from 'global-constants';
 import type {
     GetBookingExperienceQuery,
     GetBookingOccurrencesQuery as OccurrencesData,
     CreateBookingMutation
 } from 'graphql-server/sdk';
-import type { BookingType, Fees } from 'models/experience-interface';
+import type { Fees } from 'models/experience-interface';
 
 const BOOKING_STEPS = [
     'date',
@@ -155,7 +156,7 @@ export default function useBookingReducer() {
                     form: {
                         ...state.form,
                         numGuests: action.numGuests,
-                        bookingType: 'public'
+                        bookingType: BookingType.Public
                     }
                 }
             case 'SET_EMAIL':

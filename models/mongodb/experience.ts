@@ -3,7 +3,7 @@ import mongooseLeanDefaults from 'mongoose-lean-defaults';
 import type { Types, Model, SchemaDefinitionProperty } from 'mongoose';
 
 import type { Creator } from './creator';
-import type { Currency } from 'models/experience-interface';
+import type { Currency } from 'graphql-server/sdk';
 
 export interface Experience {
     _id: Types.ObjectId;

@@ -1,8 +1,8 @@
 import { useReducer, useCallback } from 'react';
 
 import { EDIT_STEPS } from 'models/experience-interface';
-import type { EditStep, Currency } from 'models/experience-interface';
-import type { GetEditExperienceQuery } from 'graphql-server/sdk';
+import type { EditStep } from 'models/experience-interface';
+import type { GetEditExperienceQuery, Currency } from 'graphql-server/sdk';
 
 // Form fields that have a string as a value
 export type StringField = 
@@ -126,7 +126,7 @@ export default function useEditExperinceReducer() {
                         capacity: action.experience.capacity,
                         pricePerPerson: action.experience.pricePerPerson,
                         privatePrice: action.experience.privatePrice || 0,
-                        currency: action.experience.currency as Currency
+                        currency: action.experience.currency
                     }
                 }
                 case 'SET_STRING_FIELD':

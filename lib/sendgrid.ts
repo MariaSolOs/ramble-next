@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import sgMail from '@sendgrid/mail';
 
-import type { Currency } from 'models/experience-interface';
+import type { Currency } from 'graphql-server/sdk';
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 

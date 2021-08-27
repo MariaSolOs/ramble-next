@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 
 import useLanguageContext from 'context/languageContext';
+import { BookingType } from 'graphql-server/sdk';
 import type { BookingTypeSlideProps } from './index';
 
 import PlusMinusInput from 'components/PlusMinusInput';
@@ -27,7 +28,7 @@ const BookingTypeSlide = (props: BookingTypeSlideProps) => {
     // If private bookings are not enabled, pre-select public option
     useEffect(() => {
         if (!props.privatePrice) {
-            onBookingTypeChange('public');
+            onBookingTypeChange(BookingType.Public);
         }
 
         // We can safely assume onBookingType never changes
@@ -41,9 +42,9 @@ const BookingTypeSlide = (props: BookingTypeSlideProps) => {
                 <button
                 className={`
                     ${classes.bookingButton}
-                    ${props.bookingType === 'private' && classes.selectedButton}
+                    ${props.bookingType === BookingType.Private && classes.selectedButton}
                 `}
-                onClick={() => onBookingTypeChange('private')}>
+                onClick={() => onBookingTypeChange(BookingType.Private)}>
                     <p className={classes.buttonTitle}>
                         {text.privateBookingTitle}
                         <span className={classes.price}>
@@ -62,9 +63,9 @@ const BookingTypeSlide = (props: BookingTypeSlideProps) => {
             <button
             className={`
                 ${classes.bookingButton}
-                ${props.bookingType === 'public' && classes.selectedButton}
+                ${props.bookingType === BookingType.Public && classes.selectedButton}
             `}
-            onClick={() => onBookingTypeChange('public')}>
+            onClick={() => onBookingTypeChange(BookingType.Public)}>
                 <p className={classes.buttonTitle}>
                     {props.isOnlineExperience ? 
                         text.publicBookingTitleOnline : text.publicBookingTitle}
@@ -88,7 +89,7 @@ const BookingTypeSlide = (props: BookingTypeSlideProps) => {
             </button>
             <Collapse
             className={classes.numGuestsField}
-            in={props.bookingType === 'public'}>
+            in={props.bookingType === BookingType.Public}>
                 <p className={classes.numGuestsTitle}>
                     {text.numberOfGuests}
                 </p>

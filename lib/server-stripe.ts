@@ -3,11 +3,12 @@ import type { Document } from 'mongoose';
 
 import { sendBookingConfirmation } from 'lib/sendgrid';
 import Booking from 'models/mongodb/booking';
+import { BookingType } from 'graphql-server/sdk';
 import type { Occurrence as OccurrenceType } from 'models/mongodb/occurrence';
 import type { Experience as ExperienceType } from 'models/mongodb/experience';
 import type { Creator as CreatorType } from 'models/mongodb/creator';
 import type { User as UserType } from 'models/mongodb/user';
-import type { Currency } from 'models/experience-interface';
+import type { Currency } from 'graphql-server/sdk';
 
 const serverStripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
     apiVersion: '2020-08-27'
@@ -155,7 +156,7 @@ export const handleCanceledPaymentIntent = async (paymentIntent: Stripe.PaymentI
 
     // Update the spots left (restore capacity of private bookings) and
     // remove booking from occurrence
-    occurrence.spotsLeft += booking.bookingType === 'private' ?
+    occurrence.spotsLeft += booking.bookingType === BookingType.Private ?
         experience.capacity : booking.numGuests;
     occurrence.bookings = occurrence.bookings.filter(id => 
         id !== booking._id

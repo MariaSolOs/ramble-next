@@ -2,7 +2,9 @@ import { useReducer, useCallback } from 'react';
 import type { EventInput } from '@fullcalendar/react';
 
 import { CREATION_STEPS } from 'models/experience-interface';
-import type { CreationStep, Category, NewExperienceForm } from 'models/experience-interface';
+import { Currency } from 'graphql-server/sdk';
+import type { ExperienceCategory } from 'graphql-server/sdk';
+import type { CreationStep, NewExperienceForm } from 'models/experience-interface';
 
 // Form fields that have a string as a value
 export type StringField = 
@@ -65,7 +67,7 @@ const initialState: CreationState = {
         toBring: [],
         pricePerPerson: 0,
         privatePrice: 0,
-        currency: 'CAD',
+        currency: Currency.Cad,
         slots: []
     }
 }
@@ -77,8 +79,8 @@ type Action =
 | { type: 'SET_STRING_FIELD'; field: StringField; value: string; }
 | { type: 'SET_BOOLEAN_FIELD'; field: BooleanField; value: boolean; }
 | { type: 'SET_NUMBER_FIELD'; field: NumberField; value: number; }
-| { type: 'SET_CATEGORY'; value: Category; remove: boolean; }
-| { type: 'SET_CATEGORY'; value: Category; remove: boolean; }
+| { type: 'SET_CATEGORY'; value: ExperienceCategory; remove: boolean; }
+| { type: 'SET_CATEGORY'; value: ExperienceCategory; remove: boolean; }
 | { type: 'SET_IMAGE_FILE'; index: number; value?: File; }
 | { type: 'SET_ARRAY_FIELD'; field: ArrayField; value: string[] | EventInput[]; }
 | { type: 'SET_CAN_CONTINUE'; value: boolean; }

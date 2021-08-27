@@ -4,9 +4,9 @@ import type { EventInput } from '@fullcalendar/react';
 
 import type { 
     GetSlotableOccurrencesQuery as OccurrencesData,
-    CreateOccurrenceMutation as OccurrenceData
+    CreateOccurrenceMutation as OccurrenceData,
+    BookingType
 } from 'graphql-server/sdk';
-import type { BookingType } from 'models/experience-interface';
 import type { Image } from 'models/files';
 import { TIMEZONE_CONFIG } from 'global-constants';
 

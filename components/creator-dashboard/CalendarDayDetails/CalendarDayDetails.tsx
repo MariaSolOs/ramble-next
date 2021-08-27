@@ -2,6 +2,7 @@ import { DateTime } from 'luxon';
 import { useMediaQuery } from '@material-ui/core';
 
 import useLanguageContext from 'context/languageContext';
+import { BookingType } from 'graphql-server/sdk';
 import type { CalendarDayDetailsProps } from './index';
 
 import Image from 'next/image';
@@ -60,7 +61,7 @@ const CalendarDayDetails = (props: CalendarDayDetailsProps) => {
                         <ul className={classes.clientList}>
                             {slot.bookings.map(booking =>
                                 <li key={booking._id} className={classes.clientItem}>
-                                    {booking.bookingType === 'private' &&
+                                    {booking.bookingType === BookingType.Private &&
                                         <div className={classes.privateBooking}>
                                             <FontAwesomeIcon 
                                             icon={faCrown}

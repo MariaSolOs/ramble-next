@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useSession } from 'next-auth/client';
 import { useRouter } from 'next/router';
 
@@ -42,6 +42,7 @@ const EditExperiencePage: Page = () => {
     const experienceId = router.query.expid as string;
 
     const [state, dispatch] = useEditExperinceReducer();
+    const [handlingError, setHandlingError] = useState(false);
 
     const handleStringChange = useCallback((field: StringField, value: string) => {
         dispatch({ type: 'SET_STRING_FIELD', field, value });
@@ -59,35 +60,37 @@ const EditExperiencePage: Page = () => {
         dispatch({ type: 'SET_CAN_CONTINUE', value });
     }, [dispatch]);
 
-    const handleError = () => {
-        uiDispatch({
-            type: 'OPEN_ERROR_DIALOG',
-            message: 'Something went wrong...'
-        })
+    const handleError = (message = 'Something went wrong...') => {
+        setHandlingError(true);
+        uiDispatch({ type: 'OPEN_ERROR_DIALOG', message });
         setTimeout(() => {
             router.push('/');
         }, 4000);
     }
 
     const handleSave = async () => {
-        dispatch({ type: 'START_SAVING' });
-
-        // Upload images to Cloudinary
-        // const images: string[] = [];
-        // for (const imgFile of state.form.images) {
-        //     const formData = new FormData();
-        //     formData.append('file', (imgFile as File));
-        //     formData.append('upload_preset', 'RAMBLE-experiences');
-
-        //     const { secure_url } = await fetch(process.env.NEXT_PUBLIC_CLOUDINARY_API_URI!, {
-        //         method: 'POST',
-        //         body: formData
-        //     }).then(res => res.json());
-
-        //     images.push(secure_url);
-        // }
-
-        dispatch({ type: 'END_SAVING' });
+        try {
+            dispatch({ type: 'START_SAVING' });
+    
+            // Upload images to Cloudinary
+            // const images: string[] = [];
+            // for (const imgFile of state.form.images) {
+            //     const formData = new FormData();
+            //     formData.append('file', (imgFile as File));
+            //     formData.append('upload_preset', 'RAMBLE-experiences');
+    
+            //     const { secure_url } = await fetch(process.env.NEXT_PUBLIC_CLOUDINARY_API_URI!, {
+            //         method: 'POST',
+            //         body: formData
+            //     }).then(res => res.json());
+    
+            //     images.push(secure_url);
+            // }
+    
+            dispatch({ type: 'END_SAVING' });
+        } catch (err) {
+            handleError("We couldn't save your changes...");
+        }
     }
 
     // Get the experience for editing
@@ -100,13 +103,18 @@ const EditExperiencePage: Page = () => {
                     experience: experiencesById[0]
                 });
             },
-            onError: handleError
+            onError: () => handleError("We couldn't get your experience...")
         }
     );
 
     // Show alert message when leaving
     useRouterPrompt(
-        Boolean(session?.user.creatorId) && Boolean(state.form) && Boolean(state.formDirty), 
+        (
+            Boolean(session?.user.creatorId) && 
+            Boolean(state.form) && 
+            Boolean(state.formDirty) &&
+            !handlingError
+        ), 
         text.leavePageAlert
     );
 

@@ -82,9 +82,7 @@ const EditingLayout: React.FC<EditingLayoutProps> = (props) => {
                 </div>
                 <footer className={classes.footer}>
                     {isMobile &&
-                        <div 
-                        onClick={expandDrawer}
-                        className={classes.navbarToggler}>
+                        <div onClick={expandDrawer} className={classes.navbarToggler}>
                             <Image
                             src={menuIcon}
                             alt="Drawer toggler"

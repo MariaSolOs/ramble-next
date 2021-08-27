@@ -1,5 +1,6 @@
 import { GraphQLClient } from 'graphql-request';
 
+import { Currency, BookingType } from 'graphql-server/sdk';
 import type { Experience } from 'models/mongodb/experience';
 import type { Occurrence } from 'models/mongodb/occurrence';
 import type { Booking } from 'models/mongodb/booking';
@@ -33,7 +34,7 @@ export const experienceReducer = (exp: Experience | null) => ({
     isOnlineExperience: Boolean(exp?.zoomInfo?.PMI),
     pricePerPerson: exp?.price.perPerson || 0,
     privatePrice: exp?.price.private || null,
-    currency: exp?.price.currency || 'CAD',
+    currency: exp?.price.currency || Currency.Cad,
     numRatings: exp?.rating.numRatings || 0,
     ratingValue: exp && exp.rating.numRatings > 0 ? exp.rating.value : null,
     creator: exp?.creator || ''
@@ -52,7 +53,7 @@ export const occurrenceReducer = (occ: Occurrence | null) => ({
 export const bookingReducer = (booking: Booking | null) => ({
     _id: booking?._id || '',
     occurrence: booking?.occurrence || '',
-    bookingType: booking?.bookingType || 'public',
+    bookingType: booking?.bookingType || BookingType.Public,
     numGuests: booking?.numGuests || 0,
     client: booking?.client || '',
     creatorProfit: booking?.stripe.creatorProfit || 0,

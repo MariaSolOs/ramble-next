@@ -1,5 +1,6 @@
 import type { CompletableSlide } from 'models/application';
-import type { Currency, Fees } from 'models/experience-interface';
+import type { Fees } from 'models/experience-interface';
+import type { Currency } from 'graphql-server/sdk';
 import type { Occurrence } from 'hooks/useBookingReducer';
 
 import PaymentSlide from './PaymentSlide';

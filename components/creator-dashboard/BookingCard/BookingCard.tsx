@@ -4,6 +4,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import useLanguageContext from 'context/languageContext';
 import { getTimePieces } from 'lib/date-time';
+import { BookingType } from 'graphql-server/sdk';
 import type { BookingCardProps } from './index';
 
 import Image from 'next/image';
@@ -52,7 +53,7 @@ const BookingCard = (props: BookingCardProps) => {
                 </h4>
             </div>
             <div className={classes.body}>
-                {booking.bookingType === 'private' &&
+                {booking.bookingType === BookingType.Private &&
                     <div className={classes.private}>
                         <FontAwesomeIcon className={classes.icon} icon={faCrown} />
                         {text.privateBooking}

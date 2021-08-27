@@ -1,4 +1,4 @@
-import type { BookingType } from 'models/experience-interface';
+import { BookingType } from 'graphql-server/sdk';
 
 import { faCcVisa } from '@fortawesome/free-brands-svg-icons/faCcVisa';
 import { faCcMastercard } from '@fortawesome/free-brands-svg-icons/faCcMastercard';
@@ -11,7 +11,7 @@ import { faCreditCard } from '@fortawesome/free-solid-svg-icons/faCreditCard';
  * Computes all the fees associated to a booking.
  * 
  * @param isInPersonExperience - Whether the experience is on Zoom or not
- * @param bookingType - The booking type ('public' or 'private')
+ * @param bookingType - The booking type (public or private)
  * @param numGuests - The number of guests in the booking
  * @param perPersonPrice - Experience's price per person
  * @param privatePrice - The experience's private price
@@ -25,13 +25,13 @@ export const computeBookingFees = (
     privatePrice?: number
 ) => {
     let bookingPrice = 0;
-    if (bookingType === 'public') {
+    if (bookingType === BookingType.Public) {
         bookingPrice = perPersonPrice;
         // For in person experiences, the costs are per guest
         if (isInPersonExperience) {
             bookingPrice *= numGuests;
         }
-    } else { // bookingType === 'private'
+    } else { // bookingType === BookingType.Private
         bookingPrice = privatePrice!;
     }
 
@@ -72,7 +72,7 @@ export const getFeesBreakdown = (price: number, isOnlineExperience: boolean, boo
     let bookingPrice = 0;
     let subTotalString = '';
 
-    if (bookingType === 'public' && !isOnlineExperience) {
+    if (bookingType === BookingType.Public && !isOnlineExperience) {
         bookingPrice = price * numGuests;
         subTotalString = `${numGuests} x ${price.toFixed(2)} = ${bookingPrice.toFixed(2)}`;       
     } else {

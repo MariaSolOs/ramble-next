@@ -17,7 +17,7 @@ mutation createExperience(
     $zoomPassword: String
     $pricePerPerson: Int!
     $privatePrice: Int
-    $currency: String!
+    $currency: Currency!
     $slots: [OccurrenceInput!]! 
 ) {
     createExperience(

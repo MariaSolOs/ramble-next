@@ -13,7 +13,8 @@ export type ExperienceType = ReturnType<typeof experienceReducer>;
 
 export type OccurrenceType = ReturnType<typeof occurrenceReducer>;
 
-export type BookingType = ReturnType<typeof bookingReducer>;
+// Name this one differently to avoid conflict with 'public' | 'private'
+export type BookingGraphQLType = ReturnType<typeof bookingReducer>;
 
 export type UserType = ReturnType<typeof userReducer>;
 

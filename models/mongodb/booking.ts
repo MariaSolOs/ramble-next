@@ -4,7 +4,7 @@ import type { Types, Model, SchemaDefinitionProperty } from 'mongoose';
 
 import type { Occurrence } from './occurrence';
 import type { User } from './user';
-import type { BookingType } from 'models/experience-interface';
+import type { BookingType } from 'graphql-server/sdk';
 
 export interface Booking {
     _id: Types.ObjectId;

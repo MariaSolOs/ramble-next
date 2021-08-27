@@ -1,5 +1,5 @@
 import type { CompletableSlide } from 'models/application';
-import type { Currency } from 'models/experience-interface';
+import type { Currency } from 'graphql-server/sdk';
 
 import Pricing from './Pricing';
 

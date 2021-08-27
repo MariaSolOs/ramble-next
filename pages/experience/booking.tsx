@@ -5,11 +5,9 @@ import { useRouter } from 'next/router';
 
 import useBookingReducer from 'hooks/useBookingReducer';
 import useUiContext from 'context/uiContext';
-import { getSdkWithHooks } from 'graphql-server/sdk';
+import { getSdkWithHooks, BookingType } from 'graphql-server/sdk';
 import { getGraphQLClient } from 'lib/graphql';
 import { getFeesBreakdown } from 'lib/booking';
-import type { Currency } from 'models/experience-interface';
-import type { Reservation } from 'graphql-server/sdk';
 import type { Page } from 'models/application';
 
 import Spinner from 'components/Spinner';
@@ -75,7 +73,7 @@ const BookExperiencePage: Page = () => {
         if (state.experience &&
             state.form.bookingType &&
             state.form.numGuests) {
-            const price = state.form.bookingType === 'public' ?
+            const price = state.form.bookingType === BookingType.Public ?
                 state.experience.pricePerPerson : state.experience.privatePrice!;
             const fees = getFeesBreakdown(
                 price,
@@ -142,7 +140,7 @@ const BookExperiencePage: Page = () => {
         // Create booking
         const bookingData = await sdk.createBooking({
             occurrenceId: state.form.timeslot!.id!,
-            bookingType: state.form.bookingType as Reservation,
+            bookingType: state.form.bookingType!,
             numGuests: state.form.numGuests,
             paymentIntentId: result.paymentIntent.id
         });
@@ -199,7 +197,7 @@ const BookExperiencePage: Page = () => {
                     zipCode={state.form.zipCode}
                     selectedDate={state.form.date!}
                     selectedSlot={state.form.timeslot!}
-                    currency={state.experience?.currency as Currency}
+                    currency={state.experience?.currency!}
                     fees={state.form.fees!}
                     onEmailChange={email => {
                         dispatch({ type: 'SET_EMAIL', email });
@@ -230,7 +228,7 @@ const BookExperiencePage: Page = () => {
             cardBrand={cardBrand}
             cardLast4={cardLast4}
             totalPrice={state.form.fees.totalPrice}
-            currency={state.experience!.currency! as Currency}
+            currency={state.experience!.currency!}
             experience={{
                 title: state.experience!.title,
                 image: state.experience!.images[0],

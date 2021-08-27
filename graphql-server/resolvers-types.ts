@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql';
-import { ExperienceType, OccurrenceType, BookingType, UserType, CreatorType, ReviewType, Context } from 'models/codegen';
+import { ExperienceType, OccurrenceType, BookingGraphQLType, UserType, CreatorType, ReviewType, Context } from 'models/codegen';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -19,13 +19,19 @@ export type Booking = {
   __typename?: 'Booking';
   _id: Scalars['ID'];
   occurrence: Occurrence;
-  bookingType: Reservation;
+  bookingType: BookingType;
   numGuests: Scalars['Int'];
   client: User;
   creatorProfit: Scalars['Int'];
   createdAt: Scalars['String'];
   paymentCaptured: Scalars['Boolean'];
 };
+
+/** Booking types */
+export enum BookingType {
+  Public = 'public',
+  Private = 'private'
+}
 
 /** Mutation results */
 export type CreateBookingResult = {
@@ -45,6 +51,12 @@ export type Creator = {
   stripeProfile: StripeInfo;
   bookingRequests: Array<Booking>;
 };
+
+/** Supported currencies */
+export enum Currency {
+  Cad = 'CAD',
+  Usd = 'USD'
+}
 
 /** Experience */
 export type Experience = {
@@ -67,7 +79,7 @@ export type Experience = {
   isOnlineExperience: Scalars['Boolean'];
   pricePerPerson: Scalars['Int'];
   privatePrice?: Maybe<Scalars['Int']>;
-  currency: Scalars['String'];
+  currency: Currency;
   numRatings: Scalars['Int'];
   ratingValue?: Maybe<Scalars['Float']>;
   creator: Creator;
@@ -106,6 +118,8 @@ export type Mutation = {
   unsaveExperience: Experience;
   /** Experience creation. */
   createExperience: Experience;
+  /** Experience editing. */
+  editExperience: Experience;
   /** Booking creation. */
   createBooking: CreateBookingResult;
   /** Creates a new occurrence for the indicated experience. */
@@ -185,14 +199,32 @@ export type MutationCreateExperienceArgs = {
   zoomPassword?: Maybe<Scalars['String']>;
   pricePerPerson: Scalars['Int'];
   privatePrice?: Maybe<Scalars['Int']>;
-  currency: Scalars['String'];
+  currency: Currency;
   slots: Array<OccurrenceInput>;
+};
+
+
+export type MutationEditExperienceArgs = {
+  _id: Scalars['ID'];
+  description?: Maybe<Scalars['String']>;
+  images?: Maybe<Array<Scalars['String']>>;
+  meetingPoint?: Maybe<Scalars['String']>;
+  latitude?: Maybe<Scalars['Float']>;
+  longitude?: Maybe<Scalars['Float']>;
+  ageRestriction?: Maybe<Scalars['Int']>;
+  duration?: Maybe<Scalars['Float']>;
+  languages?: Maybe<Array<Scalars['String']>>;
+  includedItems?: Maybe<Array<Scalars['String']>>;
+  toBringItems?: Maybe<Array<Scalars['String']>>;
+  pricePerPerson?: Maybe<Scalars['Int']>;
+  privatePrice?: Maybe<Scalars['Int']>;
+  currency?: Maybe<Currency>;
 };
 
 
 export type MutationCreateBookingArgs = {
   occurrenceId: Scalars['ID'];
-  bookingType: Reservation;
+  bookingType: BookingType;
   numGuests: Scalars['Int'];
   paymentIntentId: Scalars['ID'];
 };
@@ -280,12 +312,6 @@ export type QueryOccurrencesArgs = {
 export type QueryGetReviewsArgs = {
   experienceId: Scalars['ID'];
 };
-
-/** Booking types */
-export enum Reservation {
-  Public = 'public',
-  Private = 'private'
-}
 
 /** Experience reviews */
 export type Review = {
@@ -403,13 +429,15 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  Booking: ResolverTypeWrapper<BookingType>;
+  Booking: ResolverTypeWrapper<BookingGraphQLType>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   String: ResolverTypeWrapper<Scalars['String']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  BookingType: BookingType;
   CreateBookingResult: ResolverTypeWrapper<CreateBookingResult>;
   Creator: ResolverTypeWrapper<CreatorType>;
+  Currency: Currency;
   Experience: ResolverTypeWrapper<ExperienceType>;
   Float: ResolverTypeWrapper<Scalars['Float']>;
   ExperienceCategory: ExperienceCategory;
@@ -418,7 +446,6 @@ export type ResolversTypes = {
   Occurrence: ResolverTypeWrapper<OccurrenceType>;
   OccurrenceInput: OccurrenceInput;
   Query: ResolverTypeWrapper<{}>;
-  Reservation: Reservation;
   Review: ResolverTypeWrapper<ReviewType>;
   StripeInfo: ResolverTypeWrapper<StripeInfo>;
   User: ResolverTypeWrapper<UserType>;
@@ -426,7 +453,7 @@ export type ResolversTypes = {
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  Booking: BookingType;
+  Booking: BookingGraphQLType;
   ID: Scalars['ID'];
   Int: Scalars['Int'];
   String: Scalars['String'];
@@ -448,7 +475,7 @@ export type ResolversParentTypes = {
 export type BookingResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Booking'] = ResolversParentTypes['Booking']> = {
   _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   occurrence?: Resolver<ResolversTypes['Occurrence'], ParentType, ContextType>;
-  bookingType?: Resolver<ResolversTypes['Reservation'], ParentType, ContextType>;
+  bookingType?: Resolver<ResolversTypes['BookingType'], ParentType, ContextType>;
   numGuests?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   client?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   creatorProfit?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
@@ -493,7 +520,7 @@ export type ExperienceResolvers<ContextType = Context, ParentType extends Resolv
   isOnlineExperience?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   pricePerPerson?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   privatePrice?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  currency?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  currency?: Resolver<ResolversTypes['Currency'], ParentType, ContextType>;
   numRatings?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   ratingValue?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   creator?: Resolver<ResolversTypes['Creator'], ParentType, ContextType>;
@@ -515,6 +542,7 @@ export type MutationResolvers<ContextType = Context, ParentType extends Resolver
   saveExperience?: Resolver<ResolversTypes['Experience'], ParentType, ContextType, RequireFields<MutationSaveExperienceArgs, 'experienceId'>>;
   unsaveExperience?: Resolver<ResolversTypes['Experience'], ParentType, ContextType, RequireFields<MutationUnsaveExperienceArgs, 'experienceId'>>;
   createExperience?: Resolver<ResolversTypes['Experience'], ParentType, ContextType, RequireFields<MutationCreateExperienceArgs, 'title' | 'description' | 'images' | 'location' | 'categories' | 'duration' | 'languages' | 'includedItems' | 'toBringItems' | 'capacity' | 'pricePerPerson' | 'currency' | 'slots'>>;
+  editExperience?: Resolver<ResolversTypes['Experience'], ParentType, ContextType, RequireFields<MutationEditExperienceArgs, '_id'>>;
   createBooking?: Resolver<ResolversTypes['CreateBookingResult'], ParentType, ContextType, RequireFields<MutationCreateBookingArgs, 'occurrenceId' | 'bookingType' | 'numGuests' | 'paymentIntentId'>>;
   createOccurrence?: Resolver<ResolversTypes['Occurrence'], ParentType, ContextType, RequireFields<MutationCreateOccurrenceArgs, 'experienceId' | 'experienceCapacity' | 'dates'>>;
   deleteOccurrence?: Resolver<ResolversTypes['Occurrence'], ParentType, ContextType, RequireFields<MutationDeleteOccurrenceArgs, 'occurrenceId'>>;

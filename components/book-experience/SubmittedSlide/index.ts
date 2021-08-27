@@ -1,6 +1,6 @@
 import type { DateTime } from 'luxon';
 
-import type { Currency } from 'models/experience-interface';
+import type { Currency } from 'graphql-server/sdk';
 import type { Image } from 'models/files';
 
 import SubmittedSlide from './SubmittedSlide';

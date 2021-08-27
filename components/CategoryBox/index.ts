@@ -1,11 +1,11 @@
 import type React from 'react';
 
-import type { Category } from 'models/experience-interface';
+import type { ExperienceCategory } from 'graphql-server/sdk';
 
 import CategoryBox from './CategoryBox';
 
 export type CategoryBoxProps = {
-    category: Category;
+    category: ExperienceCategory;
     iconLocation: 'top' | 'left';
     boxClass?: string;
     iconClass?: string;

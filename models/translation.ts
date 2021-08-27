@@ -1,5 +1,5 @@
+import type { ExperienceCategory } from 'graphql-server/sdk';
 import type { 
-    Category as ExperienceCategory,
     CreationStep as CreateExperienceStep,
     EditStep as EditExperinceStep
 } from './experience-interface';

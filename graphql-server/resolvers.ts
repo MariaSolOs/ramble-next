@@ -21,6 +21,7 @@ import { getPlaceholder, deletePhotos } from 'lib/cloudinary';
 import { computeBookingFees } from 'lib/booking';
 import { sendBookingNotificationEmail } from 'lib/sendgrid';
 import { getStripe } from 'lib/server-stripe';
+import { BookingType } from 'graphql-server/sdk';
 import { MONGOOSE_LEAN_DEFAULTS } from 'global-constants';
 import type { Experience as ExperienceType } from 'models/mongodb/experience';
 import type { User as UserType } from 'models/mongodb/user';
@@ -239,7 +240,7 @@ export const resolvers: Resolvers = {
             }
 
             // Set the fields to update
-            const newFields: Partial<Record<keyof UserType, string | Date>> = {
+            const newFields: Partial<UserType> = {
                 ...args.firstName && { fstName: args.firstName },
                 ...args.lastName && { lstName: args.lastName },
                 ...(typeof args.birthday === 'string') && { birthday: new Date(args.birthday) },
@@ -367,6 +368,57 @@ export const resolvers: Resolvers = {
             return experienceReducer(experience);
         },
 
+        editExperience: async (_, args, { userId }) => {
+            if (!userId) {
+                throw new AuthenticationError("Creator isn't logged in.");
+            }
+
+            // Find the experience
+            const experience = await Experience.findById(args._id);
+            if (!experience) {
+                throw new ApolloError('Experience not found');
+            }
+
+            // Set the fields to update
+            const priceChanged = (
+                Boolean(args.pricePerPerson) || 
+                Boolean(args.privatePrice) || 
+                Boolean(args.currency)
+            );
+            const newFields: Partial<ExperienceType> = {
+                ...args.description && { description: args.description },
+                ...args.images && { images: args.images },
+                ...args.meetingPoint && {
+                    location: {
+                        // The location never changes, only the meeting point
+                        displayLocation: experience.location.displayLocation,
+                        meetPoint: args.meetingPoint,
+                        coordinates: {
+                            lat: args.latitude || experience.location.coordinates!.lat,
+                            long: args.longitude || experience.location.coordinates!.long
+                        }
+                    }
+                },
+                ...args.ageRestriction && { ageRestriction: args.ageRestriction },
+                ...args.duration && { duration: args.duration },
+                ...args.languages && { languages: args.languages },
+                ...args.includedItems && { included: args.includedItems },
+                ...args.toBringItems && { toBring: args.toBringItems },
+                ...priceChanged && {
+                    price: {
+                        perPerson: args.pricePerPerson || experience.price.perPerson,
+                        private: args.privatePrice || experience.price.private,
+                        currency: args.currency || experience.price.currency
+                    }
+                }
+            }
+            console.log(newFields);
+
+            await experience.save();
+
+            return experienceReducer(experience);
+        },
+
         createBooking: async (_, { occurrenceId, bookingType, numGuests, paymentIntentId }, { userId }) => {
             if (!userId) {
                 throw new AuthenticationError("User isn't logged in.");
@@ -417,7 +469,7 @@ export const resolvers: Resolvers = {
             });
 
             // Add booking to occurrence and update capacity
-            occurrence.spotsLeft = bookingType === 'private' ? 
+            occurrence.spotsLeft = bookingType ===  BookingType.Private? 
                 0 : occurrence.spotsLeft - numGuests;
             occurrence.bookings.push(booking._id);
 
@@ -454,7 +506,11 @@ export const resolvers: Resolvers = {
             }
         },
 
-        createOccurrence: async (_, { experienceId, experienceCapacity, dates }) => {
+        createOccurrence: async (_, { experienceId, experienceCapacity, dates }, { userId }) => {
+            if (!userId) {
+                throw new AuthenticationError("Creator isn't logged in.");
+            }
+
             const occurrence = await createOccurrence(
                 experienceId,
                 experienceCapacity,
@@ -464,7 +520,11 @@ export const resolvers: Resolvers = {
             return occurrenceReducer(occurrence);
         },
 
-        deleteOccurrence: async (_, { occurrenceId }) => {
+        deleteOccurrence: async (_, { occurrenceId }, { userId }) => {
+            if (!userId) {
+                throw new AuthenticationError("Creator isn't logged in.");
+            }
+            
             const occurrence = await Occurrence.findOneAndDelete({
                 _id: occurrenceId,
                 bookings: { $size: 0 }
@@ -473,6 +533,10 @@ export const resolvers: Resolvers = {
         },
 
         createReview: async (_, { experienceId, value, text  }, { userId }) => {
+            if (!userId) {
+                throw new AuthenticationError("User isn't logged in.");
+            }
+
             // Find the user writing the review
             const reviewer = await User.findById(userId, 'fstName lstName').lean();
             if (!reviewer) {
