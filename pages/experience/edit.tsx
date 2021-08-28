@@ -125,8 +125,7 @@ const EditExperiencePage: Page = () => {
             
             dispatch({ type: 'END_SAVING' });
         } catch (err) {
-            console.log(err);
-            // handleError("We couldn't save your changes...");
+            handleError("We couldn't save your changes...");
         }
     }
 
