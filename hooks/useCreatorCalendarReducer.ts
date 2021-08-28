@@ -241,7 +241,7 @@ export default function useCreatorCalendarReducer() {
                 const experience = state.addForm.experienceOptions.find(({ _id }) =>
                     _id === action.id
                 )!;
-                const startDate = DateTime.now().plus({ hour: 1 }).startOf('hour');
+                const startDate = DateTime.now().plus({ hours: 1 }).startOf('hour');
                 const endDate = startDate.plus({ hours: experience.duration });
                 return {
                     ...state,

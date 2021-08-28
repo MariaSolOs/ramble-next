@@ -39,15 +39,14 @@ const handler: NextApiHandler = async (req, res) => {
             bookingsToDelete = bookingsToDelete.concat(occ.bookings as Types.ObjectId[]);
         }
 
-        const { deletedCount: deletedBookings } = await Booking.deleteMany({ _id: { $in: bookingsToDelete }});
+        const { deletedCount: deletedBookings } = await Booking.deleteMany({ 
+            _id: { $in: bookingsToDelete }
+        });
         const { deletedCount: deletedOccurrences } = await Occurrence.deleteMany({ 
             dateEnd: { $lt: yesterday }
         });
 
-        return res.status(201).json({ 
-            deletedOccurrences, 
-            deletedBookings
-        });
+        return res.status(201).json({ deletedOccurrences, deletedBookings });
     } catch(err: any) {
         return res.status(500).json({ error: err.message });
     }

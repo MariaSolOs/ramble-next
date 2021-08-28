@@ -28,12 +28,16 @@ export default class CustomDocument extends Document {
 
     render() {
         return (
-            <Html lang="en">
+            <Html>
                 <Head>
                     <meta charSet="utf-8" />
                     <meta name="author" content="Maria Solano@Ramble" />
-                    <link rel="canonical" href={process.env.RAMBLE_URL || process.env.NEXT_PUBLIC_RAMBLE_URL} />
+                    <link rel="canonical" href={process.env.RAMBLE_URL} />
                     <meta property="og:type" content="website" />
+
+                    {/* Supported languages */}
+                    <link rel="alternate" hrefLang="en" href={`${process.env.RAMBLE_URL}`} />
+                    <link rel="alternate" hrefLang="fr" href={`${process.env.RAMBLE_URL}`} />
 
                     {/* PWA stuff */}
                     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />

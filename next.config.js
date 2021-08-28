@@ -16,6 +16,7 @@ module.exports = withBundleAnalyzer(withPlaiceholder(withTM({
     images: {
         domains: ['res.cloudinary.com', 'api.mapbox.com']
     },
+
     webpack(config, { dev, isServer }) {
         // For getting all Typescript errors
         if (dev && isServer) {

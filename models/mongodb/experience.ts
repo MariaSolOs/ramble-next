@@ -73,9 +73,7 @@ const experienceSchemaFields: Record<keyof Omit<Experience, '_id'>, SchemaDefini
 
     categories: [{
         type: String,
-        enum: ['taste', 'create', 'relax', 'learn', 'move'],
-        minlength: 1,
-        maxlength: 2
+        enum: ['taste', 'create', 'relax', 'learn', 'move']
     }],
 
     description: {

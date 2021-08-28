@@ -65,7 +65,7 @@ const EditExperiencePage: Page = () => {
         setHandlingError(true);
         uiDispatch({ type: 'OPEN_ERROR_DIALOG', message });
         setTimeout(() => {
-            router.push('/');
+            router.back();
         }, 4000);
     }
 
@@ -125,7 +125,8 @@ const EditExperiencePage: Page = () => {
             
             dispatch({ type: 'END_SAVING' });
         } catch (err) {
-            handleError("We couldn't save your changes...");
+            console.log(err);
+            // handleError("We couldn't save your changes...");
         }
     }
 
