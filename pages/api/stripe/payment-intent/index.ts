@@ -28,6 +28,12 @@ const handler: NextApiHandler = async (req, res) => {
         if (!experience) {
             return res.status(422).json({ error: 'Experience not found.' });
         }
+
+        // Make sure creator signed up with Stripe correctly
+        const creator = experience.creator as CreatorType;
+        if (!creator.stripe.accountId) {
+            return res.status(500).json({ error: 'Creator not registered with Stripe' });
+        }
         
         // Get the booking price
         const isInPersonExperience = !Boolean(experience.zoomInfo?.PMI);
@@ -47,7 +53,7 @@ const handler: NextApiHandler = async (req, res) => {
             application_fee_amount: fees.application_fee_amount,
             capture_method: 'manual',
             transfer_data: {
-                destination: (experience.creator as CreatorType).stripe.accountId!
+                destination: creator.stripe.accountId
             },
             metadata: { // For Phil's accountability
                 subtotal: fees.withServiceFee,
