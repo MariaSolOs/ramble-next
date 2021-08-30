@@ -109,6 +109,8 @@ export const handleSuccessfulPaymentIntent = async (paymentIntent: Stripe.Paymen
     const timeStart = occurrence.dateStart.toLocaleTimeString('en-CA', EMAIL_TIME_FORMAT);
     const timeEnd = occurrence.dateEnd.toLocaleTimeString('en-CA', EMAIL_TIME_FORMAT);
     const isOnlineExperience = Boolean(experience.zoomInfo?.PMI);
+    // Use the email in the Stripe receipt, or the one in the database as fallback
+    const clientEmail = paymentIntent.receipt_email || client.emailAddress;
     sendBookingConfirmation({
         price: (paymentIntent.amount / 100).toFixed(2),
         currency: paymentIntent.currency.toUpperCase() as Currency,
@@ -125,7 +127,7 @@ export const handleSuccessfulPaymentIntent = async (paymentIntent: Stripe.Paymen
         meetingPoint: isOnlineExperience ? undefined : experience.location.meetPoint!,
         zoomPMI: isOnlineExperience ? experience.zoomInfo!.PMI : undefined,
         zoomPassword: isOnlineExperience ? experience.zoomInfo!.password : undefined
-    }, client.emailAddress);
+    }, clientEmail);
 
     // Save all changes
     await booking.save();
