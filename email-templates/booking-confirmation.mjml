@@ -30,36 +30,21 @@
         </mj-style>
     </mj-head>
 
-    <mj-body 
-    background-color="#151515">
+    <mj-body background-color="#151515">
         <!-- Header -->
         <mj-section
         padding="30px 0 10px">
             <mj-group>
                 <mj-column 
                 padding="0"
-                width="15%"
+                width="40%"
                 vertical-align="bottom">
                     <mj-image 
-                    src="https://res.cloudinary.com/dxod7etqu/image/upload/c_scale,w_166/v1597845322/Ramble/Emails/ramble_logo.png" 
-                    width="60px"
+                    src="https://res.cloudinary.com/dxod7etqu/image/upload/v1630363872/Ramble/Emails/kbrqzhvba9h3uwxrzgi9.png" 
+                    width="140px"
                     alt="ramble logo"
                     padding="0"
                     href="https://www.experienceramble.com/"/>
-                </mj-column>
-                <mj-column 
-                width="55%"
-                padding-top="30px"
-                vertical-align="bottom">
-                    <mj-text 
-                    font-weight="100"
-                    font-family="Futura" 
-                    letter-spacing="-1px"
-                    color="#FFF"
-                    font-size="25px"
-                    padding="0px">
-                        ramble
-                    </mj-text>
                 </mj-column>
                 <mj-column
                 vertical-align="bottom"
