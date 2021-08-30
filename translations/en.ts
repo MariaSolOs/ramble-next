@@ -506,7 +506,7 @@ const englishTranslation: TranslationRecord = {
         dateAndTimeLabel: 'Date and time',
         experienceLabel: 'Experience',
         addSlot: 'Add',
-        busySlotMessage: 'You have already set availabilities for this timeslot',
+        busySlotMessage: 'Are you sure you want to add an overlapping time slot?',
         today: 'Today',
         guest: 'Guest',
         guests: 'Guests',

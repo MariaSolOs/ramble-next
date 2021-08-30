@@ -506,7 +506,7 @@ const frenchTranslation: TranslationRecord = {
         dateAndTimeLabel: 'Date et heure',
         experienceLabel: 'Expérience',
         addSlot: 'Ajouter',
-        busySlotMessage: 'Vous avez déjà des disponibilités pour cette plage horaire',
+        busySlotMessage: "Cette disponibilité en chevauche une autre. Voulez-vous vraiment l'ajouter?",
         today: "Aujourd'hui",
         guest: 'Invité',
         guests: 'Invités',

@@ -44,12 +44,14 @@ const CalendarPage: Page = () => {
         for (const event of calendarEvents) {
             if ((event.dateStart <= state.addForm.endDate) && 
                 (state.addForm.startDate <= event.dateEnd)) {
-                uiDispatch({
-                    type: 'OPEN_SNACKBAR',
-                    message: text.busySlotMessage
-                });
-                dispatch({ type: 'SET_IS_ADDING_SLOT', value: false });
-                return;
+                // Show alert
+                if (window.confirm(text.busySlotMessage)) {
+                    // We can break here so that we don't show several alerts
+                    break;
+                } else {
+                    dispatch({ type: 'SET_IS_ADDING_SLOT', value: false });
+                    return;
+                }
             }
         }
 
