@@ -45,7 +45,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
             locationsList,
             initialExperiences
         },
-        revalidate: 60 * 2 // Renew the data every 2 minutes
+        revalidate: 30 * 60 // Renew the data every 30 minutes
     }
 }
 

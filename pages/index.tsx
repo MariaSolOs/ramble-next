@@ -52,7 +52,7 @@ const ADVENTURE_IMGS_URLS = [
 const FEATURED_EXPERIENCES_IDS = [
     '610acbb332b5150004b20c9f', // Crée ta propre chaussure en carton
     '60c50206daa7aa0017ca9c61', // #35mm Film Photography Introduction
-    '6069e90709d1ae00172f4ea4', // Cocktails estivaux avec un mixologue
+    '612d3697b091ee00098069e4', // Rémi Lemieux X Le Cuisinomane #9
     '60f76485dbbabe0017308801' // Graffiti 101
 ];
 
@@ -95,7 +95,8 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
             partakeImages,
             adventureImages,
             featuredExperiences
-        }
+        },
+        revalidate: 12 * 60 * 60 // Update every 12 hours
     }
 }
 
