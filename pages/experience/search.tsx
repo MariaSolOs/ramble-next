@@ -139,12 +139,12 @@ const SearchExperiencesPage: Page<Props> = (props) => {
             <Searchbar
             location={state.location}
             locationList={props.locationsList}
+            capacity={state.capacity}
+            titleFilter={state.titleFilter}
+            onCapacityChange={handleCapacityChange}
             onLocationChange={location => {
                 dispatch({ type: 'UPDATE_LOCATION', location });
             }}
-            capacity={state.capacity}
-            onCapacityChange={handleCapacityChange}
-            titleFilter={state.titleFilter}
             onTitleFilterChange={titleFilter => {
                 dispatch({ type: 'UPDATE_TITLE_FILTER', titleFilter });
             }} />

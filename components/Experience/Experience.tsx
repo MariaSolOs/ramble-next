@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { v4 as uuid } from 'uuid';
 import type { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import type { ReactImageGalleryItem } from 'react-image-gallery';
@@ -68,6 +68,9 @@ const Experience = (props: ExperienceProps) => {
     const { experience } = props;
     const { creator } = experience;
     const ageRestricted = Boolean(props.experience.ageRestriction);
+
+    // Keep a ref of the reviews for focusing
+    const reviewsRef = useRef<HTMLDivElement>(null);
 
     const [isBioExpanded, setIsBioExpanded] = useState(false);
 
@@ -143,7 +146,9 @@ const Experience = (props: ExperienceProps) => {
                             {experience.location}
                         </h3>
                         {experience.ratingValue && 
-                            <p className={classes.rating}>
+                            <p 
+                            className={classes.rating}
+                            onClick={() => reviewsRef.current?.scrollIntoView()}>
                                 <StarRateIcon />
                                 {experience.ratingValue.toFixed(1)}
                                 <span className={classes.numRatings}>
@@ -266,7 +271,7 @@ const Experience = (props: ExperienceProps) => {
                 {props.reviews &&
                     <>
                         <div className={classes.reviewDivisor} />
-                        <div className={classes.reviewsContainer}>
+                        <div ref={reviewsRef} className={classes.reviewsContainer}>
                             <h3 className={classes.sectionLabel}>{text.reviews}</h3>
                             <button 
                             disabled={props.reviews.length === 0}
