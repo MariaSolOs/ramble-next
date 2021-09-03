@@ -1,0 +1,13 @@
+name: calendar-reminders
+on:
+  schedule:
+    - cron: '0 8 * * 1'
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call calendar reminders API route
+        run: |
+          curl --request GET \
+          --url 'https://www.experienceramble.com/api/tasks/calendar-reminders' \
+          --header 'Authorization: Bearer ${{ secrets.TASK_API_SECRET }}'

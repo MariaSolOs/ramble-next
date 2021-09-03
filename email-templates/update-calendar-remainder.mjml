@@ -1,22 +1,22 @@
 <mjml>
     <mj-head>
         <mj-title>
-            You have a new booking request! | Vous avez une nouvelle réservation!
+            Don't forget to update your calendar! | Mettez vos disponibilités à jour!
         </mj-title>
 
         <mj-attributes>
             <mj-text font-family="Helvetica, sans-serif" />
             <mj-class 
+            name="title" 
+            color="#FFF"
+            font-weight="600"
+            font-size="30px"
+            letter-spacing="-0.9px" />
+            <mj-class 
             name="grey" 
             color="#CCC"
             font-size="18px"
             letter-spacing="-0.8px" />
-            <mj-class
-            name="title"
-            color="#FFF"
-            font-weight="600"
-            font-size="30px"
-            letter-spacing="-0.9px">
         </mj-attributes>
 
         <mj-style>
@@ -30,31 +30,30 @@
     </mj-head>
 
     <mj-body background-color="#151515">
-    
+
         <mj-include path="./partials/header.mjml"/> 
 
         <mj-include path="./partials/french-message.mjml" /> 
 
         <!-- English version -->
-        <!-- Title -->
         <mj-section>
             <mj-column>
                 <mj-text mj-class="title">
-                    You have a new booking!
+                    Update your calendar
                 </mj-text>
             </mj-column>
         </mj-section>
 
-        <!-- Message -->
-        <mj-section>
+        <mj-section padding="0 0 10px">
             <mj-column>
                 <mj-text mj-class="grey">
-                    {{clientName}} just booked your experience "{{experienceName}}". Log in 
-                    to your creator dashboard to accept their booking request.
+                    The availabilities for your experience {{experienceTitle}} look 
+                    a bit empty. Make sure to update your calendar!
                 </mj-text>
             </mj-column>
         </mj-section>
-        <mj-section padding-top="0">
+
+        <mj-section padding-top="20px">
             <mj-column>
                 <mj-button
                 css-class="button"
@@ -72,26 +71,25 @@
         </mj-section>
 
         <!-- French version -->
-        <!-- Title -->
         <mj-section>
             <mj-column>
                 <mj-text mj-class="title">
-                    Vous avez une nouvelle réservation!
+                    Mettez vos disponibilités à jour!
                 </mj-text>
             </mj-column>
         </mj-section>
 
-        <!-- Message -->
-        <mj-section>
+        <mj-section padding="0 0 10px">
             <mj-column>
                 <mj-text mj-class="grey">
-                    {{clientName}} vient de réserver votre expérience 
-                    "{{experienceName}}". Connectez-vous à votre tableau de bord pour 
-                    accepter sa demande de réservation. 
+                    Il semble y avoir peu de disponibilités pour votre expérience 
+                    {{experienceTitle}}. Assurez-vous de mettre à jour votre 
+                    calendrier!
                 </mj-text>
             </mj-column>
         </mj-section>
-        <mj-section padding-top="0">
+
+        <mj-section padding-top="20px">
             <mj-column>
                 <mj-button
                 css-class="button"

@@ -1,0 +1,13 @@
+name: occurrences-cleanup
+on:
+  schedule:
+    - cron: '0 6 * * *'
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call occurrences cleanup API route
+        run: |
+          curl --request GET \
+          --url 'https://www.experienceramble.com/api/tasks/occurrences-cleanup' \
+          --header 'Authorization: Bearer ${{ secrets.TASK_API_SECRET }}'

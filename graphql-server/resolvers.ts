@@ -509,7 +509,6 @@ export const resolvers: Resolvers = {
             sendBookingNotificationEmail(
                 client?.fstName || '',
                 experience.title,
-                `${process.env.RAMBLE_URL!}/creator/dashboard/booking-requests`,
                 creatorUser.emailAddress
             );
 

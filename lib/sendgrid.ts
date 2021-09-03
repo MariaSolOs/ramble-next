@@ -8,23 +8,6 @@ import type { Currency } from 'graphql-server/sdk';
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 
-type ConfirmationEmailInfo = {
-    price: string;
-    currency: Currency;
-    bookingDate: string;
-    occurrenceDate: string;
-    experienceTitle: string;
-    timeslot: string;
-    numGuests: number;
-    hostPicture: string;
-    hostName: string;
-    hostPhone: string;
-    toBringItems?: string[];
-    meetingPoint?: string;
-    zoomPMI?: string;
-    zoomPassword?: string;
-}
-
 /**
  * @param templateName - The mjml template name
  * @returns The corresponding filepath
@@ -59,7 +42,7 @@ export const sendPasswordResetEmail = async (
             name: 'ramble'
         },
         to: emailAddress,
-        subject: 'Reset your password', 
+        subject: 'Reset your password | Réinitialisez votre mot de passe', 
         text: "Forgot your password? It's okay, you can create a new one.", 
         html: mjml2html(mjml).html
     });
@@ -70,13 +53,11 @@ export const sendPasswordResetEmail = async (
  * 
  * @param clientName - The client's name
  * @param experienceName - The name of the experience that was booked
- * @param dashboardLink - The link that the creator will be redirected to
  * @param creatorEmail - The address to send the email to
  */
 export const sendBookingNotificationEmail = async (
     clientName: string, 
     experienceName: string,
-    dashboardLink: string,
     creatorEmail: string
 ) => {
     const source = fs.readFileSync(getFilePath('new-booking'), 'utf-8');  
@@ -84,7 +65,7 @@ export const sendBookingNotificationEmail = async (
     const mjml = template({
         clientName,
         experienceName,
-        dashboardLink
+        dashboardLink: `${process.env.RAMBLE_URL!}/creator/dashboard/booking-requests`
     });
     
     await sgMail.send({
@@ -93,7 +74,7 @@ export const sendBookingNotificationEmail = async (
             name: 'ramble' 
         },
         to: creatorEmail,
-        subject: 'You have a new booking request',
+        subject: 'You have a new booking request | Vous avez une nouvelle réservation',
         text: `You have a new booking! ${clientName} just booked your experience ${
         experienceName}. Log in to your creator dashboard to check their booking request.`,
         html: mjml2html(mjml).html
@@ -107,12 +88,27 @@ export const sendBookingNotificationEmail = async (
  * @param clientEmail - The address to send the email to
  */
 export const sendBookingConfirmation = async (
-    emailInfo: ConfirmationEmailInfo,
+    emailInfo: {
+        price: string;
+        currency: Currency;
+        bookingDate: string;
+        occurrenceDate: string;
+        experienceTitle: string;
+        timeslot: string;
+        numGuests: number;
+        hostPicture: string;
+        hostName: string;
+        hostPhone: string;
+        toBringItems?: string[];
+        meetingPoint?: string;
+        zoomPMI?: string;
+        zoomPassword?: string;
+    },
     clientEmail: string
 ) => {
     const source = fs.readFileSync(getFilePath('booking-confirmation'), 'utf-8');  
     const template = compile(source);
-    const mjml = template({ ...emailInfo });
+    const mjml = template(emailInfo);
 
     // Based on the setting, specify the meeting details
     const isOnlineExperience = Boolean(emailInfo.zoomPMI);
@@ -126,13 +122,44 @@ export const sendBookingConfirmation = async (
             email: process.env.ZOHO_EMAIL!
         },
         to: clientEmail,
-        subject: 'Your booking is confirmed', 
+        subject: 'Your booking is confirmed | Votre réservation est confirmée', 
         text: `Your booking is confirmed! You're all set for your experience "${
         emailInfo.experienceTitle}" on ${emailInfo.occurrenceDate} (${
         emailInfo.timeslot}). ${meetingDetails}${emailInfo.toBringItems ? 
         ' and you will need to bring ' + emailInfo.toBringItems.join(', ') : 
         '.'} Your host is ${emailInfo.hostName} (phone number: ${
         emailInfo.hostPhone}. Thank you for experiencing with Ramble!`,
+        html: mjml2html(mjml).html
+    });
+}
+
+/**
+ * Sends a reminder to creators to update the availabilities of the 
+ * specified experience.
+ * 
+ * @param experienceTitle - Name of the experience
+ * @param creatorEmail - The address to send the email to
+ */
+export const sendCalendarReminderEmail = async (
+    experienceTitle: string,
+    creatorEmail: string
+) => {
+    const source = fs.readFileSync(getFilePath('update-calendar-remainder'), 'utf-8');  
+    const template = compile(source);
+    const mjml = template({
+        experienceTitle,
+        dashboardLink: `${process.env.RAMBLE_URL!}/creator/dashboard/calendar`
+    });
+
+    await sgMail.send({
+        from: {
+            name: 'ramble',
+            email: process.env.ZOHO_EMAIL!
+        },
+        to: creatorEmail,
+        subject: "Don't forget to update your calendar! | Mettez vos disponibilités à jour!", 
+        text: `The availabilities for your experience ${
+        experienceTitle} look a bit empty. Make sure to update your calendar!`,
         html: mjml2html(mjml).html
     });
 }

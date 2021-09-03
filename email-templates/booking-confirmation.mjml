@@ -1,11 +1,6 @@
 <mjml>
     <mj-head>
-        <mj-title>Booking confirmation</mj-title>
-
-        <mj-preview>
-            Your booking is confirmed! You're all set for your experience 
-            "{{experienceTitle}}" on {{occurrenceDate}} ({{timeslot}}).
-        </mj-preview>
+        <mj-title>Your booking is confirmed! | Votre réservation est confirmée!</mj-title>
 
         <mj-breakpoint width="400px"/>
         <mj-attributes>
@@ -13,10 +8,11 @@
             font-family="Helvetica, sans-serif"
             font-weight="600"/>
 
-            <mj-class name="grey-title" 
-                      font-size="21px"
-                      letter-spacing="-0.9px"
-                      color="#CCCCCE"/>
+            <mj-class 
+            name="grey-title" 
+            font-size="21px"
+            letter-spacing="-0.9px"
+            color="#CCCCCE" />
         </mj-attributes>
 
         <mj-style>
@@ -37,7 +33,7 @@
             <mj-group>
                 <mj-column 
                 padding="0"
-                width="40%"
+                width="30%"
                 vertical-align="bottom">
                     <mj-image 
                     src="https://res.cloudinary.com/dxod7etqu/image/upload/v1630363872/Ramble/Emails/kbrqzhvba9h3uwxrzgi9.png" 
@@ -46,6 +42,7 @@
                     padding="0"
                     href="https://www.experienceramble.com/"/>
                 </mj-column>
+                <mj-column width="40%"></mj-column>
                 <mj-column
                 vertical-align="bottom"
                 padding="0"
@@ -77,22 +74,11 @@
             </mj-group>
         </mj-section>   
 
-        <mj-section padding="20px 10px 0">
-            <mj-column padding="0">
-                <mj-text
-                padding="0"
-                font-size="14px"
-                letter-spacing="-0.9px"
-                color="#CCCCCE"
-                font-style="italic">
-                    La version française suit.
-                </mj-text>
-            </mj-column>
-        </mj-section>
+        <<mj-include path="./partials/french-message.mjml" />
 
         <!-- English version -->
         <!-- Titles -->
-        <mj-wrapper padding="0 10px">
+        <mj-wrapper padding="0 25px">
             <mj-section
             padding="20px 0 0">
                 <mj-column>
@@ -319,7 +305,7 @@
         </mj-wrapper>
 
         <!-- French version -->
-        <mj-wrapper padding="0 10px">
+        <mj-wrapper padding="0 25px">
             <mj-section
             padding="40px 0 0">
                 <mj-column>

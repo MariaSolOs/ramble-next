@@ -1,5 +1,4 @@
-<mj-section
-css-class="footer">
+<mj-section css-class="footer">
     <mj-group>
         <mj-column 
         padding="0"

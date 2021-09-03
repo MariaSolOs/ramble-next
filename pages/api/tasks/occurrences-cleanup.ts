@@ -9,8 +9,8 @@ import Creator from 'models/mongodb/creator';
 
 const handler: NextApiHandler = async (req, res) => {
     // Security checks
-    if (req.method !== 'POST') {
-        res.setHeader('Allow', 'POST');
+    if (req.method !== 'GET') {
+        res.setHeader('Allow', 'GET');
         return res.status(405).end('Method Not Allowed');
     }
     if (req.headers.authorization !== `Bearer ${process.env.TASK_API_SECRET}`) {
@@ -46,7 +46,7 @@ const handler: NextApiHandler = async (req, res) => {
             dateEnd: { $lt: yesterday }
         });
 
-        return res.status(201).json({ deletedOccurrences, deletedBookings });
+        return res.status(200).json({ deletedOccurrences, deletedBookings });
     } catch(err: any) {
         return res.status(500).json({ error: err.message });
     }
