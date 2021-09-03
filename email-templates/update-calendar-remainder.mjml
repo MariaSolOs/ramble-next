@@ -53,7 +53,7 @@
             </mj-column>
         </mj-section>
 
-        <mj-section padding-top="20px">
+        <mj-section padding="20px 0 30px">
             <mj-column>
                 <mj-button
                 css-class="button"
