@@ -2,7 +2,7 @@
     <mj-head>
         <mj-title>Your booking is confirmed! | Votre réservation est confirmée!</mj-title>
 
-        <mj-breakpoint width="400px"/>
+        <mj-breakpoint width="400px" />
         <mj-attributes>
             <mj-text 
             font-family="Helvetica, sans-serif"

@@ -1,0 +1,13 @@
+name: experience-reminders
+on:
+  schedule:
+    - cron: '0 12 * * *'
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call experience reminders API route
+        run: |
+          curl --request GET \
+          --url 'https://www.experienceramble.com/api/tasks/experience-reminders' \
+          --header 'Authorization: Bearer ${{ secrets.TASK_API_SECRET }}'

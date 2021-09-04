@@ -1,0 +1,61 @@
+<mjml>
+    <mj-head>
+        <mj-title>Friendly reminder | Rappel amical</mj-title>
+
+        <mj-attributes>
+            <mj-text font-family="Helvetica, sans-serif" />
+            <mj-class 
+            name="grey" 
+            color="#CCC"
+            font-size="18px"
+            letter-spacing="-0.8px" />
+            <mj-class
+            name="title"
+            color="#FFF"
+            font-weight="600"
+            font-size="30px"
+            letter-spacing="-0.9px">
+        </mj-attributes>
+    </mj-head>
+    <mj-body background-color="#151515">
+        <mj-include path="./partials/header.mjml"/> 
+
+        <mj-include path="./partials/french-message.mjml" /> 
+
+        <!-- English version -->
+        <mj-section>
+            <mj-column>
+                <mj-text mj-class="title">
+                    Friendly reminder,
+                </mj-text>
+            </mj-column>
+        </mj-section>
+
+        <mj-section padding="0 0 20px">
+            <mj-column>
+                <mj-text mj-class="grey">
+                    {{experienceTitle}} is just around the corner. Join 
+                    {{creatorName}} {{meetingPoint}} on {{englishDate}}.
+                </mj-text>
+            </mj-column>
+        </mj-section>
+
+        <!-- French version -->
+        <mj-section>
+            <mj-column>
+                <mj-text mj-class="title">
+                    Rappel amical,
+                </mj-text>
+            </mj-column>
+        </mj-section>
+
+        <mj-section padding="0 0 10px">
+            <mj-column>
+                <mj-text mj-class="grey">
+                    {{experienceTitle}} approche à grands pas. Rejoignez 
+                    {{creatorName}} {{meetingPoint}} le {{frenchDate}}.
+                </mj-text>
+            </mj-column>
+        </mj-section>
+    </mj-body>
+</mjml>

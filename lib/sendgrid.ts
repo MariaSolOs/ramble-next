@@ -163,3 +163,44 @@ export const sendCalendarReminderEmail = async (
         html: mjml2html(mjml).html
     });
 }
+
+/**
+ * Sends a reminder to the client of an upcoming experience.
+ * 
+ * @param experienceTitle - The title of the experience
+ * @param creatorName - The name of the experience's creator
+ * @param meetingPoint - The meeting point of the experience
+ * @param englishDate - The English date string 
+ * @param frenchDate - The French date string
+ * @param clientEmail - The address to send the email to
+ */
+export const sendExperienceReminderEmail = async (
+    experienceTitle: string,
+    creatorName: string,
+    meetingPoint: string,
+    englishDate: string,
+    frenchDate: string,
+    clientEmail: string
+) => {
+    const source = fs.readFileSync(getFilePath('experience-remainder'), 'utf-8');  
+    const template = compile(source);
+    const mjml = template({
+        experienceTitle,
+        creatorName,
+        meetingPoint,
+        englishDate,
+        frenchDate
+    });
+
+    await sgMail.send({
+        from: {
+            name: 'ramble',
+            email: process.env.ZOHO_EMAIL!
+        },
+        to: clientEmail,
+        subject: 'Friendly reminder | Rappel amical', 
+        text: `${experienceTitle} is just around the corner. Join ${
+        creatorName} ${meetingPoint} on ${englishDate}.`,
+        html: mjml2html(mjml).html
+    });
+}
