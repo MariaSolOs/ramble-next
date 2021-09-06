@@ -57,7 +57,7 @@ const SearchExperiencesPage: Page<Props> = (props) => {
     // Retrieve query values from URL
     const { location, capacity } = router.query;
     const locationQuery = location as string;
-    const capacityQuery = +capacity;
+    const capacityQuery = +!capacity;
 
     const initialState: SearchState = {
         location: locationQuery as string || 'Montréal, Canada',

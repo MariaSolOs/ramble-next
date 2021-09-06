@@ -16,7 +16,7 @@ const handler: NextApiHandler = async (req, res) => {
         await mongodbConnection();
 
         const user = await User.findOne({ 
-            emailAddress: email 
+            emailAddress: email
         }, '_id').lean(MONGOOSE_LEAN_DEFAULTS);
 
         if (!user) {
@@ -25,7 +25,7 @@ const handler: NextApiHandler = async (req, res) => {
             });
         }
     
-        await sendPasswordResetEmail(user._id.toHexString(), email);
+        await sendPasswordResetEmail(user._id.toString(), email);
         return res.status(201).json({ message: 'Reset email sent' });
     } catch (err: any) {
         return res.status(500).json({ error: err.message });
