@@ -1,20 +1,20 @@
 <mjml>
     <mj-head>
-        <mj-title>Reset your password. | Réinitialisez votre mot de passe</mj-title>
+        <mj-title>Review your experience | Commentez votre expérience</mj-title>
 
         <mj-attributes>
             <mj-text font-family="Helvetica, sans-serif" />
-            <mj-class 
-            name="title" 
-            color="#FFF"
-            font-weight="600"
-            font-size="30px"
-            letter-spacing="-0.9px" />
             <mj-class 
             name="grey" 
             color="#CCC"
             font-size="18px"
             letter-spacing="-0.8px" />
+            <mj-class
+            name="title"
+            color="#FFF"
+            font-weight="600"
+            font-size="30px"
+            letter-spacing="-0.9px">
         </mj-attributes>
 
         <mj-style>
@@ -26,61 +26,17 @@
             }
         </mj-style>
     </mj-head>
-    
+
     <mj-body background-color="#151515">
         <mj-include path="./partials/header.mjml"/> 
 
         <mj-include path="./partials/french-message.mjml" /> 
 
         <!-- English version -->
-        <mj-section>
+        <mj-section padding-bottom="10px">
             <mj-column>
-                <mj-text mj-class="title">
-                    Reset your password
-                </mj-text>
-            </mj-column>
-        </mj-section>
-
-        <mj-section
-        padding="0 0 10px">
-            <mj-column>
-                <mj-text mj-class="grey">
-                    Forgot your password? It's okay, you can create a new one.
-                </mj-text>
-            </mj-column>
-        </mj-section>
-
-        <mj-section padding-top="10px">
-            <mj-column>
-                <mj-button
-                css-class="button"
-                background-color="transparent"
-                border-radius="30px"
-                font-family="Helvetica, sans-serif"
-                font-size="13px"
-                font-weight="600"
-                padding="0"
-                inner-padding="10px 30px"
-                href="{{passwordLink}}">
-                    Create a new password
-                </mj-button>
-            </mj-column>
-        </mj-section>
-
-        <mj-section>
-            <mj-column>
-                <mj-text mj-class="grey">
-                    If you didn't ask to reset your password, don't worry! Your account is 
-                    still safe and you can safely dismiss this email.
-                </mj-text>
-            </mj-column>
-        </mj-section>
-
-        <!-- French version -->
-        <mj-section>
-            <mj-column>
-                <mj-text mj-class="title">
-                    Réinitialisez votre mot de passe
+                <mj-text mj-class="title" >
+                    How was {{experienceTitle}}?
                 </mj-text>
             </mj-column>
         </mj-section>
@@ -88,8 +44,41 @@
         <mj-section padding="0 0 10px">
             <mj-column>
                 <mj-text mj-class="grey">
-                    Vous avez oublié votre mot de passe? Pas de problème, vous pouvez 
-                    en créer un nouveau. 
+                    Let future guests know what you liked about this experience.
+                </mj-text>
+            </mj-column>
+        </mj-section>
+
+        <mj-section padding="10px 0 40px">
+            <mj-column>
+                <mj-button
+                css-class="button"
+                background-color="transparent"
+                border-radius="30px"
+                font-family="Helvetica, sans-serif"
+                font-size="13px"
+                font-weight="600"
+                padding="0"
+                inner-padding="10px 30px"
+                href="{{reviewLink}}">
+                    Review {{experienceTitle}}
+                </mj-button>
+            </mj-column>
+        </mj-section>
+
+        <!-- French version -->
+        <mj-section padding-bottom="10px">
+            <mj-column>
+                <mj-text mj-class="title">
+                    Comment a été {{experienceTitle}}?
+                </mj-text>
+            </mj-column>
+        </mj-section>
+
+        <mj-section padding="0 0 10px">
+            <mj-column>
+                <mj-text mj-class="grey">
+                    Faites savoir aux futurs invités ce que vous avez aimé de cette expérience.
                 </mj-text>
             </mj-column>
         </mj-section>
@@ -105,19 +94,9 @@
                 font-weight="600"
                 padding="0"
                 inner-padding="10px 30px"
-                href="{{passwordLink}}">
-                    Créer un nouveau mot de passe
+                href="{{reviewLink}}">
+                    Commentez {{experienceTitle}}
                 </mj-button>
-            </mj-column>
-        </mj-section>
-
-        <mj-section>
-            <mj-column>
-                <mj-text mj-class="grey">
-                    Si vous n'avez pas demandé de réinitialiser votre mot de passe, 
-                    ne vous inquiétez pas! Votre compte est toujours en sécurité et 
-                    vous pouvez ignorer cet courriel. 
-                </mj-text>
             </mj-column>
         </mj-section>
     </mj-body>

@@ -1,4 +1,4 @@
-import { GetStaticProps } from 'next';
+import type { GetStaticProps } from 'next';
 
 import useLanguageContext from 'context/languageContext';
 import { getPlaceholder } from 'lib/cloudinary';

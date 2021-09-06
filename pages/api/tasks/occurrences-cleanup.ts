@@ -1,11 +1,18 @@
-import { NextApiHandler } from 'next';
 import { DateTime } from 'luxon';
+import type { NextApiHandler } from 'next';
 import type { Types } from 'mongoose';
 
+import { sendReviewReminderEmail } from 'lib/sendgrid';
+import { getStripe } from 'lib/server-stripe';
 import mongodbConnection from 'lib/mongodb-connection';
 import Occurrence from 'models/mongodb/occurrence';
 import Booking from 'models/mongodb/booking';
 import Creator from 'models/mongodb/creator';
+import type { Booking as BookingType } from 'models/mongodb/booking';
+import type { User as UserType } from 'models/mongodb/user';
+import type { Experience as ExperienceType } from 'models/mongodb/experience';
+
+const stripe = getStripe();
 
 const handler: NextApiHandler = async (req, res) => {
     // Security checks
@@ -24,19 +31,47 @@ const handler: NextApiHandler = async (req, res) => {
         const yesterday = DateTime.utc().minus({ days: 1 }).endOf('day').toJSDate();
         const occurrences = await Occurrence.find({
             dateEnd: { $lt: yesterday }
-        }, 'bookings').lean();
+        }, 'experience bookings').populate([
+            {
+                path: 'experience',
+                select: '_id title'
+            },
+            {
+                path: 'bookings',
+                select: '_id client stripe.paymentIntentId',
+                populate: {
+                    path: 'client',
+                    select: 'emailAddress'
+                }
+            }
+        ]).lean();
 
         // Get the bookings to delete
         let bookingsToDelete: Types.ObjectId[] = [];
         for (const occ of occurrences) {
-            for (const bookingId of occ.bookings) {
+            const experience = occ.experience as ExperienceType;
+            for (const booking of occ.bookings as BookingType[]) {
                 // Just to be sure, delete booking from creator's requests
                 await Creator.findOneAndUpdate(
-                    { bookingRequests: bookingId }, 
-                    { $pull: { bookingRequests: bookingId } }
+                    { bookingRequests: booking._id }, 
+                    { $pull: { bookingRequests: booking._id } }
                 );
+
+                // Get the email indicated on the Stripe receipt
+                const { receipt_email } = await stripe.paymentIntents.retrieve(
+                    booking.stripe.paymentIntentId
+                );
+                // Use the email we store as a fallback
+                const clientEmail = receipt_email || (booking.client as UserType).emailAddress;
+                // Send review reminder
+                await sendReviewReminderEmail(
+                    experience._id.toString(), 
+                    experience.title,
+                    clientEmail
+                );
+                
+                bookingsToDelete.push(booking._id);
             }
-            bookingsToDelete = bookingsToDelete.concat(occ.bookings as Types.ObjectId[]);
         }
 
         const { deletedCount: deletedBookings } = await Booking.deleteMany({ 

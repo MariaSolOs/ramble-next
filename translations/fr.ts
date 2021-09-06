@@ -139,7 +139,7 @@ const frenchTranslation: TranslationRecord = {
 
     RateExperienceDialog: {
         dialogTitle: 'Notez et commentez cette expérience',
-        textfieldLabel: 'Faites savoir aux futurs clients ce que vous avez aimé de cette expérience.',
+        textfieldLabel: 'Faites savoir aux futurs invités ce que vous avez aimé de cette expérience.',
         doneButton: 'Terminé'
     },
     

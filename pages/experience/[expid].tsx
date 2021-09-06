@@ -1,6 +1,7 @@
-import { GetStaticProps, GetStaticPaths } from 'next';
+import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
+import type { GetStaticProps, GetStaticPaths } from 'next';
 
 import { getGraphQLClient } from 'lib/graphql';
 import { getSdkWithHooks } from 'graphql-server/sdk';
@@ -75,9 +76,20 @@ const ExperienceDetailsPage: Page<Props> = (props) => {
     const [state, dispatch] = useExperiencePageReducer();
 
     // Get the experience's reviews when experience is defined
-    const { data: reviewsData } = sdk.useGetReviews(router.isFallback ? null : ['getReviews', props.experience._id], 
-    { experienceId: props.experience?._id }
+    const { data: reviewsData } = sdk.useGetReviews(
+        router.isFallback ? null : ['getReviews', props.experience._id], 
+        { experienceId: props.experience?._id }
     );
+
+    // Check if we're in review mode
+    useEffect(() => {
+        if (router.query.review) {
+            dispatch({ type: 'TOGGLE_NEW_REVIEW_DIALOG', open: true });
+        }
+
+        // Remove the query from the URL
+        router.replace('/', undefined, { shallow: true });
+    }, [router, dispatch]);
 
     // Wait until experience is loaded
     if (router.isFallback) {

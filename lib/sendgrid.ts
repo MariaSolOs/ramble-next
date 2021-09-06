@@ -204,3 +204,34 @@ export const sendExperienceReminderEmail = async (
         html: mjml2html(mjml).html
     });
 }
+
+/**
+ * Sends a reminder to a client to review an experience.
+ * 
+ * @param experienceId - The ID of the experience to review
+ * @param experienceTitle - The title of the experience to review
+ * @param clientEmail - The address to send the email to
+ */
+export const sendReviewReminderEmail = async (
+    experienceId: string,
+    experienceTitle: string,
+    clientEmail: string
+) => {
+    const source = fs.readFileSync(getFilePath('review-remainder'), 'utf-8'); 
+    const template = compile(source);
+    const mjml = template({
+        experienceTitle,
+        reviewLink: `${process.env.RAMBLE_URL!}/experience/${experienceId}?review=true`
+    });
+
+    await sgMail.send({
+        from: {
+            name: 'ramble',
+            email: process.env.ZOHO_EMAIL!
+        },
+        to: clientEmail,
+        subject: 'Review your experience | Commentez votre expérience', 
+        text: `How was ${experienceTitle}? Let future guests know what you liked about this experience.`,
+        html: mjml2html(mjml).html
+    });
+}
