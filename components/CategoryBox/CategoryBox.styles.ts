@@ -20,7 +20,6 @@ const styles = () => createStyles({
     },
 
     icon: {
-        position: 'relative',
         width: 25, 
         height: 25,
         marginRight: props => props.iconLocation === 'left' ? 4 : 0

@@ -71,7 +71,8 @@ const CategoryBox = (props: CategoryBoxProps) => {
                     src={category.icon}
                     alt={category.title}
                     priority
-                    layout="fill" />
+                    width={25}
+                    height={25} />
                 </div>
                 <span className={`${classes.title} ${props.titleClass}`}>
                     {category.title}

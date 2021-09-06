@@ -12,6 +12,12 @@ export const desktopStyles = (theme: Theme) => createStyles({
             margin: '10px auto 0'
         },
 
+        '& .thumbnail-wrapper, & .main-image-wrapper': { position: 'relative' },
+
+        '& .main-image-wrapper > div, & .thumbnail-wrapper > div': { 
+            position: 'unset !important' 
+        },
+
         '& .image-gallery-slide': {
             '&:focus': { outline: 'none' },
 
@@ -20,10 +26,6 @@ export const desktopStyles = (theme: Theme) => createStyles({
                 objectFit: 'cover',
                 [theme.breakpoints.down('sm')]: { height: 'calc(70vh - 70px)' },
                 [theme.breakpoints.down('xs')]: { height: 'calc(55vh - 70px)' }
-            },
-
-            '& .main-image-wrapper > div': {
-                position: 'unset !important'
             },
 
             '& .main-image': {
@@ -45,8 +47,6 @@ export const desktopStyles = (theme: Theme) => createStyles({
                 [theme.breakpoints.down('sm')]: { maxHeight: 'calc((70vh - 70px) / 3)' }
             }
         },
-
-        '& .thumbnail-wrapper > div': { position: 'unset !important' },
 
         '& .thumbnail': {
             width: '100px !important',
@@ -390,16 +390,18 @@ export const mobileStyles = (theme: Theme) => createStyles({
         maxWidth: '90%',
         margin: '10px auto 0',
 
+        '& .thumbnail-wrapper, & .main-image-wrapper': { position: 'relative' },
+
+        '& .main-image-wrapper > div, & .thumbnail-wrapper > div': { 
+            position: 'unset !important' 
+        },
+
         '& .image-gallery-slide': {
             '& .image-gallery-image': { 
                 objectFit: 'cover',
                 height: 320
             },
             '&:focus': { outline: 'none' }
-        },
-
-        '& .main-image-wrapper > div': {
-            position: 'unset !important'
         },
 
         '& .main-image': {
@@ -413,12 +415,8 @@ export const mobileStyles = (theme: Theme) => createStyles({
             border: 'none !important',
             cursor: 'pointer',
 
-            '& .image-gallery-thumbnail-image': { 
-                maxHeight: 'calc((70% - 70px) / 3)'
-            }
+            '& .image-gallery-thumbnail-image': { maxHeight: 'calc((70% - 70px) / 3)' }
         },
-
-        '& .thumbnail-wrapper > div': { position: 'unset !important' },
 
         '& .thumbnail': {
             width: '100px !important',
