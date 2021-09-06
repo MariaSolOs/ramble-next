@@ -11,6 +11,7 @@ export default class CustomDocument extends Document {
         const originalRenderPage = context.renderPage;
         
         context.renderPage = () => originalRenderPage({
+            // eslint-disable-next-line react/display-name
             enhanceApp: App => props => sheets.collect(<App { ...props } />)
         });
 
