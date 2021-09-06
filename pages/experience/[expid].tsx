@@ -88,7 +88,7 @@ const ExperienceDetailsPage: Page<Props> = (props) => {
         }
 
         // Remove the query from the URL
-        router.replace('/', undefined, { shallow: true });
+        // router.replace('/', undefined, { shallow: true });
     }, [router, dispatch]);
 
     // Wait until experience is loaded
