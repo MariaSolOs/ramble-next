@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { Provider as AuthProvider } from 'next-auth/client';
 import { Elements } from '@stripe/react-stripe-js';
 
@@ -6,6 +7,7 @@ import { LanguageContextProvider } from 'context/languageContext';
 import { UiContextProvider } from 'context/uiContext';
 import { UserContextProvider } from 'context/userContext';
 import { getStripe } from 'lib/client-stripe';
+import { handlePageView } from 'lib/google-analytics';
 import type { AppProps } from 'models/application';
 
 import Script from 'next/script';
@@ -23,6 +25,8 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 config.autoAddCss = false;
 
 const App = ({ Component, pageProps }: AppProps) => {
+    const router = useRouter();
+
     // Remove the server-side injected CSS
     useEffect(() => {
         const jssStyles = document.querySelector('#jss-server-side');
@@ -30,6 +34,15 @@ const App = ({ Component, pageProps }: AppProps) => {
             jssStyles.parentElement!.removeChild(jssStyles);
         }
     }, []);
+
+    // Track page views
+    useEffect(() => {
+        router.events.on('routeChangeComplete', handlePageView);
+
+        return () => {
+            router.events.off('routeChangeComplete', handlePageView);
+        }
+    }, [router.events]);
 
     const PageLayout = Component.layout || React.Fragment;
     

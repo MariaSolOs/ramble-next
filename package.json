@@ -70,6 +70,7 @@
     "@graphql-codegen/typescript-resolvers": "^1.20.0",
     "@next/bundle-analyzer": "^11.1.0",
     "@types/bcryptjs": "^2.4.2",
+    "@types/gtag.js": "^0.0.7",
     "@types/luxon": "^2.0.1",
     "@types/micro-cors": "^0.1.2",
     "@types/mjml": "^4.7.0",
