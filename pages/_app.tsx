@@ -8,6 +8,7 @@ import { UserContextProvider } from 'context/userContext';
 import { getStripe } from 'lib/client-stripe';
 import type { AppProps } from 'models/application';
 
+import Script from 'next/script';
 import Head from 'next/head';
 import GlobalLayout from 'components/GlobalLayout';
 
@@ -38,6 +39,23 @@ const App = ({ Component, pageProps }: AppProps) => {
             <Head>
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Head>
+            {/* Google analytics */}
+            <Script 
+            strategy="afterInteractive"
+            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`} />
+            <Script
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+                __html: `
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){ dataLayer.push(arguments); }
+                    gtag('js', new Date());
+
+                    gtag('config', '${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}', {
+                        page_path: window.location.pathname
+                    });
+                `,
+            }} />
             <LanguageContextProvider>
                 <UiContextProvider>
                     <UserContextProvider>
