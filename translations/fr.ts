@@ -33,6 +33,8 @@ const frenchTranslation: TranslationRecord = {
         supportColumnName: 'Support',
         supportLink: 'Support 24/7',
         socialColumnName: 'Réseaux sociaux',
+        communityColumnName: 'Communauté',
+        blogLink: 'Articles de blog',
         languageColumnName: 'Langue',
         languageChip: 'English',
         copyright: 'Technologies Ramble Inc'
@@ -127,8 +129,7 @@ const frenchTranslation: TranslationRecord = {
         addReviewButton: 'Laisser un commentaire'
     },
 
-    ShareExperienceDialog: {
-        shareExperience: 'Partager cette expérience',
+    ShareDialog: {
         copyLink: "Copier l'url",
         copyTooltip: 'Copié!'
     },
@@ -146,7 +147,8 @@ const frenchTranslation: TranslationRecord = {
     ExperienceDetails: {
         bookExperience: 'Réserver',
         perConnection: 'par connexion',
-        perPerson: 'par personne'
+        perPerson: 'par personne',
+        shareExperienceTitle: 'Partager cette expérience'
     },
 
     BecomeACreator: {
@@ -519,6 +521,10 @@ const frenchTranslation: TranslationRecord = {
         pageNotFound: 'La page que vous cherchez ne semble pas exister.',
         genericError: 'Une erreur est survenue.',
         goBackButton: "Page d'accueil"
+    },
+
+    Blog: {
+        heroTitle: ''
     }
 }
 

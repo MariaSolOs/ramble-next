@@ -33,6 +33,8 @@ const englishTranslation: TranslationRecord = {
         supportColumnName: 'Support',
         supportLink: '24/7 Customer Service',
         socialColumnName: 'Social',
+        communityColumnName: 'Community',
+        blogLink: 'Blog articles',
         languageColumnName: 'Language',
         languageChip: 'Français',
         copyright: 'Ramble Technologies Inc'
@@ -131,8 +133,7 @@ const englishTranslation: TranslationRecord = {
         title: 'Reviews from other guests'
     },
     
-    ShareExperienceDialog: {
-        shareExperience: 'Share this experience',
+    ShareDialog: {
         copyLink: 'Copy link',
         copyTooltip: 'Copied!'
     },
@@ -146,7 +147,8 @@ const englishTranslation: TranslationRecord = {
     ExperienceDetails: {
         bookExperience: 'Book',
         perConnection: 'per connection',
-        perPerson: 'per person'
+        perPerson: 'per person',
+        shareExperienceTitle: 'Share this experience'
     },
 
     BecomeACreator: {
@@ -519,6 +521,10 @@ const englishTranslation: TranslationRecord = {
         pageNotFound: "The page you're looking for doesn't seem to exist.",
         genericError: 'We messed up and something wrong happened.',
         goBackButton: 'Go back to home page'
+    },
+
+    Blog: {
+        heroTitle: 'Experience different.'
     }
 }
 

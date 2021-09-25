@@ -13,7 +13,8 @@ const routes = {
     creatorForm: createRoute('/creator/join'),
     bookingRequests: createRoute('/creator/dashboard/booking-requests'),
     creatorCalendar: createRoute('/creator/dashboard/calendar'),
-    createdExperiences: createRoute('/creator/dashboard/experiences')
+    createdExperiences: createRoute('/creator/dashboard/experiences'),
+    blog: createRoute('/blog')
 }
 
 export default routes;

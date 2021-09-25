@@ -33,11 +33,9 @@ const styles = (theme: Theme) => createStyles({
     },
 
     bodyColumn: {
-        width: '33%',
+        width: '25%',
         
-        [theme.breakpoints.down('sm')]: {
-            width: '30%'
-        }
+        [theme.breakpoints.down('sm')]: { width: '22%' }
     },
 
     columnTitle: {
@@ -55,7 +53,9 @@ const styles = (theme: Theme) => createStyles({
         color: '#C0BFBA',
         fontSize: '1.8rem',
         marginRight: 10,
-        transition: 'all 300ms ease-in-out'
+        transition: 'all 300ms ease-in-out',
+
+        [theme.breakpoints.down('xs')]: { fontSize: '1.4rem' }
     },
 
     facebookIcon: {
@@ -78,9 +78,7 @@ const styles = (theme: Theme) => createStyles({
         padding: '3px 10px',
         marginRight: 10,
         
-        [theme.breakpoints.down('xs')]: {
-            padding: '3px 5px',
-        }
+        [theme.breakpoints.down('xs')]: { padding: '3px 5px' }
     },
 
     greyText: {
@@ -88,10 +86,9 @@ const styles = (theme: Theme) => createStyles({
         fontSize: '0.85rem',
         letterSpacing: '-0.05rem',
         fontWeight: theme.typography.fontWeightRegular,
+        textDecoration: 'none',
 
-        [theme.breakpoints.down('xs')]: {
-            fontSize: '0.7rem'
-        }
+        [theme.breakpoints.down('xs')]: { fontSize: '0.7rem' }
     },
 
     supportLink: {

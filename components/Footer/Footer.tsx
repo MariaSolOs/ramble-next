@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 
+import routes from 'routes';
 import useLanguageContext from 'context/languageContext';
 
+import NavLink from 'components/NavLink';
 import Chip from '@material-ui/core/Chip';
 import LanguageIcon from '@material-ui/icons/Language';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -60,6 +62,14 @@ const Footer = () => {
                             icon={faFacebook} 
                             className={`${classes.mediaIcon} ${classes.facebookIcon}`} />
                         </a>
+                    </div>
+                    <div className={classes.bodyColumn}>
+                        <h5 className={classes.columnTitle}>
+                            {text.communityColumnName}
+                        </h5>
+                        <NavLink className={classes.greyText} link={routes.blog}>
+                            {text.blogLink}
+                        </NavLink>
                     </div>
                     <div className={classes.bodyColumn}>
                         <h5 className={classes.columnTitle}>{text.languageColumnName}</h5>

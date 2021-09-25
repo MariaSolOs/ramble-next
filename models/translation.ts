@@ -13,7 +13,7 @@ export type TranslationRecord = {
 
     NavbarProfileMenu: Record<'profile' | 'newExperience' | 'languageItem' | 'logout', string>,
 
-    Footer: Record<'supportColumnName' | 'supportLink' | 'socialColumnName' | 'languageColumnName' | 'languageChip' | 'copyright', string>;
+    Footer: Record<'supportColumnName' | 'supportLink' | 'socialColumnName' | 'communityColumnName' | 'blogLink' | 'languageColumnName' | 'languageChip' | 'copyright', string>;
 
     CustomerServiceDialog: Record<'title' | 'message', string>;
 
@@ -35,13 +35,13 @@ export type TranslationRecord = {
 
     Experience: Record<'online' | 'duration' | 'upTo' | 'person' | 'people' | 'language' | 'languages' | 'ageRestriction' | 'hostedBy' | 'aboutCreator' | 'planning' | 'included' | 'toBring' | 'location' | 'reviews' | 'seeAllReviewsButton' | 'addReviewButton', string>;
 
-    ShareExperienceDialog: Record<'shareExperience' | 'copyLink' | 'copyTooltip', string>;
+    ShareDialog: Record<'copyLink' | 'copyTooltip', string>;
 
     AllReviewsDialog: Record<'title', string>;
 
     RateExperienceDialog: Record<'dialogTitle' | 'textfieldLabel' | 'doneButton', string>;
 
-    ExperienceDetails: Record<'bookExperience' | 'perConnection' | 'perPerson', string>;
+    ExperienceDetails: Record<'bookExperience' | 'perConnection' | 'perPerson' | 'shareExperienceTitle', string>;
 
     BecomeACreator: Record<'becomeTitle' | 'shareTitle' | 'getPaidTitle' | 'getStarted' | 'currentCreators1' | 'currentCreators2' | 'actTitle1' | 'actTitle2' | 'lightbulbText' | 'cloudText' | 'walletText', string>;
 
@@ -114,4 +114,6 @@ export type TranslationRecord = {
     CreatorCalendar: Record<'timezoneMessage' | 'formTitle' | 'formDescription' | 'dateAndTimeLabel' | 'experienceLabel' | 'addSlot' | 'today' | 'busySlotMessage' | 'guest' | 'guests' | 'closeDialog' | 'private', string>;
 
     ErrorPage: Record<'title' | 'pageNotFound' | 'genericError' | 'goBackButton', string>;
+
+    Blog: Record<'heroTitle', string>;
 }

@@ -5,6 +5,7 @@ import type { GetStaticProps, GetStaticPaths } from 'next';
 
 import { getGraphQLClient } from 'lib/graphql';
 import { getSdkWithHooks } from 'graphql-server/sdk';
+import useLanguageContext from 'context/languageContext';
 import useUserExperiences from 'hooks/useUserExperiences';
 import useExperiencePageReducer from 'hooks/useExperiencePageReducer';
 import type { ExperienceViewFragment as ExperienceType } from 'graphql-server/sdk';
@@ -15,7 +16,7 @@ import RambleHead from 'components/RambleHead';
 import Layout from 'components/experience-page/Layout';
 import Experience from 'components/Experience';
 const ShareExperienceDialog = dynamic(() => 
-    import('components/experience-page/ShareExperienceDialog')
+    import('components/ShareDialog')
 );
 const AllReviewsDialog = dynamic(() => 
     import('components/experience-page/AllReviewsDialog')
@@ -66,6 +67,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 const ExperienceDetailsPage: Page<Props> = (props) => {
+    const { ExperienceDetails: text } = useLanguageContext().appText;
     const { 
         isExperienceSaved, 
         isExperienceBooked, 
@@ -112,7 +114,7 @@ const ExperienceDetailsPage: Page<Props> = (props) => {
                 {state.openShareDialog && 
                     <ShareExperienceDialog
                     shareUrl={shareUrl}
-                    experienceTitle={props.experience.title}
+                    dialogTitle={text.shareExperienceTitle}
                     open={state.openShareDialog}
                     onClose={() => {
                         dispatch({ type: 'TOGGLE_SHARE_DIALOG', open: false });

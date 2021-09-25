@@ -3,7 +3,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 import useLanguageContext from 'context/languageContext';
-import type { ShareExperienceDialogProps } from './index';
+import type { ShareDialogProps } from './index';
 
 import Image from 'next/image';
 import Dialog from '@material-ui/core/Dialog';
@@ -22,11 +22,11 @@ import emailIcon from 'public/images/email-icon.svg';
 import linkedinIcon from 'public/images/linkedin-icon.svg';
 
 import { makeStyles } from '@material-ui/core/styles';
-import styles from './ShareExperienceDialog.styles';
+import styles from './ShareDialog.styles';
 const useStyles = makeStyles(styles);
 
-const ShareExperienceDialog = (props: ShareExperienceDialogProps) => {
-    const { ShareExperienceDialog: text } = useLanguageContext().appText;
+const ShareDialog = (props: ShareDialogProps) => {
+    const { ShareDialog: text } = useLanguageContext().appText;
     const classes = useStyles();
 
     const [openTooltip, setOpenTooltip] = useState(false);
@@ -44,7 +44,7 @@ const ShareExperienceDialog = (props: ShareExperienceDialogProps) => {
         maxWidth="xs"
         className={classes.dialog}>
             <div className={classes.header}>
-                <h4 className={classes.title}>{text.shareExperience}</h4>
+                <h4 className={classes.title}>{props.dialogTitle}</h4>
                 <CloseIcon className={classes.closeIcon} onClick={props.onClose} />
             </div>
             <DialogContent className={classes.content}>
@@ -66,8 +66,8 @@ const ShareExperienceDialog = (props: ShareExperienceDialogProps) => {
                 url={props.shareUrl}
                 resetButtonStyle={false}
                 className={classes.button}
-                subject={`Ramble: ${props.experienceTitle}`}
-                body="Checkout this experience: ">
+                subject="Checkout this at Ramble!"
+                body="Checkout this at Ramble: ">
                     <div className={classes.mediaIcon}>
                         <Image
                         src={emailIcon}
@@ -133,4 +133,4 @@ const ShareExperienceDialog = (props: ShareExperienceDialogProps) => {
     );
 }
 
-export default ShareExperienceDialog;
+export default ShareDialog;

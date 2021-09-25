@@ -10,6 +10,21 @@ export type PreviewableFile = {
     preview: string; 
 } | null;
 
+// Data in a blogpost once transformed from Markdown
+export type BlogPost = {
+    meta: {
+        title: string;
+        image: Image;
+        date: string;
+        author: {
+            name: string;
+            instagram?: string;
+            facebook?: string;
+        }
+    }
+    content: string;
+}
+
 /**
  * @returns True if img is an Image object (with placeholder).
  */
