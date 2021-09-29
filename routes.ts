@@ -14,7 +14,8 @@ const routes = {
     bookingRequests: createRoute('/creator/dashboard/booking-requests'),
     creatorCalendar: createRoute('/creator/dashboard/calendar'),
     createdExperiences: createRoute('/creator/dashboard/experiences'),
-    blog: createRoute('/blog')
+    blog: createRoute('/blog'),
+    blogPost: (slug: string) => createRoute('/blog/[slug]', { slug })
 }
 
 export default routes;

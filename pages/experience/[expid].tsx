@@ -33,7 +33,7 @@ const graphQLClient = getGraphQLClient();
 const sdk = getSdkWithHooks(graphQLClient);
 
 export const getStaticProps: GetStaticProps<Props> = async (context) => {
-    const id = context.params?.expid as string;
+    const id = context.params!.expid as string;
     const data = await sdk.getExperiencesById({ ids: [id] });
     const experience = data.experiencesById[0];
 
@@ -88,9 +88,6 @@ const ExperienceDetailsPage: Page<Props> = (props) => {
         if (router.query.review) {
             dispatch({ type: 'TOGGLE_NEW_REVIEW_DIALOG', open: true });
         }
-
-        // Remove the query from the URL
-        // router.replace('/', undefined, { shallow: true });
     }, [router, dispatch]);
 
     // Wait until experience is loaded

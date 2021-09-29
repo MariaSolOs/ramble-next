@@ -44,7 +44,7 @@ const Navbar = () => {
     }, []);
 
     const profileMenu = (
-        <NavbarProfileMenu
+    <NavbarProfileMenu
         userName={userName || ''}
         userPhoto={userPhoto}
         onClose={closeMenu}

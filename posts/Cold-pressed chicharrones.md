@@ -1,7 +1,7 @@
 ---
-title: Flexitarian cold-pressed chicharrones
-imageUrl: 'https://images.unsplash.com/photo-1519060860149-4d0decee0035?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1933&q=80'
-date: 2021-09-24
+title: Cold-pressed chicharrones
+imageUrl: 'https://res.cloudinary.com/dxod7etqu/image/upload/v1632595528/Ramble/Blog/csakewbsdq67k4eksxno.jpg'
+date: '2021-09-24'
 author:
     name: Maria Solano
     instagram: my-instagram-link

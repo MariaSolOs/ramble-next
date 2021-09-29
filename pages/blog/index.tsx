@@ -1,12 +1,15 @@
 import type { GetStaticProps } from 'next';
 
+import useLanguageContext from 'context/languageContext';
 import { getPostsCardsInfo } from 'lib/blog-markdown';
 import { getPlaceholder } from 'lib/cloudinary';
 import { CLOUDINARY_BASE_URI } from 'global-constants';
 import type { Page } from 'models/application';
 import type { Image } from 'models/files';
 
-import BlogHero from 'components/blog/BlogHero';
+import RambleHead from 'components/RambleHead';
+import Hero from 'components/blog/Hero';
+import PostsGallery from 'components/blog/PostsGallery';
 
 type Props = {
     heroImage: Image;
@@ -32,8 +35,23 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 }
 
 const AllPostsPage: Page<Props> = (props) => {
+    const { Blog: text } = useLanguageContext().appText;
+
     return (
-        <BlogHero image={props.heroImage} />
+        <>
+            <RambleHead
+            title="Ramble's blog: Experience different"
+            description="About us, our creators, and the experiences we're living"
+            imageUrl={props.heroImage.src} />
+            <Hero 
+            imageProps={{
+                src: props.heroImage.src,
+                blurDataURL: props.heroImage.placeholder,
+                objectPosition: 'top'
+            }}
+            title={text.heroTitle} />
+            <PostsGallery posts={props.posts} />
+        </>
     );
 }
 
