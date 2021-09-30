@@ -524,7 +524,8 @@ const englishTranslation: TranslationRecord = {
     },
 
     Blog: {
-        heroTitle: 'Experience different.'
+        heroTitle: 'Experience different.',
+        sharePostTitle: 'Share this article'
     }
 }
 

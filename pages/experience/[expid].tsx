@@ -15,7 +15,7 @@ import Spinner from 'components/Spinner';
 import RambleHead from 'components/RambleHead';
 import Layout from 'components/experience-page/Layout';
 import Experience from 'components/Experience';
-const ShareExperienceDialog = dynamic(() => 
+const ShareDialog = dynamic(() => 
     import('components/ShareDialog')
 );
 const AllReviewsDialog = dynamic(() => 
@@ -109,7 +109,7 @@ const ExperienceDetailsPage: Page<Props> = (props) => {
             experiencePrice={props.experience.pricePerPerson}
             isOnlineExperience={props.experience.isOnlineExperience}>
                 {state.openShareDialog && 
-                    <ShareExperienceDialog
+                    <ShareDialog
                     shareUrl={shareUrl}
                     dialogTitle={text.shareExperienceTitle}
                     open={state.openShareDialog}

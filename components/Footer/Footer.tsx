@@ -3,6 +3,8 @@ import dynamic from 'next/dynamic';
 
 import routes from 'routes';
 import useLanguageContext from 'context/languageContext';
+import { FACEBOOK_LINK, INSTAGRAM_LINK } from 'global-constants';
+import type { CustomerServiceDialogProps } from 'components/CustomerServiceDialog';
 
 import NavLink from 'components/NavLink';
 import Chip from '@material-ui/core/Chip';
@@ -10,7 +12,6 @@ import LanguageIcon from '@material-ui/icons/Language';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons/faFacebook';
 import { faInstagram } from '@fortawesome/free-brands-svg-icons/faInstagram';
-import type { CustomerServiceDialogProps } from 'components/CustomerServiceDialog';
 
 import { makeStyles } from '@material-ui/core/styles';
 import styles from './Footer.styles';
@@ -47,7 +48,7 @@ const Footer = () => {
                     <div className={classes.bodyColumn}>
                         <h5 className={classes.columnTitle}>{text.socialColumnName}</h5>
                         <a 
-                        href="https://www.instagram.com/experienceramble/"
+                        href={INSTAGRAM_LINK}
                         rel="noopener noreferrer" 
                         target="_blank">
                             <FontAwesomeIcon 
@@ -55,7 +56,7 @@ const Footer = () => {
                             className={`${classes.mediaIcon} ${classes.instagramIcon}`} />
                         </a>
                         <a 
-                        href="https://www.facebook.com/experienceramble"
+                        href={FACEBOOK_LINK}
                         rel="noopener noreferrer" 
                         target="_blank">
                             <FontAwesomeIcon 

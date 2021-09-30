@@ -524,7 +524,8 @@ const frenchTranslation: TranslationRecord = {
     },
 
     Blog: {
-        heroTitle: 'Des expériences à votre image'
+        heroTitle: 'Des expériences à votre image',
+        sharePostTitle: 'Partagez cet article'
     }
 }
 

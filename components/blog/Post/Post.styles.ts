@@ -19,6 +19,34 @@ const styles = (theme: Theme) => createStyles({
         display: 'block'
     },
 
+    media: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        margin: '1rem 0'
+    },
+
+    mediaIcon: {
+        color: '#C0BFBA',
+        fontSize: '1.8rem',
+        marginRight: 10
+    },
+
+    shareFab: {
+        color: 'whitesmoke',
+        backgroundColor: '#656565',
+        width: 40,
+        height: 40,
+        minHeight: 0,
+
+        '&:hover': { backgroundColor: '#656565' }
+    },
+
+    shareIcon: {
+        fontSize: '1.15rem',
+        color: 'whitesmoke'
+    },
+
     divisor: {
         backgroundColor: '#C0BFBA',
         padding: '1px 0',

@@ -115,5 +115,5 @@ export type TranslationRecord = {
 
     ErrorPage: Record<'title' | 'pageNotFound' | 'genericError' | 'goBackButton', string>;
 
-    Blog: Record<'heroTitle', string>;
+    Blog: Record<'heroTitle' | 'sharePostTitle', string>;
 }
