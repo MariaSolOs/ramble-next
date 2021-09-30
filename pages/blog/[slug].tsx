@@ -38,12 +38,12 @@ export const getStaticPaths: GetStaticPaths = () => {
 
 const PostPage: Page<Props> = (props) => {
     const router = useRouter();
-
-    const { meta } = props.post;
-
-    if (router.isFallback) {
+    
+    if (router.isFallback || !props.post) {
         return <Spinner />;
     }
+    
+    const { meta } = props.post;
 
     return (
         <>
