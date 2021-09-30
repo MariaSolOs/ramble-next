@@ -9,7 +9,7 @@ import type { BlogPost } from 'models/files';
  * @returns An array with all slugs
  */
 export const getAllSlugs = () => {
-    const postsPath = path.join(__dirname, 'posts');
+    const postsPath = path.join(process.cwd(), 'posts');
     return fs.readdirSync(postsPath);
 }
 
@@ -22,7 +22,7 @@ export const getAllSlugs = () => {
 export const getPostFromSlug = async (slug: string) => {
     // Remove the file extension, we'll make sure to add it here
     const rawSlug = slug.replace(/\.md$/, '');
-    const postPath = path.join(__dirname, `posts/${rawSlug}.md`);
+    const postPath = path.join(process.cwd(), 'posts', `${rawSlug}.md`);
     const fileContents = fs.readFileSync(postPath, 'utf-8');
 
     // Transform the Markdown to JSON
