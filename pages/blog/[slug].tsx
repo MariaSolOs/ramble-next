@@ -39,6 +39,8 @@ export const getStaticPaths: GetStaticPaths = () => {
 const PostPage: Page<Props> = (props) => {
     const router = useRouter();
 
+    const { meta } = props.post;
+
     if (router.isFallback) {
         return <Spinner />;
     }
@@ -46,14 +48,14 @@ const PostPage: Page<Props> = (props) => {
     return (
         <>
             <RambleHead
-            title={props.post.meta.title}
-            description={`${props.post.meta.title} - Written by ${props.post.meta.author.name}`}
-            imageUrl={props.post.meta.image.src} />
+            title={meta.title}
+            description={`${meta.title} - Written by ${meta.author.name}`}
+            imageUrl={meta.image.src} />
             <Hero 
-            title={props.post.meta.title}
+            title={meta.title}
             imageProps={{
-                src: props.post.meta.image.src,
-                blurDataURL: props.post.meta.image.placeholder
+                src: meta.image.src,
+                blurDataURL: meta.image.placeholder
             }} />
             <Post post={props.post} />
         </>
