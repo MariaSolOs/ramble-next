@@ -30,7 +30,7 @@ export const getStaticPaths: GetStaticPaths = () => {
 
     return {
         paths: slugs.map(slug => ({
-            params: { slug }
+            params: { slug: slug.replace(/\.md$/, '') }
         })),
         fallback: true
     }
