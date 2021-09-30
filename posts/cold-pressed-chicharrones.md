@@ -1,5 +1,6 @@
 ---
 title: Cold-pressed chicharrones
+slug: cold-pressed-chicharrones
 imageUrl: 'https://res.cloudinary.com/dxod7etqu/image/upload/v1632595528/Ramble/Blog/csakewbsdq67k4eksxno.jpg'
 date: '2021-09-24'
 author:

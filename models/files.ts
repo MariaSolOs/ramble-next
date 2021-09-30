@@ -14,6 +14,7 @@ export type PreviewableFile = {
 export type BlogPost = {
     meta: {
         title: string;
+        slug: string;
         image: Image;
         date: string;
         author: {

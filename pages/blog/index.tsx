@@ -13,7 +13,7 @@ import PostsGallery from 'components/blog/PostsGallery';
 
 type Props = {
     heroImage: Image;
-    posts: { title: string; image: Image; }[];
+    posts: { title: string; slug: string; image: Image; }[];
 }
 
 const HERO_IMAGE_URL = `${CLOUDINARY_BASE_URI}/v1632595528/Ramble/Blog/csakewbsdq67k4eksxno.jpg` as const;
