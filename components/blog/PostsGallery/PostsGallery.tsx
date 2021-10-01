@@ -15,8 +15,8 @@ const PostsGallery = (props: PostsGalleryProps) => {
 
     return (
         <div className={classes.container}>
-            {props.posts.map(({ title, image, slug }) => 
-                <NavLink key={uuid()} link={routes.blogPost(slug)} className={classes.card}>
+            {props.posts.map(({ title, image }) => 
+                <NavLink key={uuid()} link={routes.blogPost(title)} className={classes.card}>
                     <div className={classes.cardImg}>
                         <Image
                         src={image.src}

@@ -2,7 +2,6 @@ import React from 'react';
 import { DateTime } from 'luxon';
 
 import useLanguageContext from 'context/languageContext';
-import { FACEBOOK_LINK, INSTAGRAM_LINK } from 'global-constants';
 import type { PostProps } from './index';
 
 import Markdown from 'markdown-to-jsx';
@@ -33,11 +32,11 @@ const Post = (props: PostProps) => {
             <div className={classes.media}>
                 <div>
                     {meta.author.instagram && 
-                        <a href={INSTAGRAM_LINK} rel="noopener noreferrer" target="_blank">
+                        <a href={meta.author.instagram} rel="noopener noreferrer" target="_blank">
                             <FontAwesomeIcon icon={faInstagram} className={classes.mediaIcon} />
                         </a>}
                     {meta.author.facebook && 
-                        <a href={FACEBOOK_LINK} rel="noopener noreferrer" target="_blank">
+                        <a href={meta.author.facebook} rel="noopener noreferrer" target="_blank">
                             <FontAwesomeIcon icon={faFacebook} className={classes.mediaIcon} />
                         </a>}
                 </div>

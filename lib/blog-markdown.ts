@@ -50,7 +50,7 @@ export const getPostsCardsInfo = async () => {
     const slugs = getAllSlugs();
     const postsPromises = slugs.map(async slug => {
         const { meta } = await getPostFromSlug(slug);
-        return { title: meta.title, slug: meta.slug, image: meta.image }
+        return { title: meta.title, image: meta.image }
     });
 
     return (await Promise.all(postsPromises).then(post => post));
