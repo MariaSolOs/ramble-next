@@ -1,6 +1,7 @@
 import React from 'react';
 import type { NextPage } from 'next';
 import type { AppProps as NextAppProps } from 'next/app';
+import type { EmotionCache } from '@emotion/react';
 
 // Extend Component definition to allow page layouts
 export type Page<P = {}> = NextPage<P> & {
@@ -9,6 +10,7 @@ export type Page<P = {}> = NextPage<P> & {
 
 export type AppProps = NextAppProps & {
     Component: Page;
+    emotionCache: EmotionCache;
 }
 
 export interface CompletableSlide {

@@ -6,27 +6,20 @@ import routes from 'routes';
 import useLanguageContext from 'context/languageContext';
 import type { NavbarProfileMenuProps } from './index';
 
-import NavLink from 'components/NavLink';
 import Image from 'next/image';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import Avatar from '@material-ui/core/Avatar';
-import LanguageIcon from '@material-ui/icons/Language';
-
-import { makeStyles } from '@material-ui/core/styles';
-import styles from './NavbarProfileMenu.styles';
-const useStyles = makeStyles(styles);
+import Link from 'next/link';
+import Avatar from '@mui/material/Avatar';
+import * as S from './NavbarProfileMenu.styled';
 
 const NavbarProfileMenu = (props: NavbarProfileMenuProps) => {
     const { appText, toggleLanguage } = useLanguageContext();
     const { NavbarProfileMenu: text } = appText;
     const router = useRouter();
     const { asPath: currentPath } = router;
-    const classes = useStyles({ isCreator: props.isCreator });
+    const { onClose } = props;
 
     const [anchorEl, setAnchorEl] = useState<Element | null>(null);
 
-    const { onClose } = props;
     const closeMenu = useCallback(() => { 
         // When closing, collapse both the parent menu and this menu
         setAnchorEl(null); 
@@ -47,8 +40,8 @@ const NavbarProfileMenu = (props: NavbarProfileMenuProps) => {
 
     return (
         <>
-            <button onClick={e => setAnchorEl(e.currentTarget)} className={classes.button}>
-                <Avatar className={classes.avatar}>
+            <S.Button isCreator={props.isCreator} onClick={e => setAnchorEl(e.currentTarget)}>
+                <Avatar sx={{ height: { xs: 35, sm: 40 }, width: { xs: 35, sm: 40 } }}>
                     {props.userPhoto?.src ? 
                         <Image
                         src={props.userPhoto.src}
@@ -60,12 +53,12 @@ const NavbarProfileMenu = (props: NavbarProfileMenuProps) => {
                         blurDataURL={props.userPhoto.placeholder} /> :
                         props.userName.charAt(0)}
                 </Avatar>
-                <span className={classes.userName}>{props.userName}</span>
-            </button>
-            <Menu
-            anchorEl={anchorEl}
-            getContentAnchorEl={null}
+                <S.UserName isCreator={props.isCreator}>{props.userName}</S.UserName>
+            </S.Button>
+            <S.Menu
+            isCreator={props.isCreator}
             open={Boolean(anchorEl)}
+            anchorEl={anchorEl}
             onClose={closeMenu}
             transitionDuration={500}
             anchorOrigin={{
@@ -75,57 +68,35 @@ const NavbarProfileMenu = (props: NavbarProfileMenuProps) => {
             transformOrigin={{
                 vertical: 'top',
                 horizontal: 'right'
-            }}
-            className={classes.menu}>
-                <MenuItem 
-                className={`
-                    ${classes.menuItem}
-                    ${currentPath === routes.userProfile.as && classes.activeItem}
-                `}>
-                    <NavLink 
-                    link={routes.userProfile}
-                    linkProps={{ onClick: closeMenu }}
-                    className={classes.itemContent}>
-                        {text.profile}
-                    </NavLink>
-                </MenuItem>
+            }}>
+                <S.MenuItem className={currentPath === routes.userProfile.as ? 'active-link' : ''}>
+                    <Link { ...routes.userProfile } passHref>
+                        <a onClick={closeMenu}>{text.profile}</a>
+                    </Link>
+                </S.MenuItem>
                 {props.isCreator &&
-                    <MenuItem 
-                    className={`
-                        ${classes.menuItem}
-                        ${currentPath === routes.newExperience.as && classes.activeItem}
-                    `}>
-                        <NavLink 
-                        link={routes.newExperience}
-                        linkProps={{ onClick: closeMenu }}
-                        className={classes.itemContent}>
-                            {text.newExperience}
-                        </NavLink>
-                    </MenuItem>}
-                <MenuItem className={classes.menuItem}>
-                    <span 
-                    onClick={() => {
-                        toggleLanguage();
-                        closeMenu();
-                    }} 
-                    className={`
-                        ${classes.itemContent}
-                        ${classes.languageItem}
-                    `}>
-                        <LanguageIcon className={classes.languageIcon} />
-                        {text.languageItem}
-                    </span>
-                </MenuItem>
-                <MenuItem 
-                component="div"
+                    <S.MenuItem className={currentPath === routes.newExperience.as ? 'active-link' : ''}>
+                        <Link { ...routes.newExperience } passHref>
+                            <a onClick={closeMenu}>{text.newExperience}</a>
+                        </Link>
+                    </S.MenuItem>}
+                <S.MenuItem 
+                sx={{ ml: -1 }}
+                onClick={() => {
+                    toggleLanguage();
+                    closeMenu();
+                }}>
+                    <S.LanguageIcon />
+                    {text.languageItem}
+                </S.MenuItem>
+                <S.MenuItem
                 onClick={() => {
                     closeMenu();
                     logout();
-                }} 
-                className={`${classes.menuItem} ${classes.itemContent}`}>
+                }}>
                     {text.logout}
-                </MenuItem>
-            </Menu>
+                </S.MenuItem>
+            </S.Menu>
         </>
     );
 }

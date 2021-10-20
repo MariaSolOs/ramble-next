@@ -1,28 +1,36 @@
 import React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
-import { ServerStyleSheets } from '@material-ui/core/styles';
+import createEmotionServer from '@emotion/server/create-instance';
 import type { DocumentContext } from 'next/document';
+
+import createEmotionCache from 'styles/emotion-cache';
 
 export default class CustomDocument extends Document {
     static async getInitialProps(context: DocumentContext) {
-        /* Render app and page and get the context of the page with 
-        collected side effects. */
-        const sheets = new ServerStyleSheets();
         const originalRenderPage = context.renderPage;
-        
+
+        const cache = createEmotionCache();
+        const { extractCriticalToChunks } = createEmotionServer(cache);
+
         context.renderPage = () => originalRenderPage({
             // eslint-disable-next-line react/display-name
-            enhanceApp: App => props => sheets.collect(<App { ...props } />)
+            enhanceApp: (App: any) => props => <App emotionCache={cache} { ...props } />
         });
 
         const initialProps = await Document.getInitialProps(context);
+        const emotionStyles = extractCriticalToChunks(initialProps.html);
+        const emotionStyleTags = emotionStyles.styles.map(style => 
+            <style
+            key={style.key}
+            data-emotion={`${style.key} ${style.ids.join(' ')}`}
+            dangerouslySetInnerHTML={{ __html: style.css }} />
+        );
 
         return {
             ...initialProps,
-            // Styles fragment is rendered after the app and page rendering finish
-            styles: [ 
-                ...React.Children.toArray(initialProps.styles), 
-                sheets.getStyleElement()
+            styles: [
+                ...React.Children.toArray(initialProps.styles),
+                ...emotionStyleTags
             ]
         }
     }
@@ -49,7 +57,7 @@ export default class CustomDocument extends Document {
                     <meta name="msapplication-TileColor" content="#B91D47" />
                     <meta name="theme-color" content="#000000" />
 
-                    {/* Fallback font for Futura and for the error page */}
+                    {/* Fallback font for Futura and Questrial */}
                     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@700&family=Questrial&display=swap" rel="stylesheet" />
                 </Head>
                 <body>
@@ -59,4 +67,4 @@ export default class CustomDocument extends Document {
             </Html>
         );
     }
-} 
+}

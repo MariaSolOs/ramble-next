@@ -9,8 +9,4 @@ export type NavbarProfileMenuProps = {
     onClose: () => void;
 }
 
-export type NavbarProfileMenuStyleProps = {
-    isCreator: boolean;
-}
-
 export default NavbarProfileMenu;

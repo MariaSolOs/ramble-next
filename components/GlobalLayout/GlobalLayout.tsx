@@ -1,52 +1,29 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
-import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider } from '@mui/material/styles';
 
 import useUiContext from 'context/uiContext';
+import theme from 'styles/theme';
 
-import CssBaseline from '@material-ui/core/CssBaseline';
+import CssBaseline from '@mui/material/CssBaseline';
 import Navbar from 'components/Navbar';
 const Snackbar = dynamic(() => 
     import('components/Snackbar')
 );
-const ErrorDialog = dynamic(() => 
-    import('components/ErrorDialog')
-);
-const SignUpDialog = dynamic<{}>(() => 
-import('components/AuthDialogs').then(mod => mod.SignUpDialog)
-);
-const LogInDialog = dynamic<{}>(() => 
-    import('components/AuthDialogs').then(mod => mod.LogInDialog)
-);
-const ForgotPasswordDialog = dynamic(() =>
-    import('components/ForgotPasswordDialog')
-);
+// const ErrorDialog = dynamic(() => 
+//     import('components/ErrorDialog')
+// );
+// const SignUpDialog = dynamic<{}>(() => 
+// import('components/AuthDialogs').then(mod => mod.SignUpDialog)
+// );
+// const LogInDialog = dynamic<{}>(() => 
+//     import('components/AuthDialogs').then(mod => mod.LogInDialog)
+// );
+// const ForgotPasswordDialog = dynamic(() =>
+//     import('components/ForgotPasswordDialog')
+// );
 
-const theme = createTheme({
-    overrides: {
-        MuiCssBaseline: {
-            '@global': {
-                body: {
-                    backgroundColor: '#151515',
-                    fontFamily: 'Helvetica, sans-serif',
-                    fontWeight: 600,
-                    letterSpacing: '-0.05rem',
-                    color: '#FFF'
-                },
-
-                button: {
-                    fontFamily: 'Helvetica, sans-serif',
-                    cursor: 'pointer',
-                    '&:focus': { outline: 'none' }
-                }
-            }
-        }
-    },
-    typography: {
-        fontFamily: ['Helvetica', 'sans-serif'].join(', ')
-    }
-});
-
+// TODO: Add remaining layout components
 const GlobalLayout: React.FC = (props) => {
     const { uiState } = useUiContext();
 
@@ -55,10 +32,11 @@ const GlobalLayout: React.FC = (props) => {
             <CssBaseline />
             <Navbar />
             {uiState.snackbarMessage && <Snackbar />}
-            {uiState.errorMessage && <ErrorDialog />}
-            {uiState.showSignUpDialog && <SignUpDialog />}
-            {uiState.showLogInDialog && <LogInDialog />}
-            {uiState.showForgotPasswordDialog && <ForgotPasswordDialog />}
+            {/*
+        //     {uiState.errorMessage && <ErrorDialog />}
+        //     {uiState.showSignUpDialog && <SignUpDialog />}
+        //     {uiState.showLogInDialog && <LogInDialog />}
+        //     {uiState.showForgotPasswordDialog && <ForgotPasswordDialog />} */}
             {props.children}
         </ThemeProvider>
     );

@@ -1,4 +1,7 @@
 import { useState, useEffect } from 'react';
+import { v4 as uuid } from 'uuid';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
 
 import routes from 'routes';
 import useLanguageContext from 'context/languageContext';
@@ -6,32 +9,26 @@ import useUiContext from 'context/uiContext';
 import useUserContext from 'context/userContext';
 
 import Link from 'next/link';
-import Menu from '@material-ui/core/Menu';
-import IconButton from '@material-ui/core/IconButton';
-import MenuItem from '@material-ui/core/MenuItem';
-import Chip from '@material-ui/core/Chip';
-import LanguageIcon from '@material-ui/icons/Language';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import LanguageIcon from '@mui/icons-material/Language';
 import { faAngleDoubleDown } from '@fortawesome/free-solid-svg-icons/faAngleDoubleDown';
 import AppBar from 'components/AppBar';
 import NavbarProfileMenu from 'components/NavbarProfileMenu';
-
-import { makeStyles } from '@material-ui/core/styles';
-import styles from './Navbar.styles';
-const useStyles = makeStyles(styles);
+import * as S from './Navbar.styled';
 
 const Navbar = () => {
     const { appText, toggleLanguage } = useLanguageContext();
     const { Navbar: text } = appText;
-    const classes = useStyles();
     const { uiDispatch } = useUiContext();
-
     const { 
         isLoggedIn,
         isCreator,
         userName,
         userPhoto
     } = useUserContext().userUi;
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
     const [anchorEl, setAnchorEl] = useState<Element | null>(null);
     const closeMenu = () => { setAnchorEl(null); }
@@ -44,125 +41,118 @@ const Navbar = () => {
     }, []);
 
     const profileMenu = (
-    <NavbarProfileMenu
+        <NavbarProfileMenu
         userName={userName || ''}
         userPhoto={userPhoto}
         onClose={closeMenu}
         isCreator={isCreator} />
     );
 
-    return (
-        <AppBar>
-            <nav className={classes.root}>
-                <div className={classes.collapsedNav}>
-                    <IconButton 
-                    disableRipple 
-                    onClick={e => setAnchorEl(e.currentTarget)}>
-                        <FontAwesomeIcon
-                        icon={faAngleDoubleDown}
-                        className={classes.toggleIcon} />
-                    </IconButton>
-                    <Menu
-                    anchorEl={anchorEl}
-                    getContentAnchorEl={null}
-                    anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'right'
-                    }}
-                    transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right'
-                    }}
-                    open={Boolean(anchorEl)}
-                    onClose={closeMenu}
-                    className={classes.menu}>
-                        {!isLoggedIn && 
-                            <MenuItem>
-                                <span 
-                                onClick={() => {
-                                    toggleLanguage();
-                                    closeMenu();
-                                }} 
-                                className={`
-                                    ${classes.languageItem}
-                                    ${classes.menuItem}
-                                `}>
-                                    <LanguageIcon className={classes.languageIcon} />
-                                    {text.languageItem}
-                                </span>
-                            </MenuItem>}
-                        <MenuItem>
-                            <Link 
-                            passHref 
-                            href={isCreator ? 
-                                routes.bookingRequests.href : 
-                                routes.becomeACreator.href
-                            }>
-                                <a onClick={closeMenu} className={classes.menuItem}>
-                                    {isCreator ? text.creatorDashboard : text.becomeCreator}
-                                </a>
-                            </Link>
-                        </MenuItem>
-                        {isLoggedIn ? 
-                            <MenuItem className={classes.profileButton}>
-                                {profileMenu}
-                            </MenuItem> :
-                            [<MenuItem
-                            key={0}
-                            component="button"
-                            className={classes.menuItem}
-                            onClick={() => {
-                                uiDispatch({ type: 'OPEN_SIGN_UP_DIALOG' });
-                                closeMenu();
-                            }}>
-                                {text.signUp}
-                            </MenuItem>,
-                            <MenuItem
-                            key={1}
-                            component="button"
-                            className={classes.menuItem}
-                            onClick={() => {
-                                uiDispatch({ type: 'OPEN_LOG_IN_DIALOG' });
-                                closeMenu();
-                            }}>
-                                {text.logIn}
-                            </MenuItem>]}
-                    </Menu>
-                </div>
-                <div className={classes.expandedLinks}>
-                    {!isLoggedIn && 
-                        <Chip
-                        icon={<LanguageIcon />}
-                        label={text.languageChip}
-                        className={classes.languageChip}
-                        clickable
-                        onClick={toggleLanguage} />}
-                    <Link 
-                    passHref 
-                    href={isCreator ? 
+    const expandedNav = (
+        <S.ExpandedNav>
+            {!isLoggedIn && 
+                <S.LanguageChip
+                icon={<LanguageIcon />}
+                label={text.languageChip}
+                clickable
+                onClick={toggleLanguage} />}
+            <Link
+            passHref
+            href={isCreator ?
+                routes.bookingRequests.href : 
+                routes.becomeACreator.href
+            }>
+                <S.ExpandedLink component="a" sx={{ color: '#FFF' }}>
+                    {isCreator ? text.creatorDashboard : text.becomeCreator}
+                </S.ExpandedLink>
+            </Link>
+            {isLoggedIn ?
+                profileMenu :
+                <>
+                    <S.ExpandedLink 
+                    component="button" 
+                    onClick={() => uiDispatch({ type: 'OPEN_SIGN_UP_DIALOG' })}>
+                        {text.signUp}
+                    </S.ExpandedLink>
+                    <S.ExpandedLink 
+                    component="button" 
+                    onClick={() => uiDispatch({ type: 'OPEN_LOG_IN_DIALOG' })}>
+                        {text.logIn}
+                    </S.ExpandedLink>
+                </>}
+        </S.ExpandedNav>
+    );
+
+    const collapsedNav = (
+        <>
+            <IconButton disableRipple onClick={e => setAnchorEl(e.currentTarget)}>
+                <S.ToggleIcon icon={faAngleDoubleDown} />
+            </IconButton>
+            <S.Menu
+            open={Boolean(anchorEl)}
+            onClose={closeMenu}
+            anchorEl={anchorEl}
+            transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right'
+            }}
+            anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right'
+            }}>
+                {!isLoggedIn &&
+                    <S.MenuItem 
+                    sx={{ ml: -1 }}
+                    onClick={() => { 
+                        toggleLanguage(); 
+                        closeMenu();
+                    }}>
+                        <S.LanguageIcon />
+                        {text.languageItem}
+                    </S.MenuItem>}
+                <S.MenuItem>
+                    <Link
+                    passHref
+                    href={isCreator ?
                         routes.bookingRequests.href : 
                         routes.becomeACreator.href
                     }>
-                        <a className={`${classes.expandedLink} ${classes.whiteNavLink}`}>
+                        <a onClick={closeMenu}>
                             {isCreator ? text.creatorDashboard : text.becomeCreator}
                         </a>
                     </Link>
+                </S.MenuItem>
                 {isLoggedIn ? 
-                    profileMenu : 
-                    <>
-                        <button
-                        onClick={() => uiDispatch({ type: 'OPEN_SIGN_UP_DIALOG' })}
-                        className={`${classes.dialogToggler} ${classes.expandedLink}`}>
+                    <S.MenuItem noHoverTransition sx={{ height: { xs: 40, sm: 45 } }}>
+                        {profileMenu}
+                    </S.MenuItem> :
+                    [
+                        <S.MenuItem
+                        key={uuid()}
+                        onClick={() => {
+                            uiDispatch({ type: 'OPEN_SIGN_UP_DIALOG' });
+                            closeMenu();
+                        }}>
                             {text.signUp}
-                        </button>
-                        <button
-                        onClick={() => uiDispatch({ type: 'OPEN_LOG_IN_DIALOG' })}
-                        className={`${classes.dialogToggler} ${classes.expandedLink}`}>
+                        </S.MenuItem>,
+                        <S.MenuItem
+                        key={uuid()}
+                        onClick={() => {
+                            uiDispatch({ type: 'OPEN_LOG_IN_DIALOG' });
+                            closeMenu();
+                        }}>
                             {text.logIn}
-                        </button>
-                    </>}
-                </div>
-            </nav>
+                        </S.MenuItem>
+                    ]}
+            </S.Menu>
+        </>
+    );
+
+    return (
+        <AppBar>
+            <Box component="nav" sx={{ position: 'absolute', right: 0 }}>
+                {isMobile ? collapsedNav : expandedNav}
+            </Box>
         </AppBar>
     );
 }

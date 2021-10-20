@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic';
 
 import { getGraphQLClient } from 'lib/graphql';
 import { getPlaceholder } from 'lib/cloudinary';
@@ -14,13 +14,13 @@ import type { CardContentFragment as ExperienceCard } from 'graphql-server/sdk';
 import type { Page } from 'models/application';
 
 import RambleHead from 'components/RambleHead';
-import Collage from 'components/home-page/Collage';
-import FeaturedExperiences from 'components/home-page/FeaturedExperiences';
-import GallerySlide from 'components/home-page/GallerySlide';
-import Footer from 'components/Footer';
-const ResetPasswordDialog = dynamic(() => 
-    import('components/ResetPasswordDialog')
-);
+// import Collage from 'components/home-page/Collage';
+// import FeaturedExperiences from 'components/home-page/FeaturedExperiences';
+// import GallerySlide from 'components/home-page/GallerySlide';
+// import Footer from 'components/Footer';
+// const ResetPasswordDialog = dynamic(() => 
+//     import('components/ResetPasswordDialog')
+// );
 
 type Props = {
     collageImages: Image[];
@@ -132,7 +132,7 @@ const HomePage: Page<Props> = (props) => {
             title={`Ramble: ${text.experienceTitle} Montréal`}
             description={text.discoverTitle}
             imageUrl={`${process.env.RAMBLE_URL}/public/images/ramble-brand.png`} />
-            {openResetPwdDialog &&
+            {/* {openResetPwdDialog &&
                 <ResetPasswordDialog
                 open={openResetPwdDialog}
                 onClose={() => setOpenResetPwdDialog(false)} />}
@@ -148,7 +148,7 @@ const HomePage: Page<Props> = (props) => {
             title={text.adventureTitle}
             subtitle={text.adventureSubtitle}
             titlesAlign="right" />
-            <Footer />
+            <Footer /> */}
         </>
     );
 }

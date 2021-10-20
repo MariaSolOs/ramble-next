@@ -13,6 +13,8 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 });
 
 module.exports = withBundleAnalyzer(withPlaiceholder(withTM({
+    reactStrictMode: true,
+    
     images: {
         domains: ['res.cloudinary.com', 'api.mapbox.com']
     },

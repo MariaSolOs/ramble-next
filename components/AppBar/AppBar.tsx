@@ -1,21 +1,15 @@
 import React from 'react';
-import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+import useScrollTrigger from '@mui/material/useScrollTrigger';
 
 import routes from 'routes';
 
-import NavLink from 'components/NavLink';
+import Link from 'next/link';
 import Image from 'next/image';
-import MUIAppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
+import Toolbar from '@mui/material/Toolbar';
 import rambleLogo from 'public/images/ramble-brand.png';
-
-import { makeStyles } from '@material-ui/core/styles';
-import styles from './AppBar.styles';
-const useStyles = makeStyles(styles);
+import * as S from './AppBar.styled';
 
 const AppBar: React.FC = (props) => {
-    const classes = useStyles();
-
     // Fade out navbar when scrolling
     const isScrolled = useScrollTrigger({ 
         disableHysteresis: true,
@@ -23,22 +17,22 @@ const AppBar: React.FC = (props) => {
     });
 
     return (
-        <MUIAppBar 
-        position="fixed"
-        className={`${classes.root} ${isScrolled && classes.scrolled}`}>
+        <S.AppBar position="fixed" isScrolled={isScrolled}>
             <Toolbar>
-                <NavLink link={routes.home} className={classes.brand}>
-                    <Image 
-                    src={rambleLogo}
-                    alt="Ramble"
-                    width={150}
-                    height={43}
-                    priority />
-                </NavLink>
-                {props.children}
+                <Link { ...routes.home } passHref>
+                    <S.Brand>
+                        <Image 
+                        src={rambleLogo}
+                        alt="Ramble"
+                        width={150}
+                        height={43}
+                        priority />
+                    </S.Brand>
+                </Link>
+            {props.children}
             </Toolbar>
-        </MUIAppBar>
-    );
+        </S.AppBar>
+    );  
 }
 
 export default AppBar;
