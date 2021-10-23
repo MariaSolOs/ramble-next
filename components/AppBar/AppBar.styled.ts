@@ -19,7 +19,7 @@ export const AppBar = styled(MuiAppBar, {
         transition: 'opacity 600ms'
     },
 
-    [theme.breakpoints.down('xs')]: { 
+    [theme.breakpoints.down('sm')]: { 
         height: 71,
         '& .MuiToolbar-gutters': {
             paddingLeft: '2.5vw'
@@ -30,7 +30,7 @@ export const AppBar = styled(MuiAppBar, {
 export const Brand = styled('a')(({ theme }) => ({
     width: 150,
 
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
         width: 120,
         height: 34
     }

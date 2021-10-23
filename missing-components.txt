@@ -1,32 +1,25 @@
-AuthDialogs
 Autocomplete
 CategoryBox
 Checkbox
-CustomerServiceDialog
 Dropzone
 Error
-ErrorDialog
 Experience
-ExperienceCard
-Footer
-ForgotPasswordDialog
-GlobalLayout
-GradientButton
 PlusMinusInput
-ResetPasswordDialog
 Scroll
 ShareDialog
-Spinner
 StripeRedirect
-TextField
 Tip
 become-a-creator
+    ActGraph
+    CreatorBios
+    Landing
 blog
 book-experience
 creator-dashboard
 creator-form
 experience-builder
-experience-page
-home-page
+experience-page 
 profile
 search-experiences
+    ExperienceGallery
+    Searchbar

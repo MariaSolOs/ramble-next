@@ -10,20 +10,19 @@ import Navbar from 'components/Navbar';
 const Snackbar = dynamic(() => 
     import('components/Snackbar')
 );
-// const ErrorDialog = dynamic(() => 
-//     import('components/ErrorDialog')
-// );
-// const SignUpDialog = dynamic<{}>(() => 
-// import('components/AuthDialogs').then(mod => mod.SignUpDialog)
-// );
-// const LogInDialog = dynamic<{}>(() => 
-//     import('components/AuthDialogs').then(mod => mod.LogInDialog)
-// );
-// const ForgotPasswordDialog = dynamic(() =>
-//     import('components/ForgotPasswordDialog')
-// );
+const ErrorDialog = dynamic(() => 
+    import('components/ErrorDialog')
+);
+const SignUpDialog = dynamic<{}>(() => 
+import('components/AuthDialogs').then(mod => mod.SignUpDialog)
+);
+const LogInDialog = dynamic<{}>(() => 
+    import('components/AuthDialogs').then(mod => mod.LogInDialog)
+);
+const ForgotPasswordDialog = dynamic(() =>
+    import('components/ForgotPasswordDialog')
+);
 
-// TODO: Add remaining layout components
 const GlobalLayout: React.FC = (props) => {
     const { uiState } = useUiContext();
 
@@ -32,11 +31,10 @@ const GlobalLayout: React.FC = (props) => {
             <CssBaseline />
             <Navbar />
             {uiState.snackbarMessage && <Snackbar />}
-            {/*
-        //     {uiState.errorMessage && <ErrorDialog />}
-        //     {uiState.showSignUpDialog && <SignUpDialog />}
-        //     {uiState.showLogInDialog && <LogInDialog />}
-        //     {uiState.showForgotPasswordDialog && <ForgotPasswordDialog />} */}
+            {uiState.errorMessage && <ErrorDialog />}
+            {uiState.showSignUpDialog && <SignUpDialog />}
+            {uiState.showLogInDialog && <LogInDialog />}
+            {uiState.showForgotPasswordDialog && <ForgotPasswordDialog />}
             {props.children}
         </ThemeProvider>
     );

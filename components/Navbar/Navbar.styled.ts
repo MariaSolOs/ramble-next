@@ -13,7 +13,7 @@ export const ToggleIcon = styled(FontAwesomeIcon)(({ theme }) => ({
     height: '3rem',
     margin: '0 10px',
 
-    [theme.breakpoints.down('xs')]: { height: '2rem' }
+    [theme.breakpoints.down('sm')]: { height: '2rem' }
 }));
 
 export const Menu = styled(MuiMenu)(({ theme }) => ({
@@ -24,7 +24,7 @@ export const Menu = styled(MuiMenu)(({ theme }) => ({
 
         '&.MuiPopover-paper': { 
             minWidth: 200,
-            [theme.breakpoints.down('xs')]: { minWidth: 150 }
+            [theme.breakpoints.down('sm')]: { minWidth: 150 }
         }
     }
 }));

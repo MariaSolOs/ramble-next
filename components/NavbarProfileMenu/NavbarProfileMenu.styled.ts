@@ -17,7 +17,7 @@ export const Button = styled('button', {
     alignItems: 'center',
     border: isCreator ? 'solid 1px black' : 'none',
 
-    [theme.breakpoints.down('xs')]: { height: 40 }
+    [theme.breakpoints.down('sm')]: { height: 40 }
 }));
 
 export const UserName = styled('span', {
@@ -29,12 +29,12 @@ export const UserName = styled('span', {
     letterSpacing: '-0.06rem',
     margin: '0 0.5rem',
 
-    [theme.breakpoints.down('xs')]: { fontSize: '0.9rem' }
+    [theme.breakpoints.down('sm')]: { fontSize: '0.9rem' }
 }));
 
 export const Menu = styled(MuiMenu, {
     shouldForwardProp: prop => prop !== 'isCreator'
-})<MuiMenuProps & { isCreator: boolean; }>(({ theme, isCreator }) => ({
+})<MuiMenuProps & { isCreator: boolean; }>(({ isCreator }) => ({
     '& .MuiMenu-paper': {
         backgroundColor: isCreator ? '#FFF' : 'rgba(65, 65, 65, 0.9)',
         borderRadius: '1rem',
