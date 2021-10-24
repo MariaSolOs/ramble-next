@@ -1,10 +1,7 @@
-Autocomplete
 CategoryBox
 Checkbox
 Dropzone
-Error
 Experience
-PlusMinusInput
 Scroll
 ShareDialog
 StripeRedirect
@@ -20,6 +17,3 @@ creator-form
 experience-builder
 experience-page 
 profile
-search-experiences
-    ExperienceGallery
-    Searchbar

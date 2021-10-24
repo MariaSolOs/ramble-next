@@ -14,8 +14,8 @@ const getGradient = (variant: GradientButtonVariant) => {
             return 'radial-gradient(circle at 298%, #F7521E, #AC9EFF)';
         case 'error':
             return 'linear-gradient(to right, #1FA2FF 0%, #12D8FA 100%)';
-        default:
-            return '';
+        default: 
+            throw new Error('Invalid variant');
     }
 }
 
