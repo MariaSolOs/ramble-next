@@ -52,7 +52,7 @@ const ADVENTURE_IMGS_URLS = [
 const FEATURED_EXPERIENCES_IDS = [
     '610acbb332b5150004b20c9f', // Crée ta propre chaussure en carton
     '60c50206daa7aa0017ca9c61', // #35mm Film Photography Introduction
-    '612d3697b091ee00098069e4', // Rémi Lemieux X Le Cuisinomane #9
+    '616b5572d663c000080d39fe', // Rémi Lemieux X Le Cuisinomane #9
     '60f76485dbbabe0017308801' // Graffiti 101
 ];
 
