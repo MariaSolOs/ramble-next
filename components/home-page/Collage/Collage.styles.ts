@@ -1,6 +1,8 @@
 import { createStyles } from '@material-ui/core/styles';
 import type { Theme } from '@material-ui/core/styles';
 
+import type { CollageStyleProps } from './index';
+
 const styles = (theme: Theme) => createStyles({
     gridContainer: {
         display: 'flex',
@@ -90,7 +92,8 @@ const styles = (theme: Theme) => createStyles({
     },
 
     gridTitle: {
-        fontSize: '1.5rem',
+        fontSize: (props: CollageStyleProps) => props.language === 'en' ? 
+            '1.5rem' : '1.3rem',
         minWidth: 143,
         margin: '10px 0 0 10px',
         lineHeight: 1.2,
@@ -99,7 +102,8 @@ const styles = (theme: Theme) => createStyles({
         '-webkit-text-fill-color': 'transparent',
 
         [theme.breakpoints.down(450)]: {
-            fontSize: '1.2rem',
+            fontSize: (props: CollageStyleProps) => props.language === 'en' ? 
+                '1.2rem' : '1.1rem',
             margin: '0 0 0 5px'
         },
         [theme.breakpoints.down(380)]: { fontSize: '1.1rem' },
@@ -118,7 +122,7 @@ const styles = (theme: Theme) => createStyles({
         [theme.breakpoints.down('sm')]: { display: 'none' }
     },
 
-    montreal: { '-webkit-text-fill-color': '#FFF' }
+    filledTitle: { '-webkit-text-fill-color': '#FFF' }
 });
 
 export default styles;

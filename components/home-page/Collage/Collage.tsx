@@ -10,8 +10,9 @@ import styles from './Collage.styles';
 const useStyles = makeStyles(styles);
 
 const Collage = (props: CollageProps) => {
-    const classes = useStyles();
-    const { Home: text } = useLanguageContext().appText;
+    const { appText, language } = useLanguageContext();
+    const { Home: text } = appText;
+    const classes = useStyles({ language });
 
     return (
         <div className={classes.gridContainer}>
@@ -34,14 +35,14 @@ const Collage = (props: CollageProps) => {
                 )}
                 <figure className={classes.titleFigure}>
                     <h5 className={classes.gridTitle}>
-                        {text.experienceTitle}
-                        <span className={classes.montreal}> Montréal.</span>
+                        {text.experienceTitle1}
+                        <span className={classes.filledTitle}> {text.experienceTitle2}</span>.
                     </h5>
                 </figure>
             </div>
             <h2 className={classes.title}>
-                {text.experienceTitle}
-                <span className={classes.montreal}> Montréal.</span>
+                {text.experienceTitle1}
+                <span className={classes.filledTitle}> {text.experienceTitle2}</span>.
             </h2>
         </div>
     );
