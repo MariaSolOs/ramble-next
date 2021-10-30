@@ -24,6 +24,9 @@ const theme = createTheme({
         fontFamily: ['Helvetica', 'sans-serif'].join(', '),
         questrial: {
             fontFamily: 'Questrial, sans-serif'
+        },
+        futura: {
+            fontFamily: 'Futura, Nunito Sans'
         }
     }
 });

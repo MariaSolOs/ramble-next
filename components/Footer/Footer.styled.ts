@@ -18,7 +18,7 @@ export const Footer = styled('footer')(({ theme }) => ({
 }));
 
 export const Title = styled('h4')(({ theme }) => ({
-    fontFamily: 'Futura, Nunito Sans',
+    fontFamily: theme.typography.futura.fontFamily,
     fontWeight: theme.typography.fontWeightRegular,
     fontSize: '2rem',
     letterSpacing: '-0.07rem',

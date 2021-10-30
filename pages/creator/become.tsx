@@ -8,9 +8,9 @@ import type { CreatorBio } from 'models/creator-interface';
 import type { Page } from 'models/application';
 
 import RambleHead from 'components/RambleHead';
-// import Landing from 'components/become-a-creator/Landing';
-// import CreatorBios from 'components/become-a-creator/CreatorBios';
-// import ActGraph from 'components/become-a-creator/ActGraph';
+import Landing from 'components/become-a-creator/Landing';
+import CreatorBios from 'components/become-a-creator/CreatorBios';
+import ActGraph from 'components/become-a-creator/ActGraph';
 import Footer from 'components/Footer';
 
 type Props = {
@@ -75,9 +75,9 @@ const BecomeACreatorPage: Page<Props> = (props) => {
             title={`Ramble: ${text.becomeTitle}`}
             description={`${text.becomeTitle} ${text.shareTitle} ${text.getPaidTitle}`}
             imageUrl={props.landingImage.src} />
-            {/* <Landing image={props.landingImage} />
+            <Landing image={props.landingImage} />
             <CreatorBios bios={props.biosData} />
-            <ActGraph /> */}
+            <ActGraph />
             <Footer />
         </>
     );

@@ -7,12 +7,13 @@ import Image from 'next/image';
 import * as S from './Collage.styled';
 
 const Collage = (props: CollageProps) => {
-    const { Home: text } = useLanguageContext().appText;
+    const { appText, language } = useLanguageContext();
+    const { Home: text } = appText;
 
     const titleContents = (
         <>
-            {text.experienceTitle}
-            <S.MontrealText> Montréal.</S.MontrealText>
+            {text.experienceTitle1}
+            <S.FilledTitle> {text.experienceTitle2}</S.FilledTitle>.
         </>
     );
 
@@ -34,7 +35,7 @@ const Collage = (props: CollageProps) => {
                     </S.GridItem>
                 )}
                 <S.TitleFigure>
-                    <S.GridTitle>{titleContents}</S.GridTitle>
+                    <S.GridTitle language={language}>{titleContents}</S.GridTitle>
                 </S.TitleFigure>
             </S.Grid>
             <S.Title>{titleContents}</S.Title>

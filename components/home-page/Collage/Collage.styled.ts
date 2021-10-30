@@ -1,4 +1,7 @@
+import React from 'react';
 import { styled } from '@mui/material/styles';
+
+import type { Language } from 'models/translation';
 
 export const GridContainer = styled('div')({ 
     display: 'flex',
@@ -87,8 +90,10 @@ export const TitleFigure = styled('figure')(({ theme }) => ({
     }
 }));
 
-export const GridTitle = styled('h5')(({ theme }) => ({
-    fontSize: '1.5rem',
+export const GridTitle = styled('h5', {
+    shouldForwardProp: prop => prop !== 'language'
+})<React.HTMLAttributes<HTMLHeadingElement> & { language: Language; }>(({ theme, language }) => ({
+    fontSize: language === 'en' ? '1.5rem' : '1.3rem',
     minWidth: 143,
     margin: '10px 0 0 10px',
     lineHeight: 1.2,
@@ -97,11 +102,11 @@ export const GridTitle = styled('h5')(({ theme }) => ({
     WebkitTextFillColor: 'transparent',
 
     [theme.breakpoints.down(450)]: {
-        fontSize: '1.2rem',
+        fontSize: language === 'en' ? '1.2rem' : '1.1rem',
         margin: '0 0 0 5px'
     },
-    [theme.breakpoints.down(380)]: { fontSize: '1.1rem' },
-    [theme.breakpoints.down(330)]: { fontSize: '1rem' }
+    [theme.breakpoints.down(380)]: { fontSize: language === 'en' ? '1.1rem' : '1rem' },
+    [theme.breakpoints.down(330)]: { fontSize: language === 'en' ? '1rem' : '0.9rem' }
 }));
 
 export const Title = styled('h2')(({ theme }) => ({
@@ -116,4 +121,4 @@ export const Title = styled('h2')(({ theme }) => ({
     [theme.breakpoints.down('md')]: { display: 'none' }
 }));
 
-export const MontrealText = styled('span')({ WebkitTextFillColor: '#FFF' });
+export const FilledTitle = styled('span')({ WebkitTextFillColor: '#FFF' });

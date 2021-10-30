@@ -65,10 +65,10 @@ export const Title = styled('p')(({ theme }) => ({
 
 export const Location = styled('p')(({ theme }) => ({
     margin: 0,
-    fontSize: '0.8rem',
+    fontSize: '0.75rem',
     fontWeight: theme.typography.fontWeightRegular,
     
-    [theme.breakpoints.down('sm')]: { fontSize: '0.75rem' }
+    [theme.breakpoints.down('sm')]: { fontSize: '0.7rem' }
 }));
 
 export const Rating = styled('p')({
@@ -87,7 +87,7 @@ export const PriceInfo = styled('p', {
     shouldForwardProp: prop => prop !== 'hasRatingInfo'
 })<React.ParamHTMLAttributes<HTMLParagraphElement> & { hasRatingInfo: boolean; }>(({ theme, hasRatingInfo }) => ({
     fontSize: '0.7rem',
-    margin: hasRatingInfo ? '-8px 0 0' : 0,
+    margin: hasRatingInfo ? '-12px 0 0' : 0,
     textAlign: 'end',
     
     [theme.breakpoints.down(380)]: { 

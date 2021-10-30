@@ -2,7 +2,8 @@ import type { TranslationRecord } from 'models/translation';
 
 const frenchTranslation: TranslationRecord = {
     Home: {
-        experienceTitle: "Des expériences à l'image de", 
+        experienceTitle1: "Des expériences à votre image", 
+        experienceTitle2: 'votre image', 
         discoverTitle: 'Découvrez des expériences uniques à Montréal',
         seeAllButton: 'Tout voir',
         partakeTitle: 'Vivez des moments inoubliables',

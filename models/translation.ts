@@ -7,7 +7,7 @@ import type {
 export type Language = 'en' | 'fr';
 
 export type TranslationRecord = {
-    Home: Record<'experienceTitle' | 'discoverTitle' | 'seeAllButton' | 'partakeTitle' | 'partakeSubtitle' | 'adventureTitle' | 'adventureSubtitle' | 'onboardingReturnSuccess' | 'onboardingReturnFailure', string>;
+    Home: Record<'experienceTitle1' | 'experienceTitle2' | 'discoverTitle' | 'seeAllButton' | 'partakeTitle' | 'partakeSubtitle' | 'adventureTitle' | 'adventureSubtitle' | 'onboardingReturnSuccess' | 'onboardingReturnFailure', string>;
 
     Navbar: Record<'languageChip' | 'languageItem' | 'signUp' | 'logIn' | 'becomeCreator' | 'creatorDashboard', string>;
 
