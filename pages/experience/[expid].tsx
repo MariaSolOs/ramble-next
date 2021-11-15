@@ -15,15 +15,15 @@ import Spinner from 'components/Spinner';
 import RambleHead from 'components/RambleHead';
 import Layout from 'components/experience-page/Layout';
 import Experience from 'components/Experience';
-// const ShareDialog = dynamic(() => 
-//     import('components/ShareDialog')
-// );
-// const AllReviewsDialog = dynamic(() => 
-//     import('components/experience-page/AllReviewsDialog')
-// );
-// const NewReviewDialog = dynamic(() => 
-//     import('components/experience-page/NewReviewDialog')
-// );
+const ShareDialog = dynamic(() => 
+    import('components/ShareDialog')
+);
+const AllReviewsDialog = dynamic(() => 
+    import('components/experience-page/AllReviewsDialog')
+);
+const NewReviewDialog = dynamic(() => 
+    import('components/experience-page/NewReviewDialog')
+);
 
 type Props = {
     experience: ExperienceType;
@@ -125,30 +125,28 @@ const ExperienceDetailsPage: Page<Props> = (props) => {
                     }
                 }} />
             </Layout>
-            {/*
-                {state.openShareDialog && 
-                    <ShareDialog
-                    shareUrl={shareUrl}
-                    dialogTitle={text.shareExperienceTitle}
-                    open={state.openShareDialog}
-                    onClose={() => {
-                        dispatch({ type: 'TOGGLE_SHARE_DIALOG', open: false });
-                    }} />}
-                {state.openAllReviews && 
-                    <AllReviewsDialog
-                    open={state.openAllReviews}
-                    reviews={reviewsData?.getReviews || []}
-                    onClose={() => {
-                        dispatch({ type: 'TOGGLE_ALL_REVIEWS_DIALOG', open: false });
-                    }} />}
-                {(allowUserReview && state.openNewReviewDialog) && 
-                    <NewReviewDialog 
-                    experienceId={props.experience._id}
-                    open={state.openNewReviewDialog}
-                    onClose={() => {
-                        dispatch({ type: 'TOGGLE_NEW_REVIEW_DIALOG', open: false })
-                    }} />}
-            */}
+            {state.openShareDialog && 
+                <ShareDialog
+                shareUrl={shareUrl}
+                dialogTitle={text.shareExperienceTitle}
+                open={state.openShareDialog}
+                onClose={() => {
+                    dispatch({ type: 'TOGGLE_SHARE_DIALOG', open: false });
+                }} />}
+            {state.openAllReviews && 
+                <AllReviewsDialog
+                open={state.openAllReviews}
+                reviews={reviewsData?.getReviews || []}
+                onClose={() => {
+                    dispatch({ type: 'TOGGLE_ALL_REVIEWS_DIALOG', open: false });
+                }} />}
+            {(allowUserReview && state.openNewReviewDialog) && 
+                <NewReviewDialog 
+                experienceId={props.experience._id}
+                open={state.openNewReviewDialog}
+                onClose={() => {
+                    dispatch({ type: 'TOGGLE_NEW_REVIEW_DIALOG', open: false })
+                }} />}
         </>
     );
 }

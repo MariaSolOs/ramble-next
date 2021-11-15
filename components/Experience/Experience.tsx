@@ -141,7 +141,7 @@ const Experience = (props: ExperienceProps) => {
                         <S.Location>{experience.location}</S.Location>
                         {experience.ratingValue && 
                             <S.Rating onClick={() => reviewsRef.current?.scrollIntoView()}>
-                                <StarRateIcon />
+                                <StarRateIcon sx={{ fontSize: 'inherit' }} />
                                 {experience.ratingValue.toFixed(1)}
                                 <S.NumRatings>({experience.numRatings})</S.NumRatings>
                             </S.Rating>}
@@ -204,6 +204,7 @@ const Experience = (props: ExperienceProps) => {
                             src={creator.user.photo.src}
                             alt={creator.user.firstName}
                             layout="fill"
+                            objectFit="cover"
                             placeholder="blur"
                             blurDataURL={creator.user.photo.placeholder} /> :
                             creator.user.firstName.charAt(0)}

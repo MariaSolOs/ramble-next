@@ -71,11 +71,13 @@ export const Location = styled('p')(({ theme }) => ({
     [theme.breakpoints.down('sm')]: { fontSize: '0.7rem' }
 }));
 
-export const Rating = styled('p')({
+export const Rating = styled('p')(({ theme }) => ({
     margin: 0,
     display: 'inline-flex',
-    alignItems: 'center'
-});
+    alignItems: 'center',
+
+    [theme.breakpoints.down(380)]: { display: 'none' }
+}));
 
 export const StarIcon = styled(StarRateIcon)({
     width: '1rem',

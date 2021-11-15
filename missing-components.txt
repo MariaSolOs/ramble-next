@@ -1,15 +1,12 @@
 Checkbox
 Dropzone
-Scroll
-ShareDialog
 StripeRedirect
 Tip
 blog
 book-experience
+    SubmittedSlide
+    PaymentSlide            
 creator-dashboard
 creator-form
 experience-builder
-experience-page 
-    AllReviewsDialog        
-    NewReviewDialog
 profile
