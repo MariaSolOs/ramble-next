@@ -1,12 +1,12 @@
 Checkbox
-Dropzone
-StripeRedirect
-Tip
 blog
-book-experience
-    SubmittedSlide
-    PaymentSlide            
 creator-dashboard
-creator-form
 experience-builder
+    CreationLayout
+    IntroAnimation
+    SlideTitle
+    slides
+    EditingLayout
+    SlideSubtitle
+    SubmittedMessage    
 profile

@@ -54,6 +54,8 @@ const createOccurrence = async (
     return occurrence;
 }
 
+// TODO: Add logging logic here and in Vercel
+
 export const resolvers: Resolvers = {
     Experience: {
         creator: ({ creator }) => Creator.findById(creator).lean(MONGOOSE_LEAN_DEFAULTS).then(creatorReducer),
@@ -68,7 +70,9 @@ export const resolvers: Resolvers = {
     Occurrence: {
         experience: ({ experience }) => Experience.findById(experience).lean(MONGOOSE_LEAN_DEFAULTS).then(experienceReducer),
         bookings: async occ => {
-            const bookings = await Booking.find({ _id: { $in: occ.bookings }}).lean(MONGOOSE_LEAN_DEFAULTS);
+            const bookings = await Booking.find({ 
+                _id: { $in: (occ.bookings as Types.ObjectId[]) }
+            }).lean(MONGOOSE_LEAN_DEFAULTS);
             return bookings.map(bookingReducer);
         }
     },
@@ -89,11 +93,15 @@ export const resolvers: Resolvers = {
         },
         creator: ({ creator }) => Creator.findById(creator).lean(MONGOOSE_LEAN_DEFAULTS).then(creatorReducer),
         savedExperiences: async user => {
-            const exps = await Experience.find({ _id: { $in: user.savedExperiences } }).lean(MONGOOSE_LEAN_DEFAULTS);
+            const exps = await Experience.find({ 
+                _id: { $in: user.savedExperiences as Types.ObjectId[] } 
+            }).lean(MONGOOSE_LEAN_DEFAULTS);
             return exps.map(experienceReducer);
         },
         bookedExperiences: async user => {
-            const exps = await Experience.find({ _id: { $in: user.bookedExperiences } }).lean(MONGOOSE_LEAN_DEFAULTS);
+            const exps = await Experience.find({ 
+                _id: { $in: user.bookedExperiences as Types.ObjectId[] } 
+            }).lean(MONGOOSE_LEAN_DEFAULTS);
             return exps.map(experienceReducer);
         }
     },
@@ -102,7 +110,7 @@ export const resolvers: Resolvers = {
         user: ({ user }) => User.findById(user).lean(MONGOOSE_LEAN_DEFAULTS).then(userReducer),
         bookingRequests: async creator => {
             const bookings = await Booking.find({ 
-                _id: { $in: creator.bookingRequests }
+                _id: { $in: creator.bookingRequests as Types.ObjectId[] }
             }).sort('-createdAt').lean(MONGOOSE_LEAN_DEFAULTS);
             // Sort bookings by their creation date (most recent first)
             return bookings.map(bookingReducer);

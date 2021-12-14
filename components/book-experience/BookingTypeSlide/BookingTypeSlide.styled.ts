@@ -18,14 +18,12 @@ export const BookingButton = styled('button', {
     marginBottom: 20,
     
     '&:hover': {
-        // TODO: Replace this using components as selectors
-        '& p': { color: '#2B2B2B' },
+        [`& ${ButtonText}, ${ButtonTitle}`]: { color: '#2B2B2B' },
         backgroundColor: '#ECEBE5'
     },
 
     ...selected && {
-        // TODO: Replace this using components as selectors
-        '& p': { color: '#2B2B2B' }
+        [`& ${ButtonText}, ${ButtonTitle}`]: { color: '#2B2B2B' }
     }
 }));
 

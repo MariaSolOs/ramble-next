@@ -58,14 +58,12 @@ export const Slot = styled('button', {
     
     '&:hover:not(:disabled)': {
         color: '#2B2B2B',
-        // TODO: Replace this with component selector
-        '& .svg-inline--fa': { color: '#2B2B2B' },
-        backgroundColor: '#ECEBE5'
+        backgroundColor: '#ECEBE5',
+        [`& ${Icon}`]: { color: '#2B2B2B' }
     },
 
     ...selected && {
-        // TODO: Replace this with component selector
-        '.svg-inline--fa': { color: '#2B2B2B' }
+        [`& ${Icon}`]: { color: '#2B2B2B' }
     },
     
     [theme.breakpoints.down('sm')]: { padding: 8 }

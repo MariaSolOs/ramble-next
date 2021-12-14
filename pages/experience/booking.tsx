@@ -15,8 +15,8 @@ import Layout from 'components/book-experience/Layout';
 import DateSlide from 'components/book-experience/DateSlide';
 import TimeslotSlide from 'components/book-experience/TimeslotSlide';
 import BookingTypeSlide from 'components/book-experience/BookingTypeSlide';
-// import PaymentSlide from 'components/book-experience/PaymentSlide';
-// import SubmittedSlide from 'components/book-experience/SubmittedSlide';
+import PaymentSlide from 'components/book-experience/PaymentSlide';
+import SubmittedSlide from 'components/book-experience/SubmittedSlide';
 
 const graphqlClient = getGraphQLClient();
 const sdk = getSdkWithHooks(graphqlClient);
@@ -190,58 +190,58 @@ const BookExperiencePage: Page = () => {
                     }}
                     onSlideComplete={handleContinue} />
                 );
-    //         case 'payment':
-    //             return (
-    //                 <PaymentSlide
-    //                 email={state.form.email}
-    //                 zipCode={state.form.zipCode}
-    //                 selectedDate={state.form.date!}
-    //                 selectedSlot={state.form.timeslot!}
-    //                 currency={state.experience?.currency!}
-    //                 fees={state.form.fees!}
-    //                 onEmailChange={email => {
-    //                     dispatch({ type: 'SET_EMAIL', email });
-    //                 }}
-    //                 onZipCodeChange={zipCode => {
-    //                     dispatch({ type: 'SET_ZIP_CODE', zipCode });
-    //                 }}
-    //                 onSlideComplete={handleContinue} />
-    //             );
+            case 'payment':
+                return (
+                    <PaymentSlide
+                    email={state.form.email}
+                    zipCode={state.form.zipCode}
+                    selectedDate={state.form.date!}
+                    selectedSlot={state.form.timeslot!}
+                    currency={state.experience?.currency!}
+                    fees={state.form.fees!}
+                    onEmailChange={email => {
+                        dispatch({ type: 'SET_EMAIL', email });
+                    }}
+                    onZipCodeChange={zipCode => {
+                        dispatch({ type: 'SET_ZIP_CODE', zipCode });
+                    }}
+                    onSlideComplete={handleContinue} />
+                );
             default: throw Error('Invalid booking step');
         }
     }
 
-    // // Once the booking is created, show the summary slide
-    // if (state.bookingData) {
-    //     const { 
-    //         meetingPoint, 
-    //         creatorPhone, 
-    //         cardBrand, 
-    //         cardLast4 
-    //     } = state.bookingData.createBooking;
+    // Once the booking is created, show the summary slide
+    if (state.bookingData) {
+        const { 
+            meetingPoint, 
+            creatorPhone, 
+            cardBrand, 
+            cardLast4 
+        } = state.bookingData.createBooking;
 
-    //     return (
-    //         <SubmittedSlide
-    //         startDate={state.form.timeslot!.dateStart}
-    //         endDate={state.form.timeslot!.dateEnd}
-    //         numGuests={state.form.numGuests}
-    //         cardBrand={cardBrand}
-    //         cardLast4={cardLast4}
-    //         totalPrice={state.form.fees.totalPrice}
-    //         currency={state.experience!.currency!}
-    //         experience={{
-    //             title: state.experience!.title,
-    //             image: state.experience!.images[0],
-    //             meetingPoint: meetingPoint || undefined,
-    //             toBring: state.experience!.toBringItems
-    //         }}
-    //         host={{
-    //             name: state.experience!.creator.user.firstName,
-    //             photo: state.experience!.creator.user.photo!,
-    //             phoneNumber: creatorPhone
-    //         }} />
-    //     );
-    // }
+        return (
+            <SubmittedSlide
+            startDate={state.form.timeslot!.dateStart}
+            endDate={state.form.timeslot!.dateEnd}
+            numGuests={state.form.numGuests}
+            cardBrand={cardBrand}
+            cardLast4={cardLast4}
+            totalPrice={state.form.fees.totalPrice}
+            currency={state.experience!.currency!}
+            experience={{
+                title: state.experience!.title,
+                image: state.experience!.images[0],
+                meetingPoint: meetingPoint || undefined,
+                toBring: state.experience!.toBringItems
+            }}
+            host={{
+                name: state.experience!.creator.user.firstName,
+                photo: state.experience!.creator.user.photo!,
+                phoneNumber: creatorPhone
+            }} />
+        );
+    }
 
     if (!state.experience) {
         return <Spinner />;

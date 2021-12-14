@@ -42,7 +42,6 @@ export const Menu = styled(MuiMenu, {
         padding: '0 4px'
     },
 
-    // TODO: Style component directly once MUI figures it out
     // TODO: Replace active-link class with a non literal string
     '& .MuiMenuItem-root:hover, & .MuiMenuItem-root.active-link': {
         backgroundColor: isCreator ? 'rgba(220, 220, 220, 0.96)' : 'rgba(118, 118, 118, 0.96)',
