@@ -21,7 +21,6 @@ export const Container = styled('div')(({ theme }) => ({
     width: 'calc(4 * 245px)',
 
     [theme.breakpoints.down('md')]: { width: 'calc(2 * 245px)' },
-
     [theme.breakpoints.down('sm')]: { width: '100vw' }
 }));
 
@@ -39,7 +38,6 @@ export const Card = styled(ExperienceCard)(({ theme }) => ({
     margin: '0 12.5px 0',
 
     [theme.breakpoints.down('md')]: { marginTop: 25 },
-
     [theme.breakpoints.down('sm')]: { 
         width: '47vw',
         margin: '3vw 1.5vw 0'

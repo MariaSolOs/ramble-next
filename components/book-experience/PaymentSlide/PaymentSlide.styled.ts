@@ -85,7 +85,5 @@ export const stripeStyles: StripeElementStyle = {
         }
     },
 
-    invalid: {
-        color: '#D8246E'
-    }
+    invalid: { color: '#D8246E' }
 }

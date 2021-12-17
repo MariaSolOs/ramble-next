@@ -41,6 +41,7 @@ export const Header = styled('div')(({ theme }) => ({
 
     [`& ${Subtitle}`]: {
         fontSize: '1.25rem',
+
         [theme.breakpoints.down('md')]: { fontSize: '1.1rem' }
     }
 }));
@@ -116,7 +117,9 @@ export const AboutYouTextField = styled(TextField)(({ theme }) => ({
         padding: '1rem',
         borderRadius: 10
     },
+
     '& .MuiOutlinedInput-input': { padding: 0 },
+
     '& .MuiInputAdornment-positionEnd': {
         margin: 0,
         position: 'absolute',
@@ -160,6 +163,7 @@ export const IdDropzoneContainer = styled('div')(({ theme }) => ({
     [theme.breakpoints.down('md')]: { marginBottom: 30 },
     
     [`& ${AddIcon}`]: { position: 'unset' },
+    
     [`& ${DeleteIcon}`]: {
         position: 'absolute',
         top: 0,

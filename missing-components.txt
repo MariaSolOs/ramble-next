@@ -1,12 +1,26 @@
-Checkbox
 blog
+    Hero
+    Post            
+    PostsGallery
 creator-dashboard
+    AddSlotForm             
+    Calendar                
+    CreatedExperiences
+    BookingCard             
+    CalendarDayDetails      
+    DashboardLayout
+    BookingRequests         
+    CalendarLayout          
+    NoExperiencesCard
 experience-builder
-    CreationLayout
-    IntroAnimation
-    SlideTitle
     slides
+        Availabilities  
+        Pricing         
+        Review          
+        ToBringItems
     EditingLayout
-    SlideSubtitle
     SubmittedMessage    
 profile
+    InfosForm       
+    Layout          
+    UserExperiences

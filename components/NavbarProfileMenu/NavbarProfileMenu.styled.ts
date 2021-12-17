@@ -1,6 +1,6 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
-import type { MenuProps as MuiMenuProps } from '@mui/material/Menu';
+import type { MenuProps } from '@mui/material/Menu';
 
 import MuiMenu from '@mui/material/Menu';
 import MuiMenuItem from '@mui/material/MenuItem';
@@ -8,21 +8,21 @@ import MuiLanguageIcon from '@mui/icons-material/Language';
 
 export const Button = styled('button', {
     shouldForwardProp: prop => prop !== 'isCreator'
-})<React.ButtonHTMLAttributes<HTMLButtonElement> & { isCreator: boolean }>(({ theme, isCreator }) => ({
+})<React.ButtonHTMLAttributes<HTMLButtonElement> & { isCreator: boolean; }>(({ theme, isCreator }) => ({
     height: 45,
     padding: '4px 3px 3px',
     backgroundColor: isCreator ? '#FFF' : 'rgba(65, 65, 65, 0.9)',
+    border: isCreator ? 'solid 1px black' : 'none',
     borderRadius: '1.5rem',
     display: 'flex',
     alignItems: 'center',
-    border: isCreator ? 'solid 1px black' : 'none',
 
     [theme.breakpoints.down('sm')]: { height: 40 }
 }));
 
 export const UserName = styled('span', {
     shouldForwardProp: prop => prop !== 'isCreator'
-})<React.HTMLAttributes<HTMLSpanElement> & { isCreator: boolean }>(({ theme, isCreator }) => ({
+})<React.HTMLAttributes<HTMLSpanElement> & { isCreator: boolean; }>(({ theme, isCreator }) => ({
     color: isCreator ? '#000' : '#E8E8E8',
     fontWeight: theme.typography.fontWeightBold,
     fontSize: '1rem',
@@ -34,7 +34,7 @@ export const UserName = styled('span', {
 
 export const Menu = styled(MuiMenu, {
     shouldForwardProp: prop => prop !== 'isCreator'
-})<MuiMenuProps & { isCreator: boolean; }>(({ isCreator }) => ({
+})<MenuProps & { isCreator: boolean; }>(({ isCreator }) => ({
     '& .MuiMenu-paper': {
         backgroundColor: isCreator ? '#FFF' : 'rgba(65, 65, 65, 0.9)',
         borderRadius: '1rem',
@@ -42,7 +42,6 @@ export const Menu = styled(MuiMenu, {
         padding: '0 4px'
     },
 
-    // TODO: Replace active-link class with a non literal string
     '& .MuiMenuItem-root:hover, & .MuiMenuItem-root.active-link': {
         backgroundColor: isCreator ? 'rgba(220, 220, 220, 0.96)' : 'rgba(118, 118, 118, 0.96)',
         color: isCreator ? '#000' : '#E8E8E8',

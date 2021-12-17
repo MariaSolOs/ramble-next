@@ -4,6 +4,7 @@ import useLanguageContext from 'context/languageContext';
 import type { CollageProps } from './index';
 
 import Image from 'next/image';
+import Box from '@mui/material/Box';
 import * as S from './Collage.styled';
 
 const Collage = (props: CollageProps) => {
@@ -13,7 +14,9 @@ const Collage = (props: CollageProps) => {
     const titleContents = (
         <>
             {text.experienceTitle1}
-            <S.FilledTitle> {text.experienceTitle2}</S.FilledTitle>.
+            <Box component="span" sx={{ WebkitTextFillColor: '#FFF' }}>
+                {` ${text.experienceTitle2}`}
+            </Box>.
         </>
     );
 

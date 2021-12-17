@@ -9,7 +9,6 @@ import useUiContext from 'context/uiContext';
 import type { ResetPasswordDialogProps } from './index';
 
 import DialogContent from '@mui/material/DialogContent';
-import FormControl from '@mui/material/FormControl';
 import TextField from 'components/TextField';
 import * as S from './ResetPasswordDialog.styled';
 
@@ -88,7 +87,7 @@ const ResetPasswordDialog = (props: ResetPasswordDialogProps) => {
         <S.Dialog open={props.open} maxWidth="xs">
             <DialogContent sx={{ p: '8px 20px' }}>
                 <form onSubmit={handleSubmit}>
-                    <FormControl fullWidth sx={{ mb: 1.87 }}>
+                    <S.FormControl fullWidth>
                         <S.FormLabel htmlFor={FormField.Password1}>
                             {text.newPassword}
                         </S.FormLabel>
@@ -99,8 +98,8 @@ const ResetPasswordDialog = (props: ResetPasswordDialogProps) => {
                         required
                         value={values.password1}
                         onChange={handleChange} />
-                    </FormControl>
-                    <FormControl fullWidth sx={{ mb: 1.87 }}>
+                    </S.FormControl>
+                    <S.FormControl fullWidth>
                         <S.FormLabel htmlFor={FormField.Password2}>
                             {text.confirmPassword}
                         </S.FormLabel>
@@ -112,7 +111,7 @@ const ResetPasswordDialog = (props: ResetPasswordDialogProps) => {
                         value={values.password2}
                         onChange={handleChange}
                         helperText={passwordMismatch && text.passwordMismatch} />
-                    </FormControl>
+                    </S.FormControl>
                     <S.Button variant="experience" type="submit">
                         {text.resetPassword}
                     </S.Button>

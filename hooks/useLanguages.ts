@@ -21,5 +21,6 @@ export default function useLanguages() {
         )
     );
 
-    return data || [];
+    // Ensure we return a list without duplicates
+    return [ ...new Set(data) ] || [];
 }

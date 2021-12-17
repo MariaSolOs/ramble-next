@@ -21,6 +21,7 @@ export const Paper = styled(MuiPaper)(({ theme }) => ({
 
         '& .MuiAutocomplete-option[aria-selected="true"]': { 
             backgroundColor: 'transparent',
+            
             '&:hover': { backgroundColor: 'transparent' }
         }
     }

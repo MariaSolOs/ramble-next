@@ -10,8 +10,8 @@ export type IconLocation = 'top' | 'left';
 export type CategoryBoxProps = {
     category: ExperienceCategory;
     iconLocation: IconLocation;
-    titleComponent?: React.ComponentType;
-    iconComponent?: React.ComponentType;
+    titleComponent?: React.ElementType;
+    iconComponent?: React.ElementType;
     divProps?: React.HTMLAttributes<HTMLDivElement>;
     className?: string;
 }

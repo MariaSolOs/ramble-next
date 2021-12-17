@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 import { styled } from '@mui/material/styles';
 
 import type { Language } from 'models/translation';
@@ -19,7 +19,6 @@ export const Grid = styled('div')(({ theme }) => ({
         gridTemplateColumns: 'repeat(6, 4.5rem)',
         gridTemplateRows: 'repeat(4, 4.5rem)',
     },
-    
     [theme.breakpoints.down('sm')]: {
         gridTemplateColumns: 'repeat(6, 15vw)',
         gridTemplateRows: 'repeat(4, 15vw)',
@@ -120,5 +119,3 @@ export const Title = styled('h2')(({ theme }) => ({
     
     [theme.breakpoints.down('md')]: { display: 'none' }
 }));
-
-export const FilledTitle = styled('span')({ WebkitTextFillColor: '#FFF' });

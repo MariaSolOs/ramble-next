@@ -43,7 +43,7 @@ const ActGraph = () => {
                     icon={walletIcon}
                     iconAlt="Make money"
                     description={text.walletText} />
-                    <S.GradientLine as="div" insideGraph />
+                    <S.GradientLine as="div" />
                 </S.Graph>
             </Box>
         </Box>

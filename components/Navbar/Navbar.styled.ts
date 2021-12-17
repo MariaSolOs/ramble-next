@@ -24,6 +24,7 @@ export const Menu = styled(MuiMenu)(({ theme }) => ({
 
         '&.MuiPopover-paper': { 
             minWidth: 200,
+            
             [theme.breakpoints.down('sm')]: { minWidth: 150 }
         }
     }

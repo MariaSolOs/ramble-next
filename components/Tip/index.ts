@@ -5,7 +5,6 @@ import Tip from './Tip';
 
 export type TipProps = {
     icon?: IconDefinition;
-    className?: string;
 } & React.HTMLAttributes<HTMLParagraphElement>;
 
 export default Tip;

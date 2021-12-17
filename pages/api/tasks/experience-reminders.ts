@@ -12,6 +12,7 @@ import type { Booking as BookingType } from 'models/mongodb/booking';
 
 const stripe = getStripe();
 
+// TODO: Make sure this job runs successfully
 const handler: NextApiHandler = async (req, res) => {
     // Security checks
     if (req.method !== 'GET') {

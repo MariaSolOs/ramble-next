@@ -2,6 +2,7 @@ import { styled } from '@mui/material/styles';
 
 import MuiDialog from '@mui/material/Dialog';
 import MuiFormLabel from '@mui/material/FormLabel';
+import MuiFormControl from '@mui/material/FormControl';
 import GradientButton from 'components/GradientButton';
 
 export const Dialog = styled(MuiDialog)({
@@ -19,6 +20,8 @@ export const FormLabel = styled(MuiFormLabel)(({ theme }) => ({
     textIndent: 3,
     marginBottom: 5
 }));
+
+export const FormControl = styled(MuiFormControl)({ marginBottom: 15 });
 
 export const Button = styled(GradientButton)({
     width: '100%',

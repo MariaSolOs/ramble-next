@@ -1,5 +1,4 @@
 import { styled } from '@mui/material/styles';
-import type { BoxProps } from '@mui/material/Box';
 
 import Box from '@mui/material/Box';
 
@@ -22,35 +21,30 @@ export const Underlined = styled('div')(({ theme }) => ({
     [theme.breakpoints.down('sm')]: { marginLeft: '0.45rem' }
 }));
 
-export const GradientLine = styled(Box, {
-    shouldForwardProp: prop => prop !== 'insideGraph'
-})<BoxProps & { insideGraph?: boolean; }>(({ theme, insideGraph }) => ({
+export const GradientLine = styled(Box)(({ theme }) => ({
     padding: 3,
     marginTop: -6,
     borderRadius: '1rem',
     background: 'radial-gradient(circle at 298%, #F7521E, #AC9EFF)',
 
-    // For the title's underline
-    ...!insideGraph && {
-        [theme.breakpoints.down('sm')]: { 
-            padding: 2,
-            marginTop: -3
-        }
-    },
-
-    ...insideGraph && {
-        width: '75%',
-        position: 'absolute',
-        top: 33,
-        left: '12%',
-        zIndex: -1
+    [theme.breakpoints.down('sm')]: { 
+        padding: 2,
+        marginTop: -3
     }
 }));
 
 export const Graph = styled('div')({
     display: 'flex',
     justifyContent: 'space-between',
-    marginTop: 30
+    marginTop: 30,
+
+    [`& ${GradientLine}`]: {
+        width: '75%',
+        position: 'absolute',
+        top: 33,
+        left: '12%',
+        zIndex: -1
+    }
 });
 
 export const GraphItem = styled('div')(({ theme }) => ({

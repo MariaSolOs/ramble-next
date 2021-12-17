@@ -25,6 +25,7 @@ export const Transition = styled(CSSTransition)({
     transition: 'all 300ms ease-in',
 
     '&.card-fade-out': { opacity: 0 },
+    
     '&.card-fade-in': { opacity: 1 }
 });
 

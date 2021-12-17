@@ -45,6 +45,7 @@ export const Calendar = styled('div')(({ theme }) => ({
     
     '& .fc .fc-toolbar-title': {
         fontSize: '1.3rem',
+
         [theme.breakpoints.down('sm')]: { fontSize: '1rem' }
     },
     
@@ -81,6 +82,7 @@ export const Calendar = styled('div')(({ theme }) => ({
     
     '& .fc .fc-button-primary:not(:disabled).fc-button-active': {
         backgroundColor: '#2A2A2A',
+        
         '&:hover': {
             backgroundColor: '#ECEBE5',
             color: '#2B2B2B'

@@ -55,13 +55,13 @@ const ForgotPasswordDialog = () => {
             {showSuccessMessage ?
                 <S.EmailSentContainer>
                     <S.PlaneIcon icon={faPaperPlane} />
-                    <S.Title as="p">{text.emailSent}</S.Title>
+                    <S.Title component="p">{text.emailSent}</S.Title>
                 </S.EmailSentContainer> :
                 <>
                     <S.CloseIcon onClick={() => uiDispatch({ type: 'CLOSE_FORGOT_PASSWORD_DIALOG' })} />
                     <DialogContent>
                         <form onSubmit={handleSubmit}>
-                            <S.Title as="h4">{text.enterEmailTitle}</S.Title>
+                            <S.Title component="h4">{text.enterEmailTitle}</S.Title>
                             <S.Message>{text.sendLinkMessage}</S.Message>
                             <TextField 
                             fullWidth

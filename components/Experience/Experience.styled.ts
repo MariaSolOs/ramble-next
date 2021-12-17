@@ -95,6 +95,7 @@ export const Carousel = styled('div')(({ theme: baseTheme }) => {
                     margin: `0 ${theme.isPreview ? 2 : 3}px`,
                     padding: theme.isPreview ? 5 : 6.5,
                     border: 'none',
+
                     '&:hover': { 
                         border: 'none',
                         outline: 'none',
@@ -104,6 +105,7 @@ export const Carousel = styled('div')(({ theme: baseTheme }) => {
                     '&.active': { 
                         backgroundColor: '#FFF',
                         transform: 'none',
+
                         '&:hover': { backgroundColor: '#FFF' }
                     },
     
@@ -254,6 +256,7 @@ export const ShareSaveFab = styled(Fab)(({ theme: baseTheme }) => {
     return {
         marginLeft: theme.isPreview ? 4 : 5,
         backgroundColor: '#656565',
+
         '&:hover': { backgroundColor: '#656565' },
 
         ...theme.isPreview ? {
@@ -307,10 +310,9 @@ export const QuickInfos = styled('div')(({ theme: baseTheme }) => {
         padding: 8,
         margin: theme.isPreview ? '1.5rem auto' : '1.3rem 0 0.5rem',
 
-        ...theme.isPreview ? {
-            maxWidth: '100%'
-        } : {
+        ...theme.isPreview ? { maxWidth: '100%' } : {
             width: 500,
+            
             [theme.breakpoints.down('lg')]: { width: 450 },
             [theme.breakpoints.down('md')]: { margin: '1.5rem auto' },
             [theme.breakpoints.down('sm')]: { maxWidth: '100%' }

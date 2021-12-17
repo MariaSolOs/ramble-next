@@ -5,7 +5,7 @@ import MuiAppBar from '@mui/material/AppBar';
 
 export const AppBar = styled(MuiAppBar, {
     shouldForwardProp: prop => prop !== 'isScrolled'
-})<MuiAppBarProps & { isScrolled: boolean }>(({ theme, isScrolled }) => ({
+})<MuiAppBarProps & { isScrolled: boolean; }>(({ theme, isScrolled }) => ({
     backgroundColor: 'transparent',
     boxShadow: 'none',
     opacity: 1,
@@ -21,6 +21,7 @@ export const AppBar = styled(MuiAppBar, {
 
     [theme.breakpoints.down('sm')]: { 
         height: 71,
+        
         '& .MuiToolbar-gutters': {
             paddingLeft: '2.5vw'
         }

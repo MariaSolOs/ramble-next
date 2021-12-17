@@ -34,6 +34,7 @@ export const InputAdornment = styled(MuiInputAdornment)(({ theme }) => ({
 export const Button = styled(Box)({
     color: '#2A2A2A',
     cursor: 'pointer',
+    
     '&:hover': {
         color: '#FFF',
         transition: 'all 200ms ease-in-out',

@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 import { styled } from '@mui/material/styles';
 
 import type { IconLocation } from './index';
@@ -32,6 +32,4 @@ export const Icon = styled('div', {
     marginRight: iconLocation === 'left' ? 4 : 0
 }));
 
-export const Title = styled('span')({
-    textAlign: 'center'
-});
+export const Title = styled('span')({ textAlign: 'center' });

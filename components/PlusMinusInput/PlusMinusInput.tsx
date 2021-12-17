@@ -66,8 +66,8 @@ const PlusMinusInput = (props: PlusMinusInputProps) => {
             }
             { ...props.InputProps } />
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                <S.Button as={AddCircleIcon} onClick={handleInc} />
-                <S.Button as={RemoveCircleIcon} onClick={handleDec} />
+                <S.Button component={AddCircleIcon} onClick={handleInc} />
+                <S.Button component={RemoveCircleIcon} onClick={handleDec} />
             </Box>
         </Box>
     );

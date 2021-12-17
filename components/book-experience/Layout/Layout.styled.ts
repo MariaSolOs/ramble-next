@@ -48,6 +48,7 @@ export const NextButton = styled(GradientButton)(({ theme }) => ({
     borderRadius: 6,
     height: 32,
     transition: 'all 300ms ease-in-out',
+    
     '&:disabled': { filter: 'brightness(40%)' },
     
     [theme.breakpoints.down('sm')]: { margin: '1rem auto 40px auto' }

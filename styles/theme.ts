@@ -10,6 +10,7 @@ const theme = createTheme({
                     font-weight: 600;
                     letter-spacing: -0.05rem;
                     color: #FFF;
+                    line-height: 1.43;
                 }
 
                 button {
@@ -17,6 +18,13 @@ const theme = createTheme({
                     cursor: pointer;
                 }
             `
+        },
+        MuiChip: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: '#E0E0E0'
+                }
+            }
         }
     },
 

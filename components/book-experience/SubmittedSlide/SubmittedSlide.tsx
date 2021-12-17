@@ -75,11 +75,13 @@ const SubmittedSlide = (props: SubmittedSlideProps) => {
             <S.SectionTitle>{text.meetingSpotTitle}</S.SectionTitle>
             <S.GreyText component="address">
                 {isOnlineExperience ? 
-                <><S.Icon icon={faLaptop} /> {text.online}</> : 
-                <>
-                    <S.Icon icon={faMapMarkerAlt} />
-                    {props.experience.meetingPoint}
-                </>}
+                    <>
+                        <S.Icon icon={faLaptop} /> {text.online}
+                    </> : 
+                    <>
+                        <S.Icon icon={faMapMarkerAlt} />
+                        {props.experience.meetingPoint}
+                    </>}
             </S.GreyText>
             <S.SectionTitle>{text.paymentDetails}</S.SectionTitle>
             <S.AllCaps component="p">{text.paymentMethod}</S.AllCaps>

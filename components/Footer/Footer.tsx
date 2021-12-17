@@ -59,7 +59,7 @@ const Footer = () => {
                     <S.BodyColumn>
                         <S.ColumnTitle>{text.communityColumnName}</S.ColumnTitle>
                         <Link { ...routes.blog } passHref>
-                            <S.GreyText as="a">{text.blogLink}</S.GreyText>
+                            <S.GreyText component="a">{text.blogLink}</S.GreyText>
                         </Link>
                     </S.BodyColumn>
                     <S.BodyColumn>
@@ -71,7 +71,7 @@ const Footer = () => {
                         onClick={toggleLanguage} />
                     </S.BodyColumn>
                 </Box>
-                <S.GreyText as="p">2021 &copy; {text.copyright}</S.GreyText>
+                <S.GreyText component="p">2021 &copy; {text.copyright}</S.GreyText>
             </S.Footer>
         </>
     );

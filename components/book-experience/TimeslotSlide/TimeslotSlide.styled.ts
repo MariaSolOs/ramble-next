@@ -50,15 +50,14 @@ export const Slot = styled('button', {
     transition: 'all 300ms ease-in-out',
     
     '&:nth-of-type(2n)': { marginLeft: '4%' },
-    
     '&:disabled': {
         filter: 'brightness(70%)',
         cursor: 'not-allowed'
     },
-    
     '&:hover:not(:disabled)': {
         color: '#2B2B2B',
         backgroundColor: '#ECEBE5',
+        
         [`& ${Icon}`]: { color: '#2B2B2B' }
     },
 
