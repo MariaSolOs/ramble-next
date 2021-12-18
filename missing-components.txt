@@ -12,14 +12,8 @@ creator-dashboard
     BookingRequests         
     CalendarLayout          
     NoExperiencesCard
-experience-builder
-    slides
-        Availabilities  
-        Pricing         
-        Review          
-        ToBringItems
+experience-builder        
     EditingLayout
-    SubmittedMessage    
 profile
     InfosForm       
     Layout          

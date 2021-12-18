@@ -11,7 +11,6 @@ export const Paper = styled(AutocompletePaper)(({ theme }) => ({
     '&.MuiAutocomplete-paper': {
         fontSize: '0.85rem',
         maxHeight: 200,
-        overflowY: 'scroll',
         
         [theme.breakpoints.down('sm')]: { 
             maxHeight: 120,

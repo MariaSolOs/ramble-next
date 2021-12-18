@@ -43,7 +43,7 @@ export const PriceGreyText = styled('p')({
     margin: 0
 });
 
-export const Input = styled(Box)({
+export const Input = styled(Box)(({ theme }) => ({
     marginTop: '1rem',
     padding: 10,
     backgroundColor: '#FFF',
@@ -56,8 +56,8 @@ export const Input = styled(Box)({
         color: '#CBCBCB'
     },
     
-    '&.Mui-error': { color: '#D8246E' }
-});
+    '&.Mui-error': { color: theme.palette.error.main }
+}));
 
 export const CardInfoRow = styled('div')({
     display: 'flex',

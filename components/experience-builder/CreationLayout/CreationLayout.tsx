@@ -93,8 +93,7 @@ const CreationLayout: React.FC<CreateLayoutProps> = (props) => {
                         component={GradientButton}
                         { ...{
                             variant: 'experience',
-                            // TODO: Comment this back
-                            // disabled: !props.canContinue,
+                            disabled: !props.canContinue,
                             onClick: props.onNext
                         } as GradientButtonProps as any}>
                             {props.currentStep === 'review' ? text.submit : text.next}

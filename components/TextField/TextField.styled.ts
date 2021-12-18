@@ -15,12 +15,12 @@ export const TextField = styled(MuiTextField)<OutlinedTextFieldProps>(({ theme }
 
     '& .Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: '#CDCDCD !important' },
 
-    '&.Mui-error .MuiOutlinedInput-notchedOutline': { borderColor: '#D8246E' },
+    '&.Mui-error .MuiOutlinedInput-notchedOutline': { borderColor: theme.palette.error.main },
 
     '& .MuiFormHelperText-root.Mui-error': {
         fontFamily: theme.typography.fontFamily,
         fontWeight: theme.typography.fontWeightBold,
-        color: '#D8246E',
+        color: theme.palette.error.main,
         letterSpacing: '-0.02rem',
         marginLeft: 5
     },

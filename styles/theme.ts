@@ -36,6 +36,12 @@ const theme = createTheme({
         futura: {
             fontFamily: 'Futura, Nunito Sans'
         }
+    },
+
+    palette: {
+        error: {
+            main: '#D8246E'
+        }
     }
 });
 

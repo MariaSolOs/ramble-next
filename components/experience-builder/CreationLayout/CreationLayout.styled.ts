@@ -134,7 +134,6 @@ export const NavbarDrawer = styled(Drawer)({
 
 export const PageContent = styled('div')(({ theme }) => ({
     marginLeft: 80,
-    overflowY: 'scroll',
     maxHeight: 'calc(100% - 10px)',
     
     [theme.breakpoints.down('md')]: { marginLeft: 50 },

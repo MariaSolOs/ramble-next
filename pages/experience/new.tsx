@@ -24,7 +24,7 @@ import Spinner from 'components/Spinner';
 import StripeRedirect from 'components/StripeRedirect';
 import IntroAnimation from 'components/experience-builder/IntroAnimation';
 import CreationLayout from 'components/experience-builder/CreationLayout';
-// import SubmittedMessage from 'components/experience-builder/SubmittedMessage';
+import SubmittedMessage from 'components/experience-builder/SubmittedMessage';
 import Setting from 'components/experience-builder/slides/Setting';
 import Location from 'components/experience-builder/slides/Location';
 import Title from 'components/experience-builder/slides/Title';
@@ -36,10 +36,10 @@ import Capacity from 'components/experience-builder/slides/Capacity';
 import AgeRequirements from 'components/experience-builder/slides/AgeRequirements';
 import Preview from 'components/experience-builder/slides/Preview';
 import IncludedItems from 'components/experience-builder/slides/IncludedItems';
-// import ToBringItems from 'components/experience-builder/slides/ToBringItems';
-// import Pricing from 'components/experience-builder/slides/Pricing';
-// import Availabilities from 'components/experience-builder/slides/Availabilities';
-// import Review from 'components/experience-builder/slides/Review';
+import ToBringItems from 'components/experience-builder/slides/ToBringItems';
+import Pricing from 'components/experience-builder/slides/Pricing';
+import Availabilities from 'components/experience-builder/slides/Availabilities';
+import Review from 'components/experience-builder/slides/Review';
 
 const graphQLClient = getGraphQLClient();
 const sdk = getSdkWithHooks(graphQLClient);
@@ -215,9 +215,9 @@ const CreateExperiencePage: Page = () => {
     }
 
     // When done, show Submitted slide
-    // if (createdTitle) {
-    //     return <SubmittedMessage experienceTitle={createdTitle} />;
-    // }
+    if (createdTitle) {
+        return <SubmittedMessage experienceTitle={createdTitle} />;
+    }
     
     const getSlide = () => {
         switch (state.currentStep) {
@@ -324,42 +324,42 @@ const CreateExperiencePage: Page = () => {
                     onItemsChange={val => handleArrayChange('included', val)}
                     onSlideComplete={handleFieldValidity} />
                 );
-    //         case 'toBring':
-    //             return (
-    //                 <ToBringItems
-    //                 items={state.form.toBring}
-    //                 onItemsChange={val => handleArrayChange('toBring', val)}
-    //                 onSlideComplete={handleFieldValidity} />
-    //             );
-    //         case 'price':
-    //             return (
-    //                 <Pricing
-    //                 pricePerPerson={state.form.pricePerPerson}
-    //                 privatePrice={state.form.privatePrice}
-    //                 currency={state.form.currency}
-    //                 capacity={state.form.capacity}
-    //                 onPricePerPersonChange={val => handleNumberChange('pricePerPerson', val)}
-    //                 onPrivatePriceChange={val => handleNumberChange('privatePrice', val)}
-    //                 onCurrencyChange={val => handleStringChange('currency', val)}
-    //                 onSlideComplete={handleFieldValidity} />
-    //             );
-    //         case 'availabilities':
-    //             return (
-    //                 <Availabilities
-    //                 slots={state.form.slots!}
-    //                 duration={state.form.duration}
-    //                 onSlotsChange={val => handleArrayChange('slots', val)}
-    //                 onSlideComplete={handleFieldValidity} />
-    //             );
-    //         case 'review':
-    //             return (
-    //                 <Review
-    //                 creatorName={creatorData.me.firstName}
-    //                 creatorPhoto={creatorData.me.photo!}
-    //                 creatorBio={creatorData.me.creator!.bio}
-    //                 form={state.form}
-    //                 onSlideComplete={handleFieldValidity} />
-    //             );
+            case 'toBring':
+                return (
+                    <ToBringItems
+                    items={state.form.toBring}
+                    onItemsChange={val => handleArrayChange('toBring', val)}
+                    onSlideComplete={handleFieldValidity} />
+                );
+            case 'price':
+                return (
+                    <Pricing
+                    pricePerPerson={state.form.pricePerPerson}
+                    privatePrice={state.form.privatePrice}
+                    currency={state.form.currency}
+                    capacity={state.form.capacity}
+                    onPricePerPersonChange={val => handleNumberChange('pricePerPerson', val)}
+                    onPrivatePriceChange={val => handleNumberChange('privatePrice', val)}
+                    onCurrencyChange={val => handleStringChange('currency', val)}
+                    onSlideComplete={handleFieldValidity} />
+                );
+            case 'availabilities':
+                return (
+                    <Availabilities
+                    slots={state.form.slots!}
+                    duration={state.form.duration}
+                    onSlotsChange={val => handleArrayChange('slots', val)}
+                    onSlideComplete={handleFieldValidity} />
+                );
+            case 'review':
+                return (
+                    <Review
+                    creatorName={creatorData.me.firstName}
+                    creatorPhoto={creatorData.me.photo!}
+                    creatorBio={creatorData.me.creator!.bio}
+                    form={state.form}
+                    onSlideComplete={handleFieldValidity} />
+                );
             default: throw Error('Invalid creation step.');
         }
     }
