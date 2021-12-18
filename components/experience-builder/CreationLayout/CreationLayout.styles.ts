@@ -145,7 +145,6 @@ const styles = (theme: Theme) => createStyles({
 
     pageContent: {
         marginLeft: 80,
-        overflowY: 'scroll',
         maxHeight: 'calc(100% - 10px)',
         
         [theme.breakpoints.down('sm')]: { marginLeft: 50 },
