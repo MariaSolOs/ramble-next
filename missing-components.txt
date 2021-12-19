@@ -1,7 +1,3 @@
-blog
-    Hero
-    Post            
-    PostsGallery
 creator-dashboard
     AddSlotForm             
     Calendar                
@@ -13,8 +9,4 @@ creator-dashboard
     CalendarLayout          
     NoExperiencesCard
 experience-builder        
-    EditingLayout
-profile
-    InfosForm       
-    Layout          
-    UserExperiences
+    EditingLayout     

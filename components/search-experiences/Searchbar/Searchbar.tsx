@@ -32,7 +32,7 @@ const Searchbar = (props: SearchbarProps) => {
                 }}
                 InputProps={{
                     startAdornment: (
-                        <InputAdornment sx={{ color: 'inherit' }} position="start">
+                        <InputAdornment position="start">
                             <LocationOnIcon />
                         </InputAdornment>
                     )
@@ -59,7 +59,7 @@ const Searchbar = (props: SearchbarProps) => {
             onChange={event => props.onTitleFilterChange(event.target.value)}
             placeholder={text.titlePlaceholder}
             startAdornment={
-                <InputAdornment position="start" sx={{ color: 'inherit' }}>
+                <InputAdornment position="start">
                     <SearchIcon />
                 </InputAdornment>
             } />

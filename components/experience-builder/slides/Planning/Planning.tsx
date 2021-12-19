@@ -29,7 +29,7 @@ const Planning = (props: PlanningProps) => {
             onChange={e => props.onPlanningChange(e.target.value)}
             InputProps={{
                 endAdornment: (
-                    <InputAdornment position="end" sx={{ color: 'inherit' }}>    
+                    <InputAdornment position="end">    
                         {MAX_PLANNING_LENGTH - planning.length}
                     </InputAdornment>
                 )

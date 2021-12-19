@@ -25,6 +25,13 @@ const theme = createTheme({
                     backgroundColor: '#E0E0E0'
                 }
             }
+        },
+        MuiInputAdornment: {
+            styleOverrides: {
+                root: {
+                    color: 'inherit'
+                }
+            }
         }
     },
 

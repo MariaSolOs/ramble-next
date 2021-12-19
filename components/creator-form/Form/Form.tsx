@@ -49,7 +49,7 @@ const Form = (props: FormProps) => {
                     }}
                     InputProps={{
                         endAdornment: (
-                            <InputAdornment position="end" sx={{ color: 'inherit' }}>
+                            <InputAdornment position="end">
                                 {MAX_CREATOR_BIO_LENGTH - props.bio.length}
                             </InputAdornment>
                         )

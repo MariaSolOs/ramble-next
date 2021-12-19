@@ -35,7 +35,7 @@ const Title = (props: TitleProps) => {
             }}
             InputProps={{
                 endAdornment: (
-                    <InputAdornment position="end" sx={{ color: 'inherit' }}>
+                    <InputAdornment position="end">
                         {MAX_LENGTH - title.length}
                     </InputAdornment>
                 )
