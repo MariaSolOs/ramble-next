@@ -24,7 +24,7 @@ const CreationLayout: React.FC<CreateLayoutProps> = (props) => {
 
     // The navbar is in a drawer in mobile
     const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
     const [openDrawer, setOpenDrawer] = useState(false);
     const expandDrawer = () => { setOpenDrawer(true); }

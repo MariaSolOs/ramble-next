@@ -7,9 +7,4 @@ export type LayoutProps = {
     city?: string;
 }
 
-export type NavLinkProps = {
-    href: string;
-    as: string;
-}
-
 export default Layout;

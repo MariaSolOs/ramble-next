@@ -89,6 +89,8 @@ export const NavLink = styled('a')(({ theme }) => ({
     [theme.breakpoints.down('sm')]: { fontSize: '1rem' }
 }));
 
+export const ActiveLink = styled(NavLink)({ color: '#FFF' });
+
 export const AddPhotoIcon = styled(AddAPhotoIcon)({
     color: '#000',
     position: 'absolute',

@@ -1,12 +1,7 @@
 creator-dashboard
     AddSlotForm             
-    Calendar                
     CreatedExperiences
     BookingCard             
-    CalendarDayDetails      
-    DashboardLayout
-    BookingRequests         
-    CalendarLayout          
     NoExperiencesCard
 experience-builder        
     EditingLayout     

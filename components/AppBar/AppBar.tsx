@@ -3,7 +3,7 @@ import useScrollTrigger from '@mui/material/useScrollTrigger';
 
 import routes from 'routes';
 
-import Link from 'next/link';
+import NavLink from 'components/NavLink';
 import Image from 'next/image';
 import Toolbar from '@mui/material/Toolbar';
 import rambleLogo from 'public/images/ramble-brand.png';
@@ -19,16 +19,14 @@ const AppBar: React.FC = (props) => {
     return (
         <S.AppBar position="fixed" isScrolled={isScrolled}>
             <Toolbar>
-                <Link { ...routes.home } passHref>
-                    <S.Brand>
-                        <Image 
-                        src={rambleLogo}
-                        alt="Ramble"
-                        width={150}
-                        height={43}
-                        priority />
-                    </S.Brand>
-                </Link>
+                <NavLink { ...routes.home } linkComponent={S.Brand}>
+                    <Image 
+                    src={rambleLogo}
+                    alt="Ramble"
+                    width={150}
+                    height={43}
+                    priority />
+                </NavLink>
             {props.children}
             </Toolbar>
         </S.AppBar>

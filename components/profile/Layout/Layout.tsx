@@ -1,32 +1,16 @@
 import React from 'react';
-import { useRouter } from 'next/router';
 import type { AvatarProps } from '@mui/material/Avatar';
 
 import routes from 'routes';
 import useLanguageContext from 'context/languageContext';
 import type { DropzoneProps } from 'components/Dropzone';
-import type { LayoutProps, NavLinkProps } from './index';
+import type { LayoutProps } from './index';
 
-import Link from 'next/link';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import Dropzone from 'components/Dropzone';
+import NavLink from 'components/NavLink';
 import * as S from './Layout.styled';
-
-const NavLink: React.FC<NavLinkProps> = (props) => {
-    const currentPage = useRouter().asPath;
-
-    return (
-        <Link href={props.href} as={props.as} passHref>
-            <S.NavLink
-            {...currentPage === props.as && {
-                sx: { color: '#FFF' }
-            }}>
-                {props.children}
-            </S.NavLink>
-        </Link>
-    );
-}
 
 const Layout: React.FC<LayoutProps> = (props) => {
     const { Profile_Layout: text } = useLanguageContext().appText;
@@ -56,10 +40,16 @@ const Layout: React.FC<LayoutProps> = (props) => {
                 </div>
             </Box>
             <S.Nav>
-                <NavLink { ...routes.userProfile }>
+                <NavLink 
+                linkComponent={S.NavLink} 
+                activeLinkComponent={S.ActiveLink}
+                { ...routes.userProfile }>
                     {text.personalInformation}
                 </NavLink>
-                <NavLink { ...routes.userExperiences }>
+                <NavLink 
+                linkComponent={S.NavLink} 
+                activeLinkComponent={S.ActiveLink}
+                { ...routes.userExperiences }>
                     {text.experiences}
                 </NavLink>
             </S.Nav>
