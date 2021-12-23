@@ -1,7 +1,2 @@
 creator-dashboard
-    AddSlotForm             
-    CreatedExperiences
-    BookingCard             
-    NoExperiencesCard
-experience-builder        
-    EditingLayout     
+    AddSlotForm   

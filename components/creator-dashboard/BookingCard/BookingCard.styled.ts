@@ -1,3 +1,4 @@
+import React from 'react';
 import { styled } from '@mui/material/styles';
 
 import Box from '@mui/material/Box';
@@ -73,7 +74,7 @@ export const InfoIcon = styled('div')({
     marginRight: 6
 });
     
-export const InfoText = styled('p')(({ theme }) => ({
+export const InfoText = styled(Box)(({ theme }) => ({
     fontSize: '0.8rem',
     margin: 0,
     color: '#FFF',
@@ -95,66 +96,51 @@ export const InfoRow = styled('div')({
     margin: '10px 0'
 });
 
-//     experienceInfo: {
-//         display: 'flex',
-//         alignItems: 'flex-start',
-//         marginBottom: '1rem'
-//     },
-
-//     experienceImgContainer: {
-//         height: 75,
-//         width: 'auto',
-//         borderRadius: 10,
-//         marginRight: 10,
-//         overflow: 'hidden',
-//         position: 'relative',
-
-//         '& > div': { position: 'unset !important' }
-//     },
-
-//     experienceImg: {
-//         width: 'unset !important',
-//         height: '75px !important',
-//         // @ts-ignore
-//         position: 'unset !important'
-//     },
-
-//     experienceTitle: {
-//         margin: 0,
-//         fontSize: '1.1rem'
-//     },
-
-//     actions: {
-//         display: 'flex',
-//         justifyContent: 'center',
-//         marginTop: '2.5rem',
-
-//         [theme.breakpoints.down(380)]: {
-//             marginTop: 10
-//         }
-//     },
-
-//     button: {
-//         color: '#FFF',
-//         fontSize: '0.9rem',
-//         fontWeight: theme.typography.fontWeightBold,
-//         letterSpacing: '-0.05rem',
-//         borderRadius: '0.5rem',
-//         textAlign: 'center',
-//         width: 80,
-//         height: 35,
-//         border: 'none'
-//     },
+export const ExperienceImgContainer = styled('div')({
+    height: 75,
+    width: 'auto',
+    borderRadius: 10,
+    marginRight: 10,
+    overflow: 'hidden',
+    position: 'relative',
     
-//     acceptButton: {
-//         backgroundColor: '#08E1AE',
-//         backgroundImage: 'linear-gradient(to right, #76B852 0%, #8DC26F 51%, #76B852 100%)',
-//         marginRight: '1rem'
-//     },
+    '& > div': { position: 'unset !important' },
 
-//     declineButton: {
-//         backgroundImage: 'linear-gradient(to right, #E53935 0%, #E35D5B 51%, #E53935 100%)'
-//     }
-// });
+    '& .next-image': {
+        width: 'unset !important',
+        height: '75px !important',
+        position: 'unset !important'
+    }
+});
 
-// export default styles;
+export const Actions = styled('div')(({ theme }) => ({
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: '2.5rem',
+    
+    [theme.breakpoints.down(380)]: { marginTop: 10 }
+}));
+
+export const Button = styled('button', {
+    shouldForwardProp: prop => prop != 'variant'
+})<React.HTMLAttributes<HTMLButtonElement> & { variant: 'accept' | 'decline'; }>(({ theme, variant }) => ({
+    color: '#FFF',
+    fontSize: '0.9rem',
+    fontWeight: theme.typography.fontWeightBold,
+    letterSpacing: '-0.05rem',
+    borderRadius: '0.5rem',
+    textAlign: 'center',
+    width: 80,
+    height: 35,
+    border: 'none',
+
+    ...(variant === 'accept') && {
+        backgroundColor: '#08E1AE',
+        backgroundImage: 'linear-gradient(to right, #76B852 0%, #8DC26F 51%, #76B852 100%)',
+        marginRight: '1rem'
+    },
+
+    ...(variant === 'decline') && {
+        backgroundImage: 'linear-gradient(to right, #E53935 0%, #E35D5B 51%, #E53935 100%)'
+    }
+}));

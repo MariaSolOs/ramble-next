@@ -13,14 +13,14 @@ import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import { faClock } from '@fortawesome/free-regular-svg-icons/faClock';
 import { faCrown } from '@fortawesome/free-solid-svg-icons/faCrown';
-// import { faUsers } from '@fortawesome/free-solid-svg-icons/faUsers';
-// import { faDollarSign } from '@fortawesome/free-solid-svg-icons/faDollarSign';
+import { faUsers } from '@fortawesome/free-solid-svg-icons/faUsers';
+import { faDollarSign } from '@fortawesome/free-solid-svg-icons/faDollarSign';
 import * as S from './BookingCard.styled';
 
 const InfoItem: React.FC<InfoItemProps> = (props) => (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <S.InfoIcon><S.Icon icon={props.icon} /></S.InfoIcon>
-        <S.InfoText>{props.children}</S.InfoText>
+        <S.InfoText component="p">{props.children}</S.InfoText>
     </Box>
 );
 
@@ -93,71 +93,52 @@ const BookingCard = (props: BookingCardProps) => {
                         <S.LargeNum>{startTime}</S.LargeNum>{startMeridiem} -
                         <S.LargeNum>{endTime}</S.LargeNum>{endMeridiem}
                     </InfoItem>
+                    <InfoItem icon={faUsers}>
+                        <S.LargeNum>{booking.numGuests}</S.LargeNum>
+                        {!isMobile && (booking.numGuests > 1 ? text.guests : text.guest)}
+                    </InfoItem>
+                    <InfoItem icon={faDollarSign}>
+                        $<S.LargeNum>{bookingProfit}</S.LargeNum>
+                    </InfoItem>
                 </S.InfoRow>
+                <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: '1rem' }}>
+                    <S.ExperienceImgContainer>
+                        <Image
+                        src={experience.images[0].src}
+                        alt={experience.title}
+                        layout="fill"
+                        objectFit="cover"
+                        className="next-image"
+                        placeholder="blur"
+                        blurDataURL={experience.images[0].placeholder} />
+                    </S.ExperienceImgContainer>
+                    <Box component="p" sx={{ m: 0, fontSize: '1.1rem' }}>
+                        {experience.title}
+                    </Box>
+                </Box>
+                <S.GreyText component="p">{text.currentlyFor}</S.GreyText>
+                <S.InfoText component="p">{occurrenceDate}</S.InfoText>
+                <S.InfoRow>
+                    <InfoItem icon={faUsers}>
+                        {`${props.confirmedGuests} / ${experience.capacity} ${text.guests}`}
+                    </InfoItem>
+                    <S.GreyText component="p">
+                        {`${text.currentPayment} `}
+                        <S.InfoText component="span">
+                            $<S.LargeNum>{currentProfit}</S.LargeNum>
+                        </S.InfoText>
+                    </S.GreyText>
+                </S.InfoRow>
+                <S.Actions>
+                    <S.Button onClick={props.onAccept} variant="accept">
+                        {text.accept}
+                    </S.Button>
+                    <S.Button onClick={props.onDecline} variant="decline">
+                        {text.decline}
+                    </S.Button>
+                </S.Actions>
             </S.Body>
         </S.Card>
-        //         <div className={classes.infoRow}>
-        //             <div className={classes.infoContainer}>
-        //                 <div className={classes.iconContainer}>
-        //                     <FontAwesomeIcon className={classes.icon} icon={faUsers} />
-        //                 </div>
-        //                 <p className={classes.infoText}>
-        //                     <span className={classes.largeNum}>{booking.numGuests}</span> 
-        //                     {!isMobile && (booking.numGuests > 1 ? text.guests : text.guest)}
-        //                 </p>
-        //             </div>
-        //             <div className={classes.infoContainer}>
-        //                 <div className={classes.iconContainer}>
-        //                     <FontAwesomeIcon className={classes.icon} icon={faDollarSign} />
-        //                 </div>
-        //                 <p className={classes.infoText}>
-        //                     $<span className={classes.largeNum}>{bookingProfit}</span> 
-        //                 </p>
-        //             </div>
-        //         </div>
-        //         <div className={classes.experienceInfo}>
-        //             <div className={classes.experienceImgContainer}>
-        //                 <Image
-        //                 src={experience.images[0].src}
-        //                 alt={experience.title}
-        //                 layout="fill"
-        //                 objectFit="cover"
-        //                 className={classes.experienceImg}
-        //                 placeholder="blur"
-        //                 blurDataURL={experience.images[0].placeholder} />
-        //             </div>
-        //             <p className={classes.experienceTitle}>{experience.title}</p>
-        //         </div>
-        //         <p className={classes.greyText}>{text.currentlyFor}</p>
-        //         <p className={classes.infoText}>{occurrenceDate}</p>
-        //         <div className={classes.infoRow}>
-        //             <div className={classes.infoContainer}>
-        //                 <div className={classes.iconContainer}>
-        //                     <FontAwesomeIcon className={classes.icon} icon={faUsers} />
-        //                 </div>
-        //                 <p className={classes.infoText}>
-        //                     {`${props.confirmedGuests} / ${experience.capacity} ${text.guests}`}
-        //                 </p>
-        //             </div>
-        //             <p className={classes.greyText}>
-        //                 {`${text.currentPayment} `}
-        //                 <span className={classes.infoText}>
-        //                     $<span className={classes.largeNum}>{currentProfit}</span>
-        //                 </span>
-        //             </p>
-        //         </div>
-        //         <div className={classes.actions}>
-        //             <button 
-        //             className={`${classes.button} ${classes.acceptButton}`}
-        //             onClick={props.onAccept}>
-        //                 {text.accept}
-        //             </button>
-        //             <button 
-        //             className={`${classes.button} ${classes.declineButton}`}
-        //             onClick={props.onDecline}>
-        //                 {text.decline}
-        //             </button>
-        //         </div>
     );
 }
 
