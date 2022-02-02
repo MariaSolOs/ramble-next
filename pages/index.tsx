@@ -51,7 +51,7 @@ const ADVENTURE_IMGS_URLS = [
 
 const FEATURED_EXPERIENCES_IDS = [
     '610acbb332b5150004b20c9f', // Crée ta propre chaussure en carton
-    '60c50206daa7aa0017ca9c61', // #35mm Film Photography Introduction
+    '61b01860b1f14a0008b44be4', // Become a Coffee Aficionado
     '616b5572d663c000080d39fe', // Discover the Joys of Food with a Chef & Dietitian
     '60f76485dbbabe0017308801' // Graffiti 101
 ];
